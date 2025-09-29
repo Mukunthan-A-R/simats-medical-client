@@ -68,7 +68,7 @@ export default function StudentSidebar({
         <div className="p-4 space-y-3">
           {[
             { icon: HomeIcon, label: "Dashboard", path: "/student/dashboard" },
-            { icon: BookOpenIcon, label: "Courses", path: "/student/courses" },
+            // { icon: BookOpenIcon, label: "Courses", path: "/student/courses" },
             { icon: UserIcon, label: "Profile", path: "/student/profile" },
           ].map((item) => {
             const Icon = item.icon;
@@ -134,7 +134,7 @@ export default function StudentSidebar({
 
           {/* Logout */}
           <button
-            onClick={() => onNavigate("/")}
+            onClick={() => onNavigate("/login")}
             className={`w-full p-3 flex items-center rounded-lg ${aquaButtonStyle} ${aquaGlossEffect}`}
             style={{
               background:
