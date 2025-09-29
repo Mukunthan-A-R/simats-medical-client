@@ -216,6 +216,20 @@ export function StudentNotificationsScreen({ onNavigate }) {
 
   const closeDetailsModal = () => setDetailsModalOpen(false);
 
+
+  // Helper function or variable
+const getPriorityBg = (priority) => {
+  switch (priority) {
+    case 'critical':
+      return 'bg-red-100 text-red-800';   // Tailwind class for light red
+    case 'high':
+      return 'bg-yellow-100 text-yellow-800'; // Tailwind class for light yellow
+    default:
+      return 'bg-gray-100';   // Light gray for medium/low
+  }
+};
+
+
   // ========================
   // Render JSX
   // ========================
@@ -238,7 +252,7 @@ export function StudentNotificationsScreen({ onNavigate }) {
       {['critical', 'high', 'medium', 'low'].map(priority => (
         groupedNotifications[priority].length > 0 && (
           <div key={priority} className="mb-6 rounded-xl overflow-hidden  " style={{ background: 'rgba(255,255,255,0.7)' }}>
-            <h2 className="text-base text-gray-600 font-medium py-2 px-4">{priority === "critical" ? "Critical Alerts" : priority === "high" ? "High Priority"  : "Other Notifications" }</h2>
+            <h2  className={`text-sm text-gray-800 font-medium py-2 px-4 ${getPriorityBg(priority)}`}>{priority === "critical" ? "Critical Alerts" : priority === "high" ? "High Priority"  : "Other Notifications" }</h2>
             <ul className="divide-y divide-gray-100">
               {groupedNotifications[priority].map(notification => (
                 <StudentNotificationItem
