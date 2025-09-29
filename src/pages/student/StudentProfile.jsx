@@ -1,77 +1,11 @@
-import React, { useState } from 'react';
-import {
-  ArrowLeftIcon,
-  PhoneIcon,
-  MapPinIcon,
-  MailIcon,
-  UserIcon,
-  PlusIcon,
-  AlertCircleIcon,
-  CreditCardIcon,
-  PencilIcon,
-  TrashIcon,
-  ShieldIcon,
-  CalendarIcon,
-  DropletIcon,
-  Activity,
-} from 'lucide-react';
+import React from 'react';
 import StudentProfileHeader from '../../components/StudentProfileHeader';
 import StudentPersonalInformation from '../../components/StudentPersonalInformation';
 import StudentContactInfo from '../../components/StudentContactInfo';
 import StudentEmergencyContactInfo from '../../components/StudentEmergencyContactInfo';
 
-export default function StudentProfileScreen({ onNavigate }) {
-  const [insuranceIds, setInsuranceIds] = useState([
-    {
-      id: 1,
-      provider: 'Apollo Health Insurance',
-      policyNumber: 'APL-2023-78945',
-      validUntil: '31 Dec 2024',
-    },
-    {
-      id: 2,
-      provider: 'Star Health Insurance',
-      policyNumber: 'SHI-5678-9012',
-      validUntil: '15 Mar 2025',
-    },
-  ]);
-
-  const [showAddInsurance, setShowAddInsurance] = useState(false);
-  const [newInsurance, setNewInsurance] = useState({
-    provider: '',
-    policyNumber: '',
-    validUntil: '',
-  });
-
-  const handleAddInsurance = () => {
-    if (
-      newInsurance.provider &&
-      newInsurance.policyNumber &&
-      newInsurance.validUntil
-    ) {
-      setInsuranceIds([
-        ...insuranceIds,
-        {
-          id: Date.now(),
-          provider: newInsurance.provider,
-          policyNumber: newInsurance.policyNumber,
-          validUntil: newInsurance.validUntil,
-        },
-      ]);
-      setNewInsurance({
-        provider: '',
-        policyNumber: '',
-        validUntil: '',
-      });
-      setShowAddInsurance(false);
-    }
-  };
-
-  const handleDeleteInsurance = (id) => {
-    setInsuranceIds(insuranceIds.filter((insurance) => insurance.id !== id));
-  };
-
-  // Aqua button style classes
+export default function StudentProfileScreen() {
+  // Aqua button style classes (passed to child components)
   const aquaButtonStyle =
     'relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner';
   const aquaGlossEffect =
@@ -79,18 +13,26 @@ export default function StudentProfileScreen({ onNavigate }) {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="p-4 pb-16">
-        
-        <StudentProfileHeader/>
+      <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 pt-4">
+        {/* Profile Header */}
+        <StudentProfileHeader />
+
         {/* Personal Information */}
-        <StudentPersonalInformation/>
+        <StudentPersonalInformation />
 
         {/* Contact Information */}
-        <StudentContactInfo/>
+        <StudentContactInfo
+          aquaButtonStyle={aquaButtonStyle}
+          aquaGlossEffect={aquaGlossEffect}
+        />
 
-         {/* Emergency Contact */}
-        <StudentEmergencyContactInfo/>
+        {/* Emergency Contact */}
+        <StudentEmergencyContactInfo
+          aquaButtonStyle={aquaButtonStyle}
+          aquaGlossEffect={aquaGlossEffect}
+        />
 
+        {/* Optional global animation */}
         <style jsx global>{`
           @keyframes pulse {
             0% {
