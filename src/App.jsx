@@ -7,6 +7,7 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import FacultyDashboard from "./pages/faculty/FacultyDashboard";
 import StudentLayout from "./pages/layouts/StudentLayout";
 import StudentProfile from "./pages/student/StudentProfile";
+import { StudentNotificationsScreen } from "./pages/student/StudentNotificationsScreen";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/student" element={<StudentLayout />}>
             <Route path="dashboard" element={<StudentDashboard />} />
             <Route path="profile" element={<StudentProfile />} />
+            <Route path="notifications" element={<StudentNotificationsScreen />} />
           </Route>
 
           <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
