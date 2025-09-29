@@ -14,8 +14,8 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Login />} />
+          {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/about" element={<About />} />
 
           {/* Student routes wrapped in layout */}
