@@ -14,11 +14,9 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
-    // Simple validation
     if (username === "s" && password === "s") {
       alert("Logged in as student!");
       navigate("/student/dashboard");
-      // Here you can redirect or call a login API
     } else if (username === "t" && password === "t") {
       alert("Logged in as faculty!");
       navigate("/faculty/dashboard");
@@ -32,9 +30,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Hero Image Section */}
-      <div className="relative h-80 sm:h-96 md:h-[32rem]  w-full">
+    <div className="min-h-screen flex flex-col bg-gray-100">
+      {/* Banner Section */}
+      <div className="relative w-full  flex-shrink-0 h-[35vh] sm:h-[40vh] md:h-[45vh] lg:h-[60vh]">
         <img
           src={Banner}
           alt="Saveetha Medical College and Hospitals"
@@ -42,17 +40,17 @@ const Login = () => {
         />
       </div>
 
-      {/* Login Form Section */}
-      <div className="flex-1 flex flex-col items-center justify-center px-4 -mt-12 sm:-mt-16 z-10">
+      {/* Form Section */}
+      <div className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 md:px-10 -mt-12 sm:-mt-20 z-10">
         <div className="w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="px-6 py-8 sm:px-8">
-            <h2 className="text-2xl sm:text-3xl font-semibold mb-6 text-center text-gray-800">
+          <div className="px-6 py-6 sm:px-6">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-3 text-center text-gray-800">
               Medical Portal Login
             </h2>
 
             <form className="space-y-5" onSubmit={handleLoginSubmit}>
               {/* Username */}
-              <div className="flex items-center border border-gray-300 rounded-lg bg-gray-50 px-4 py-3 shadow-inner">
+              <div className="flex items-center border border-gray-300 rounded-lg bg-gray-50 px-4 py-2 shadow-inner">
                 <UserIcon className="h-5 w-5 text-gray-400 mr-3" />
                 <input
                   type="text"
@@ -65,7 +63,7 @@ const Login = () => {
               </div>
 
               {/* Password */}
-              <div className="flex items-center border border-gray-300 rounded-lg bg-gray-50 px-4 py-3 shadow-inner">
+              <div className="flex items-center border border-gray-300 rounded-lg bg-gray-50 px-4 py-2 shadow-inner">
                 <KeyIcon className="h-5 w-5 text-gray-400 mr-3" />
                 <input
                   type="password"
@@ -95,7 +93,7 @@ const Login = () => {
             </form>
 
             {/* Forgot Password */}
-            <div className="mt-5 text-center">
+            <div className="mt-2 text-center">
               <a
                 href="#"
                 className="text-sm text-blue-600 hover:text-blue-800 transition-colors"
@@ -106,8 +104,8 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Footer / Support */}
-        <div className="mt-6 text-center text-sm text-gray-600 px-4">
+        {/* Footer */}
+        <div className="mt-4 text-center text-sm text-gray-600 px-4">
           <p>Need help? Contact hospital support at</p>
           <p className="font-medium">support@saveethamedical.com</p>
         </div>
