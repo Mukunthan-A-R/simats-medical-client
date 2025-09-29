@@ -1,292 +1,327 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
+  ArrowLeftIcon,
+  PhoneIcon,
+  MapPinIcon,
+  MailIcon,
   UserIcon,
-  ClipboardListIcon,
-  FileTextIcon,
-  BedIcon,
-  PillIcon,
-  ChevronRightIcon,
-  AlertTriangleIcon,
-  BookOpenIcon,
+  PlusIcon,
+  AlertCircleIcon,
+  CreditCardIcon,
+  PencilIcon,
+  TrashIcon,
+  ShieldIcon,
   CalendarIcon,
-  ClockIcon,
-  SearchIcon,
-  CalendarDaysIcon,
-  StethoscopeIcon,
-  ActivityIcon,
-} from "lucide-react";
+  DropletIcon,
+  Activity,
+} from 'lucide-react';
+import StudentProfileHeader from '../../components/StudentProfileHeader';
 
-const StudentProfile = ({ onNavigate }) => {
-  const approvalCounts = {
-    caseRecords: 8,
-    dischargeSummaries: 3,
-    admissions: 5,
-    prescriptions: 12,
-  };
-  const [activeTab, setActiveTab] = useState("admitted");
-
-  const admittedPatients = [
+export default function StudentProfileScreen({ onNavigate }) {
+  const [insuranceIds, setInsuranceIds] = useState([
     {
-      id: "SMC-2023-0042",
-      name: "John Doe",
-      age: 45,
-      gender: "Male",
-      admissionDate: "2023-05-15",
-      diagnosis: "Unstable Angina",
-      photo:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      status: "Stable",
-      alerts: ["Penicillin Allergy"],
+      id: 1,
+      provider: 'Apollo Health Insurance',
+      policyNumber: 'APL-2023-78945',
+      validUntil: '31 Dec 2024',
     },
     {
-      id: "SMC-2023-0078",
-      name: "Ravi Kumar",
-      age: 62,
-      gender: "Male",
-      admissionDate: "2023-09-15",
-      diagnosis: "Chest pain and arrhythmia",
-      photo:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      status: "Under observation",
-      alerts: ["Diabetes"],
+      id: 2,
+      provider: 'Star Health Insurance',
+      policyNumber: 'SHI-5678-9012',
+      validUntil: '15 Mar 2025',
     },
-  ];
+  ]);
 
-  const clinicPatients = [
-    {
-      id: "SMC-2023-0112",
-      name: "Priya Sharma",
-      age: 32,
-      gender: "Female",
-      appointmentTime: "09:00 AM",
-      appointmentType: "Follow-up",
-      condition: "Hypertension",
-      photo:
-        "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      status: "Waiting",
-    },
-  ];
+  const [showAddInsurance, setShowAddInsurance] = useState(false);
+  const [newInsurance, setNewInsurance] = useState({
+    provider: '',
+    policyNumber: '',
+    validUntil: '',
+  });
 
-  const aquaButtonStyle =
-    "relative overflow-hidden text-white font-medium transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
-  const getStatusColor = (status) => {
-    switch (status.toLowerCase()) {
-      case "critical":
-        return {
-          bg: "linear-gradient(to bottom, #e34c32, #c53030)",
-          text: "text-white",
-          border: "1px solid rgba(185,28,28,0.5)",
-        };
-      case "under observation":
-        return {
-          bg: "linear-gradient(to bottom, #f59e0b, #d97706)",
-          text: "text-white",
-          border: "1px solid rgba(180,83,9,0.5)",
-        };
-      case "stable":
-        return {
-          bg: "linear-gradient(to bottom, #4cd964, #2ac845)",
-          text: "text-white",
-          border: "1px solid rgba(22,163,74,0.5)",
-        };
-      default:
-        return {
-          bg: "linear-gradient(to bottom, #8e8e93, #636366)",
-          text: "text-white",
-          border: "1px solid rgba(75,85,99,0.5)",
-        };
+  const handleAddInsurance = () => {
+    if (
+      newInsurance.provider &&
+      newInsurance.policyNumber &&
+      newInsurance.validUntil
+    ) {
+      setInsuranceIds([
+        ...insuranceIds,
+        {
+          id: Date.now(),
+          provider: newInsurance.provider,
+          policyNumber: newInsurance.policyNumber,
+          validUntil: newInsurance.validUntil,
+        },
+      ]);
+      setNewInsurance({
+        provider: '',
+        policyNumber: '',
+        validUntil: '',
+      });
+      setShowAddInsurance(false);
     }
   };
 
+  const handleDeleteInsurance = (id) => {
+    setInsuranceIds(insuranceIds.filter((insurance) => insurance.id !== id));
+  };
+
+  // Aqua button style classes
+  const aquaButtonStyle =
+    'relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner';
+  const aquaGlossEffect =
+    'before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50';
+
   return (
-    <div className="px-3 py-4 max-w-2xl mx-auto w-full space-y-4">
-      {/* Student Profile Card */}
-      <div
-        className="overflow-hidden mb-4 cursor-pointer rounded-xl shadow-md border"
-        style={{ backgroundColor: "white" }}
-        onClick={() => onNavigate("student-profile")}
-      >
-        <div className="p-4 flex items-center">
-          <div className="relative mr-3">
-            <div className="h-12 w-12 rounded-full overflow-hidden border-2 shadow-sm">
-              <img
-                src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
-                alt="Student"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <div
-              className="absolute -bottom-1 -right-1 h-5 w-5 rounded-full flex items-center justify-center"
-              style={{
-                background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
-                border: "2px solid white",
-                boxShadow: "0 1px 2px rgba(0,0,0,0.3)",
-              }}
-              title="Student Member"
-            >
-              <BookOpenIcon size={12} className="text-white" />
-            </div>
+    <div className="flex flex-col min-h-screen">
+      <div className="p-4 pb-16">
+        
+        <StudentProfileHeader/>
+{/* Personal Information - Mac OS X Aqua style */}
+        <div className="rounded-xl overflow-hidden shadow-md mb-6" style={{
+        backgroundColor: 'white',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.2)',
+        border: '1px solid rgba(0,0,0,0.1)'
+      }}>
+          <div className="px-4 py-3 border-b flex items-center" style={{
+          backgroundImage: 'linear-gradient(to bottom, #f8f9fb, #d9e1ea)',
+          boxShadow: '0 1px 0 rgba(255,255,255,0.8) inset, 0 1px 0 rgba(0,0,0,0.1)',
+          borderBottom: '1px solid rgba(0,0,0,0.1)'
+        }}>
+            <ShieldIcon size={16} className="text-blue-600 mr-2" />
+            <h3 className="font-medium text-gray-800" style={{
+            textShadow: '0 1px 0 rgba(255,255,255,0.5)'
+          }}>
+              Personal Information
+            </h3>
           </div>
-          <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-semibold text-gray-900 truncate">
-              Welcome, John Smith
-            </h2>
-            <p className="text-xs text-gray-500">
-              ID: STU-2023-0078 • Department: Computer Science
-            </p>
+          <div className="p-4 space-y-4">
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-500">Aadhaar ID</span>
+              <div className="flex items-center mt-1">
+                <span className="text-gray-800 font-medium">
+                  XXXX XXXX 4567
+                </span>
+                <div className="ml-2 px-2 py-0.5 rounded text-xs font-medium" style={{
+                background: 'linear-gradient(to bottom, #a7f3d0, #6ee7b7)',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.7)',
+                border: '1px solid rgba(16,185,129,0.3)',
+                color: '#065f46'
+              }}>
+                  Verified
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-500">ABHA ID</span>
+              <div className="flex items-center mt-1">
+                <span className="text-gray-800 font-medium">
+                  12-3456-7890-1234
+                </span>
+                <div className="ml-2 px-2 py-0.5 rounded text-xs font-medium" style={{
+                background: 'linear-gradient(to bottom, #a7f3d0, #6ee7b7)',
+                boxShadow: '0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.7)',
+                border: '1px solid rgba(16,185,129,0.3)',
+                color: '#065f46'
+              }}>
+                  Verified
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-500">Date of Birth</span>
+              <div className="flex items-center mt-1">
+                <CalendarIcon size={14} className="text-blue-600 mr-2" />
+                <span className="text-gray-800">15 May 1985</span>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-500">Gender</span>
+              <div className="flex items-center mt-1">
+                <UserIcon size={14} className="text-blue-600 mr-2" />
+                <span className="text-gray-800">Male</span>
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm text-gray-500">Blood Group</span>
+              <div className="flex items-center mt-1">
+                <DropletIcon size={14} className="text-red-600 mr-2" />
+                <span className="text-gray-800">O+</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Approval Cards */}
-      <div className="space-y-3">
-        {[
-          "Case Records",
-          "Discharge Summaries",
-          "Admissions",
-          "Prescriptions",
-        ].map((type, idx) => (
-          <div
-            key={type}
-            className="overflow-hidden cursor-pointer rounded-xl shadow-md border bg-white bg-gradient-to-b from-white to-gray-50"
-            onClick={() =>
-              onNavigate(
-                `student-notifications/${type.toLowerCase().replace(" ", "-")}`
-              )
+
+
+ {/* Contact Information - Mac OS X Aqua style */}
+        <div className="rounded-xl overflow-hidden shadow-md mb-6" style={{
+        backgroundColor: 'white',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.2)',
+        border: '1px solid rgba(0,0,0,0.1)'
+      }}>
+          <div className="px-4 py-3 border-b flex items-center" style={{
+          backgroundImage: 'linear-gradient(to bottom, #f8f9fb, #d9e1ea)',
+          boxShadow: '0 1px 0 rgba(255,255,255,0.8) inset, 0 1px 0 rgba(0,0,0,0.1)',
+          borderBottom: '1px solid rgba(0,0,0,0.1)'
+        }}>
+            <PhoneIcon size={16} className="text-blue-600 mr-2" />
+            <h3 className="font-medium text-gray-800" style={{
+            textShadow: '0 1px 0 rgba(255,255,255,0.5)'
+          }}>
+              Contact Information
+            </h3>
+          </div>
+          <div className="p-4 space-y-4">
+            <div className="flex items-start p-3 rounded-lg" style={{
+            backgroundColor: 'rgba(249,250,251,0.7)',
+            boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)',
+            border: '1px solid rgba(0,0,0,0.1)'
+          }}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 ${aquaButtonStyle} ${aquaGlossEffect}`} style={{
+              background: 'linear-gradient(to bottom, #4d90fe, #0066cc)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)',
+              border: '1px solid rgba(0,0,0,0.2)'
+            }}>
+                <PhoneIcon size={14} className="text-white" />
+              </div>
+              <div>
+                <span className="text-gray-800 font-medium">
+                  +91 98765 43210
+                </span>
+                <p className="text-xs text-gray-500">Primary</p>
+              </div>
+            </div>
+            <div className="flex items-start p-3 rounded-lg" style={{
+            backgroundColor: 'rgba(249,250,251,0.7)',
+            boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)',
+            border: '1px solid rgba(0,0,0,0.1)'
+          }}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 ${aquaButtonStyle} ${aquaGlossEffect}`} style={{
+              background: 'linear-gradient(to bottom, #4d90fe, #0066cc)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)',
+              border: '1px solid rgba(0,0,0,0.2)'
+            }}>
+                <MailIcon size={14} className="text-white" />
+              </div>
+              <div>
+                <span className="text-gray-800 font-medium">
+                  johndoe@example.com
+                </span>
+                <p className="text-xs text-gray-500">Email</p>
+              </div>
+            </div>
+            <div className="flex items-start p-3 rounded-lg" style={{
+            backgroundColor: 'rgba(249,250,251,0.7)',
+            boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)',
+            border: '1px solid rgba(0,0,0,0.1)'
+          }}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 ${aquaButtonStyle} ${aquaGlossEffect}`} style={{
+              background: 'linear-gradient(to bottom, #4d90fe, #0066cc)',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)',
+              border: '1px solid rgba(0,0,0,0.2)'
+            }}>
+                <MapPinIcon size={14} className="text-white" />
+              </div>
+              <div>
+                <span className="text-gray-800 font-medium">
+                  123 Main Street, Anna Nagar
+                </span>
+                <p className="text-xs text-gray-500">
+                  Chennai, Tamil Nadu - 600040
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+         {/* Emergency Contact - Mac OS X Aqua style */}
+        <div className="rounded-xl overflow-hidden shadow-md mb-6" style={{
+        backgroundColor: 'white',
+        boxShadow: '0 2px 6px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.2)',
+        border: '1px solid rgba(0,0,0,0.1)'
+      }}>
+          <div className="px-4 py-3 border-b flex items-center" style={{
+          backgroundImage: 'linear-gradient(to bottom, #f8f9fb, #d9e1ea)',
+          boxShadow: '0 1px 0 rgba(255,255,255,0.8) inset, 0 1px 0 rgba(0,0,0,0.1)',
+          borderBottom: '1px solid rgba(0,0,0,0.1)'
+        }}>
+            <AlertCircleIcon size={16} className="text-red-600 mr-2" />
+            <h3 className="font-medium text-gray-800" style={{
+            textShadow: '0 1px 0 rgba(255,255,255,0.5)'
+          }}>
+              Emergency Contact
+            </h3>
+          </div>
+          <div className="p-4 space-y-4">
+            <div className="p-3 rounded-lg" style={{
+            backgroundColor: 'rgba(254,242,242,0.4)',
+            boxShadow: 'inset 0 1px 2px rgba(0,0,0,0.05)',
+            border: '1px solid rgba(252,165,165,0.3)'
+          }}>
+              <div className="flex items-start mb-3">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 ${aquaButtonStyle} ${aquaGlossEffect}`} style={{
+                background: 'linear-gradient(to bottom, #f87171, #dc2626)',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)',
+                border: '1px solid rgba(0,0,0,0.2)'
+              }}>
+                  <UserIcon size={14} className="text-white" />
+                </div>
+                <div>
+                  <span className="text-gray-800 font-medium">Jane Doe</span>
+                  <p className="text-xs text-gray-500">Spouse</p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 ${aquaButtonStyle} ${aquaGlossEffect}`} style={{
+                background: 'linear-gradient(to bottom, #f87171, #dc2626)',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)',
+                border: '1px solid rgba(0,0,0,0.2)'
+              }}>
+                  <PhoneIcon size={14} className="text-white" />
+                </div>
+                <div>
+                  <span className="text-gray-800 font-medium">
+                    +91 87654 32109
+                  </span>
+                  <p className="text-xs text-gray-500">Mobile</p>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <button className={`px-3 py-1.5 rounded-md text-sm flex items-center ${aquaButtonStyle} ${aquaGlossEffect}`} style={{
+              background: 'linear-gradient(to bottom, #f0f4fa, #d5dde8)',
+              border: '1px solid rgba(0,0,0,0.2)',
+              boxShadow: '0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8)'
+            }}>
+                <PencilIcon size={14} className="mr-1.5 text-blue-700" />
+                <span className="text-blue-700 font-medium">Edit</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <style jsx global>{`
+          @keyframes pulse {
+            0% {
+              transform: scale(1);
             }
-          >
-            <div className="px-4 py-3 flex justify-between items-center">
-              <div className="flex items-center min-w-0 flex-1">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 ${aquaButtonStyle} ${aquaGlossEffect}`}
-                  style={{
-                    background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
-                    boxShadow:
-                      "0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)",
-                    border: "1px solid rgba(0,0,0,0.3)",
-                  }}
-                >
-                  {idx === 0 && (
-                    <ClipboardListIcon size={18} className="text-white" />
-                  )}
-                  {idx === 1 && (
-                    <FileTextIcon size={18} className="text-white" />
-                  )}
-                  {idx === 2 && <BedIcon size={18} className="text-white" />}
-                  {idx === 3 && <PillIcon size={18} className="text-white" />}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm font-medium text-gray-900 truncate">
-                    {type} Approvals
-                  </p>
-                  <div className="flex items-center">
-                    <span className="text-xs text-gray-600 truncate">
-                      {approvalCounts[type.toLowerCase().replace(" ", "")]}{" "}
-                      pending approval requests
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <ChevronRightIcon size={16} className="text-gray-600" />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Patient Tabs */}
-      <div className="overflow-hidden rounded-xl shadow-md border bg-white">
-        <div className="flex border-b border-gray-200 bg-gradient-to-b from-gray-100 to-gray-200">
-          <button
-            className={`flex-1 py-2.5 text-sm font-medium ${
-              activeTab === "admitted"
-                ? "text-blue-600"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-            onClick={() => setActiveTab("admitted")}
-          >
-            Admitted Patients
-          </button>
-          <button
-            className={`flex-1 py-2.5 text-sm font-medium ${
-              activeTab === "clinic"
-                ? "text-blue-600"
-                : "text-gray-500 hover:text-gray-700"
-            }`}
-            onClick={() => setActiveTab("clinic")}
-          >
-            Clinic View
-          </button>
-        </div>
-        <div className="p-2 space-y-2">
-          {(activeTab === "admitted" ? admittedPatients : clinicPatients).map(
-            (patient) => (
-              <div
-                key={patient.id}
-                className="rounded-lg cursor-pointer hover:bg-gray-50 transition-colors overflow-hidden border shadow-sm bg-white bg-gradient-to-b from-white to-gray-50"
-                onClick={() => onNavigate(`student-case-record/${patient.id}`)}
-              >
-                <div className="p-3 flex items-start justify-between">
-                  <div className="flex items-start">
-                    <div className="relative mr-3 flex-shrink-0">
-                      <div className="h-10 w-10 rounded-full overflow-hidden border-2 shadow-sm">
-                        <img
-                          src={patient.photo}
-                          alt={patient.name}
-                          className="h-full w-full object-cover"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center">
-                        <p className="font-medium text-sm text-gray-900 truncate">
-                          {patient.name}
-                        </p>
-                        {patient.age && (
-                          <span className="text-xs font-normal text-gray-500 ml-1 truncate">
-                            {patient.age}y, {patient.gender}
-                          </span>
-                        )}
-                      </div>
-                      {patient.admissionDate && (
-                        <div className="flex items-center text-xs text-gray-600 mt-0.5">
-                          <CalendarIcon size={9} className="mr-1" />
-                          Admitted: {patient.admissionDate}
-                        </div>
-                      )}
-                      {patient.diagnosis && (
-                        <div className="flex items-center text-xs text-gray-600 mt-0.5">
-                          <StethoscopeIcon size={9} className="mr-1" />
-                          {patient.diagnosis}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  {patient.status && (
-                    <div className="ml-2 flex-shrink-0">
-                      <div
-                        className="px-1.5 py-0.5 rounded-full text-xs font-medium text-center"
-                        style={{
-                          background: getStatusColor(patient.status).bg,
-                          border: getStatusColor(patient.status).border,
-                        }}
-                      >
-                        <span className={getStatusColor(patient.status).text}>
-                          {patient.status}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )
-          )}
-        </div>
+            50% {
+              transform: scale(1.05);
+            }
+            100% {
+              transform: scale(1);
+            }
+          }
+          .animate-pulse {
+            animation: pulse 2s infinite;
+          }
+        `}</style>
       </div>
     </div>
   );
-};
-
-export default StudentProfile;
+}
