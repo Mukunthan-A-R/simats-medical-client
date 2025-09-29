@@ -15,6 +15,7 @@ import {
   ChevronDownIcon
 } from 'lucide-react';
 import { StudentNotificationPopup } from '../../components/students/StudentNotificationPopup';
+import { StudentFilterDropdown } from '../../components/students/StudentFilterDropdown';
 
 // ========================
 // Individual Notification Item Component
@@ -164,6 +165,26 @@ export function StudentNotificationsScreen({ onNavigate }) {
   const [selectedNotification, setSelectedNotification] = useState(null);
   const [detailsModalOpen, setDetailsModalOpen] = useState(false);
 
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  
+  const filterOptions = [
+    { id: 'all', label: 'All Notifications', icon: <BellIcon size={16} /> },
+    { id: 'medcall', label: 'MedCall', icon: <StethoscopeIcon size={16} /> },
+    { id: 'patient', label: 'Patient', icon: <UserIcon size={16} /> },
+    { id: 'lab', label: 'Lab', icon: <FlaskConicalIcon size={16} /> },
+    { id: 'academic', label: 'Academic', icon: <GraduationCapIcon size={16} /> },
+    { id: 'rounds', label: 'Rounds', icon: <ClipboardListIcon size={16} /> }
+  ];
+
+  const handleFilterSelect = (filterId) => {
+  setActiveFilter(filterId);
+  setDropdownOpen(false); 
+  };
+
+
+
   const aquaButtonStyle = 'relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner';
   const aquaGlossEffect = 'before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/80 before:via-transparent before:to-transparent before:opacity-60';
 
@@ -201,6 +222,17 @@ export function StudentNotificationsScreen({ onNavigate }) {
   return (
     <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 pt-4">
       <h1 className="text-xl font-semibold mb-4">Student Notifications</h1>
+
+      <StudentFilterDropdown
+        filterOptions={filterOptions}
+        activeFilter={activeFilter}
+        toggleDropdown={() => setDropdownOpen(prev => !prev)}
+        dropdownOpen={dropdownOpen}
+        handleFilterSelect={handleFilterSelect}
+        aquaButtonStyle={aquaButtonStyle}
+        aquaGlossEffect={aquaGlossEffect}
+    />
+
 
       {/* Notification Groups */}
       {['critical', 'high', 'medium', 'low'].map(priority => (

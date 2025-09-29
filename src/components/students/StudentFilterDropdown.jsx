@@ -11,7 +11,17 @@ export function StudentFilterDropdown({
   aquaGlossEffect,
 }) {
   return (
-    <div className="relative">
+    <div className="relative border rounded-lg mb-4 p-2 shadow-sm"
+    style={{
+          background: 'linear-gradient(to bottom, #ffffff, #e9f1fdff)',
+          boxShadow: '0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9)',
+          border: '1px solid rgba(0,0,0,0.1)',
+        }}
+        >
+         <p className='p-2 pb-3 font-medium text-gray-800'>
+
+        Notifications
+        </p>
       <button
         onClick={toggleDropdown}
         className={`w-full px-4 py-2.5 rounded-lg flex items-center justify-between text-sm font-medium text-gray-700 ${aquaButtonStyle} ${aquaGlossEffect}`}
