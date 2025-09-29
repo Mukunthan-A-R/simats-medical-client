@@ -221,7 +221,7 @@ export default function StudentDashboardSliderWindow() {
         {/* My Patients Tab */}
         {activeTab === "patients" && (
           <div className="overflow-hidden mb-6 rounded-lg shadow-sm bg-white animate-fadeIn">
-            <div className="px-5 py-4 border-b flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
+            <div className="px-5 py-4  flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
               <div className="flex items-center">
                 <UsersIcon size={18} className="text-blue-600 mr-2.5" />
                 <h3 className="font-medium text-gray-800 text-base">
@@ -264,7 +264,7 @@ export default function StudentDashboardSliderWindow() {
                 </div>
               ))}
             </div>
-            <div className="px-5 py-3 border-t flex justify-center bg-gradient-to-b from-gray-100 to-gray-200">
+            <div className="px-5 py-3  flex justify-center bg-gradient-to-b from-gray-100 to-gray-200">
               <button
                 onClick={() => setShowAllPatients(!showAllPatients)}
                 className="px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-b from-blue-500 to-blue-700 text-white flex items-center shadow-inner border border-gray-300"
@@ -286,7 +286,7 @@ export default function StudentDashboardSliderWindow() {
         {/* Clinic Tab */}
         {activeTab === "clinic" && (
           <div className="overflow-hidden mb-6 rounded-lg shadow-sm bg-white animate-fadeIn">
-            <div className="px-5 py-4 border-b flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
+            <div className="px-5 py-4  flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
               <div className="flex items-center">
                 <HospitalIcon size={18} className="text-blue-600 mr-2.5" />
                 <h3 className="font-medium text-gray-800 text-base">
@@ -354,7 +354,7 @@ export default function StudentDashboardSliderWindow() {
               </div>
             )}
 
-            <div className="p-5 border-b">
+            <div className="p-5">
               <p className="text-lg font-medium text-gray-900 mb-2">
                 {selectedClinic.name}
               </p>
@@ -364,7 +364,7 @@ export default function StudentDashboardSliderWindow() {
               </div>
             </div>
 
-            <div className="px-5 py-3 border-b bg-gradient-to-b from-gray-100 to-gray-200">
+            <div className="px-5 py-3 bg-gradient-to-b from-gray-100 to-gray-200">
               <p className="text-sm font-medium text-gray-700 flex items-center">
                 <UsersIcon size={14} className="mr-2 text-blue-600" /> Patients
                 in Clinic Today
@@ -423,14 +423,14 @@ export default function StudentDashboardSliderWindow() {
               ))}
             </div>
 
-            <div className="px-5 py-3 border-t bg-gradient-to-b from-gray-100 to-gray-200" />
+            <div className="px-5 py-3 bg-gradient-to-b from-gray-100 to-gray-200" />
           </div>
         )}
 
         {/* Emergency Tab */}
         {activeTab === "emergency" && (
           <div className="overflow-hidden mb-6 rounded-lg shadow-sm bg-white animate-fadeIn">
-            <div className="px-5 py-4 border-b flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
+            <div className="px-5 py-4 flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
               <div className="flex items-center">
                 <PhoneIcon size={18} className="text-blue-600 mr-2.5" />
                 <h3 className="font-medium text-gray-800 text-base">
