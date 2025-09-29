@@ -199,7 +199,7 @@ export function StudentNotificationsScreen({ onNavigate }) {
   // Render JSX
   // ========================
   return (
-    <div className="p-4">
+    <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 pt-4">
       <h1 className="text-xl font-semibold mb-4">Student Notifications</h1>
 
       {/* Notification Groups */}
