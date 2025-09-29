@@ -14,6 +14,7 @@ import {
   FilterIcon,
   ChevronDownIcon
 } from 'lucide-react';
+import { StudentNotificationPopup } from '../../components/students/StudentNotificationPopup';
 
 // ========================
 // Individual Notification Item Component
@@ -222,19 +223,12 @@ export function StudentNotificationsScreen({ onNavigate }) {
         )
       ))}
 
-      {/* Notification Details Modal */}
-      {detailsModalOpen && selectedNotification && (
-        <div className="fixed inset-0 bg-black bg-opacity-25 flex items-center justify-center p-4">
-          <div className="bg-white p-6 rounded-xl max-w-md w-full">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="font-semibold">{selectedNotification.title}</h3>
-              <button onClick={closeDetailsModal}><XIcon size={20} /></button>
-            </div>
-            <p>{selectedNotification.description}</p>
-            <p className="mt-2 text-sm text-gray-500">{selectedNotification.date} at {selectedNotification.time}</p>
-          </div>
-        </div>
-      )}
+     {detailsModalOpen && selectedNotification && (
+  <StudentNotificationPopup
+    notification={selectedNotification}
+    onClose={closeDetailsModal}
+  />
+)}
     </div>
   );
 }
