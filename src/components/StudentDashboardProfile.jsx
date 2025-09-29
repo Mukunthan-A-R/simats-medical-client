@@ -5,7 +5,7 @@ export default function StudentProfileCard({ onNavigate }) {
   const [activeTab, setActiveTab] = useState(null);
 
   return (
-    <div className="px-4 py-5 max-w-4xl mx-auto w-full">
+    <div>
       {/* Student Profile Card */}
       <div
         className="overflow-hidden mb-6 cursor-pointer transform transition-transform duration-200 hover:scale-[1.01]"
