@@ -38,7 +38,7 @@ const editButtonStyle = {
 export default function StudentProfileHeader({
   name = 'John Doe',
   studentId = 'SMC-2023-0042',
-  imgSrc = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&q=80',
+  imgSrc = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ4kHDPwdUsng85LawKD6dQ78XErUyhu3PDu1XLAryK7jrw2mulwXmUwG3GSVr8z7RiK0&usqp=CAU',
   onEditClick,
   aquaButtonStyle = '',
   aquaGlossEffect = '',
