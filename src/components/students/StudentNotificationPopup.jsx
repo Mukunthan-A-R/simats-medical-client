@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { XIcon } from 'lucide-react';
 
-export function StudentNotificationPopup({ notification, onClose }) {
+export function StudentNotificationPopup({ notification, onClose, onRespond }) {
+  const modalRef = useRef(null);
+
   if (!notification) return null;
 
-
-    const formatDate = (dateString) => {
+  const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
     });
-    };
+  };
 
+  // Close modal when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose();
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [onClose]);
 
   return (
-    <div className="fixed inset-0  bg-opacity-1 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-fadeIn">
+    <div className="fixed inset-0 bg-opacity-25 backdrop-blur-xs z-50 flex items-center justify-center p-4 animate-fadeIn">
       <div
+        ref={modalRef}
         className="max-w-md w-full max-h-[90vh] overflow-auto animate-slideUp rounded-xl"
         style={{
           background: 'rgba(255,255,255,0.95)',
@@ -52,11 +66,27 @@ export function StudentNotificationPopup({ notification, onClose }) {
         </div>
 
         {/* Modal Content */}
-        <div className="p-6">
+        <div className="p-6 space-y-4">
           <p className="text-gray-800">{notification.description}</p>
           <p className="mt-2 text-sm text-gray-500">
             {formatDate(notification.date)} at {notification.time}
           </p>
+        </div>
+
+        {/* Footer Buttons */}
+        <div className="flex justify-between p-4 border-t border-gray-200">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 rounded-md bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium transition-colors"
+          >
+            Close
+          </button>
+          <button
+            onClick={onRespond}
+            className="px-4 py-2 rounded-md bg-red-500 hover:bg-red-600 text-white font-medium transition-colors"
+          >
+            Respond Now
+          </button>
         </div>
       </div>
     </div>
