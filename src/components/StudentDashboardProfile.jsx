@@ -30,7 +30,7 @@ export default function StudentProfileCard({ onNavigate }) {
               }}
             >
               <img
-                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyq0k3fnDCyC_lSp06WK-TgtHT3DuZlMrue-bDnfpFd08qVhiK1AmRZRH37JGcx9RrRYY&usqp=CAU"
                 alt="Student"
                 className="h-full w-full object-cover"
               />
