@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { NavBar } from "../../components/NavBar";
+import FacultySidebar from "../../components/faculty/FacultySidebar";
+
+export default function FacultyLayout() {
+  const [isSideOpen, setIsSideOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleNav = (path) => {
+    navigate(path);
+    setIsSideOpen(false); // close sidebar after navigation
+  };
+
+  const handleMenuIconClick = () => {
+    setIsSideOpen(!isSideOpen);
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {/* Top NavBar */}
+      <NavBar onNavigate={() => {}} menuIconClick={handleMenuIconClick} />
+
+      {/* Sidebar */}
+      <FacultySidebar
+        isOpen={isSideOpen}
+        onClose={() => setIsSideOpen(false)}
+        onNavigate={handleNav}
+        notificationCount={3}
+      />
+
+      {/* Main Content */}
+      <div
+        style={{
+          backgroundImage: `
+        repeating-linear-gradient(
+          0deg,
+          rgba(180, 190, 210, 0.2),
+          rgba(180, 190, 210, 0.2) 1px,
+          rgba(210, 220, 230, 0.4) 1px,
+          rgba(210, 220, 230, 0.4) 2px
+        )
+      `,
+          backgroundColor: "#e0e5eb",
+          boxShadow: "inset 0 0 100px rgba(180, 190, 210, 0.3)",
+        }}
+      >
+        <Outlet />
+      </div>
+    </div>
+  );
+}

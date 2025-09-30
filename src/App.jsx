@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Home from "./pages/Home";
 import About from "./pages/About";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
@@ -8,6 +7,7 @@ import FacultyDashboard from "./pages/faculty/FacultyDashboard";
 import StudentLayout from "./pages/layouts/StudentLayout";
 import StudentProfile from "./pages/student/StudentProfile";
 import { StudentNotificationsScreen } from "./pages/student/StudentNotificationsScreen";
+import FacultyLayout from "./pages/layouts/FacultyLayout";
 
 function App() {
   return (
@@ -22,10 +22,15 @@ function App() {
           <Route path="/student" element={<StudentLayout />}>
             <Route path="dashboard" element={<StudentDashboard />} />
             <Route path="profile" element={<StudentProfile />} />
-            <Route path="notifications" element={<StudentNotificationsScreen />} />
+            <Route
+              path="notifications"
+              element={<StudentNotificationsScreen />}
+            />
           </Route>
 
-          <Route path="/faculty-dashboard" element={<FacultyDashboard />} />
+          <Route path="/faculty" element={<FacultyLayout />}>
+            <Route path="dashboard" element={<FacultyDashboard />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
