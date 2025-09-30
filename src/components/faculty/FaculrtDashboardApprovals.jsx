@@ -18,7 +18,6 @@ const FaculrtDashboardApprovals = () => {
           title="Case Records Approvals"
           onNavigate={(route) => console.log("Navigate to:", route)}
         />
-
         <ApprovalDashboardButton
           as={FileTextIcon}
           caseRecords={10}

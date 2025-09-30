@@ -8,6 +8,7 @@ import StudentLayout from "./pages/layouts/StudentLayout";
 import StudentProfile from "./pages/student/StudentProfile";
 import { StudentNotificationsScreen } from "./pages/student/StudentNotificationsScreen";
 import FacultyLayout from "./pages/layouts/FacultyLayout";
+import PatientLayout from "./pages/layouts/PatientLayout";
 
 function App() {
   return (
@@ -28,7 +29,13 @@ function App() {
             />
           </Route>
 
+          {/* Teachers route wrapped in layout*/}
           <Route path="/faculty" element={<FacultyLayout />}>
+            <Route path="dashboard" element={<FacultyDashboard />} />
+          </Route>
+
+          {/* Patient route wrapped in layout*/}
+          <Route path="/patient" element={<PatientLayout />}>
             <Route path="dashboard" element={<FacultyDashboard />} />
           </Route>
         </Routes>
