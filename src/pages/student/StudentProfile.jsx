@@ -1,15 +1,15 @@
-import React from 'react';
-import StudentProfileHeader from '../../components/StudentProfileHeader';
-import StudentPersonalInformation from '../../components/StudentPersonalInformation';
-import StudentContactInfo from '../../components/StudentContactInfo';
-import StudentEmergencyContactInfo from '../../components/StudentEmergencyContactInfo';
+import React from "react";
+import StudentProfileHeader from "../../components/students/StudentProfileHeader";
+import StudentPersonalInformation from "../../components/students/StudentPersonalInformation";
+import StudentContactInfo from "../../components/students/StudentContactInfo";
+import StudentEmergencyContactInfo from "../../components/students/StudentEmergencyContactInfo";
 
 export default function StudentProfileScreen() {
   // Aqua button style classes (passed to child components)
   const aquaButtonStyle =
-    'relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner';
+    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
   const aquaGlossEffect =
-    'before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50';
+    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
 
   return (
     <div className="flex flex-col min-h-screen">

@@ -134,7 +134,7 @@ export default function StudentSidebar({
 
           {/* Logout */}
           <button
-            onClick={() => onNavigate("/login")}
+            onClick={() => onNavigate("/")}
             className={`w-full p-3 flex items-center rounded-lg ${aquaButtonStyle} ${aquaGlossEffect}`}
             style={{
               background:
