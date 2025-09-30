@@ -9,7 +9,10 @@ import {
   CheckCircleIcon,
   HeartPulseIcon,
   ClockIcon,
+  PhoneCall,
   ChevronDownIcon,
+  Mail,
+  MessageCircle,
 } from "lucide-react"; // Adjust the icon import path if needed
 
 // Mock data (trimmed)
@@ -171,7 +174,7 @@ const TabButton = ({ isActive, onClick, icon, label }) => (
     onClick={onClick}
     className={`flex flex-1 justify-center items-center px-4 py-3  font-medium text-sm ${
       isActive
-        ? "bg-blue-100 text-blue-700 shadow-inner border-b border-b-blue-600 border-b-2"
+        ? "bg-blue-100 text-blue-700 shadow-inner border-b border-b-blue-600 border-b-  2"
         : "bg-white text-gray-600 hover:bg-blue-50"
     }`}
   >
@@ -460,12 +463,56 @@ export default function StudentDashboardSliderWindow() {
                     <p className="text-sm font-medium text-gray-900">
                       {contact.name}
                     </p>
-                    <p className="text-xs text-gray-600">
+                    <p className="text-xs text-gray-600 mb-1">
                       {contact.specialty} • {contact.phone}
                     </p>
+                    <div className="flex flex-row gap-2">
+                      <button
+                        className="px-3 py-1 flex items-center justify-center font-medium text-xs gap-1 rounded-lg text-white  "
+                        style={{
+                          background:
+                            "linear-gradient(to bottom, #4d90fe, #0066cc)",
+                          border: "1px solid rgba(0,0,0,0.2)",
+                          boxShadow:
+                            "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4)",
+                          color: "white",
+                        }}
+                      >
+                        <PhoneCall size={13} />
+                        Call
+                      </button>
+                      <button
+                        className="px-3 py-1 flex items-center justify-center  font-medium text-xs gap-1 rounded-lg  text-blue-800  "
+                        style={{
+                          background:
+                            "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
+                          border: "1px solid rgba(0,0,0,0.15)",
+                          boxShadow:
+                            "0 1px 2px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8)",
+                          color: "#0066cc",
+                        }}
+                      >
+                        <Mail size={13} />
+                        Email
+                      </button>
+                      <button
+                        className="px-3 py-1 flex items-center justify-center  font-medium text-xs gap-1 rounded-lg  text-blue-800 "
+                        style={{
+                          background:
+                            "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
+                          border: "1px solid rgba(0,0,0,0.15)",
+                          boxShadow:
+                            "0 1px 2px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8)",
+                          color: "#0066cc",
+                        }}
+                      >
+                        <MessageCircle size={13} />
+                        Message
+                      </button>
+                    </div>
                   </div>
                   <div
-                    className={`px-2 py-1 rounded-full text-xs font-medium ${
+                    className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
                       contact.status === "available"
                         ? "bg-green-100 text-green-700"
                         : contact.status === "busy"
