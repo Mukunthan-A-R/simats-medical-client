@@ -22,6 +22,7 @@ const Login = () => {
       navigate("/faculty/dashboard");
     } else if (username === "p" && password === "p") {
       alert("Logged in as patient!");
+      navigate("/patient/dashboard");
     } else {
       setError(
         "Invalid credentials. Use username/password: s/s for student, p/p for patient, t/t for faculty."

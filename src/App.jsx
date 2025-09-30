@@ -9,6 +9,7 @@ import StudentProfile from "./pages/student/StudentProfile";
 import { StudentNotificationsScreen } from "./pages/student/StudentNotificationsScreen";
 import FacultyLayout from "./pages/layouts/FacultyLayout";
 import PatientLayout from "./pages/layouts/PatientLayout";
+import PatientDashboard from "./pages/patient/PatientDashboard";
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
 
           {/* Patient route wrapped in layout*/}
           <Route path="/patient" element={<PatientLayout />}>
-            <Route path="dashboard" element={<FacultyDashboard />} />
+            <Route path="dashboard" element={<PatientDashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>
