@@ -169,9 +169,9 @@ const emergencyContacts = [
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex items-center px-4 py-2 mr-2 rounded-md font-medium text-sm ${
+    className={`flex flex-1 justify-center items-center px-4 py-3  font-medium text-sm ${
       isActive
-        ? "bg-blue-100 text-blue-700 shadow-inner"
+        ? "bg-blue-100 text-blue-700 shadow-inner border-b border-b-blue-600 border-b-2"
         : "bg-white text-gray-600 hover:bg-blue-50"
     }`}
   >
@@ -196,7 +196,14 @@ export default function StudentDashboardSliderWindow() {
   return (
     <div className="w-full">
       {/* Tabs */}
-      <div className="flex mb-5 overflow-x-auto scrollbar-hide w-full rounded-md shadow-sm">
+      <div
+        className="flex mb-5 overflow-x-auto scrollbar-hide rounded-2xl w-full bg-red-500"
+        style={{
+          borderRadius: "12px",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
+          minWidth: "100%",
+        }}
+      >
         <TabButton
           isActive={activeTab === "patients"}
           onClick={() => setActiveTab("patients")}
