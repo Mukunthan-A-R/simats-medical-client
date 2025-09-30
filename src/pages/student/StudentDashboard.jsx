@@ -1,6 +1,5 @@
 import React from "react";
-import { NavBar } from "../../components/NavBar";
-import StudentDashboardProfile from "../../components/StudentDashboardProfile";
+import StudentDashboardProfile from "../../components/students/StudentDashboardProfile";
 import StudentDashboardSliderWindow from "../../components/students/StudentDashboardSliderWindow";
 
 const StudentDashboard = () => {

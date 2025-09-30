@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
-import StudentSidebar from "../../components/StudentSidebar";
+import StudentSidebar from "../../components/students/StudentSidebar";
 import { MenuIcon } from "lucide-react";
 
 export default function StudentLayout() {
