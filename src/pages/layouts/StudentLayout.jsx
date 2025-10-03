@@ -4,7 +4,7 @@ import { NavBar } from "../../components/NavBar";
 import StudentSidebar from "../../components/students/StudentSidebar";
 
 export default function StudentLayout() {
-  const [isSideOpen, setIsSideOpen] = useState(true);
+  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const navigate = useNavigate();
 
   // Track window size for responsiveness
