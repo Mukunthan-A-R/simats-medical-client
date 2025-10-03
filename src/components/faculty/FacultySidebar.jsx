@@ -14,6 +14,8 @@ export default function FacultySidebar({
   onNavigate,
   notificationCount = 0,
 }) {
+  const facultyId = 123;
+
   const aquaButtonStyle =
     "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
   const aquaGlossEffect =
@@ -35,9 +37,16 @@ export default function FacultySidebar({
         {/* Menu items */}
         <div className="p-4 space-y-3">
           {[
-            { icon: HomeIcon, label: "Dashboard", path: "/faculty/dashboard" },
-            // { icon: BookOpenIcon, label: "Courses", path: "/student/courses" },
-            { icon: UserIcon, label: "Profile", path: "/faculty/profile" },
+            {
+              icon: HomeIcon,
+              label: "Dashboard",
+              path: `/faculty/dashboard/${facultyId}`,
+            },
+            {
+              icon: UserIcon,
+              label: "Profile",
+              path: `/faculty/profile/${facultyId}`,
+            },
           ].map((item) => {
             const Icon = item.icon;
             return (
@@ -71,7 +80,7 @@ export default function FacultySidebar({
 
           {/* Notifications */}
           <button
-            onClick={() => onNavigate("/faculty/notifications")}
+            onClick={() => onNavigate(`/faculty/notifications/${facultyId}`)}
             className={`w-full p-3 flex items-center rounded-lg ${aquaButtonStyle} ${aquaGlossEffect} relative`}
             style={{
               background:

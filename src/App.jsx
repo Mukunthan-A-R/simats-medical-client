@@ -33,7 +33,7 @@ function App() {
 
           {/* Teachers route wrapped in layout*/}
           <Route path="/faculty" element={<FacultyLayout />}>
-            <Route path="dashboard" element={<FacultyDashboard />} />
+            <Route path="dashboard/:facultyId" element={<FacultyDashboard />} />
           </Route>
 
           {/* Patient route wrapped in layout*/}
