@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
-import StudentSidebar from "../../components/students/StudentSidebar";
-import { MenuIcon } from "lucide-react";
+import PatientSidebar from "../../components/patient/PatientSidebar";
 
 export default function PatientLayout() {
   const [isSideOpen, setIsSideOpen] = useState(false);
@@ -23,7 +22,7 @@ export default function PatientLayout() {
       <NavBar onNavigate={() => {}} menuIconClick={handleMenuIconClick} />
 
       {/* Sidebar */}
-      <StudentSidebar
+      <PatientSidebar
         isOpen={isSideOpen}
         onClose={() => setIsSideOpen(false)}
         onNavigate={handleNav}
