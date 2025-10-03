@@ -23,10 +23,10 @@ function App() {
 
           {/* Student routes wrapped in layout */}
           <Route path="/student" element={<StudentLayout />}>
-            <Route path="dashboard" element={<StudentDashboard />} />
-            <Route path="profile" element={<StudentProfile />} />
+            <Route path="dashboard/:studentId" element={<StudentDashboard />} />
+            <Route path="profile/:studentId" element={<StudentProfile />} />
             <Route
-              path="notifications"
+              path="notifications/:studentId"
               element={<StudentNotificationsScreen />}
             />
           </Route>

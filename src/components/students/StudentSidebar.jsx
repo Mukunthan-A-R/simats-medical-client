@@ -14,6 +14,8 @@ export default function StudentSidebar({
   onNavigate,
   notificationCount = 0,
 }) {
+  const studentId = 123;
+
   // Aqua button styles (from your theme)
   const aquaButtonStyle =
     "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
@@ -36,9 +38,16 @@ export default function StudentSidebar({
         {/* Menu items */}
         <div className="p-4 space-y-3">
           {[
-            { icon: HomeIcon, label: "Dashboard", path: "/student/dashboard" },
-            // { icon: BookOpenIcon, label: "Courses", path: "/student/courses" },
-            { icon: UserIcon, label: "Profile", path: "/student/profile" },
+            {
+              icon: HomeIcon,
+              label: "Dashboard",
+              path: `/student/dashboard/${studentId}`,
+            },
+            {
+              icon: UserIcon,
+              label: "Profile",
+              path: `/student/profile/${studentId}`,
+            },
           ].map((item) => {
             const Icon = item.icon;
             return (
@@ -72,7 +81,7 @@ export default function StudentSidebar({
 
           {/* Notifications */}
           <button
-            onClick={() => onNavigate("/student/notifications")}
+            onClick={() => onNavigate(`/student/notifications/${studentId}`)}
             className={`w-full p-3 flex items-center rounded-lg ${aquaButtonStyle} ${aquaGlossEffect} relative`}
             style={{
               background:

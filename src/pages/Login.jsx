@@ -8,6 +8,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const userId = 123;
+
   const navigate = useNavigate();
 
   const handleLoginSubmit = (e) => {
@@ -16,13 +18,13 @@ const Login = () => {
 
     if (username === "s" && password === "s") {
       alert("Logged in as student!");
-      navigate("/student/dashboard");
+      navigate(`/student/dashboard/${userId}`);
     } else if (username === "t" && password === "t") {
       alert("Logged in as faculty!");
-      navigate("/faculty/dashboard");
+      navigate(`/faculty/dashboard/${userId}`);
     } else if (username === "p" && password === "p") {
       alert("Logged in as patient!");
-      navigate("/patient/dashboard");
+      navigate(`/patient/dashboard/${userId}`);
     } else {
       setError(
         "Invalid credentials. Use username/password: s/s for student, p/p for patient, t/t for faculty."
