@@ -5,7 +5,7 @@ import StudentSidebar from "../../components/students/StudentSidebar";
 import { MenuIcon } from "lucide-react";
 
 export default function StudentLayout() {
-  const [isSideOpen, setIsSideOpen] = useState(false);
+  const [isSideOpen, setIsSideOpen] = useState(true);
   const navigate = useNavigate();
 
   const handleNav = (path) => {
@@ -22,18 +22,22 @@ export default function StudentLayout() {
       {/* Top NavBar */}
       <NavBar onNavigate={() => {}} menuIconClick={handleMenuIconClick} />
 
-      {/* Sidebar */}
-      <StudentSidebar
-        isOpen={isSideOpen}
-        onClose={() => setIsSideOpen(false)}
-        onNavigate={handleNav}
-        notificationCount={3}
-      />
+      <div className="flex flex-row">
+        {/* Sidebar */}
+        {isSideOpen && (
+          <StudentSidebar
+            isOpen={isSideOpen}
+            onClose={() => setIsSideOpen(false)}
+            onNavigate={handleNav}
+            notificationCount={3}
+          />
+        )}
 
-      {/* Main Content */}
-      <div
-        style={{
-          backgroundImage: `
+        {/* Main Content */}
+        <div
+          className="flex-1"
+          style={{
+            backgroundImage: `
         repeating-linear-gradient(
           0deg,
           rgba(180, 190, 210, 0.2),
@@ -42,11 +46,12 @@ export default function StudentLayout() {
           rgba(210, 220, 230, 0.4) 2px
         )
       `,
-          backgroundColor: "#e0e5eb",
-          boxShadow: "inset 0 0 100px rgba(180, 190, 210, 0.3)",
-        }}
-      >
-        <Outlet />
+            backgroundColor: "#e0e5eb",
+            boxShadow: "inset 0 0 100px rgba(180, 190, 210, 0.3)",
+          }}
+        >
+          <Outlet />
+        </div>
       </div>
     </div>
   );
