@@ -4,7 +4,7 @@ import StudentDashboardSliderWindow from "../../components/students/StudentDashb
 
 const StudentDashboard = () => {
   return (
-    <div className="px-4 py-5 max-w-4xl mx-auto w-full">
+    <div className="px-4 py-5 max-w-6xl mx-auto w-full">
       <StudentDashboardProfile></StudentDashboardProfile>
       <StudentDashboardSliderWindow></StudentDashboardSliderWindow>
     </div>

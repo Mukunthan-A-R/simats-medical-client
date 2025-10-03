@@ -13,7 +13,7 @@ export default function StudentProfileScreen() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 pt-4">
+      <div className="px-4 py-5 max-w-6xl mx-auto w-full">
         {/* Profile Header */}
         <PersonProfileHeader />
 

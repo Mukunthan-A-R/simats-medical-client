@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import StudentSidebar from "../../components/students/StudentSidebar";
-import { MenuIcon } from "lucide-react";
 
 export default function StudentLayout() {
   const [isSideOpen, setIsSideOpen] = useState(true);
@@ -10,7 +9,6 @@ export default function StudentLayout() {
 
   const handleNav = (path) => {
     navigate(path);
-    setIsSideOpen(false); // close sidebar after navigation
   };
 
   const handleMenuIconClick = () => {
