@@ -1,15 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import FacultySidebar from "../../components/faculty/FacultySidebar";
 
 export default function FacultyLayout() {
-  const [isSideOpen, setIsSideOpen] = useState(false);
+  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const navigate = useNavigate();
+
+  // Track window size for responsiveness
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleNav = (path) => {
     navigate(path);
-    setIsSideOpen(false); // close sidebar after navigation
+    if (isMobile) {
+      setIsSideOpen(false);
+    } else {
+      setIsSideOpen(true);
+    }
   };
 
   const handleMenuIconClick = () => {
@@ -21,18 +34,22 @@ export default function FacultyLayout() {
       {/* Top NavBar */}
       <NavBar onNavigate={() => {}} menuIconClick={handleMenuIconClick} />
 
-      {/* Sidebar */}
-      <FacultySidebar
-        isOpen={isSideOpen}
-        onClose={() => setIsSideOpen(false)}
-        onNavigate={handleNav}
-        notificationCount={3}
-      />
+      <div className="flex flex-row">
+        {/* Sidebar */}
+        {isSideOpen && (
+          <FacultySidebar
+            isOpen={isSideOpen}
+            onClose={() => setIsSideOpen(false)}
+            onNavigate={handleNav}
+            notificationCount={3}
+          />
+        )}
 
-      {/* Main Content */}
-      <div
-        style={{
-          backgroundImage: `
+        {/* Main Content */}
+        <div
+          className="flex-1"
+          style={{
+            backgroundImage: `
         repeating-linear-gradient(
           0deg,
           rgba(180, 190, 210, 0.2),
@@ -41,11 +58,12 @@ export default function FacultyLayout() {
           rgba(210, 220, 230, 0.4) 2px
         )
       `,
-          backgroundColor: "#e0e5eb",
-          boxShadow: "inset 0 0 100px rgba(180, 190, 210, 0.3)",
-        }}
-      >
-        <Outlet />
+            backgroundColor: "#e0e5eb",
+            boxShadow: "inset 0 0 100px rgba(180, 190, 210, 0.3)",
+          }}
+        >
+          <Outlet />
+        </div>
       </div>
     </div>
   );
