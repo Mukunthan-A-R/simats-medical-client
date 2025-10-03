@@ -23,7 +23,7 @@ export function NavBar({
 
   return (
     <div
-      className="px-4 py-4 flex items-center justify-between sticky top-0 z-10"
+      className="px-4 py-4 flex items-center justify-between sticky top-0 z-20"
       style={{
         backgroundImage: "linear-gradient(to bottom, #d1dbed, #b8c6df)",
         boxShadow:

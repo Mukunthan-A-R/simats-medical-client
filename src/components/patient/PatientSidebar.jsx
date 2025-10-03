@@ -24,7 +24,7 @@ export default function PatientSidebar({
     <>
       {/* Sidebar */}
       <div
-        className={`h-full w-64 z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`h-full w-64 z-10 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
