@@ -14,6 +14,8 @@ export default function PatientSidebar({
   onNavigate,
   notificationCount = 0,
 }) {
+  const patientId = "123";
+
   // Aqua button styles (from your theme)
   const aquaButtonStyle =
     "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
@@ -36,8 +38,16 @@ export default function PatientSidebar({
         {/* Menu items */}
         <div className="p-4 space-y-3">
           {[
-            { icon: HomeIcon, label: "Dashboard", path: "/patient/dashboard" },
-            { icon: UserIcon, label: "Profile", path: "/patient/profile" },
+            {
+              icon: HomeIcon,
+              label: "Dashboard",
+              path: `/patient/dashboard/${patientId}`,
+            },
+            {
+              icon: UserIcon,
+              label: "Profile",
+              path: `/patient/profile/${patientId}`,
+            },
           ].map((item) => {
             const Icon = item.icon;
             return (
@@ -71,7 +81,7 @@ export default function PatientSidebar({
 
           {/* Notifications */}
           <button
-            onClick={() => onNavigate("/patient/notifications")}
+            onClick={() => onNavigate(`/patient/notifications/${patientId}`)}
             className={`w-full p-3 flex items-center rounded-lg ${aquaButtonStyle} ${aquaGlossEffect} relative`}
             style={{
               background:

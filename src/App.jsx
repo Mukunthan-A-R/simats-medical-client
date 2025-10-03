@@ -38,8 +38,8 @@ function App() {
 
           {/* Patient route wrapped in layout*/}
           <Route path="/patient" element={<PatientLayout />}>
-            <Route path="dashboard" element={<PatientDashboard />} />
-            <Route path="profile" element={<PatientProfile />} />
+            <Route path="dashboard/:patientId" element={<PatientDashboard />} />
+            <Route path="profile/:patientId" element={<PatientProfile />} />
           </Route>
         </Routes>
       </BrowserRouter>

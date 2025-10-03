@@ -5,8 +5,12 @@ import PersonEmergencyContactInfo from "../PersonEmergencyContactInfo";
 import PersonProfileHeader from "../PersonProfileHeader";
 import PersonPersonalInformation from "../PersonPersonalInformation";
 import PatientProfileInsurance from "./PatientProfileInsurance";
+import { useParams } from "react-router-dom";
 
 export default function PatientProfile() {
+  const { patientId } = useParams();
+  console.log("patientId : " + patientId);
+
   // Aqua button style classes (passed to child components)
   const aquaButtonStyle =
     "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
