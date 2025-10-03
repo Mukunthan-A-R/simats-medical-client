@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import StudentSidebar from "../../components/students/StudentSidebar";
@@ -7,8 +7,22 @@ export default function StudentLayout() {
   const [isSideOpen, setIsSideOpen] = useState(true);
   const navigate = useNavigate();
 
+  // Track window size for responsiveness
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const handleNav = (path) => {
     navigate(path);
+    if (isMobile) {
+      setIsSideOpen(false);
+    } else {
+      setIsSideOpen(true);
+    }
   };
 
   const handleMenuIconClick = () => {
