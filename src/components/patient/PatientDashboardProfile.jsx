@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
 import PatientCollapsiblePanel from "./PatientCollapsiblePanel";
 import PatientMedicalAllergies from "./PatientMedicalAllergies";
+import PatientDashboardServices from "./PatientDashboardServices";
+import PatientDashboardNotification from "./PatientDashboardNotification";
 
 export default function PatientDashboardProfile() {
   const [activeTab, setActiveTab] = useState(null);
@@ -79,6 +81,12 @@ export default function PatientDashboardProfile() {
           ></PatientMedicalAllergies>
         </PatientCollapsiblePanel>
       </div>
+      <PatientDashboardNotification></PatientDashboardNotification>
+      <PatientDashboardServices
+        onNavigate={(path) => console.log("Navigate to:", path)}
+        showMedicationReminder={true}
+        handleMarkAsTaken={() => console.log("Marked as taken")}
+      />
     </div>
   );
 }
