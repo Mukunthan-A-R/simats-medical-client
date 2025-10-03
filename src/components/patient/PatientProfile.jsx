@@ -4,6 +4,7 @@ import PersonContactInfo from "../PersonContactInfo";
 import PersonEmergencyContactInfo from "../PersonEmergencyContactInfo";
 import PersonProfileHeader from "../PersonProfileHeader";
 import PersonPersonalInformation from "../PersonPersonalInformation";
+import PatientProfileInsurance from "./PatientProfileInsurance";
 
 export default function PatientProfile() {
   // Aqua button style classes (passed to child components)
@@ -29,6 +30,11 @@ export default function PatientProfile() {
 
         {/* Emergency Contact */}
         <PersonEmergencyContactInfo
+          aquaButtonStyle={aquaButtonStyle}
+          aquaGlossEffect={aquaGlossEffect}
+        />
+
+        <PatientProfileInsurance
           aquaButtonStyle={aquaButtonStyle}
           aquaGlossEffect={aquaGlossEffect}
         />
