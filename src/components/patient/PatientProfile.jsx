@@ -14,49 +14,47 @@ export default function PatientProfile() {
     "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 pt-4">
-        {/* Profile Header */}
-        <PersonProfileHeader />
+    <div className="px-4 py-5 max-w-6xl mx-auto w-full">
+      {/* Profile Header */}
+      <PersonProfileHeader />
 
-        {/* Personal Information */}
-        <PersonPersonalInformation />
+      {/* Personal Information */}
+      <PersonPersonalInformation />
 
-        {/* Contact Information */}
-        <PersonContactInfo
-          aquaButtonStyle={aquaButtonStyle}
-          aquaGlossEffect={aquaGlossEffect}
-        />
+      {/* Contact Information */}
+      <PersonContactInfo
+        aquaButtonStyle={aquaButtonStyle}
+        aquaGlossEffect={aquaGlossEffect}
+      />
 
-        {/* Emergency Contact */}
-        <PersonEmergencyContactInfo
-          aquaButtonStyle={aquaButtonStyle}
-          aquaGlossEffect={aquaGlossEffect}
-        />
+      {/* Emergency Contact */}
+      <PersonEmergencyContactInfo
+        aquaButtonStyle={aquaButtonStyle}
+        aquaGlossEffect={aquaGlossEffect}
+      />
 
-        <PatientProfileInsurance
-          aquaButtonStyle={aquaButtonStyle}
-          aquaGlossEffect={aquaGlossEffect}
-        />
+      <PatientProfileInsurance
+        aquaButtonStyle={aquaButtonStyle}
+        aquaGlossEffect={aquaGlossEffect}
+      />
 
-        {/* Optional global animation */}
-        <style jsx global>{`
-          @keyframes pulse {
-            0% {
-              transform: scale(1);
-            }
-            50% {
-              transform: scale(1.05);
-            }
-            100% {
-              transform: scale(1);
-            }
+      {/* Optional global animation */}
+      <style jsx global>{`
+        @keyframes pulse {
+          0% {
+            transform: scale(1);
           }
-          .animate-pulse {
-            animation: pulse 2s infinite;
+          50% {
+            transform: scale(1.05);
           }
-        `}</style>
-      </div>
+          100% {
+            transform: scale(1);
+          }
+        }
+        .animate-pulse {
+          animation: pulse 2s infinite;
+        }
+      `}</style>
     </div>
   );
 }

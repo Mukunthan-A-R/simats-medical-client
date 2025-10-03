@@ -22,17 +22,9 @@ export default function PatientSidebar({
 
   return (
     <>
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40 backdrop-blur-sm bg-white/20"
-          onClick={onClose}
-        />
-      )}
-
       {/* Sidebar */}
       <div
-        className={`fixed top-0 left-0 h-full w-64 z-50 transform transition-transform duration-300 ease-in-out ${
+        className={`h-full w-64 z-50 transform transition-transform duration-300 ease-in-out ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
@@ -41,29 +33,6 @@ export default function PatientSidebar({
           boxShadow: "2px 0 12px rgba(0,0,0,0.1)",
         }}
       >
-        {/* Header */}
-        <div
-          className="flex items-center justify-between px-6 py-4 border-b"
-          style={{
-            backgroundImage: "linear-gradient(to bottom, #d1dbed, #b8c6df)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.7)",
-          }}
-        >
-          <h2 className="text-lg font-semibold text-blue-900">Menu</h2>
-          <button
-            onClick={onClose}
-            className={`w-8 h-8 flex items-center justify-center rounded-full ${aquaButtonStyle} ${aquaGlossEffect}`}
-            style={{
-              background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
-              border: "1px solid rgba(0,0,0,0.2)",
-              boxShadow:
-                "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
-            }}
-          >
-            <XIcon className="h-5 w-5 text-blue-700" />
-          </button>
-        </div>
-
         {/* Menu items */}
         <div className="p-4 space-y-3">
           {[
