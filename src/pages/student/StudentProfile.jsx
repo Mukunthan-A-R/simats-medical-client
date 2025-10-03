@@ -1,8 +1,8 @@
 import React from "react";
-import StudentProfileHeader from "../../components/students/StudentProfileHeader";
-import StudentPersonalInformation from "../../components/students/StudentPersonalInformation";
-import StudentContactInfo from "../../components/students/StudentContactInfo";
-import StudentEmergencyContactInfo from "../../components/students/StudentEmergencyContactInfo";
+import PersonProfileHeader from "../../components/PersonProfileHeader";
+import PersonPersonalInformation from "../../components/PersonPersonalInformation";
+import PersonContactInfo from "../../components/PersonContactInfo";
+import PersonEmergencyContactInfo from "../../components/PersonEmergencyContactInfo";
 
 export default function StudentProfileScreen() {
   // Aqua button style classes (passed to child components)
@@ -15,19 +15,19 @@ export default function StudentProfileScreen() {
     <div className="flex flex-col min-h-screen">
       <div className="px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32 pt-4">
         {/* Profile Header */}
-        <StudentProfileHeader />
+        <PersonProfileHeader />
 
         {/* Personal Information */}
-        <StudentPersonalInformation />
+        <PersonPersonalInformation />
 
         {/* Contact Information */}
-        <StudentContactInfo
+        <PersonContactInfo
           aquaButtonStyle={aquaButtonStyle}
           aquaGlossEffect={aquaGlossEffect}
         />
 
         {/* Emergency Contact */}
-        <StudentEmergencyContactInfo
+        <PersonEmergencyContactInfo
           aquaButtonStyle={aquaButtonStyle}
           aquaGlossEffect={aquaGlossEffect}
         />

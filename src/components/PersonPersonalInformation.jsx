@@ -18,7 +18,7 @@ const VerifiedBadge = () => (
 );
 
 // Main component
-export default function StudentPersonalInformation({
+export default function PersonPersonalInformation({
   aadhaar = "XXXX XXXX 4567",
   abha = "12-3456-7890-1234",
   dob = "15 May 1985",
