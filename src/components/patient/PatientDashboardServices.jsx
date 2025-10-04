@@ -7,11 +7,15 @@ import {
   FileTextIcon,
   HeartPulseIcon,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function PatientDashboardServices({
   onNavigate = () => {},
   showMedicationReminder = true,
+  patientId,
 }) {
+  const navigate = useNavigate();
+
   const menuGroups = [
     {
       title: "Patient Services",
@@ -19,27 +23,28 @@ export default function PatientDashboardServices({
         {
           icon: <ClipboardListIcon size={18} />,
           title: "Health Records",
-          action: () => onNavigate("records"),
+          action: () => navigate(`/patient/health-records/${patientId}`),
           iconColor: "text-blue-500",
         },
         {
           icon: <BedIcon size={18} />,
           title: "Admission Records",
-          action: () => onNavigate("admissions"),
+          action: () => navigate(`/patient/admission-records/${patientId}`),
           highlight: true,
           iconColor: "text-blue-500",
         },
         {
           icon: <WalletIcon size={18} />,
           title: "Hospital Wallet",
-          action: () => onNavigate("hospital-wallet"),
+          action: () =>
+            navigate(`/hospital-wallet/health-records/${patientId}`),
           info: "₹350.75",
           iconColor: "text-blue-500",
         },
         {
           icon: <PillIcon size={18} />,
           title: "Pharmacy Wallet",
-          action: () => onNavigate("pharmacy-wallet"),
+          action: () => navigate(`/patient/pharmacy-wallet/${patientId}`),
           info: "₹125.50",
           iconColor: "text-blue-500",
         },

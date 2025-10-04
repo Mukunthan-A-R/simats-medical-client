@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
 import PatientCollapsiblePanel from "./PatientCollapsiblePanel";
 import PatientMedicalAllergies from "./PatientMedicalAllergies";
@@ -6,8 +6,6 @@ import PatientDashboardServices from "./PatientDashboardServices";
 import PatientDashboardNotification from "./PatientDashboardNotification";
 
 export default function PatientDashboardProfile() {
-  const [activeTab, setActiveTab] = useState(null);
-
   return (
     <div>
       {/* Student Profile Card */}
@@ -84,6 +82,7 @@ export default function PatientDashboardProfile() {
       <PatientDashboardNotification></PatientDashboardNotification>
       <PatientDashboardServices
         onNavigate={(path) => console.log("Navigate to:", path)}
+        patientId={123}
         showMedicationReminder={true}
         handleMarkAsTaken={() => console.log("Marked as taken")}
       />

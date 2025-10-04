@@ -11,6 +11,7 @@ import FacultyLayout from "./pages/layouts/FacultyLayout";
 import PatientLayout from "./pages/layouts/PatientLayout";
 import PatientDashboard from "./pages/patient/PatientDashboard";
 import PatientProfile from "./components/patient/PatientProfile";
+import PatientHealthRecords from "./pages/patient/PatientHealthRecords";
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
           <Route path="/patient" element={<PatientLayout />}>
             <Route path="dashboard/:patientId" element={<PatientDashboard />} />
             <Route path="profile/:patientId" element={<PatientProfile />} />
+            <Route
+              path="health-records/:patientId"
+              element={<PatientHealthRecords />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>
