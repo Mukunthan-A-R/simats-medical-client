@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import PatientPrescriptionDetails from "../../components/patient/PatientPrescriptionDetails";
 
 const PatientPrescription = () => {
   const navigate = useNavigate();
@@ -128,6 +129,9 @@ const PatientPrescription = () => {
 export default PatientPrescription;
 
 const PrescriptionDataComponent = () => {
+  const [prescriptionModal, setPrescriptionModal] = useState(false);
+  const [selectedPrescription, setSelectedPrescription] = useState(null);
+
   const prescriptionsData = [
     {
       id: "RX-2023-0056",
@@ -318,10 +322,10 @@ const PrescriptionDataComponent = () => {
           <div className="text-right flex flex-col items-end gap-y-1">
             <p className="font-medium">{prescription.status}</p>
             <button
-              className={`px-4 py-0.5  rounded-full text-xs text-white font-medium ${
-                prescription.status == "Active"
+              className={`px-4 py-0.5 rounded-full text-xs text-white font-medium ${
+                prescription.status.toLowerCase() === "active"
                   ? "bg-green-600"
-                  : prescription.status == "Completed"
+                  : prescription.status.toLowerCase() === "completed"
                   ? "bg-gray-500"
                   : "bg-blue-600"
               }`}
@@ -330,7 +334,6 @@ const PrescriptionDataComponent = () => {
                 boxShadow:
                   "0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)",
                 border: "1px solid rgba(0,0,0,0.2)",
-                // height: "36px",
                 display: "flex",
                 alignItems: "center",
               }}
@@ -340,6 +343,11 @@ const PrescriptionDataComponent = () => {
 
             <button
               className="h-7 flex items-center px-2 py-0 text-xs font-medium text-white rounded-md mt-1"
+              onClick={() => {
+                console.log("open");
+                setSelectedPrescription(prescription);
+                setPrescriptionModal(true);
+              }}
               style={{
                 background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
                 boxShadow:
@@ -353,6 +361,16 @@ const PrescriptionDataComponent = () => {
           </div>
         </div>
       ))}
+      {/* Modal */}
+      {prescriptionModal && selectedPrescription && (
+        <PatientPrescriptionDetails
+          prescription={selectedPrescription}
+          onClose={() => {
+            setPrescriptionModal(false);
+            setSelectedPrescription(null);
+          }}
+        />
+      )}
     </div>
   );
 };
