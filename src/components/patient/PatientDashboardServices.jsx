@@ -36,8 +36,7 @@ export default function PatientDashboardServices({
         {
           icon: <WalletIcon size={18} />,
           title: "Hospital Wallet",
-          action: () =>
-            navigate(`/hospital-wallet/health-records/${patientId}`),
+          action: () => navigate(`/patient/hospital-wallet/${patientId}`),
           info: "₹350.75",
           iconColor: "text-blue-500",
         },

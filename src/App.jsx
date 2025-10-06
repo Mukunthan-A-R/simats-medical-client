@@ -12,6 +12,7 @@ import PatientLayout from "./pages/layouts/PatientLayout";
 import PatientDashboard from "./pages/patient/PatientDashboard";
 import PatientProfile from "./components/patient/PatientProfile";
 import PatientHealthRecords from "./pages/patient/PatientHealthRecords";
+import { PatientHospitalWallet } from "./pages/patient/PatientHospitalWallet";
 
 function App() {
   return (
@@ -44,6 +45,10 @@ function App() {
             <Route
               path="health-records/:patientId"
               element={<PatientHealthRecords />}
+            />
+            <Route
+              path="hospital-wallet/:patientId"
+              element={<PatientHospitalWallet />}
             />
           </Route>
         </Routes>
