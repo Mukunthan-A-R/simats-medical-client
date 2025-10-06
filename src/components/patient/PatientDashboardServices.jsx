@@ -55,19 +55,19 @@ export default function PatientDashboardServices({
         {
           icon: <FileTextIcon size={18} />,
           title: "Investigation Reports",
-          action: () => onNavigate("reports"),
+          action: () => navigate(`/patient/reports/${patientId}`),
           iconColor: "text-blue-500",
         },
         {
           icon: <PillIcon size={18} />,
           title: "Prescriptions",
-          action: () => onNavigate("prescriptions"),
+          action: () => navigate(`/patient/prescriptions/${patientId}`),
           iconColor: "text-blue-500",
         },
         {
           icon: <HeartPulseIcon size={18} />,
           title: "Vitals",
-          action: () => onNavigate("vitals"),
+          action: () => navigate(`/patient/vitals/${patientId}`),
           iconColor: "text-blue-500",
         },
       ],

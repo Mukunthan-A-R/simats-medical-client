@@ -14,6 +14,7 @@ import PatientProfile from "./components/patient/PatientProfile";
 import PatientHealthRecords from "./pages/patient/PatientHealthRecords";
 import { PatientHospitalWallet } from "./pages/patient/PatientHospitalWallet";
 import { PatientPharmacyWallet } from "./pages/patient/PatientPharmacyWallet";
+import PatientPrescription from "./pages/patient/PatientPrescription";
 
 function App() {
   return (
@@ -54,6 +55,10 @@ function App() {
             <Route
               path="pharmacy-wallet/:patientId"
               element={<PatientPharmacyWallet />}
+            />
+            <Route
+              path="prescriptions/:patientId"
+              element={<PatientPrescription />}
             />
           </Route>
         </Routes>
