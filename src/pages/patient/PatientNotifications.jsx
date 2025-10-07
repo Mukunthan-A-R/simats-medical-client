@@ -278,6 +278,8 @@ export function NotificationsScreen({ onNavigate }) {
 
         <PatientGeneralNotification
           data={groupedNotifications.medium}
+          formatDate={formatDate}
+          getNotificationIcon={getNotificationIcon}
         ></PatientGeneralNotification>
       </div>
 
