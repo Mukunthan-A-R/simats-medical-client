@@ -150,8 +150,6 @@ export function NotificationsScreen({ onNavigate }) {
     );
   };
 
-  console.log(groupedNotifications.high);
-
   const handleViewDetails = (notification) => {
     markAsRead(notification.id);
     setSelectedNotification(notification);
@@ -232,7 +230,7 @@ export function NotificationsScreen({ onNavigate }) {
             </button>
           </div>
 
-          <div className="p-3 bg-gray-50 relative z-20">
+          <div className="p-3 bg-gray-50 relative">
             <div className="relative">
               <button
                 onClick={toggleDropdown}
@@ -272,17 +270,19 @@ export function NotificationsScreen({ onNavigate }) {
         </div>
 
         {/* Notifications List */}
-        <PatientHighPriorityNotification
-          data={groupedNotifications.high}
-          formatDate={formatDate}
-          getNotificationIcon={getNotificationIcon}
-        ></PatientHighPriorityNotification>
+        <div className="flex flex-col gap-y-5">
+          <PatientHighPriorityNotification
+            data={groupedNotifications.high}
+            formatDate={formatDate}
+            getNotificationIcon={getNotificationIcon}
+          ></PatientHighPriorityNotification>
 
-        <PatientGeneralNotification
-          data={groupedNotifications.medium}
-          formatDate={formatDate}
-          getNotificationIcon={getNotificationIcon}
-        ></PatientGeneralNotification>
+          <PatientGeneralNotification
+            data={groupedNotifications.medium}
+            formatDate={formatDate}
+            getNotificationIcon={getNotificationIcon}
+          ></PatientGeneralNotification>
+        </div>
       </div>
 
       <style jsx global>{`
