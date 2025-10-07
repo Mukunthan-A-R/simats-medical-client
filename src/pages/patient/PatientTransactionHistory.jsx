@@ -1,7 +1,133 @@
 import React from "react";
 import GeneralDataWallet from "../../components/GeneralDataWallet";
+import PharmacyDataWallet from "../../components/patient/PharmacyDataWallet";
 
 const PatientTransactionHistory = ({ selectedWallet }) => {
+  const pharmacyData = {
+    type: "Pharmacy Wallet",
+    balance: "$125.50",
+    transactions: [
+      {
+        id: "tx1",
+        date: "20 May 2023",
+        time: "14:30",
+        description: "Prescription Payment",
+        amount: "$45.00",
+        type: "debit",
+        paymentMethod: "Wallet Balance",
+        referenceNumber: "RX-2023-0542",
+        invoiceNumber: "INV-PH-23542",
+        department: "Pharmacy",
+        provider: "SMC Pharmacy Services",
+        items: [
+          {
+            description: "Amoxicillin 500mg (30 tablets)",
+            quantity: 1,
+            unitPrice: "$25.00",
+            amount: "$25.00",
+          },
+          {
+            description: "Ibuprofen 200mg (20 tablets)",
+            quantity: 1,
+            unitPrice: "$15.00",
+            amount: "$15.00",
+          },
+          {
+            description: "Prescription Processing Fee",
+            quantity: 1,
+            unitPrice: "$5.00",
+            amount: "$5.00",
+          },
+        ],
+        subtotal: "$45.00",
+        tax: "$0.00",
+        insuranceCoverage: "$0.00",
+        insuranceProvider: "N/A",
+        policyNumber: "N/A",
+        claimNumber: "N/A",
+        notes: "Prescription filled as per Dr. Miller's instructions",
+      },
+      {
+        id: "tx2",
+        date: "15 May 2023",
+        time: "10:15",
+        description: "Wallet Top-up",
+        amount: "$100.00",
+        type: "credit",
+        paymentMethod: "Credit Card",
+        referenceNumber: "DEP-2023-1287",
+        invoiceNumber: "INV-DEP-23128",
+        department: "Finance",
+        provider: "SMC Payment Services",
+        items: [
+          {
+            description: "Wallet Deposit",
+            quantity: 1,
+            unitPrice: "$100.00",
+            amount: "$100.00",
+          },
+        ],
+        subtotal: "$100.00",
+        tax: "$0.00",
+        notes: "Monthly deposit to pharmacy wallet",
+      },
+      {
+        id: "tx3",
+        date: "10 May 2023",
+        time: "16:45",
+        description: "Medication Purchase",
+        amount: "$29.50",
+        type: "debit",
+        paymentMethod: "Wallet Balance",
+        referenceNumber: "PUR-2023-0367",
+        invoiceNumber: "INV-PH-23367",
+        department: "Pharmacy",
+        provider: "SMC Pharmacy Services",
+        items: [
+          {
+            description: "Acetaminophen 500mg (50 tablets)",
+            quantity: 1,
+            unitPrice: "$12.50",
+            amount: "$12.50",
+          },
+          {
+            description: "Allergy Relief Tablets (30 tablets)",
+            quantity: 1,
+            unitPrice: "$17.00",
+            amount: "$17.00",
+          },
+        ],
+        subtotal: "$29.50",
+        tax: "$0.00",
+        notes: "Over-the-counter medication purchase",
+      },
+      {
+        id: "tx4",
+        date: "5 May 2023",
+        time: "09:00",
+        description: "Free Credit Bonus",
+        amount: "$25.00",
+        type: "credit",
+        paymentMethod: "System",
+        referenceNumber: "BON-2023-0128",
+        invoiceNumber: "INV-BON-23128",
+        department: "Customer Relations",
+        provider: "SMC Loyalty Program",
+        items: [
+          {
+            description: "Loyalty Program Credit",
+            quantity: 1,
+            unitPrice: "$25.00",
+            amount: "$25.00",
+          },
+        ],
+        subtotal: "$25.00",
+        tax: "$0.00",
+        notes: "Loyalty program bonus credit for being a member for 1 year",
+      },
+    ],
+  };
+
   const generalData = {
     type: "General Wallet",
     balance: "$350.75",
@@ -134,7 +260,11 @@ const PatientTransactionHistory = ({ selectedWallet }) => {
         <h2 className="font-medium text-gray-800">Transaction History</h2>
         <p className="text-xs text-gray-500 mt-1">{selectedWallet}</p>
         <p className="text-xs text-gray-500 mt-1">{generalData.type}</p>
-        <GeneralDataWallet GeneralDataWallet={generalData.transactions} />
+        {selectedWallet == "general" ? (
+          <GeneralDataWallet GeneralDataWallet={generalData.transactions} />
+        ) : (
+          <PharmacyDataWallet PharmacyDataWallet={pharmacyData.transactions} />
+        )}
       </div>
     </div>
   );
