@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PatientHighPriorityNotification from "../../components/patient/PatientHighPriorityNotification";
+import PatientGeneralNotification from "../../components/patient/PatientGeneralNotification";
 
 // Mock data for notifications
 const notificationsData = [
@@ -271,10 +272,13 @@ export function NotificationsScreen({ onNavigate }) {
         </div>
 
         {/* Notifications List */}
-        {/* ... The rest of the code continues as in your TSX version (unchanged) ... */}
         <PatientHighPriorityNotification
           data={groupedNotifications.high}
         ></PatientHighPriorityNotification>
+
+        <PatientGeneralNotification
+          data={groupedNotifications.medium}
+        ></PatientGeneralNotification>
       </div>
 
       <style jsx global>{`
