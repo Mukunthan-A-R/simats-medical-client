@@ -2,6 +2,7 @@ import { ChevronLeftIcon, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PatientWalletsSwitch from "../../components/patient/PatientWalletsSwitch";
+import PatientTransactionHistory from "../patient/PatientTransactionHistory";
 
 const PatientWallet = () => {
   const navigate = useNavigate();
@@ -9,7 +10,6 @@ const PatientWallet = () => {
 
   const handleWalletChange = (walletType) => {
     setSelectedWallet(walletType);
-    console.log(walletType);
   };
 
   return (
@@ -33,6 +33,9 @@ const PatientWallet = () => {
       <div className="text-blue-700 font-medium flex flex-row gap-2 items-center justify-center py-2 border border-blue-100 hover:bg-blue-50 shadow-sm rounded-xl bg-white">
         <Plus size={18} /> Add Funds
       </div>
+      <PatientTransactionHistory
+        selectedWallet={selectedWallet}
+      ></PatientTransactionHistory>
     </div>
   );
 };
