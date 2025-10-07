@@ -8,32 +8,13 @@ import {
 } from "lucide-react";
 import React from "react";
 
-const PatientHighPriorityNotification = ({ data: groupedNotifications }) => {
+const PatientHighPriorityNotification = ({
+  data: groupedNotifications,
+  formatDate,
+  getNotificationIcon,
+}) => {
   const getNotificationBgColor = (notification) =>
     !notification.isRead ? "bg-blue-50 hover:bg-blue-100" : "hover:bg-gray-50";
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  const getNotificationIcon = (type) => {
-    switch (type) {
-      case "appointment":
-        return <CalendarIcon size={16} className="text-blue-600" />;
-      case "follow-up":
-        return <ClockIcon size={16} className="text-purple-600" />;
-      case "medication":
-        return <PillIcon size={16} className="text-green-600" />;
-      default:
-        return <BellIcon size={16} className="text-gray-600" />;
-    }
-  };
 
   return (
     <div>

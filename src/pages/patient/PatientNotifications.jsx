@@ -274,6 +274,8 @@ export function NotificationsScreen({ onNavigate }) {
         {/* Notifications List */}
         <PatientHighPriorityNotification
           data={groupedNotifications.high}
+          formatDate={formatDate}
+          getNotificationIcon={getNotificationIcon}
         ></PatientHighPriorityNotification>
 
         <PatientGeneralNotification
