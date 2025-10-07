@@ -5,7 +5,7 @@ import {
   UserIcon,
   BellIcon,
   LogOutIcon,
-  XIcon,
+  Wallet,
 } from "lucide-react";
 
 export default function PatientSidebar({
@@ -47,6 +47,11 @@ export default function PatientSidebar({
               icon: UserIcon,
               label: "Profile",
               path: `/patient/profile/${patientId}`,
+            },
+            {
+              icon: Wallet,
+              label: "Wallet",
+              path: `/patient/wallet/${patientId}`,
             },
           ].map((item) => {
             const Icon = item.icon;
