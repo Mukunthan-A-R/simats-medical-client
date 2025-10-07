@@ -1,10 +1,16 @@
 import { ChevronLeftIcon, Plus } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PatientWalletsSwitch from "../../components/patient/PatientWalletsSwitch";
 
 const PatientWallet = () => {
   const navigate = useNavigate();
+  const [selectedWallet, setSelectedWallet] = useState("general");
+
+  const handleWalletChange = (walletType) => {
+    setSelectedWallet(walletType);
+    console.log(walletType);
+  };
 
   return (
     <div className="p-4">
@@ -21,12 +27,11 @@ const PatientWallet = () => {
         >
           <ChevronLeftIcon size={18} className="text-blue-700" />
         </button>
-        <h2 className="text-xl text-blue-900 font-medium">Notifications</h2>
+        <h2 className="text-xl text-blue-900 font-medium">My Wallets</h2>
       </div>
-      <PatientWalletsSwitch></PatientWalletsSwitch>
+      <PatientWalletsSwitch onWalletChange={handleWalletChange} />
       <div className="text-blue-700 font-medium flex flex-row gap-2 items-center justify-center py-2 border border-blue-100 hover:bg-blue-50 shadow-sm rounded-xl bg-white">
-        {" "}
-        <Plus /> Add Funds
+        <Plus size={18} /> Add Funds
       </div>
     </div>
   );

@@ -1,8 +1,16 @@
 import { WalletIcon } from "lucide-react";
 import React, { useState } from "react";
 
-const PatientWalletsSwitch = () => {
+const PatientWalletsSwitch = ({ onWalletChange }) => {
   const [activeWallet, setActiveWallet] = useState("general");
+
+  const handleClick = (walletType) => {
+    setActiveWallet(walletType);
+    // Notify the parent
+    if (onWalletChange) {
+      onWalletChange(walletType);
+    }
+  };
 
   return (
     <div>
@@ -14,7 +22,7 @@ const PatientWalletsSwitch = () => {
               ? "bg-blue-600 text-white"
               : "bg-white text-gray-800"
           }`}
-          onClick={() => setActiveWallet("pharmacy")}
+          onClick={() => handleClick("pharmacy")}
         >
           <div className="flex items-center justify-between mb-2">
             <WalletIcon size={18} />
@@ -29,13 +37,14 @@ const PatientWalletsSwitch = () => {
           </p>
           <p className="text-xl font-semibold mt-1">250</p>
         </div>
+
         <div
           className={`p-4 rounded-xl shadow-sm cursor-pointer ${
             activeWallet === "general"
               ? "bg-blue-600 text-white"
               : "bg-white text-gray-800"
           }`}
-          onClick={() => setActiveWallet("general")}
+          onClick={() => handleClick("general")}
         >
           <div className="flex items-center justify-between mb-2">
             <WalletIcon size={18} />
