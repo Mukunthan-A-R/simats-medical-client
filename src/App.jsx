@@ -16,6 +16,7 @@ import { PatientHospitalWallet } from "./pages/patient/PatientHospitalWallet";
 import { PatientPharmacyWallet } from "./pages/patient/PatientPharmacyWallet";
 import PatientPrescription from "./pages/patient/PatientPrescription";
 import PatientVitals from "./pages/patient/PatientVitals";
+import PatientNotifications from "./pages/patient/PatientNotifications";
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
           <Route path="/patient" element={<PatientLayout />}>
             <Route path="dashboard/:patientId" element={<PatientDashboard />} />
             <Route path="profile/:patientId" element={<PatientProfile />} />
+            <Route
+              path="notifications/:patientId"
+              element={<PatientNotifications />}
+            />
             <Route
               path="health-records/:patientId"
               element={<PatientHealthRecords />}
