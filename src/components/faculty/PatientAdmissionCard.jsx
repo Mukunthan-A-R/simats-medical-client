@@ -2,14 +2,23 @@ import {
   AlertTriangleIcon,
   CheckIcon,
   HeartPulseIcon,
+  XCircleIcon,
   XIcon,
 } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 const PatientAdmissionCard = ({ patient }) => {
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
   const aquaButtonStyle =
     "rounded-full text-sm font-medium transition-all duration-200 active:scale-95";
   const aquaGlossEffect = "shadow-sm active:shadow-none";
+  const iconButtonStyle =
+    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 active:scale-95";
+
+  const handleReject = () => {
+    setShowFeedbackModal(!showFeedbackModal);
+  };
 
   return (
     <div className="p-4 bg-white rounded-2xl my-4">
@@ -122,6 +131,97 @@ const PatientAdmissionCard = ({ patient }) => {
           Admit
         </button>
       </div>
+
+      {/* Rejection Feedback Modal */}
+      {showFeedbackModal && (
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn">
+          <div
+            className="rounded-xl max-w-md w-full overflow-hidden animate-scaleIn"
+            style={{
+              background:
+                "linear-gradient(145deg, rgba(255,255,255,0.95), rgba(250,253,255,0.9))",
+              border: "1px solid rgba(220,230,240,0.8)",
+              boxShadow:
+                "0 10px 25px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+            }}
+          >
+            <div
+              className="px-5 py-4 border-b border-gray-200 flex justify-between items-center"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgba(250,253,255,0.9), rgba(240,249,255,0.8))",
+              }}
+            >
+              <h3 className="text-lg font-medium text-gray-900 flex items-center">
+                <XCircleIcon size={20} className="text-red-600 mr-2" />
+                Rejection Feedback
+              </h3>
+              <button
+                onClick={() => {
+                  setShowFeedbackModal(false);
+                }}
+                className={`${iconButtonStyle} w-8 h-8`}
+                style={{
+                  background:
+                    "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,249,255,0.8))",
+                  border: "1px solid rgba(220,230,240,0.8)",
+                  boxShadow:
+                    "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
+                }}
+              >
+                <XIcon size={16} className="text-gray-500" />
+              </button>
+            </div>
+            <div className="p-5">
+              <p className="text-sm text-gray-600 mb-4">
+                Please provide feedback on why you are rejecting this admission
+                request.
+              </p>
+              <textarea
+                className="w-full px-4 py-3 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                rows={4}
+                placeholder="Enter your feedback here..."
+                // value={feedbackText}
+                // onChange={(e) => setFeedbackText(e.target.value)}
+                style={{
+                  background: "rgba(255,255,255,0.8)",
+                  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                }}
+              ></textarea>
+              <div className="mt-5 flex justify-end space-x-3">
+                <button
+                  className={`px-4 py-2 rounded-full ${aquaButtonStyle}`}
+                  style={{
+                    background: "linear-gradient(to bottom, #f9fafb, #f3f4f6)",
+                    boxShadow:
+                      "0 1px 2px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8)",
+                    border: "1px solid rgba(0,0,0,0.1)",
+                  }}
+                  onClick={() => {
+                    setShowFeedbackModal(false);
+                    setFeedbackText("");
+                    setCurrentItem(null);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-full text-white ${aquaButtonStyle}`}
+                  style={{
+                    background: "linear-gradient(to bottom, #ff3b30, #ff453a)",
+                    boxShadow:
+                      "0 2px 4px rgba(220,38,38,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
+                    border: "1px solid rgba(0,0,0,0.1)",
+                  }}
+                  //   onClick={submitRejection}
+                >
+                  Submit Rejection
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
