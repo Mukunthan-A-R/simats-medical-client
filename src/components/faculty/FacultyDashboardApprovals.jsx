@@ -6,8 +6,11 @@ import {
   PillIcon,
   FileTextIcon,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-const FaculrtDashboardApprovals = () => {
+const FacultyDashboardApprovals = () => {
+  const navigate = useNavigate();
+
   return (
     <div>
       <h2 className="text-lg font-medium mb-4">Approvals</h2>
@@ -34,11 +37,13 @@ const FaculrtDashboardApprovals = () => {
           as={PillIcon}
           caseRecords={1}
           title={"Prescription Approvals"}
-          onNavigate={(route) => console.log("Navigate to:", route)}
+          onNavigate={(route) =>
+            navigate("/faculty/prescription-approvals/123")
+          }
         ></ApprovalDashboardButton>
       </div>
     </div>
   );
 };
 
-export default FaculrtDashboardApprovals;
+export default FacultyDashboardApprovals;

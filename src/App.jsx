@@ -18,6 +18,7 @@ import PatientPrescription from "./pages/patient/PatientPrescription";
 import PatientVitals from "./pages/patient/PatientVitals";
 import PatientNotifications from "./pages/patient/PatientNotifications";
 import PatientWallet from "./pages/student/PatientWallet";
+import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApprovals";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
           {/* Teachers route wrapped in layout*/}
           <Route path="/faculty" element={<FacultyLayout />}>
             <Route path="dashboard/:facultyId" element={<FacultyDashboard />} />
+            <Route
+              path="prescription-approvals/:facultyId"
+              element={<FacultyPrescriptionApprovals />}
+            />
           </Route>
 
           {/* Patient route wrapped in layout*/}
