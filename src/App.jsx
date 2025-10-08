@@ -19,6 +19,7 @@ import PatientVitals from "./pages/patient/PatientVitals";
 import PatientNotifications from "./pages/patient/PatientNotifications";
 import PatientWallet from "./pages/student/PatientWallet";
 import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApprovals";
+import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
 
 function App() {
   return (
@@ -45,6 +46,10 @@ function App() {
             <Route
               path="prescription-approvals/:facultyId"
               element={<FacultyPrescriptionApprovals />}
+            />
+            <Route
+              path="admission-approvals/:facultyId"
+              element={<FacultyAdmissionApprovals />}
             />
           </Route>
 
