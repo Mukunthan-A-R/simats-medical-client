@@ -31,7 +31,7 @@ const FacultyDashboardApprovals = () => {
           as={BedIcon}
           caseRecords={4}
           title={"Admission Approvals"}
-          onNavigate={() => navigate("/faculty/prescription-approvals/123")}
+          onNavigate={() => navigate("/faculty/admission-approvals/123")}
         ></ApprovalDashboardButton>
         <ApprovalDashboardButton
           as={PillIcon}
