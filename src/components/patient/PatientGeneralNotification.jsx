@@ -6,10 +6,10 @@ import {
   PillIcon,
 } from "lucide-react";
 import React from "react";
+import { formatDate } from "../../utils/constants";
 
 const PatientGeneralNotification = ({
   data: groupedNotifications,
-  formatDate,
   getNotificationIcon,
 }) => {
   const getNotificationBgColor = (notification) =>

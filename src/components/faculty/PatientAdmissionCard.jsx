@@ -6,6 +6,7 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { useState } from "react";
+import { formatDate } from "../../utils/constants";
 
 const PatientAdmissionCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
@@ -227,12 +228,3 @@ const PatientAdmissionCard = ({ patient }) => {
 };
 
 export default PatientAdmissionCard;
-
-const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-};

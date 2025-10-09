@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 import {
   aquaButtonStyle,
   aquaGlossEffect,
-  iconButtonStyle,
   formatDate,
 } from "../../utils/constants";
 import FacultyPrescriptionRejectionPopup from "../../components/faculty/FacultyPrescriptionRejectionPopup";
