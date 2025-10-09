@@ -1,5 +1,6 @@
 import React from "react";
 import { PencilIcon } from "lucide-react";
+import { aquaButtonStyle, aquaGlossEffect } from "../utils/constants";
 
 // pulled-out style objects for readability
 const headerContainerStyle = {
@@ -38,8 +39,6 @@ export default function StudentProfileHeader({
   studentId = "SMC-2023-0042",
   imgSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ4kHDPwdUsng85LawKD6dQ78XErUyhu3PDu1XLAryK7jrw2mulwXmUwG3GSVr8z7RiK0&usqp=CAU",
   onEditClick,
-  aquaButtonStyle = "",
-  aquaGlossEffect = "",
 }) {
   return (
     <div

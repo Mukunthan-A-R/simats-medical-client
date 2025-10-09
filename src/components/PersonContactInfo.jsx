@@ -1,14 +1,9 @@
 import React from "react";
 import { PhoneIcon, MailIcon, MapPinIcon } from "lucide-react";
+import { aquaButtonStyle, aquaGlossEffect } from "../utils/constants";
 
 // Single contact row
-const ContactItem = ({
-  icon: Icon,
-  value,
-  label,
-  aquaButtonStyle,
-  aquaGlossEffect,
-}) => {
+const ContactItem = ({ icon: Icon, value, label }) => {
   return (
     <div
       className="flex items-start p-3 rounded-lg"

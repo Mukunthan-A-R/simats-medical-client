@@ -3,7 +3,6 @@ import PersonProfileHeader from "../../components/PersonProfileHeader";
 import PersonPersonalInformation from "../../components/PersonPersonalInformation";
 import PersonContactInfo from "../../components/PersonContactInfo";
 import PersonEmergencyContactInfo from "../../components/PersonEmergencyContactInfo";
-import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 export default function StudentProfileScreen() {
   return (
@@ -16,16 +15,10 @@ export default function StudentProfileScreen() {
         <PersonPersonalInformation />
 
         {/* Contact Information */}
-        <PersonContactInfo
-          aquaButtonStyle={aquaButtonStyle}
-          aquaGlossEffect={aquaGlossEffect}
-        />
+        <PersonContactInfo />
 
         {/* Emergency Contact */}
-        <PersonEmergencyContactInfo
-          aquaButtonStyle={aquaButtonStyle}
-          aquaGlossEffect={aquaGlossEffect}
-        />
+        <PersonEmergencyContactInfo />
 
         {/* Optional global animation */}
         <style jsx global>{`

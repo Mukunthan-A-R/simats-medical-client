@@ -1,5 +1,6 @@
 import { ChevronRightIcon, ClipboardListIcon } from "lucide-react";
 import React from "react";
+import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 const ApprovalDashboardButton = ({
   as: Tag = "ClipboardListIcon",
@@ -7,12 +8,6 @@ const ApprovalDashboardButton = ({
   title,
   onNavigate,
 }) => {
-  // Aqua button style classes
-  const aquaButtonStyle =
-    "relative overflow-hidden text-white font-medium transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
   return (
     <div
       className="overflow-hidden cursor-pointer mt-3"

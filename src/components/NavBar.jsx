@@ -5,6 +5,7 @@ import {
   HeartPulseIcon,
   MenuIcon,
 } from "lucide-react";
+import { aquaButtonStyle, aquaGlossEffect } from "../utils/constants";
 
 export function NavBar({
   onNavigate,
@@ -15,11 +16,6 @@ export function NavBar({
   const navigateToNotifications = () => {
     if (onNavigate) onNavigate("notifications");
   };
-
-  const aquaButtonStyle =
-    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
 
   return (
     <div
