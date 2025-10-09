@@ -21,6 +21,7 @@ import PatientWallet from "./pages/student/PatientWallet";
 import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApprovals";
 import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
 import UnderConstruction from "./components/UnderConstruction";
+import FacultyProfile from "./pages/faculty/FacultyProfile";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           {/* Teachers route wrapped in layout*/}
           <Route path="/faculty" element={<FacultyLayout />}>
             <Route path="dashboard/:facultyId" element={<FacultyDashboard />} />
+            <Route path="profile/:facultyId" element={<FacultyProfile />} />
             <Route
               path="prescription-approvals/:facultyId"
               element={<FacultyPrescriptionApprovals />}
