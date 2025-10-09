@@ -5,7 +5,7 @@ import PersonContactInfo from "../../components/PersonContactInfo";
 import PersonEmergencyContactInfo from "../../components/PersonEmergencyContactInfo";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
-export default function StudentProfileScreen() {
+const FacultyProfile = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="px-4 py-5 max-w-6xl mx-auto w-full">
@@ -47,4 +47,6 @@ export default function StudentProfileScreen() {
       </div>
     </div>
   );
-}
+};
+
+export default FacultyProfile;
