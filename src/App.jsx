@@ -76,6 +76,10 @@ function App() {
               path="health-records/:patientId"
               element={<PatientHealthRecords />}
             />
+            <Route
+              path="admission-records/:patientId"
+              element={<UnderConstruction />}
+            />
             <Route path="wallet/:patientId" element={<PatientWallet />} />
             <Route
               path="hospital-wallet/:patientId"
