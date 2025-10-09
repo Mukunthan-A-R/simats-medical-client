@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function StudentProfileCard({ onNavigate }) {
   const [activeTab, setActiveTab] = useState(null);
+  const navigate = useNavigate();
 
   return (
     <div>
       {/* Student Profile Card */}
       <div
         className="overflow-hidden mb-6 cursor-pointer transform transition-transform duration-200 hover:scale-[1.01]"
-        onClick={() => onNavigate("student-profile")}
         style={{
           backgroundColor: "white",
           borderRadius: "12px",
@@ -65,6 +66,7 @@ export default function StudentProfileCard({ onNavigate }) {
 
         {/* Academic Status */}
         <div
+          onClick={() => navigate("/student/academics/123")}
           className="px-6 py-4 border-t"
           style={{
             backgroundColor: "rgba(0,100,255,0.05)",

@@ -22,6 +22,7 @@ import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApp
 import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
 import UnderConstruction from "./components/UnderConstruction";
 import FacultyProfile from "./pages/faculty/FacultyProfile";
+import StudentAcademicsSection from "./components/students/StudentAcademicsSection";
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
           <Route path="/student" element={<StudentLayout />}>
             <Route path="dashboard/:studentId" element={<StudentDashboard />} />
             <Route path="profile/:studentId" element={<StudentProfile />} />
+            <Route
+              path="academics/:studentId"
+              element={<StudentAcademicsSection />}
+            />
             <Route
               path="notifications/:studentId"
               element={<StudentNotificationsScreen />}
