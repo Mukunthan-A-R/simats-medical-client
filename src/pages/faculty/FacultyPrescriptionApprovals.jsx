@@ -165,6 +165,10 @@ const FacultyPrescriptionApprovals = () => {
         <h1 className="text-xl font-semibold text-blue-900">
           Admission Approvals
         </h1>
+
+        <div className="ml-3 px-2 py-1 bg-purple-100 rounded-full text-xs font-medium text-purple-800 flex items-center">
+          {currentPrescriptions.length} pending
+        </div>
       </div>
 
       <div className="space-y-4">
