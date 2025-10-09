@@ -1,35 +1,7 @@
 import { BadgeCheckIcon, CalendarIcon, GraduationCapIcon } from "lucide-react";
 import React from "react";
 
-const StudentAcademicsHeader = () => {
-  const studentData = {
-    id: "SMS-2023-1234",
-    name: "Sarah Smith",
-    year: 3,
-    semester: 6,
-    program: "Bachelor of Medicine and Bachelor of Surgery (MBBS)",
-    photo:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    academicStanding: "Good Standing",
-    gpa: 3.8,
-    academicAdvisor: "Dr. James Wilson",
-    disciplinaryActions: [
-      {
-        id: "disc-001",
-        date: "2022-09-15",
-        type: "Warning",
-        reason: "Late submission of clinical reports",
-        status: "Resolved",
-        actionTaken: "Verbal warning issued by department head",
-        resolution:
-          "Student completed all pending reports and acknowledged the warning",
-      },
-    ],
-    attendance: {
-      overall: 92,
-    },
-  };
-
+const StudentAcademicsHeader = ({ studentData }) => {
   return (
     <div className="bg-white rounded-xl shadow-lg">
       <div className="flex items-center p-4 ">
