@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ChevronLeftIcon,
   CalendarDaysIcon,
@@ -8,6 +8,7 @@ import {
   UserRoundIcon,
   XIcon,
   CheckIcon,
+  XCircleIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -16,10 +17,24 @@ import {
   iconButtonStyle,
   formatDate,
 } from "../../utils/constants";
+import FacultyPrescriptionRejectionPopup from "../../components/faculty/FacultyPrescriptionRejectionPopup";
 
 const FacultyPrescriptionApprovals = () => {
   const navigate = useNavigate();
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [currentItem, setCurrentItem] = useState(null);
 
+  // Faculty handle functions
+  const handleApprove = (item) => {
+    alert(`Approved prescription for ${item.patientName}`);
+  };
+
+  const handleReject = (item) => {
+    setCurrentItem(item);
+    setShowFeedbackModal(true);
+  };
+
+  // Sample Data
   const pendingPrescriptions = [
     {
       id: "rx-001",
@@ -381,6 +396,16 @@ const FacultyPrescriptionApprovals = () => {
           </div>
         ))}
       </div>
+
+      {/* Rejection Feedback Modal */}
+      {showFeedbackModal && (
+        <FacultyPrescriptionRejectionPopup
+          handleCancel={() => {
+            setShowFeedbackModal(false);
+            setCurrentItem(null);
+          }}
+        />
+      )}
     </div>
   );
 };
