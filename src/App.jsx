@@ -47,12 +47,20 @@ function App() {
             <Route path="dashboard/:facultyId" element={<FacultyDashboard />} />
             <Route path="profile/:facultyId" element={<FacultyProfile />} />
             <Route
-              path="prescription-approvals/:facultyId"
-              element={<FacultyPrescriptionApprovals />}
+              path="case-record-approvals/:facultyId"
+              element={<UnderConstruction />}
+            />
+            <Route
+              path="discharge-summary-approvals/:facultyId"
+              element={<UnderConstruction />}
             />
             <Route
               path="admission-approvals/:facultyId"
               element={<FacultyAdmissionApprovals />}
+            />
+            <Route
+              path="prescription-approvals/:facultyId"
+              element={<FacultyPrescriptionApprovals />}
             />
           </Route>
 

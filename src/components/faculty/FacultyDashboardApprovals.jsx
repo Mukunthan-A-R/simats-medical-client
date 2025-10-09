@@ -19,13 +19,15 @@ const FacultyDashboardApprovals = () => {
           as={ClipboardListIcon}
           caseRecords={8}
           title="Case Records Approvals"
-          onNavigate={(route) => console.log("Navigate to:", route)}
+          onNavigate={() => navigate("/faculty/case-record-approvals/123")}
         />
         <ApprovalDashboardButton
           as={FileTextIcon}
           caseRecords={10}
           title={"Discharge Summaries Approvals"}
-          onNavigate={(route) => console.log("Navigate to:", route)}
+          onNavigate={() =>
+            navigate("/faculty/discharge-summary-approvals/123")
+          }
         ></ApprovalDashboardButton>
         <ApprovalDashboardButton
           as={BedIcon}
