@@ -21,7 +21,7 @@ export default function FacultySidebar({
     <>
       {/* Sidebar */}
       <div
-        className={`h-100vh w-64 z-10 transform transition-transform duration-300 ease-in-out ${
+        className={`h-full w-64 z-10 transform transition-transform duration-300 ease-in-out${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
         style={{
@@ -69,7 +69,9 @@ export default function FacultySidebar({
                 >
                   <Icon size={16} className="text-white" />
                 </div>
-                <span className="text-gray-800 font-medium">{item.label}</span>
+                <span className="text-gray-800 font-medium text-base">
+                  {item.label}
+                </span>
               </button>
             );
           })}
@@ -97,7 +99,9 @@ export default function FacultySidebar({
             >
               <BellIcon size={16} className="text-white" />
             </div>
-            <span className="text-gray-800 font-medium">Notifications</span>
+            <span className="text-gray-800 font-medium text-base">
+              Notifications
+            </span>
             {notificationCount > 0 && (
               <span className="absolute top-1 right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {notificationCount > 9 ? "9+" : notificationCount}
@@ -128,7 +132,7 @@ export default function FacultySidebar({
             >
               <LogOutIcon size={16} className="text-white" />
             </div>
-            <span className="text-gray-800 font-medium">Logout</span>
+            <span className="text-gray-800 font-medium text-base">Logout</span>
           </button>
         </div>
       </div>
