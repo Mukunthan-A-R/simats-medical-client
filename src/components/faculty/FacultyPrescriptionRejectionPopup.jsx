@@ -23,10 +23,7 @@ const FacultyPrescriptionRejectionPopup = ({ handleCancel }) => {
             Rejection Feedback
           </h3>
           <button
-            // onClick={() => {
-            //   setShowFeedbackModal(false);
-            //   setCurrentItem(null);
-            // }}
+            onClick={handleCancel}
             className="text-gray-400 hover:text-gray-500"
             style={{
               background: "linear-gradient(to bottom, #f8f9fb, #e2e8f0)",
