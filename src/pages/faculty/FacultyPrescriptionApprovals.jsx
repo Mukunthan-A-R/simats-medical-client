@@ -1,7 +1,388 @@
 import React from "react";
+import {
+  ChevronLeftIcon,
+  CalendarDaysIcon,
+  AlertTriangleIcon,
+  HeartPulseIcon,
+  PillIcon,
+  UserRoundIcon,
+  XIcon,
+  CheckIcon,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import {
+  aquaButtonStyle,
+  aquaGlossEffect,
+  iconButtonStyle,
+  formatDate,
+} from "../../utils/constants";
 
 const FacultyPrescriptionApprovals = () => {
-  return <div>FacultyPrescriptionApprovals</div>;
+  const navigate = useNavigate();
+
+  const pendingPrescriptions = [
+    {
+      id: "rx-001",
+      patientId: "SMC-2023-0042",
+      patientName: "John Doe",
+      patientAge: 45,
+      patientGender: "Male",
+      patientBloodGroup: "O+",
+      patientPhoto:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      providerName: "Dr. Sarah Johnson",
+      providerId: "DOC-2021-0023",
+      date: "2023-09-15",
+      diagnosis: "Hypertension, Type 2 Diabetes",
+      medicalAlerts: ["Penicillin Allergy", "Asthma"],
+      prescriptionDetails: [
+        {
+          medication: "Metformin",
+          dosage: "500mg",
+          frequency: "1-0-1",
+          beforeFood: true,
+          duration: "30 days",
+          totalCount: "60 tablets",
+        },
+        {
+          medication: "Amlodipine",
+          dosage: "5mg",
+          frequency: "0-0-1",
+          beforeFood: false,
+          duration: "30 days",
+          totalCount: "30 tablets",
+        },
+      ],
+      requestorPhoto:
+        "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    },
+    {
+      id: "rx-002",
+      patientId: "SMC-2023-0039",
+      patientName: "Maria Garcia",
+      patientAge: 62,
+      patientGender: "Female",
+      patientBloodGroup: "B+",
+      patientPhoto:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      providerName: "Dr. Emily Rodriguez",
+      providerId: "DOC-2020-0018",
+      date: "2023-09-18",
+      diagnosis: "Osteoarthritis, Hypertension",
+      medicalAlerts: [],
+      prescriptionDetails: [
+        {
+          medication: "Acetaminophen",
+          dosage: "500mg",
+          frequency: "1-1-1",
+          beforeFood: false,
+          duration: "15 days",
+          totalCount: "45 tablets",
+        },
+        {
+          medication: "Losartan",
+          dosage: "50mg",
+          frequency: "1-0-0",
+          beforeFood: true,
+          duration: "30 days",
+          totalCount: "30 tablets",
+        },
+      ],
+      requestorPhoto:
+        "https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    },
+    {
+      id: "rx-003",
+      patientId: "SMC-2023-0051",
+      patientName: "Robert Chen",
+      patientAge: 34,
+      patientGender: "Male",
+      patientBloodGroup: "A-",
+      patientPhoto:
+        "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      providerName: "Dr. Michael Chang",
+      providerId: "DOC-2022-0031",
+      date: "2023-09-20",
+      diagnosis: "Acute Bronchitis",
+      medicalAlerts: ["Sulfa Allergy"],
+      prescriptionDetails: [
+        {
+          medication: "Azithromycin",
+          dosage: "250mg",
+          frequency: "1-0-0",
+          beforeFood: false,
+          duration: "5 days",
+          totalCount: "5 tablets",
+        },
+        {
+          medication: "Dextromethorphan",
+          dosage: "15mg",
+          frequency: "1-1-1",
+          beforeFood: false,
+          duration: "7 days",
+          totalCount: "21 tablets",
+        },
+      ],
+      requestorPhoto:
+        "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+    },
+  ];
+
+  const currentPrescriptions = pendingPrescriptions.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
+  return (
+    <div className="p-4">
+      <div className="mb-4 flex items-center">
+        <button
+          className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
+          onClick={() => navigate(-1)}
+          style={{
+            background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
+            border: "1px solid rgba(0,0,0,0.2)",
+            boxShadow:
+              "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
+          }}
+        >
+          <ChevronLeftIcon size={18} className="text-blue-700" />
+        </button>
+        <h1 className="text-xl font-semibold text-blue-900">
+          Admission Approvals
+        </h1>
+      </div>
+
+      <div className="space-y-4">
+        {currentPrescriptions.map((item) => (
+          <div
+            key={item.id}
+            className="rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md"
+            style={{
+              background: "linear-gradient(to bottom, #ffffff, #f8fafc)",
+              border: "1px solid rgba(0,0,0,0.1)",
+              boxShadow:
+                "0 1px 3px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8)",
+            }}
+          >
+            {/* Card Header */}
+            <div
+              className="p-4 flex items-center justify-between transition-colors"
+              style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}
+            >
+              <div className="flex items-center">
+                <div className="flex-shrink-0">
+                  <img
+                    src={item.patientPhoto}
+                    alt={item.patientName}
+                    className="h-12 w-12 rounded-full object-cover border-2 border-white"
+                    style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}
+                  />
+                </div>
+                <div className="ml-4">
+                  <h3 className="text-lg font-medium text-gray-900">
+                    {item.patientName}
+                    <span className="ml-2 text-sm text-gray-500">
+                      ({item.patientId})
+                    </span>
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    ({item.patientAge}y, {item.patientGender},{" "}
+                    {item.patientBloodGroup})
+                  </p>
+                  <div className="flex items-center text-xs text-gray-500 mt-1">
+                    <span className="flex items-center">
+                      <CalendarDaysIcon
+                        size={12}
+                        className="mr-1 text-gray-400"
+                      />
+                      {formatDate(item.date)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Card Content */}
+            <div
+              className="p-4"
+              style={{ background: "rgba(249, 250, 251, 0.5)" }}
+            >
+              {/* Medical Alerts */}
+              {item.medicalAlerts && item.medicalAlerts.length > 0 && (
+                <div className="mb-4">
+                  <div
+                    className="p-3 rounded-lg flex items-start"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, #fee2e2, #fecaca)",
+                      border: "1px solid rgba(220,38,38,0.2)",
+                      boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6)",
+                    }}
+                  >
+                    <AlertTriangleIcon
+                      size={18}
+                      className="text-red-600 mr-2 mt-0.5 flex-shrink-0"
+                    />
+                    <p className="text-sm font-medium text-red-700">
+                      {item.medicalAlerts.join(", ")}
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Diagnosis */}
+              <div className="mb-4">
+                <div
+                  className="p-3 rounded-lg flex items-start"
+                  style={{
+                    background: "linear-gradient(to bottom, #dbeafe, #bfdbfe)",
+                    border: "1px solid rgba(59,130,246,0.2)",
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6)",
+                  }}
+                >
+                  <HeartPulseIcon
+                    size={18}
+                    className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
+                  />
+                  <p className="text-sm font-medium text-blue-700">
+                    {item.diagnosis}
+                  </p>
+                </div>
+              </div>
+
+              {/* Prescription Details Table */}
+              <div className="mb-6">
+                <h4 className="text-sm font-medium text-gray-700 mb-3 pb-1 border-b border-gray-200 flex items-center">
+                  <PillIcon size={16} className="mr-2 text-purple-600" />
+                  Prescription Details
+                </h4>
+
+                <div
+                  className="overflow-x-auto rounded-lg"
+                  style={{
+                    border: "1px solid rgba(0,0,0,0.1)",
+                    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                  }}
+                >
+                  <table className="min-w-full divide-y divide-gray-200">
+                    <thead
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, #f9fafb, #f3f4f6)",
+                      }}
+                    >
+                      <tr>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Drug Name & Dose
+                        </th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Frequency
+                        </th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Duration
+                        </th>
+                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                      {item.prescriptionDetails.map((med, index) => (
+                        <tr
+                          key={index}
+                          className={
+                            index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                          }
+                        >
+                          <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {med.medication} {med.dosage}
+                          </td>
+                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
+                            <div className="flex flex-col items-start">
+                              <span
+                                className="px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800"
+                                style={{
+                                  boxShadow:
+                                    "inset 0 1px 0 rgba(255,255,255,0.6)",
+                                }}
+                              >
+                                {med.frequency}
+                              </span>
+                              <span className="text-xs text-gray-500 mt-1">
+                                {med.beforeFood ? "Before food" : "After food"}
+                              </span>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
+                            {med.duration}
+                          </td>
+                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
+                            {med.totalCount}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Prescriber Information */}
+              <div className="mb-6">
+                <h4 className="text-sm font-medium text-gray-700 mb-3 pb-1 border-b border-gray-200 flex items-center">
+                  <UserRoundIcon size={16} className="mr-2 text-purple-600" />
+                  Prescriber Information
+                </h4>
+                <div className="flex items-center">
+                  <img
+                    src={item.requestorPhoto}
+                    alt={item.providerName}
+                    className="h-10 w-10 rounded-full object-cover border border-white"
+                    style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}
+                  />
+                  <div className="ml-3">
+                    <p className="text-sm font-medium">{item.providerName}</p>
+                    <p className="text-xs text-gray-600">
+                      ID: {item.providerId}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex justify-end space-x-3 mt-4">
+                <button
+                  className={`px-4 py-2 rounded-full text-white ${aquaButtonStyle} ${aquaGlossEffect}`}
+                  style={{
+                    background: "linear-gradient(to bottom, #ff3b30, #dc2626)",
+                    boxShadow:
+                      "0 1px 3px rgba(220,38,38,0.3), inset 0 1px 0 rgba(255,255,255,0.2)",
+                    border: "1px solid rgba(0,0,0,0.1)",
+                  }}
+                  onClick={() => handleReject(item)}
+                >
+                  <XIcon size={16} className="inline-block mr-1" />
+                  Reject
+                </button>
+                <button
+                  className={`px-4 py-2 rounded-full text-white ${aquaButtonStyle} ${aquaGlossEffect}`}
+                  style={{
+                    background: "linear-gradient(to bottom, #34c759, #10b981)",
+                    boxShadow:
+                      "0 1px 3px rgba(16,185,129,0.3), inset 0 1px 0 rgba(255,255,255,0.2)",
+                    border: "1px solid rgba(0,0,0,0.1)",
+                  }}
+                  onClick={() => handleApprove(item)}
+                >
+                  <CheckIcon size={16} className="inline-block mr-1" />
+                  Approve
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default FacultyPrescriptionApprovals;
