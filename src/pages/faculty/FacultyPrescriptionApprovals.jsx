@@ -44,7 +44,7 @@ const FacultyPrescriptionApprovals = () => {
       patientGender: "Male",
       patientBloodGroup: "O+",
       patientPhoto:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://i.pinimg.com/736x/1f/0c/1a/1f0c1a9fb33390d704dee42567adf987.jpg",
       providerName: "Dr. Sarah Johnson",
       providerId: "DOC-2021-0023",
       date: "2023-09-15",
@@ -69,7 +69,7 @@ const FacultyPrescriptionApprovals = () => {
         },
       ],
       requestorPhoto:
-        "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://i.pinimg.com/originals/67/bc/f1/67bcf160c0643d61b6d9da16e564d96b.jpg",
     },
     {
       id: "rx-002",
@@ -79,7 +79,7 @@ const FacultyPrescriptionApprovals = () => {
       patientGender: "Female",
       patientBloodGroup: "B+",
       patientPhoto:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://i.pinimg.com/474x/6f/ef/d0/6fefd0b9e21b0e590505ef454340d2eb.jpg",
       providerName: "Dr. Emily Rodriguez",
       providerId: "DOC-2020-0018",
       date: "2023-09-18",
@@ -104,7 +104,7 @@ const FacultyPrescriptionApprovals = () => {
         },
       ],
       requestorPhoto:
-        "https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://static.beebom.com/wp-content/uploads/2024/05/Gyomei.jpg?w=1024&quality=75",
     },
     {
       id: "rx-003",
@@ -114,7 +114,7 @@ const FacultyPrescriptionApprovals = () => {
       patientGender: "Male",
       patientBloodGroup: "A-",
       patientPhoto:
-        "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://i.ytimg.com/vi/edMGb6HnlJs/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBFWQvlhcuPB-BD9ejvBjCL0QBmBg",
       providerName: "Dr. Michael Chang",
       providerId: "DOC-2022-0031",
       date: "2023-09-20",
@@ -139,7 +139,7 @@ const FacultyPrescriptionApprovals = () => {
         },
       ],
       requestorPhoto:
-        "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://poggers.com/cdn/shop/articles/08ff6c8d1f0719c65f752fdb2d2f45d4_1818x1023_crop_center.webp?v=1708120934",
     },
   ];
 
