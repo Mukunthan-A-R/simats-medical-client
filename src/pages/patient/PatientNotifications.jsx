@@ -181,16 +181,6 @@ export function NotificationsScreen({ onNavigate }) {
   const getNotificationBgColor = (notification) =>
     !notification.isRead ? "bg-blue-50 hover:bg-blue-100" : "hover:bg-gray-50";
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   const handleFilterSelect = (filterId) => {
     setActiveFilter(filterId);
@@ -273,13 +263,11 @@ export function NotificationsScreen({ onNavigate }) {
         <div className="flex flex-col gap-y-5">
           <PatientHighPriorityNotification
             data={groupedNotifications.high}
-            formatDate={formatDate}
             getNotificationIcon={getNotificationIcon}
           ></PatientHighPriorityNotification>
 
           <PatientGeneralNotification
             data={groupedNotifications.medium}
-            formatDate={formatDate}
             getNotificationIcon={getNotificationIcon}
           ></PatientGeneralNotification>
         </div>
