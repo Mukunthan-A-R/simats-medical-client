@@ -3,6 +3,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import StudentAcademicsHeader from "./StudentAcademicsHeader";
 import StudentAcademicStanding from "./StudentAcademicStanding";
+import StudentDisciplinaryActions from "./StudentDisciplinaryActions";
+import StudentEmergencyContactDetails from "./StudentEmergencyContactDetails";
 
 const StudentAcademicsSection = () => {
   const navigate = useNavigate();
@@ -83,6 +85,8 @@ const StudentAcademicsSection = () => {
       <div className="flex flex-col gap-y-4">
         <StudentAcademicsHeader studentData={studentData} />
         <StudentAcademicStanding studentData={studentData} />
+        <StudentDisciplinaryActions studentData={studentData} />
+        <StudentEmergencyContactDetails studentData={studentData} />
       </div>
     </div>
   );

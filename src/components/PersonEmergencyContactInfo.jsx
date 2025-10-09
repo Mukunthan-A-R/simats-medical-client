@@ -10,7 +10,7 @@ export default function StudentEmergencyContactInfo({
 }) {
   return (
     <div
-      className="rounded-xl overflow-hidden shadow-md mb-6"
+      className="rounded-xl overflow-hidden shadow-md"
       style={{
         backgroundColor: "white",
         boxShadow: "0 2px 6px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.2)",

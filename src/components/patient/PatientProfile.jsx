@@ -11,12 +11,6 @@ export default function PatientProfile() {
   const { patientId } = useParams();
   console.log("patientId : " + patientId);
 
-  // Aqua button style classes (passed to child components)
-  const aquaButtonStyle =
-    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
   return (
     <div className="px-4 py-5 max-w-6xl mx-auto w-full">
       {/* Profile Header */}
@@ -26,21 +20,12 @@ export default function PatientProfile() {
       <PersonPersonalInformation />
 
       {/* Contact Information */}
-      <PersonContactInfo
-        aquaButtonStyle={aquaButtonStyle}
-        aquaGlossEffect={aquaGlossEffect}
-      />
+      <PersonContactInfo />
 
       {/* Emergency Contact */}
-      <PersonEmergencyContactInfo
-        aquaButtonStyle={aquaButtonStyle}
-        aquaGlossEffect={aquaGlossEffect}
-      />
+      <PersonEmergencyContactInfo />
 
-      <PatientProfileInsurance
-        aquaButtonStyle={aquaButtonStyle}
-        aquaGlossEffect={aquaGlossEffect}
-      />
+      <PatientProfileInsurance />
 
       {/* Optional global animation */}
       <style jsx global>{`
