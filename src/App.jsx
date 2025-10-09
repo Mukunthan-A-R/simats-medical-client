@@ -20,6 +20,7 @@ import PatientNotifications from "./pages/patient/PatientNotifications";
 import PatientWallet from "./pages/student/PatientWallet";
 import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApprovals";
 import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
+import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
             />
             <Route path="vitals/:patientId" element={<PatientVitals />} />
           </Route>
+          <Route path="*" element={<UnderConstruction />} />
         </Routes>
       </BrowserRouter>
     </>
