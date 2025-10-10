@@ -5,13 +5,7 @@ const PatientDiagnosisComplaints = ({ selectedDischargeSummary }) => {
     <>
       {/* Clinical Information */}
       {selectedDischargeSummary.dischargeSummary && (
-        <div
-          className="bg-white p-5 rounded-lg mb-6 relative overflow-hidden"
-          style={{
-            border: "1px solid rgba(0,0,0,0.15)",
-            boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-          }}
-        >
+        <div className="bg-white p-5 rounded-lg mb-6">
           {/* Diagnosis and Complaints */}
           <div className="bg-white p-5 rounded-lg border border-gray-200 mb-6">
             <h4 className="font-medium text-gray-800 mb-3 pb-2 border-b border-gray-200">

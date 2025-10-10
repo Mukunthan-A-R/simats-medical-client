@@ -6,7 +6,7 @@ const PatientDiagnosisFooter = ({ selectedDischargeSummary }) => {
     <>
       {selectedDischargeSummary.dischargeSummary &&
         selectedDischargeSummary.dischargeSummary.signatures && (
-          <div className="bg-white p-5 rounded-lg border border-gray-200 mb-6">
+          <div className="mx-5 bg-white p-5 rounded-lg border border-gray-200 mb-6">
             <h4 className="font-medium text-gray-800 mb-3 pb-2 border-b border-gray-200">
               Signatures
             </h4>
