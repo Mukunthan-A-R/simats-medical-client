@@ -9,6 +9,10 @@ const PatientDischargeSummary = ({
   closeDischargeSummary,
   admission: selectedDischargeSummary,
 }) => {
+  const handlePrintSummary = () => {
+    window.print();
+  };
+
   return (
     <div className="p-6 fixed inset-0 bg-black/30 bg-opacity-10 flex items-center justify-center z-50 print:p-0 print:static print:bg-white print:bg-opacity-100">
       <div
@@ -57,7 +61,7 @@ const PatientDischargeSummary = ({
           </div>
           <div className="flex space-x-2">
             <button
-              //   onClick={handlePrintSummary}
+              onClick={handlePrintSummary}
               className={iconButtonStyle}
               style={{
                 background: "linear-gradient(to bottom, #f8f9fb, #d9e1ea)",
