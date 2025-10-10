@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   aquaButtonStyle,
   aquaGlossEffect,
@@ -11,8 +11,11 @@ import {
   HospitalIcon,
   UserIcon,
 } from "lucide-react";
+import PatientDischargeSummary from "./PatientDischargeSummary";
 
 const PatientAdmissionHistoryDetails = ({ admission }) => {
+  const [showDischargeSummary, setShowDischargeSummary] = useState(false);
+
   return (
     <div
       className="p-5 border-t border-gray-100 animate-slideDown"
@@ -156,6 +159,7 @@ const PatientAdmissionHistoryDetails = ({ admission }) => {
               }}
               onClick={(e) => {
                 console.log("ronaldo");
+                setShowDischargeSummary(!showDischargeSummary);
 
                 //   e.stopPropagation();
                 //   viewDischargeSummary(admission);
@@ -167,6 +171,14 @@ const PatientAdmissionHistoryDetails = ({ admission }) => {
           </div>
         )}
       </div>
+      {showDischargeSummary && (
+        <PatientDischargeSummary
+          admission={admission}
+          closeDischargeSummary={() =>
+            setShowDischargeSummary(!showDischargeSummary)
+          }
+        />
+      )}
     </div>
   );
 };
