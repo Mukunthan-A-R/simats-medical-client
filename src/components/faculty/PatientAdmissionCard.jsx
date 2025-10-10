@@ -10,213 +10,123 @@ import { formatDate } from "../../utils/constants";
 
 const PatientAdmissionCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [feedbackText, setFeedbackText] = useState("");
 
-  const aquaButtonStyle =
-    "rounded-full text-sm font-medium transition-all duration-200 active:scale-95";
-  const aquaGlossEffect = "shadow-sm active:shadow-none";
-  const iconButtonStyle =
-    "w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 active:scale-95";
-
-  const handleReject = () => {
-    setShowFeedbackModal(!showFeedbackModal);
+  const handleReject = () => setShowFeedbackModal(true);
+  const handleCloseModal = () => {
+    setShowFeedbackModal(false);
+    setFeedbackText("");
   };
 
   return (
-    <div className="p-4 bg-white rounded-2xl my-4">
-      {/* Patient Image and Name side by side */}
-      <div className="flex items-center mb-4">
+    <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 sm:p-4 flex flex-col gap-2 my-2">
+      {/* Header Section */}
+      <div className="flex items-center gap-3">
         <img
           src={patient.patientPhoto}
           alt={patient.patientName}
-          className="h-16 w-16 rounded-full object-cover border-2 border-white mr-4 flex-shrink-0"
-          style={{
-            boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-          }}
+          className="h-10 w-10 rounded-full object-cover border border-gray-300"
         />
-        <div>
-          <h3 className="text-lg font-medium text-gray-900">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-sm font-semibold text-gray-900 truncate">
             {patient.patientName}
           </h3>
-          <p className="text-sm text-gray-500">{patient.patientId}</p>
+          <p className="text-xs text-gray-500 truncate">{patient.patientId}</p>
         </div>
+        <span className="text-xs text-gray-400">
+          {formatDate(patient.requestDate)}
+        </span>
       </div>
-      {/* Department, Requester, Date */}
-      <div className="flex justify-between items-center mb-4 px-1">
-        <div className="text-center flex-1">
-          <span className="block text-xs text-gray-500 mb-1">Department</span>
-          <span className="block text-sm font-medium text-gray-800">
+
+      {/* Key Info Row */}
+      <div className="grid grid-cols-3 text-xs sm:text-sm mt-1">
+        <div className="truncate">
+          <p className="text-gray-500">Dept</p>
+          <p className="font-medium text-gray-800 truncate">
             {patient.department}
-          </span>
-        </div>
-        <div className="text-center flex-1">
-          <span className="block text-xs text-gray-500 mb-1">Requested by</span>
-          <span className="block text-sm font-medium text-gray-800">
-            {patient.requestedBy}
-          </span>
-        </div>
-        <div className="text-center flex-1">
-          <span className="block text-xs text-gray-500 mb-1">Date</span>
-          <span className="block text-sm font-medium text-gray-800">
-            {formatDate(patient.requestDate)}
-          </span>
-        </div>
-      </div>
-      {/* Primary Diagnosis */}
-      <div className="w-full mb-3">
-        <div
-          className="w-full px-3 py-2 rounded-lg"
-          style={{
-            background:
-              "linear-gradient(145deg, rgba(240,249,255,0.6), rgba(220,240,250,0.4))",
-            border: "1px solid rgba(200,220,240,0.5)",
-            boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6)",
-          }}
-        >
-          <span className="text-xs text-blue-600 font-medium flex items-center">
-            <HeartPulseIcon size={12} className="mr-1.5" />
-            Reason for Admission
-          </span>
-          <p className="text-sm font-medium text-gray-800 mt-0.5">
-            {patient.reason}
           </p>
         </div>
-      </div>
-      {/* Medical Alerts */}
-      {patient.alerts && patient.alerts.length > 0 && (
-        <div className="w-full mb-4">
-          <div
-            className="w-full px-3 py-2 rounded-lg"
-            style={{
-              background:
-                "linear-gradient(145deg, rgba(255,240,240,0.7), rgba(255,220,220,0.5))",
-              border: "1px solid rgba(240,200,200,0.6)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.6)",
-            }}
-          >
-            <span className="text-xs text-red-600 font-medium flex items-center">
-              <AlertTriangleIcon size={12} className="mr-1.5" />
-              Medical Alerts
-            </span>
-            <p className="text-sm font-medium text-red-700 mt-0.5">
-              {patient.alerts.join(", ")}
-            </p>
-          </div>
+        <div className="truncate">
+          <p className="text-gray-500">Requested By</p>
+          <p className="font-medium text-gray-800 truncate">
+            {patient.requestedBy}
+          </p>
         </div>
-      )}
-      {/* Action Buttons */}
-      <div className="flex justify-end space-x-4 mt-4">
+        <div className="truncate">
+          <p className="text-gray-500">Status</p>
+          <p className="font-medium text-blue-600">Pending</p>
+        </div>
+      </div>
+
+      {/* Reason & Alerts Combined */}
+      <div className="rounded-md border border-gray-100 bg-gray-50/50 p-2 text-xs leading-snug">
+        <p className="flex items-center text-blue-600 font-medium mb-1">
+          <HeartPulseIcon size={11} className="mr-1" /> {patient.reason}
+        </p>
+
+        {patient.alerts?.length > 0 && (
+          <p className="flex items-center text-red-600 font-medium">
+            <AlertTriangleIcon size={11} className="mr-1" />{" "}
+            {patient.alerts.join(", ")}
+          </p>
+        )}
+      </div>
+
+      {/* Actions */}
+      <div className="flex justify-end gap-2 mt-1">
         <button
-          className={`px-5 py-2 rounded-full text-white ${aquaButtonStyle} ${aquaGlossEffect}`}
-          style={{
-            background: "linear-gradient(to bottom, #ff3b30, #ff453a)",
-            boxShadow:
-              "0 2px 4px rgba(220,38,38,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
-            border: "1px solid rgba(0,0,0,0.1)",
-          }}
-          onClick={() => handleReject(patient)}
+          onClick={handleReject}
+          className="flex items-center gap-1 px-3 py-1 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 active:scale-95 transition-all shadow-sm"
         >
-          <XIcon size={16} className="inline-block mr-1.5" />
-          Reject
+          <XIcon size={12} /> Reject
         </button>
         <button
-          className={`px-5 py-2 rounded-full text-white ${aquaButtonStyle} ${aquaGlossEffect}`}
-          style={{
-            background: "linear-gradient(to bottom, #34c759, #30d158)",
-            boxShadow:
-              "0 2px 4px rgba(16,185,129,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
-            border: "1px solid rgba(0,0,0,0.1)",
-          }}
-          onClick={() => handleApprove(patient)}
+          onClick={() => alert("Admitted")}
+          className="flex items-center gap-1 px-3 py-1 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
         >
-          <CheckIcon size={16} className="inline-block mr-1.5" />
-          Admit
+          <CheckIcon size={12} /> Admit
         </button>
       </div>
 
-      {/* Rejection Feedback Modal */}
+      {/* Feedback Modal */}
       {showFeedbackModal && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fadeIn">
-          <div
-            className="rounded-xl max-w-md w-full overflow-hidden animate-scaleIn"
-            style={{
-              background:
-                "linear-gradient(145deg, rgba(255,255,255,0.95), rgba(250,253,255,0.9))",
-              border: "1px solid rgba(220,230,240,0.8)",
-              boxShadow:
-                "0 10px 25px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
-            }}
-          >
-            <div
-              className="px-5 py-4 border-b border-gray-200 flex justify-between items-center"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgba(250,253,255,0.9), rgba(240,249,255,0.8))",
-              }}
-            >
-              <h3 className="text-lg font-medium text-gray-900 flex items-center">
-                <XCircleIcon size={20} className="text-red-600 mr-2" />
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-sm">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100">
+              <h3 className="text-sm font-semibold text-gray-800 flex items-center">
+                <XCircleIcon size={14} className="text-red-600 mr-2" />
                 Rejection Feedback
               </h3>
               <button
-                onClick={() => {
-                  setShowFeedbackModal(false);
-                }}
-                className={`${iconButtonStyle} w-8 h-8`}
-                style={{
-                  background:
-                    "linear-gradient(145deg, rgba(255,255,255,0.9), rgba(240,249,255,0.8))",
-                  border: "1px solid rgba(220,230,240,0.8)",
-                  boxShadow:
-                    "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6)",
-                }}
+                onClick={handleCloseModal}
+                className="p-1 rounded-full hover:bg-gray-100"
               >
-                <XIcon size={16} className="text-gray-500" />
+                <XIcon size={14} className="text-gray-500" />
               </button>
             </div>
-            <div className="p-5">
-              <p className="text-sm text-gray-600 mb-4">
-                Please provide feedback on why you are rejecting this admission
-                request.
-              </p>
+            <div className="p-3">
               <textarea
-                className="w-full px-4 py-3 border border-gray-200 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
-                rows={4}
-                placeholder="Enter your feedback here..."
-                // value={feedbackText}
-                // onChange={(e) => setFeedbackText(e.target.value)}
-                style={{
-                  background: "rgba(255,255,255,0.8)",
-                  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
-                }}
-              ></textarea>
-              <div className="mt-5 flex justify-end space-x-3">
+                className="w-full border border-gray-200 rounded-md p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+                rows={3}
+                placeholder="Enter feedback..."
+                value={feedbackText}
+                onChange={(e) => setFeedbackText(e.target.value)}
+              />
+              <div className="flex justify-end gap-2 mt-3">
                 <button
-                  className={`px-4 py-2 rounded-full ${aquaButtonStyle}`}
-                  style={{
-                    background: "linear-gradient(to bottom, #f9fafb, #f3f4f6)",
-                    boxShadow:
-                      "0 1px 2px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8)",
-                    border: "1px solid rgba(0,0,0,0.1)",
-                  }}
-                  onClick={() => {
-                    setShowFeedbackModal(false);
-                    setFeedbackText("");
-                    setCurrentItem(null);
-                  }}
+                  onClick={handleCloseModal}
+                  className="px-3 py-1.5 rounded-full text-xs bg-gray-100 hover:bg-gray-200"
                 >
                   Cancel
                 </button>
                 <button
-                  className={`px-4 py-2 rounded-full text-white ${aquaButtonStyle}`}
-                  style={{
-                    background: "linear-gradient(to bottom, #ff3b30, #ff453a)",
-                    boxShadow:
-                      "0 2px 4px rgba(220,38,38,0.3), inset 0 1px 0 rgba(255,255,255,0.25)",
-                    border: "1px solid rgba(0,0,0,0.1)",
+                  onClick={() => {
+                    alert("Rejected with feedback!");
+                    handleCloseModal();
                   }}
-                  //   onClick={submitRejection}
+                  className="px-3 py-1.5 rounded-full text-xs text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
                 >
-                  Submit Rejection
+                  Submit
                 </button>
               </div>
             </div>

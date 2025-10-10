@@ -23,6 +23,7 @@ import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals
 import UnderConstruction from "./components/UnderConstruction";
 import FacultyProfile from "./pages/faculty/FacultyProfile";
 import StudentAcademicsSection from "./components/students/StudentAcademicsSection";
+import PatientAdmissionRecords from "./pages/patient/PatientAdmissionRecords";
 
 function App() {
   return (
@@ -83,7 +84,7 @@ function App() {
             />
             <Route
               path="admission-records/:patientId"
-              element={<UnderConstruction />}
+              element={<PatientAdmissionRecords />}
             />
             <Route path="wallet/:patientId" element={<PatientWallet />} />
             <Route
