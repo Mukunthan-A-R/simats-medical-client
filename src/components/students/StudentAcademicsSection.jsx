@@ -17,7 +17,7 @@ const StudentAcademicsSection = () => {
     semester: 6,
     program: "Bachelor of Medicine and Bachelor of Surgery (MBBS)",
     photo:
-      "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyq0k3fnDCyC_lSp06WK-TgtHT3DuZlMrue-bDnfpFd08qVhiK1AmRZRH37JGcx9RrRYY&usqp=CAU",
     academicStanding: "Good Standing",
     gpa: 3.8,
     academicAdvisor: "Dr. James Wilson",
