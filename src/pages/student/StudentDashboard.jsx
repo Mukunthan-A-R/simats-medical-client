@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import StudentDashboardProfile from "../../components/students/StudentDashboardProfile";
 import StudentDashboardSliderWindow from "../../components/students/StudentDashboardSliderWindow";
 import { useParams } from "react-router-dom";
+import StudentScoreTab from "../../components/students/StudentScoreTab";
 
 const StudentDashboard = () => {
   const { studentId } = useParams();
   console.log("studentId :" + studentId);
+  const [scoresTab, setScoresTab] = useState(false);
 
   return (
     <div className="px-4 py-5 max-w-6xl mx-auto w-full">
-      <StudentDashboardProfile></StudentDashboardProfile>
-      <StudentDashboardSliderWindow></StudentDashboardSliderWindow>
+      <StudentDashboardProfile
+        setScoresTab={() => setScoresTab(!scoresTab)}
+      ></StudentDashboardProfile>
+      {!scoresTab ? (
+        <StudentDashboardSliderWindow></StudentDashboardSliderWindow>
+      ) : (
+        <StudentScoreTab></StudentScoreTab>
+      )}
     </div>
   );
 };

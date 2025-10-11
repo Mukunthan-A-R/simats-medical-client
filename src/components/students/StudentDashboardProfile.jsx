@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-export default function StudentProfileCard({ onNavigate }) {
-  const [activeTab, setActiveTab] = useState(null);
+export default function StudentProfileCard({ setScoresTab }) {
   const navigate = useNavigate();
 
   return (
@@ -95,7 +94,7 @@ export default function StudentProfileCard({ onNavigate }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                setActiveTab("scores");
+                setScoresTab();
               }}
               className="flex items-center text-sm text-blue-600 font-medium hover:text-blue-800"
             >
