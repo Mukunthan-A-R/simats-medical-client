@@ -1,5 +1,6 @@
 import { AwardIcon } from "lucide-react";
 import React from "react";
+import StudentTabScoreCategories from "./StudentTabScoreCategories";
 
 const StudentScoreTab = () => {
   // Mock data for student scores and progress
@@ -72,7 +73,7 @@ const StudentScoreTab = () => {
         </div>
 
         {/* Scores */}
-        <div className="p-4">
+        <div className="p-4 sm:px-10">
           <div className="flex justify-between mb-2">
             <p className="text-sm font-medium text-gray-700">
               Overall Progress
@@ -118,6 +119,7 @@ const StudentScoreTab = () => {
             cases remaining
           </p>
         </div>
+        <StudentTabScoreCategories></StudentTabScoreCategories>
       </div>
     </div>
   );
