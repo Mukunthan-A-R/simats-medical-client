@@ -1,5 +1,6 @@
 import { ChevronDownIcon } from "lucide-react";
 import React, { useState } from "react";
+import StudentCategoryTabData from "./StudentCategoryTabData";
 
 const StudentCategoryTab = ({ name }) => {
   const category = { percentage: 87 };
@@ -36,7 +37,11 @@ const StudentCategoryTab = ({ name }) => {
           }}
         ></div>
       </div>
-      {toggleCategory && <p>hi nigga</p>}
+      {toggleCategory && (
+        <>
+          <StudentCategoryTabData category={name} />
+        </>
+      )}
     </div>
   );
 };
