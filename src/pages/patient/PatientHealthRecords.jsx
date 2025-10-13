@@ -35,7 +35,7 @@ const PatientHealthRecords = () => {
       <PatientInfoCard></PatientInfoCard>
       <PatientMedicalRecords></PatientMedicalRecords>
 
-      <UnderConstruction />
+      {/* <UnderConstruction /> */}
     </div>
   );
 };
