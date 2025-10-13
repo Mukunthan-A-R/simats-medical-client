@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
+import PatientMedicalRecordsList from "./PatientMedicalRecordsList";
 
 const PatientMedicalRecords = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -7,6 +8,95 @@ const PatientMedicalRecords = () => {
   const [filterDepartment, setFilterDepartment] = useState("All");
 
   const departments = ["All", "cardiology", "dermatology", "radiology"];
+
+  const sampleMedicalRecords = [
+    {
+      id: "MR-2025-001",
+      date: "2025-10-01",
+      time: "09:00 AM",
+      type: "Consultation",
+      description: "Routine checkup for blood pressure and vitals.",
+      performedBy: "Dr. Sarah Johnson",
+      supervisedBy: "Dr. Robert Chen",
+      department: "General Medicine",
+      status: "Completed",
+      iconType: "stethoscope",
+      images: [],
+    },
+    {
+      id: "MR-2025-002",
+      date: "2025-10-03",
+      time: "11:30 AM",
+      type: "Laboratory",
+      description: "Complete Blood Count (CBC) test.",
+      performedBy: "Lab Tech Michael Wong",
+      supervisedBy: "Dr. Emily Rodriguez",
+      department: "Pathology",
+      status: "Results Available",
+      iconType: "test-tube",
+      images: [
+        {
+          title: "Blood Smear",
+          description: "Peripheral blood smear under 100x magnification.",
+          url: "https://via.placeholder.com/100",
+          type: "image",
+        },
+      ],
+    },
+    {
+      id: "MR-2025-003",
+      date: "2025-10-05",
+      time: "02:15 PM",
+      type: "Procedure",
+      description: "Electrocardiogram (ECG) recording.",
+      performedBy: "Nurse Lisa Chen",
+      supervisedBy: "Dr. James Wilson",
+      department: "Cardiology",
+      status: "Completed",
+      iconType: "heart-pulse",
+      images: [
+        {
+          title: "ECG Lead II",
+          description: "Normal sinus rhythm observed.",
+          url: "https://via.placeholder.com/100",
+          type: "image",
+        },
+      ],
+    },
+    {
+      id: "MR-2025-004",
+      date: "2025-10-07",
+      time: "10:00 AM",
+      type: "Medication",
+      description: "Prescription for Amoxicillin 500mg for sinus infection.",
+      performedBy: "Dr. Mark Thompson",
+      supervisedBy: "Dr. Mark Thompson",
+      department: "Internal Medicine",
+      status: "Active",
+      iconType: "pill",
+      images: [],
+    },
+    {
+      id: "MR-2025-005",
+      date: "2025-10-09",
+      time: "03:45 PM",
+      type: "Laboratory",
+      description: "Lipid profile test.",
+      performedBy: "Lab Tech Jennifer Lee",
+      supervisedBy: "Dr. Emily Rodriguez",
+      department: "Pathology",
+      status: "Results Available",
+      iconType: "test-tube",
+      images: [
+        {
+          title: "Cholesterol Chart",
+          description: "Graphical representation of patient's lipid profile.",
+          url: "https://via.placeholder.com/100",
+          type: "image",
+        },
+      ],
+    },
+  ];
 
   // ✅ Reusable shared styles
   const selectClasses =
@@ -75,6 +165,9 @@ const PatientMedicalRecords = () => {
           </div>
         </div>
       </div>
+      <PatientMedicalRecordsList
+        records={sampleMedicalRecords}
+      ></PatientMedicalRecordsList>
     </div>
   );
 };
