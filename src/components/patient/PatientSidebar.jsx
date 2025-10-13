@@ -74,7 +74,9 @@ export default function PatientSidebar({
                 >
                   <Icon size={16} className="text-white" />
                 </div>
-                <span className="text-gray-800 font-medium">{item.label}</span>
+                <span className="text-gray-800 font-medium text-base">
+                  {item.label}
+                </span>
               </button>
             );
           })}
@@ -102,7 +104,9 @@ export default function PatientSidebar({
             >
               <BellIcon size={16} className="text-white" />
             </div>
-            <span className="text-gray-800 font-medium">Notifications</span>
+            <span className="text-gray-800 font-medium text-base">
+              Notifications
+            </span>
             {notificationCount > 0 && (
               <span className="absolute top-1 right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {notificationCount > 9 ? "9+" : notificationCount}
@@ -133,7 +137,7 @@ export default function PatientSidebar({
             >
               <LogOutIcon size={16} className="text-white" />
             </div>
-            <span className="text-gray-800 font-medium">Logout</span>
+            <span className="text-gray-800 font-medium text-base">Logout</span>
           </button>
         </div>
       </div>

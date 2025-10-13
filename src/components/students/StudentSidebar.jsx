@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  HomeIcon,
-  BookOpenIcon,
-  UserIcon,
-  BellIcon,
-  LogOutIcon,
-  XIcon,
-} from "lucide-react";
+import { HomeIcon, UserIcon, BellIcon, LogOutIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 export default function StudentSidebar({
@@ -69,7 +62,10 @@ export default function StudentSidebar({
                 >
                   <Icon size={16} className="text-white" />
                 </div>
-                <span className="text-gray-800 font-medium">{item.label}</span>
+                {/* 👇 Increased font size to text-base */}
+                <span className="text-gray-800 font-medium text-base">
+                  {item.label}
+                </span>
               </button>
             );
           })}
@@ -97,7 +93,10 @@ export default function StudentSidebar({
             >
               <BellIcon size={16} className="text-white" />
             </div>
-            <span className="text-gray-800 font-medium">Notifications</span>
+            {/* 👇 Increased font size */}
+            <span className="text-gray-800 font-medium text-base">
+              Notifications
+            </span>
             {notificationCount > 0 && (
               <span className="absolute top-1 right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
                 {notificationCount > 9 ? "9+" : notificationCount}
@@ -128,7 +127,8 @@ export default function StudentSidebar({
             >
               <LogOutIcon size={16} className="text-white" />
             </div>
-            <span className="text-gray-800 font-medium">Logout</span>
+            {/* 👇 Increased font size */}
+            <span className="text-gray-800 font-medium text-base">Logout</span>
           </button>
         </div>
       </div>
