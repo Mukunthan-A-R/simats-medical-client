@@ -148,33 +148,36 @@ const FacultyPrescriptionApprovals = () => {
 
   return (
     <div className="p-4">
-      <div className="mb-4 flex items-center">
-        <button
-          className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
-          onClick={() => navigate(-1)}
-          style={{
-            background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
-            border: "1px solid rgba(0,0,0,0.2)",
-            boxShadow:
-              "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
-          }}
-        >
-          <ChevronLeftIcon size={18} className="text-blue-700" />
-        </button>
-        <h1 className="text-xl font-semibold text-blue-900">
-          Admission Approvals
-        </h1>
-
-        <div className="ml-3 px-2 py-1 bg-purple-100 rounded-full text-xs font-medium text-purple-800 flex items-center">
-          {currentPrescriptions.length} pending
+      {/* Header */}
+      <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-2 sm:space-y-0">
+        <div className="flex items-center flex-wrap">
+          <button
+            className="mr-2 w-8 h-8 flex items-center justify-center rounded-full"
+            onClick={() => navigate(-1)}
+            style={{
+              background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
+              border: "1px solid rgba(0,0,0,0.2)",
+              boxShadow:
+                "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
+            }}
+          >
+            <ChevronLeftIcon size={18} className="text-blue-700" />
+          </button>
+          <h1 className="text-base sm:text-xl font-semibold text-blue-900 mr-2">
+            Admission Approvals
+          </h1>
+          <div className="px-2 py-1 bg-purple-100 rounded-full text-xs font-medium text-purple-800 flex items-center">
+            {currentPrescriptions.length} pending
+          </div>
         </div>
       </div>
 
+      {/* Cards */}
       <div className="space-y-4">
         {currentPrescriptions.map((item) => (
           <div
             key={item.id}
-            className="rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md"
+            className="rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md w-full"
             style={{
               background: "linear-gradient(to bottom, #ffffff, #f8fafc)",
               border: "1px solid rgba(0,0,0,0.1)",
@@ -184,37 +187,33 @@ const FacultyPrescriptionApprovals = () => {
           >
             {/* Card Header */}
             <div
-              className="p-4 flex items-center justify-between transition-colors"
+              className="p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between transition-colors space-y-2 sm:space-y-0"
               style={{ borderBottom: "1px solid rgba(0,0,0,0.05)" }}
             >
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <img
-                    src={item.patientPhoto}
-                    alt={item.patientName}
-                    className="h-12 w-12 rounded-full object-cover border-2 border-white"
-                    style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}
-                  />
-                </div>
-                <div className="ml-4">
-                  <h3 className="text-lg font-medium text-gray-900">
-                    {item.patientName}
-                    <span className="ml-2 text-sm text-gray-500">
+              <div className="flex items-center flex-wrap">
+                <img
+                  src={item.patientPhoto}
+                  alt={item.patientName}
+                  className="h-12 w-12 rounded-full object-cover border-2 border-white"
+                  style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}
+                />
+                <div className="ml-4 min-w-0">
+                  <h3 className="text-base sm:text-lg font-medium text-gray-900 truncate">
+                    {item.patientName}{" "}
+                    <span className="text-xs sm:text-sm text-gray-500">
                       ({item.patientId})
                     </span>
                   </h3>
-                  <p className="text-sm text-gray-600 mt-1">
+                  <p className="text-xs sm:text-sm text-gray-600 mt-1 truncate">
                     ({item.patientAge}y, {item.patientGender},{" "}
                     {item.patientBloodGroup})
                   </p>
                   <div className="flex items-center text-xs text-gray-500 mt-1">
-                    <span className="flex items-center">
-                      <CalendarDaysIcon
-                        size={12}
-                        className="mr-1 text-gray-400"
-                      />
-                      {formatDate(item.date)}
-                    </span>
+                    <CalendarDaysIcon
+                      size={12}
+                      className="mr-1 text-gray-400"
+                    />
+                    {formatDate(item.date)}
                   </div>
                 </div>
               </div>
@@ -226,10 +225,10 @@ const FacultyPrescriptionApprovals = () => {
               style={{ background: "rgba(249, 250, 251, 0.5)" }}
             >
               {/* Medical Alerts */}
-              {item.medicalAlerts && item.medicalAlerts.length > 0 && (
+              {item.medicalAlerts?.length > 0 && (
                 <div className="mb-4">
                   <div
-                    className="p-3 rounded-lg flex items-start"
+                    className="p-3 rounded-lg flex items-center"
                     style={{
                       background:
                         "linear-gradient(to bottom, #fee2e2, #fecaca)",
@@ -241,7 +240,7 @@ const FacultyPrescriptionApprovals = () => {
                       size={18}
                       className="text-red-600 mr-2 mt-0.5 flex-shrink-0"
                     />
-                    <p className="text-sm font-medium text-red-700">
+                    <p className="text-xs sm:text-sm font-medium text-red-700 truncate">
                       {item.medicalAlerts.join(", ")}
                     </p>
                   </div>
@@ -251,7 +250,7 @@ const FacultyPrescriptionApprovals = () => {
               {/* Diagnosis */}
               <div className="mb-4">
                 <div
-                  className="p-3 rounded-lg flex items-start"
+                  className="p-3 rounded-lg flex items-center"
                   style={{
                     background: "linear-gradient(to bottom, #dbeafe, #bfdbfe)",
                     border: "1px solid rgba(59,130,246,0.2)",
@@ -262,7 +261,7 @@ const FacultyPrescriptionApprovals = () => {
                     size={18}
                     className="text-blue-600 mr-2 mt-0.5 flex-shrink-0"
                   />
-                  <p className="text-sm font-medium text-blue-700">
+                  <p className="text-xs sm:text-sm font-medium text-blue-700 truncate">
                     {item.diagnosis}
                   </p>
                 </div>
@@ -350,16 +349,18 @@ const FacultyPrescriptionApprovals = () => {
                   <UserRoundIcon size={16} className="mr-2 text-purple-600" />
                   Prescriber Information
                 </h4>
-                <div className="flex items-center">
+                <div className="flex flex-wrap items-center gap-3">
                   <img
                     src={item.requestorPhoto}
                     alt={item.providerName}
                     className="h-10 w-10 rounded-full object-cover border border-white"
                     style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.1)" }}
                   />
-                  <div className="ml-3">
-                    <p className="text-sm font-medium">{item.providerName}</p>
-                    <p className="text-xs text-gray-600">
+                  <div className="min-w-0">
+                    <p className="text-sm font-medium truncate">
+                      {item.providerName}
+                    </p>
+                    <p className="text-xs text-gray-600 truncate">
                       ID: {item.providerId}
                     </p>
                   </div>
@@ -367,7 +368,7 @@ const FacultyPrescriptionApprovals = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex justify-end space-x-3 mt-4">
+              <div className="flex flex-wrap justify-end gap-3 mt-4">
                 <button
                   className={`px-4 py-2 rounded-full text-white ${aquaButtonStyle} ${aquaGlossEffect}`}
                   style={{
