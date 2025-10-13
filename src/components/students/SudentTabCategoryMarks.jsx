@@ -453,61 +453,77 @@ const StudentTabCategoryMarks = ({ category }) => {
       )}
 
       {/* Procedures Table */}
-      {/* Mobile View */}
-      <div className="block md:hidden space-y-3">
-        {getFilteredProcedures(category).map((proc) => (
-          <div
-            key={proc.id}
-            className="p-3 rounded-lg"
-            style={{
-              backgroundColor: "white",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-              border: "1px solid rgba(0,0,0,0.08)",
-            }}
-          >
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-sm font-medium text-gray-800">
-                  {proc.procedure}
-                </p>
-                <p className="text-xs text-gray-500 mt-1">{proc.patientName}</p>
-              </div>
-              <div className="flex flex-col items-end">
-                <div
-                  className="px-2 py-0.5 rounded-full text-xs font-medium"
-                  style={{
-                    background:
-                      proc.grade === "A" || proc.grade === "A-"
-                        ? "rgba(16, 185, 129, 0.1)"
-                        : proc.grade === "B+" || proc.grade === "B"
-                        ? "rgba(59, 130, 246, 0.1)"
-                        : "rgba(249, 115, 22, 0.1)",
-                    color:
-                      proc.grade === "A" || proc.grade === "A-"
-                        ? "#059669"
-                        : proc.grade === "B+" || proc.grade === "B"
-                        ? "#2563eb"
-                        : "#c2410c",
-                  }}
-                >
-                  {proc.grade}
-                </div>
-                <p className="text-xs text-gray-500 mt-1">
-                  Score: {proc.score}
-                </p>
-              </div>
-            </div>
-            <div className="mt-2 pt-2 border-t border-gray-100">
-              <p className="text-xs text-gray-500">
-                Approved by: {proc.approvedBy}
-              </p>
-              <p className="text-xs text-gray-500 mt-1">Date: {proc.date}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
       <div className="overflow-hidden">
+        {/* Mobile View */}
+        <div className="block md:hidden space-y-3">
+          {getFilteredProcedures(category)
+            .filter(
+              (proc) =>
+                (!selectedProcedureFilter ||
+                  proc.procedure === selectedProcedureFilter) &&
+                (proc.patientName
+                  .toLowerCase()
+                  .includes(searchQuery.toLowerCase()) ||
+                  proc.procedure
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase()))
+            )
+            .map((proc) => (
+              <div
+                key={proc.id}
+                className="p-3 rounded-lg"
+                style={{
+                  backgroundColor: "white",
+                  boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                }}
+              >
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="text-sm font-medium text-gray-800">
+                      {proc.procedure}
+                    </p>
+                    <p className="text-xs text-gray-500 mt-1">
+                      {proc.patientName}
+                    </p>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <div
+                      className="px-2 py-0.5 rounded-full text-xs font-medium"
+                      style={{
+                        background:
+                          proc.grade === "A" || proc.grade === "A-"
+                            ? "rgba(16, 185, 129, 0.1)"
+                            : proc.grade === "B+" || proc.grade === "B"
+                            ? "rgba(59, 130, 246, 0.1)"
+                            : "rgba(249, 115, 22, 0.1)",
+                        color:
+                          proc.grade === "A" || proc.grade === "A-"
+                            ? "#059669"
+                            : proc.grade === "B+" || proc.grade === "B"
+                            ? "#2563eb"
+                            : "#c2410c",
+                      }}
+                    >
+                      {proc.grade}
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1">
+                      Score: {proc.score}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-2 pt-2 border-t border-gray-100">
+                  <p className="text-xs text-gray-500">
+                    Approved by: {proc.approvedBy}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">
+                    Date: {proc.date}
+                  </p>
+                </div>
+              </div>
+            ))}
+        </div>
+
         {/* Desktop View */}
         <table className="hidden md:block divide-y divide-gray-200 overflow-x-scroll">
           <thead>
