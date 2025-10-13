@@ -166,7 +166,7 @@ const FacultyPrescriptionApprovals = () => {
           <h1 className="text-base sm:text-xl font-semibold text-blue-900 mr-2">
             Admission Approvals
           </h1>
-          <div className="px-2 py-1 bg-purple-100 rounded-full text-xs font-medium text-purple-800 flex items-center">
+          <div className="px-2 py-1 bg-purple-100 rounded-full text-[10px] sm:text-xs font-medium text-purple-800 flex items-center">
             {currentPrescriptions.length} pending
           </div>
         </div>
@@ -281,65 +281,58 @@ const FacultyPrescriptionApprovals = () => {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
                   }}
                 >
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead
-                      style={{
-                        background:
-                          "linear-gradient(to bottom, #f9fafb, #f3f4f6)",
-                      }}
-                    >
-                      <tr>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Drug Name & Dose
-                        </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Frequency
-                        </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Duration
-                        </th>
-                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                          Total
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody className="bg-white divide-y divide-gray-200">
-                      {item.prescriptionDetails.map((med, index) => (
-                        <tr
-                          key={index}
-                          className={
-                            index % 2 === 0 ? "bg-white" : "bg-gray-50"
-                          }
-                        >
-                          <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {med.medication} {med.dosage}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
-                            <div className="flex flex-col items-start">
-                              <span
-                                className="px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800"
-                                style={{
-                                  boxShadow:
-                                    "inset 0 1px 0 rgba(255,255,255,0.6)",
-                                }}
-                              >
-                                {med.frequency}
-                              </span>
-                              <span className="text-xs text-gray-500 mt-1">
-                                {med.beforeFood ? "Before food" : "After food"}
-                              </span>
-                            </div>
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
-                            {med.duration}
-                          </td>
-                          <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
-                            {med.totalCount}
-                          </td>
+                  <div className="w-75 sm:w-3/4 md:w-2/3 lg:w-1/2">
+                    <table className="divide-y divide-gray-200">
+                      <thead className="bg-gray-100">
+                        <tr>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Drug Name & Dose
+                          </th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Frequency
+                          </th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Duration
+                          </th>
+                          <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Total
+                          </th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="bg-white divide-y divide-gray-200">
+                        {item.prescriptionDetails.map((med, index) => (
+                          <tr
+                            key={index}
+                            className={
+                              index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                            }
+                          >
+                            <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
+                              {med.medication} {med.dosage}
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
+                              <div className="flex flex-col items-start">
+                                <span className="px-2 py-1 text-xs font-medium rounded-full bg-purple-100 text-purple-800">
+                                  {med.frequency}
+                                </span>
+                                <span className="text-xs text-gray-500 mt-1">
+                                  {med.beforeFood
+                                    ? "Before food"
+                                    : "After food"}
+                                </span>
+                              </div>
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
+                              {med.duration}
+                            </td>
+                            <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-700">
+                              {med.totalCount}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
 
