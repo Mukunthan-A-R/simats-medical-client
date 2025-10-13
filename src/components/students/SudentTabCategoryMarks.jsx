@@ -9,74 +9,333 @@ const procedureTypes = {
 
 // Dummy data for filtered procedures
 const getFilteredProcedures = (categoryName) => {
-  const procedures = {
+  // Mock data for detailed procedures by department
+  const departmentProcedures = {
     "Internal Medicine": [
       {
-        id: 1,
+        id: "IM-001",
+        patientId: "SMC-2023-0042",
         patientName: "John Doe",
-        patientId: "12345",
-        procedure: "Procedure A",
-        date: "2025-10-01",
-        approvedBy: "Dr. Smith",
+        procedure: "Physical Examination",
+        date: "2023-04-15",
+        approvedBy: "Dr. Sarah Johnson",
         grade: "A",
         score: 95,
+        notes: "Thorough examination with proper technique",
       },
       {
-        id: 2,
-        patientName: "Jane Smith",
-        patientId: "67890",
-        procedure: "Procedure B",
-        date: "2025-10-02",
-        approvedBy: "Dr. Brown",
+        id: "IM-002",
+        patientId: "SMC-2023-0039",
+        patientName: "Maria Garcia",
+        procedure: "Blood Pressure Monitoring",
+        date: "2023-04-17",
+        approvedBy: "Dr. Robert Chen",
+        grade: "A-",
+        score: 90,
+        notes: "Good technique, could improve on patient positioning",
+      },
+      {
+        id: "IM-003",
+        patientId: "SMC-2023-0051",
+        patientName: "Robert Chen",
+        procedure: "ECG Interpretation",
+        date: "2023-04-20",
+        approvedBy: "Dr. Sarah Johnson",
+        grade: "B+",
+        score: 87,
+        notes: "Correctly identified major patterns, missed subtle changes",
+      },
+      {
+        id: "IM-004",
+        patientId: "SMC-2023-0063",
+        patientName: "Emily Wong",
+        procedure: "Venipuncture",
+        date: "2023-04-22",
+        approvedBy: "Dr. Michael Chang",
+        grade: "A",
+        score: 93,
+        notes: "Clean technique, minimal discomfort to patient",
+      },
+      {
+        id: "IM-005",
+        patientId: "SMC-2023-0071",
+        patientName: "James Smith",
+        procedure: "Insulin Administration",
+        date: "2023-04-25",
+        approvedBy: "Dr. Sarah Johnson",
+        grade: "A-",
+        score: 91,
+        notes: "Proper technique and dosage calculation",
+      },
+      {
+        id: "IM-006",
+        patientId: "SMC-2023-0084",
+        patientName: "Sophia Rodriguez",
+        procedure: "Physical Examination",
+        date: "2023-04-27",
+        approvedBy: "Dr. Robert Chen",
         grade: "B",
         score: 85,
+        notes: "Good overall approach, needs to be more systematic",
       },
       {
-        id: 3,
-        patientName: "Michael Johnson",
-        patientId: "13579",
-        procedure: "Procedure C",
-        date: "2025-10-05",
-        approvedBy: "Dr. Lee",
+        id: "IM-007",
+        patientId: "SMC-2023-0097",
+        patientName: "David Kim",
+        procedure: "ECG Interpretation",
+        date: "2023-04-30",
+        approvedBy: "Dr. Sarah Johnson",
+        grade: "A",
+        score: 94,
+        notes: "Excellent interpretation with clinical correlation",
+      },
+      {
+        id: "IM-008",
+        patientId: "SMC-2023-0105",
+        patientName: "Olivia Johnson",
+        procedure: "Blood Pressure Monitoring",
+        date: "2023-05-03",
+        approvedBy: "Dr. Michael Chang",
         grade: "A-",
         score: 92,
+        notes: "Proper technique with good patient communication",
       },
     ],
     Pediatrics: [
       {
-        id: 4,
-        patientName: "Alice Cooper",
-        patientId: "11223",
-        procedure: "Procedure X",
-        date: "2025-09-15",
-        approvedBy: "Dr. Lee",
-        grade: "A-",
-        score: 90,
+        id: "PED-001",
+        patientId: "SMC-2023-0107",
+        patientName: "Tommy Lee",
+        procedure: "Growth Assessment",
+        date: "2023-04-16",
+        approvedBy: "Dr. Emily Rodriguez",
+        grade: "A",
+        score: 96,
+        notes: "Accurate measurements and plotting on growth chart",
       },
       {
-        id: 5,
-        patientName: "Bob Johnson",
-        patientId: "44556",
-        procedure: "Procedure Y",
-        date: "2025-09-16",
-        approvedBy: "Dr. Clark",
+        id: "PED-002",
+        patientId: "SMC-2023-0109",
+        patientName: "Lily Wang",
+        procedure: "Developmental Screening",
+        date: "2023-04-18",
+        approvedBy: "Dr. Jessica Williams",
         grade: "B+",
         score: 88,
+        notes:
+          "Good rapport with child, could be more thorough with screening questions",
       },
       {
-        id: 6,
-        patientName: "Emma White",
-        patientId: "98765",
-        procedure: "Procedure Z",
-        date: "2025-09-17",
-        approvedBy: "Dr. Miller",
+        id: "PED-003",
+        patientId: "SMC-2023-0112",
+        patientName: "Ethan Brown",
+        procedure: "Vaccination",
+        date: "2023-04-21",
+        approvedBy: "Dr. Emily Rodriguez",
+        grade: "A-",
+        score: 92,
+        notes: "Proper technique and good distraction methods",
+      },
+      {
+        id: "PED-004",
+        patientId: "SMC-2023-0115",
+        patientName: "Sofia Martinez",
+        procedure: "Otoscopic Examination",
+        date: "2023-04-23",
+        approvedBy: "Dr. Jessica Williams",
         grade: "B",
-        score: 80,
+        score: 84,
+        notes: "Needs improvement in handling uncooperative children",
+      },
+      {
+        id: "PED-005",
+        patientId: "SMC-2023-0118",
+        patientName: "Noah Wilson",
+        procedure: "Pediatric Physical Exam",
+        date: "2023-04-26",
+        approvedBy: "Dr. Emily Rodriguez",
+        grade: "A",
+        score: 95,
+        notes: "Excellent approach and technique with pediatric patient",
       },
     ],
+    Surgery: [
+      {
+        id: "SUR-001",
+        patientId: "SMC-2023-0121",
+        patientName: "William Taylor",
+        procedure: "Suturing",
+        date: "2023-04-17",
+        approvedBy: "Dr. Michael Chang",
+        grade: "A-",
+        score: 91,
+        notes: "Good technique and knot tying",
+      },
+      {
+        id: "SUR-002",
+        patientId: "SMC-2023-0124",
+        patientName: "Emma Davis",
+        procedure: "Wound Dressing",
+        date: "2023-04-19",
+        approvedBy: "Dr. Robert Miller",
+        grade: "B+",
+        score: 88,
+        notes:
+          "Proper cleaning technique, could improve on dressing application",
+      },
+      {
+        id: "SUR-003",
+        patientId: "SMC-2023-0127",
+        patientName: "Lucas Garcia",
+        procedure: "Surgical Scrubbing",
+        date: "2023-04-22",
+        approvedBy: "Dr. Michael Chang",
+        grade: "A",
+        score: 94,
+        notes: "Excellent technique and attention to detail",
+      },
+      {
+        id: "SUR-004",
+        patientId: "SMC-2023-0130",
+        patientName: "Ava Rodriguez",
+        procedure: "Catheterization",
+        date: "2023-04-24",
+        approvedBy: "Dr. Sarah Johnson",
+        grade: "B",
+        score: 85,
+        notes: "Needs to improve on maintaining sterile field",
+      },
+      {
+        id: "SUR-005",
+        patientId: "SMC-2023-0133",
+        patientName: "Jackson Brown",
+        procedure: "Sterile Field Preparation",
+        date: "2023-04-27",
+        approvedBy: "Dr. Michael Chang",
+        grade: "A-",
+        score: 92,
+        notes: "Good awareness of sterile principles",
+      },
+    ],
+    "OB/GYN": [
+      {
+        id: "OBG-001",
+        patientId: "SMC-2023-0136",
+        patientName: "Olivia Martinez",
+        procedure: "Prenatal Assessment",
+        date: "2023-04-18",
+        approvedBy: "Dr. Jessica Williams",
+        grade: "A",
+        score: 95,
+        notes: "Thorough assessment with good patient communication",
+      },
+      {
+        id: "OBG-002",
+        patientId: "SMC-2023-0139",
+        patientName: "Isabella Johnson",
+        procedure: "Fetal Heart Rate Monitoring",
+        date: "2023-04-20",
+        approvedBy: "Dr. Emily Rodriguez",
+        grade: "B+",
+        score: 87,
+        notes: "Good technique, needs to improve interpretation",
+      },
+      {
+        id: "OBG-003",
+        patientId: "SMC-2023-0142",
+        patientName: "Sophia Wilson",
+        procedure: "Breast Examination",
+        date: "2023-04-23",
+        approvedBy: "Dr. Jessica Williams",
+        grade: "A-",
+        score: 90,
+        notes: "Proper technique and patient education",
+      },
+      {
+        id: "OBG-004",
+        patientId: "SMC-2023-0145",
+        patientName: "Mia Taylor",
+        procedure: "Pelvic Examination",
+        date: "2023-04-25",
+        approvedBy: "Dr. Sarah Johnson",
+        grade: "B",
+        score: 84,
+        notes: "Needs more practice with speculum insertion",
+      },
+      {
+        id: "OBG-005",
+        patientId: "SMC-2023-0148",
+        patientName: "Charlotte Brown",
+        procedure: "Pap Smear Collection",
+        date: "2023-04-28",
+        approvedBy: "Dr. Jessica Williams",
+        grade: "A-",
+        score: 91,
+        notes: "Good sample collection technique",
+      },
+    ],
+    Psychiatry: [
+      {
+        id: "PSY-001",
+        patientId: "SMC-2023-0151",
+        patientName: "Liam Davis",
+        procedure: "Mental Status Examination",
+        date: "2023-04-19",
+        approvedBy: "Dr. Robert Miller",
+        grade: "A",
+        score: 94,
+        notes: "Comprehensive assessment with good rapport",
+      },
+      {
+        id: "PSY-002",
+        patientId: "SMC-2023-0154",
+        patientName: "Amelia Garcia",
+        procedure: "Depression Screening",
+        date: "2023-04-21",
+        approvedBy: "Dr. Sarah Johnson",
+        grade: "B+",
+        score: 86,
+        notes:
+          "Good use of screening tools, needs to improve follow-up questions",
+      },
+      {
+        id: "PSY-003",
+        patientId: "SMC-2023-0157",
+        patientName: "Benjamin Martinez",
+        procedure: "Anxiety Assessment",
+        date: "2023-04-24",
+        approvedBy: "Dr. Robert Miller",
+        grade: "A-",
+        score: 92,
+        notes: "Thorough assessment with appropriate tools",
+      },
+      {
+        id: "PSY-004",
+        patientId: "SMC-2023-0160",
+        patientName: "Evelyn Wilson",
+        procedure: "Cognitive Evaluation",
+        date: "2023-04-26",
+        approvedBy: "Dr. Emily Rodriguez",
+        grade: "A",
+        score: 95,
+        notes: "Excellent approach and interpretation",
+      },
+      {
+        id: "PSY-005",
+        patientId: "SMC-2023-0163",
+        patientName: "Henry Johnson",
+        procedure: "Risk Assessment",
+        date: "2023-04-29",
+        approvedBy: "Dr. Robert Miller",
+        grade: "B",
+        score: 85,
+        notes: "Needs improvement in detecting subtle risk factors",
+      },
+    ],
+    "Emergency Medicine": [],
   };
 
-  return procedures[categoryName] || [];
+  return departmentProcedures[categoryName] || [];
 };
 
 // Dummy function for procedure type stats
@@ -148,7 +407,6 @@ const StudentTabCategoryMarks = ({ category }) => {
             backgroundColor: "rgba(255,255,255,0.7)",
             boxShadow:
               "0 1px 2px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.8)",
-            border: "1px solid rgba(0,0,0,0.08)",
           }}
         >
           <div className="flex justify-between items-center">
@@ -195,117 +453,124 @@ const StudentTabCategoryMarks = ({ category }) => {
       )}
 
       {/* Procedures Table */}
-      <div className="overflow-x-auto">
-        <div className="min-w-full">
-          {/* Mobile View */}
-          <div className="md:hidden space-y-3">
-            {getFilteredProcedures(category).map((proc) => (
-              <div
-                key={proc.id}
-                className="p-3 rounded-lg"
-                style={{
-                  backgroundColor: "white",
-                  boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-                  border: "1px solid rgba(0,0,0,0.08)",
-                }}
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">
-                      {proc.procedure}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-1">
-                      {proc.patientName}
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <div
-                      className="px-2 py-0.5 rounded-full text-xs font-medium"
-                      style={{
-                        background:
-                          proc.grade === "A" || proc.grade === "A-"
-                            ? "rgba(16, 185, 129, 0.1)"
-                            : proc.grade === "B+" || proc.grade === "B"
-                            ? "rgba(59, 130, 246, 0.1)"
-                            : "rgba(249, 115, 22, 0.1)",
-                        color:
-                          proc.grade === "A" || proc.grade === "A-"
-                            ? "#059669"
-                            : proc.grade === "B+" || proc.grade === "B"
-                            ? "#2563eb"
-                            : "#c2410c",
-                      }}
-                    >
-                      {proc.grade}
-                    </div>
-                    <p className="text-xs text-gray-500 mt-1">
-                      Score: {proc.score}
-                    </p>
-                  </div>
-                </div>
-                <div className="mt-2 pt-2 border-t border-gray-100">
-                  <p className="text-xs text-gray-500">
-                    Approved by: {proc.approvedBy}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-1">
-                    Date: {proc.date}
-                  </p>
-                </div>
+      {/* Mobile View */}
+      <div className="block md:hidden space-y-3">
+        {getFilteredProcedures(category).map((proc) => (
+          <div
+            key={proc.id}
+            className="p-3 rounded-lg"
+            style={{
+              backgroundColor: "white",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+              border: "1px solid rgba(0,0,0,0.08)",
+            }}
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <p className="text-sm font-medium text-gray-800">
+                  {proc.procedure}
+                </p>
+                <p className="text-xs text-gray-500 mt-1">{proc.patientName}</p>
               </div>
-            ))}
+              <div className="flex flex-col items-end">
+                <div
+                  className="px-2 py-0.5 rounded-full text-xs font-medium"
+                  style={{
+                    background:
+                      proc.grade === "A" || proc.grade === "A-"
+                        ? "rgba(16, 185, 129, 0.1)"
+                        : proc.grade === "B+" || proc.grade === "B"
+                        ? "rgba(59, 130, 246, 0.1)"
+                        : "rgba(249, 115, 22, 0.1)",
+                    color:
+                      proc.grade === "A" || proc.grade === "A-"
+                        ? "#059669"
+                        : proc.grade === "B+" || proc.grade === "B"
+                        ? "#2563eb"
+                        : "#c2410c",
+                  }}
+                >
+                  {proc.grade}
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  Score: {proc.score}
+                </p>
+              </div>
+            </div>
+            <div className="mt-2 pt-2 border-t border-gray-100">
+              <p className="text-xs text-gray-500">
+                Approved by: {proc.approvedBy}
+              </p>
+              <p className="text-xs text-gray-500 mt-1">Date: {proc.date}</p>
+            </div>
           </div>
+        ))}
+      </div>
 
-          {/* Desktop View */}
-          <table className="hidden md:table min-w-full divide-y divide-gray-200">
-            <thead>
-              <tr
-                style={{
-                  backgroundImage:
-                    "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
-                  boxShadow:
-                    "0 1px 0 rgba(255,255,255,0.8) inset, 0 1px 0 rgba(0,0,0,0.1)",
-                }}
+      <div className="overflow-hidden">
+        {/* Desktop View */}
+        <table className="hidden md:block divide-y divide-gray-200 overflow-x-scroll">
+          <thead>
+            <tr
+              style={{
+                backgroundImage: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
+                boxShadow:
+                  "0 1px 0 rgba(255,255,255,0.8) inset, 0 1px 0 rgba(0,0,0,0.1)",
+              }}
+            >
+              <th
+                scope="col"
+                className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
               >
-                <th
-                  scope="col"
-                  className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Patient
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Procedure
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Date
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Approved By
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Grade
-                </th>
-                <th
-                  scope="col"
-                  className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
-                >
-                  Score
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {getFilteredProcedures(category).map((proc) => (
+                Patient
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              >
+                Procedure
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              >
+                Date
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              >
+                Approved By
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              >
+                Grade
+              </th>
+              <th
+                scope="col"
+                className="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap"
+              >
+                Score
+              </th>
+            </tr>
+          </thead>
+
+          <tbody className="bg-white divide-y divide-gray-200">
+            {getFilteredProcedures(category)
+              .filter(
+                (proc) =>
+                  (!selectedProcedureFilter ||
+                    proc.procedure === selectedProcedureFilter) &&
+                  (proc.patientName
+                    .toLowerCase()
+                    .includes(searchQuery.toLowerCase()) ||
+                    proc.procedure
+                      .toLowerCase()
+                      .includes(searchQuery.toLowerCase()))
+              )
+              .map((proc) => (
                 <tr key={proc.id} className="hover:bg-blue-50">
                   <td className="px-3 py-2 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
@@ -354,9 +619,8 @@ const StudentTabCategoryMarks = ({ category }) => {
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
   );

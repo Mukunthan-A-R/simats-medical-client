@@ -41,7 +41,7 @@ const StudentCategoryTab = ({ name }) => {
       {toggleCategory && (
         <>
           <StudentCategoryTabData category={name} />
-          <StudentTabCategoryMarks></StudentTabCategoryMarks>
+          <StudentTabCategoryMarks category={name}></StudentTabCategoryMarks>
         </>
       )}
     </div>
