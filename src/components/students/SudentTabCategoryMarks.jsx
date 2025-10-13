@@ -525,7 +525,7 @@ const StudentTabCategoryMarks = ({ category }) => {
         </div>
 
         {/* Desktop View */}
-        <table className="hidden md:block divide-y divide-gray-200 overflow-x-scroll">
+        <table className="hidden md:table w-full divide-y divide-gray-200">
           <thead>
             <tr
               style={{
