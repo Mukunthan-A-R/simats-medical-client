@@ -281,7 +281,7 @@ const FacultyPrescriptionApprovals = () => {
                     boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
                   }}
                 >
-                  <div className="w-75 sm:w-3/4 md:w-2/3 lg:w-1/2">
+                  <div className="w-75 sm:w-6/8 md:w-full">
                     <table className="divide-y divide-gray-200">
                       <thead className="bg-gray-100">
                         <tr>
