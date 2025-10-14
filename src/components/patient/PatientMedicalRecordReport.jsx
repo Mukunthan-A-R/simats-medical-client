@@ -12,7 +12,10 @@ import {
 } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
-const PatientMedicalRecordReport = ({ record: selectedReport }) => {
+const PatientMedicalRecordReport = ({
+  record: selectedReport,
+  closeReportModal,
+}) => {
   console.log("selectedReport");
   console.log(selectedReport);
 
@@ -43,7 +46,7 @@ const PatientMedicalRecordReport = ({ record: selectedReport }) => {
             <div className="flex items-center">
               <div className="flex mr-3">
                 <button
-                  // onClick={closeReportModal}
+                  onClick={closeReportModal}
                   className="w-3 h-3 rounded-full"
                   style={{
                     background: "linear-gradient(to bottom, #ff5a5a, #cc0000)",

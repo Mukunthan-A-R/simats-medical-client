@@ -182,7 +182,11 @@ const PatientMedicalRecordsRow = ({ record }) => {
         </tr>
       )}
       {openReportModal && (
-        <PatientMedicalRecordReport key={record.id} record={record} />
+        <PatientMedicalRecordReport
+          closeReportModal={() => setOpenReportModal(!openReportModal)}
+          key={record.id}
+          record={record}
+        />
       )}
     </Fragment>
   );
