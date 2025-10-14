@@ -14,6 +14,7 @@ import PatientMedicalRecordReport from "./PatientMedicalRecordReport";
 
 const PatientMedicalRecordsRow = ({ record }) => {
   const [expandedRecord, setExpandedRecordId] = useState(false);
+  const [openReportModal, setOpenReportModal] = useState(false);
 
   const getStatusBadgeStyle = (status) => {
     switch (status.toLowerCase()) {
@@ -167,7 +168,10 @@ const PatientMedicalRecordsRow = ({ record }) => {
               </div>
               <div className="mt-4 flex justify-end">
                 <button
-                  onClick={() => openReportModal(record.id)}
+                  onClick={() => {
+                    console.log("hi");
+                    setOpenReportModal(!openReportModal);
+                  }}
                   className="px-4 py-2 text-white text-sm font-medium rounded-full bg-blue-500"
                 >
                   View Full Report
@@ -177,7 +181,9 @@ const PatientMedicalRecordsRow = ({ record }) => {
           </td>
         </tr>
       )}
-      {/* <PatientMedicalRecordReport /> */}
+      {openReportModal && (
+        <PatientMedicalRecordReport key={record.id} record={record} />
+      )}
     </Fragment>
   );
 };

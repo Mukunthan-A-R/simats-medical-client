@@ -39,7 +39,7 @@ const PatientMedicalRecordsList = ({ records }) => {
         </thead>
         <tbody className="divide-y divide-gray-200 bg-amber-50">
           {records.map((record) => (
-            <PatientMedicalRecordsRow record={record} />
+            <PatientMedicalRecordsRow key={record.id} record={record} />
           ))}
         </tbody>
       </table>

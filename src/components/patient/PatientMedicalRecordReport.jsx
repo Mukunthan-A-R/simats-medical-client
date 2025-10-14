@@ -10,28 +10,18 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from "lucide-react";
+import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
-const PatientMedicalRecordReport = ({
-  selectedReport,
-  closeReportModal,
-  handlePrintReport,
-  handleDownloadReport,
-  imageModalOpen,
-  selectedImage,
-  closeImageModal,
-  imageZoom,
-  zoomInImage,
-  zoomOutImage,
-  aquaButtonStyle = "",
-  aquaGlossEffect = "",
-  getStatusBadgeStyle = () => ({}),
-}) => {
-  if (!selectedReport) return null;
+const PatientMedicalRecordReport = ({ record: selectedReport }) => {
+  console.log("selectedReport");
+  console.log(selectedReport);
+
+  // if (!selectedReport) return null;
 
   return (
     <>
       {/* =================== REPORT MODAL =================== */}
-      <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-2 print:p-0 print:static print:bg-white print:bg-opacity-100">
+      <div className="fixed inset-0  bg-opacity-50 z-50 flex items-center justify-center p-2 print:p-0 print:static print:bg-white print:bg-opacity-100">
         <div
           className="w-full max-w-4xl max-h-[90vh] overflow-auto print:shadow-none print:max-w-none print:max-h-none print:w-full"
           style={{
@@ -53,7 +43,7 @@ const PatientMedicalRecordReport = ({
             <div className="flex items-center">
               <div className="flex mr-3">
                 <button
-                  onClick={closeReportModal}
+                  // onClick={closeReportModal}
                   className="w-3 h-3 rounded-full"
                   style={{
                     background: "linear-gradient(to bottom, #ff5a5a, #cc0000)",
@@ -70,7 +60,7 @@ const PatientMedicalRecordReport = ({
 
             <div className="flex space-x-2">
               <button
-                onClick={handlePrintReport}
+                // onClick={handlePrintReport}
                 className={`p-1.5 rounded-full ${aquaButtonStyle} ${aquaGlossEffect}`}
                 style={{
                   background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
@@ -82,7 +72,7 @@ const PatientMedicalRecordReport = ({
                 <PrinterIcon size={16} className="text-blue-700" />
               </button>
               <button
-                onClick={handleDownloadReport}
+                // onClick={handleDownloadReport}
                 className={`p-1.5 rounded-full ${aquaButtonStyle} ${aquaGlossEffect}`}
                 style={{
                   background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
@@ -212,7 +202,7 @@ const PatientMedicalRecordReport = ({
                     <span
                       className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${aquaButtonStyle} ${aquaGlossEffect}`}
                       style={{
-                        ...getStatusBadgeStyle(selectedReport.status),
+                        // ...getStatusBadgeStyle(selectedReport.status),
                         height: "20px",
                         width: "100px",
                         display: "inline-flex",
@@ -245,7 +235,7 @@ const PatientMedicalRecordReport = ({
             </div>
 
             {/* Findings */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 flex items-center text-sm">
                 <ClipboardListIcon size={14} className="mr-1 text-blue-600" />
                 Findings and Parameters
@@ -313,10 +303,10 @@ const PatientMedicalRecordReport = ({
                   ))}
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Diagnosis & Recommendations */}
-            <div className="grid grid-cols-1 gap-4 mb-4">
+            {/* <div className="grid grid-cols-1 gap-4 mb-4">
               <div>
                 <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 text-sm">
                   Diagnosis
@@ -333,10 +323,10 @@ const PatientMedicalRecordReport = ({
                   {selectedReport.recommendations}
                 </p>
               </div>
-            </div>
+            </div> */}
 
             {/* Evaluation */}
-            <div className="mb-4 bg-blue-50 p-3 rounded-lg">
+            {/* <div className="mb-4 bg-blue-50 p-3 rounded-lg">
               <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-blue-100 flex items-center text-sm">
                 <CheckCircleIcon size={14} className="mr-1 text-blue-600" />
                 Evaluation by {selectedReport.supervisedBy}
@@ -344,18 +334,18 @@ const PatientMedicalRecordReport = ({
               <p className="text-sm text-gray-700">
                 {selectedReport.evaluation}
               </p>
-            </div>
+            </div> */}
 
             {/* Notes */}
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 text-sm">
                 Additional Notes
               </h4>
               <p className="text-sm text-gray-700">{selectedReport.notes}</p>
-            </div>
+            </div> */}
 
             {/* Signatures */}
-            <div className="grid grid-cols-2 gap-4 mt-6">
+            {/* <div className="grid grid-cols-2 gap-4 mt-6">
               <div>
                 <div className="h-12 border-b border-gray-400 mb-1"></div>
                 <p className="text-sm font-medium">
@@ -370,7 +360,7 @@ const PatientMedicalRecordReport = ({
                 </p>
                 <p className="text-xs text-gray-500">Verified By</p>
               </div>
-            </div>
+            </div> */}
 
             {/* Footer */}
             <div className="mt-6 pt-3 border-t border-gray-200 text-center">
@@ -390,7 +380,7 @@ const PatientMedicalRecordReport = ({
       </div>
 
       {/* =================== IMAGE MODAL =================== */}
-      {imageModalOpen && selectedImage && (
+      {/* {imageModalOpen && selectedImage && (
         <div className="fixed inset-0 bg-black bg-opacity-80 z-50 flex items-center justify-center p-3 print:hidden">
           <div className="relative w-full max-w-lg">
             <div
@@ -437,7 +427,7 @@ const PatientMedicalRecordReport = ({
               </div>
             </div>
 
-            {/* Controls */}
+       
             <div className="flex justify-center mt-3 space-x-4">
               <button
                 onClick={zoomOutImage}
@@ -464,7 +454,7 @@ const PatientMedicalRecordReport = ({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
