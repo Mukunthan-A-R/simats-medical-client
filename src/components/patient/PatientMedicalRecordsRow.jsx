@@ -7,6 +7,7 @@ import {
   ChevronRightIcon,
   UserIcon,
   CheckCircleIcon,
+  XIcon,
 } from "lucide-react";
 import React, { Fragment, useState } from "react";
 
@@ -16,13 +17,13 @@ const PatientMedicalRecordsRow = ({ record }) => {
   const getStatusBadgeStyle = (status) => {
     switch (status.toLowerCase()) {
       case "completed":
-        return { backgroundColor: "#4ade80", color: "#065f46" };
+        return { backgroundColor: "#2da659", color: "#f2f2f2" };
       case "active":
-        return { backgroundColor: "#facc15", color: "#78350f" };
+        return { backgroundColor: "#facc15", color: "#f2f2f2" };
       case "results available":
-        return { backgroundColor: "#60a5fa", color: "#1e3a8a" };
+        return { backgroundColor: "#60a5fa", color: "#f2f2f2" };
       default:
-        return { backgroundColor: "#d1d5db", color: "#374151" };
+        return { backgroundColor: "#d1d5db", color: "#f2f2f2" };
     }
   };
 
@@ -90,10 +91,10 @@ const PatientMedicalRecordsRow = ({ record }) => {
           )}
         </td>
       </tr>
-      {expandedRecord === record.id && (
+      {expandedRecord && (
         <tr>
           <td colSpan={3} className="px-4 py-3">
-            <div className="p-3 bg-blue-50 rounded-md shadow-inner">
+            <div className="border-2 border-gray-300 p-4 bg-blue-50 rounded-md shadow-inner">
               <div className="flex justify-between items-center mb-3">
                 <h3 className="font-medium text-gray-800">Record Details</h3>
                 <button
@@ -103,7 +104,7 @@ const PatientMedicalRecordsRow = ({ record }) => {
                   <XIcon size={12} />
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="grid grid-cols-2 gap-2 text-sm">
                 <div>
                   <p className="text-gray-500 mb-1">Record ID</p>
                   <p className="font-medium">{record.id}</p>
