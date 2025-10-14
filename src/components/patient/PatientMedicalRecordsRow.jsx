@@ -10,6 +10,7 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { Fragment, useState } from "react";
+import PatientMedicalRecordReport from "./PatientMedicalRecordReport";
 
 const PatientMedicalRecordsRow = ({ record }) => {
   const [expandedRecord, setExpandedRecordId] = useState(false);
@@ -176,6 +177,7 @@ const PatientMedicalRecordsRow = ({ record }) => {
           </td>
         </tr>
       )}
+      {/* <PatientMedicalRecordReport /> */}
     </Fragment>
   );
 };
