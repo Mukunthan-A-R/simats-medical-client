@@ -9,6 +9,7 @@ import {
   ActivityIcon,
   SearchIcon,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function FacultyDashboardWindow() {
   // ---------------- Mock Data ----------------
@@ -143,7 +144,10 @@ export default function FacultyDashboardWindow() {
   const [activeTab, setActiveTab] = useState("admitted");
 
   // ---------------- Navigate handler ----------------
+  const navigate = useNavigate();
+
   const onNavigate = (url) => {
+    navigate("/faculty/my-patient/123");
     console.log("Navigate to:", url);
   };
 
