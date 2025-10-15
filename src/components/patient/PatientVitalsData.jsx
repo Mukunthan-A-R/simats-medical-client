@@ -57,52 +57,52 @@ const PatientViralsData = () => {
     },
   ];
 
-  return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-col sm:flex-row gap-5">
-        <div
-          className="flex-1"
-          onClick={() => {
-            setOpenGraph(!openGraph);
-            setGraphData(primaryVitals[0]);
-          }}
-        >
-          <PatientVitalsDataCard data={primaryVitals[0]} />
-        </div>
-        <div
-          className="flex-1"
-          onClick={() => {
-            setOpenGraph(!openGraph);
-            setGraphData(primaryVitals[1]);
-          }}
-        >
-          <PatientVitalsDataCard data={primaryVitals[1]} />
-        </div>
-      </div>
-      <div className="flex flex-col sm:flex-row gap-5">
-        <div
-          className="flex-1"
-          onClick={() => {
-            setOpenGraph(!openGraph);
-            setGraphData(primaryVitals[2]);
-          }}
-        >
-          <PatientVitalsDataCard data={primaryVitals[2]} />
-        </div>
-        <div
-          className="flex-1"
-          onClick={() => {
-            setOpenGraph(!openGraph);
-            setGraphData(primaryVitals[3]);
-          }}
-        >
-          <PatientVitalsDataCard data={primaryVitals[3]} />
-        </div>
-      </div>
-      <PatientSecondaryVitals></PatientSecondaryVitals>
+  const handleCardClick = (vital) => {
+    if (graphData?.id === vital.id && openGraph) {
+      setOpenGraph(false);
+    } else {
+      setGraphData(vital);
+      setOpenGraph(true);
+    }
+  };
 
-      {openGraph && (
-        <PatientVitalsDataChart data={graphData}></PatientVitalsDataChart>
+  return (
+    <div className="flex flex-col gap-2 p-2 sm:p-3">
+      {/* PRIMARY VITALS ROWS */}
+      <div className="flex flex-col sm:flex-row gap-2">
+        {primaryVitals.slice(0, 2).map((vital) => (
+          <div
+            key={vital.id}
+            className="flex-1 cursor-pointer hover:scale-[1.01] transition-transform"
+            onClick={() => handleCardClick(vital)}
+          >
+            <PatientVitalsDataCard data={vital} />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col sm:flex-row gap-2">
+        {primaryVitals.slice(2).map((vital) => (
+          <div
+            key={vital.id}
+            className="flex-1 cursor-pointer hover:scale-[1.01] transition-transform"
+            onClick={() => handleCardClick(vital)}
+          >
+            <PatientVitalsDataCard data={vital} />
+          </div>
+        ))}
+      </div>
+
+      {/* SECONDARY VITALS */}
+      <div className="-mt-1">
+        <PatientSecondaryVitals />
+      </div>
+
+      {/* CHART SECTION */}
+      {openGraph && graphData && (
+        <div className="mt-2 rounded-lg border border-gray-200 bg-white shadow-sm p-2">
+          <PatientVitalsDataChart data={graphData} />
+        </div>
       )}
     </div>
   );
