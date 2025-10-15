@@ -27,10 +27,10 @@ const PatientSecondaryVitals = () => {
             }`}
           />
         </span>
-        <PatientSecondaryVitalDropDown
-          showSecondaryVitals={showSecondaryVitals}
-        />
       </div>
+      <PatientSecondaryVitalDropDown
+        showSecondaryVitals={showSecondaryVitals}
+      />
     </>
   );
 };
