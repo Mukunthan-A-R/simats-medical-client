@@ -1,6 +1,6 @@
 import React from "react";
 import PatientSecondaryVitalCard from "./PatientSecondaryVitalCard";
-import { DropletIcon, ScaleIcon } from "lucide-react";
+import { DropletIcon, ScaleIcon, Stethoscope } from "lucide-react";
 
 const PatientSecondaryVitalDropDown = ({ showSecondaryVitals }) => {
   if (!showSecondaryVitals) return null;
@@ -27,7 +27,7 @@ const PatientSecondaryVitalDropDown = ({ showSecondaryVitals }) => {
             data={{
               id: "respiratoryRate",
               name: "Respiratory Rate",
-              icon: <div size={16} />,
+              icon: <Stethoscope size={16} />,
               unit: "breaths/min",
               data: "16.3",
               normal: "12-20 breaths/min",

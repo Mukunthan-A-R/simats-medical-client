@@ -11,11 +11,18 @@ import {
 
 const PatientViralsData = () => {
   const [openGraph, setOpenGraph] = useState(false);
+  const [graphData, setGraphData] = useState(null);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col sm:flex-row gap-5">
-        <div className="flex-1" onClick={() => setOpenGraph(!openGraph)}>
+        <div
+          className="flex-1"
+          onClick={() => {
+            setOpenGraph(!openGraph);
+            setGraphData("Blood Pressure");
+          }}
+        >
           <PatientVitalsDataCard
             data={{
               id: "bloodPressure",
@@ -28,7 +35,13 @@ const PatientViralsData = () => {
             }}
           />
         </div>
-        <div className="flex-1" onClick={() => setOpenGraph(!openGraph)}>
+        <div
+          className="flex-1"
+          onClick={() => {
+            setOpenGraph(!openGraph);
+            setGraphData("Heart Rate");
+          }}
+        >
           <PatientVitalsDataCard
             data={{
               id: "heartRate",
@@ -43,7 +56,13 @@ const PatientViralsData = () => {
         </div>
       </div>
       <div className="flex flex-col sm:flex-row gap-5">
-        <div className="flex-1" onClick={() => setOpenGraph(!openGraph)}>
+        <div
+          className="flex-1"
+          onClick={() => {
+            setOpenGraph(!openGraph);
+            setGraphData("Oxygen Saturation");
+          }}
+        >
           <PatientVitalsDataCard
             data={{
               id: "oxygenSaturation",
@@ -57,7 +76,13 @@ const PatientViralsData = () => {
             }}
           />
         </div>
-        <div className="flex-1" onClick={() => setOpenGraph(!openGraph)}>
+        <div
+          className="flex-1"
+          onClick={() => {
+            setOpenGraph(!openGraph);
+            setGraphData("Temperature");
+          }}
+        >
           <PatientVitalsDataCard
             data={{
               id: "temperature",
@@ -73,7 +98,9 @@ const PatientViralsData = () => {
       </div>
       <PatientSecondaryVitals></PatientSecondaryVitals>
 
-      {openGraph && <PatientVitalsDataChart></PatientVitalsDataChart>}
+      {openGraph && (
+        <PatientVitalsDataChart data={graphData}></PatientVitalsDataChart>
+      )}
     </div>
   );
 };

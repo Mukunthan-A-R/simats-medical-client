@@ -21,9 +21,9 @@ const PatientSecondaryVitalCard = ({ data }) => {
               "0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)",
             border: "1px solid rgba(0,0,0,0.2)",
           }}
-          className="bg-blue-900  px-2 rounded-2xl"
+          className="bg-blue-900 p-2 rounded-2xl"
         >
-          A
+          {data.icon}
         </span>
         <span className="font-medium text-gray-800">{data.name}</span>
       </div>

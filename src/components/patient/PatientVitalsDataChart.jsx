@@ -12,13 +12,13 @@ import {
 import { ChevronDownIcon, DownloadIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
-const PatientVitalsDataChart = () => {
+const PatientVitalsDataChart = ({ data }) => {
   const [showRawData, setShowRawData] = useState(false);
   const [timeRange, setTimeRange] = useState(14);
 
   const selectedVital = {
     id: "bloodPressure",
-    name: "Blood Pressure",
+    name: data,
     icon: "🩺",
     description: "Blood pressure tracking",
     normal: "120/80",
