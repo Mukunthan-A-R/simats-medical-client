@@ -46,7 +46,7 @@ const PatientVitalsDataChart = () => {
       <div
         className="p-4 border-b border-gray-100"
         style={{
-          backgroundColor: "blue",
+          backgroundColor: "#2565cc",
           boxShadow: "inset 0 1px 0 rgba(255,255,255,0.4)",
           borderBottom: "1px solid rgba(0,0,0,0.2)",
         }}
