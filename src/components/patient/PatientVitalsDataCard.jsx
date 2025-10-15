@@ -1,8 +1,6 @@
 import React from "react";
 
 const PatientVitalsDataCard = ({ data }) => {
-  console.log(data.name);
-
   return (
     <div
       className="bg-white p-4 rounded-xl"
