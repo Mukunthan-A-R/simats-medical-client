@@ -2,7 +2,6 @@ import { ChevronLeftIcon } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import PatientVitalsData from "../../components/patient/PatientVitalsData";
-import UnderConstruction from "../../components/UnderConstruction";
 
 const PatientVitals = () => {
   const navigate = useNavigate();
@@ -66,7 +65,6 @@ const PatientVitals = () => {
       </div>
 
       <PatientVitalsData></PatientVitalsData>
-      <UnderConstruction />
     </div>
   );
 };
