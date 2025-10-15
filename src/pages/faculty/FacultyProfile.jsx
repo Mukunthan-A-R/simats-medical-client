@@ -26,24 +26,6 @@ const FacultyProfile = () => {
           aquaButtonStyle={aquaButtonStyle}
           aquaGlossEffect={aquaGlossEffect}
         />
-
-        {/* Optional global animation */}
-        <style jsx global>{`
-          @keyframes pulse {
-            0% {
-              transform: scale(1);
-            }
-            50% {
-              transform: scale(1.05);
-            }
-            100% {
-              transform: scale(1);
-            }
-          }
-          .animate-pulse {
-            animation: pulse 2s infinite;
-          }
-        `}</style>
       </div>
     </div>
   );
