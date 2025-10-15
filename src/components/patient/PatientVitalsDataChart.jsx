@@ -17,12 +17,12 @@ const PatientVitalsDataChart = ({ data }) => {
   const [timeRange, setTimeRange] = useState(14);
 
   const selectedVital = {
-    id: "bloodPressure",
-    name: data,
+    id: data.id,
+    name: data.name,
     icon: "🩺",
-    description: "Blood pressure tracking",
-    normal: "120/80",
-    unit: "mmHg",
+    description: data.description,
+    normal: data.normal,
+    unit: data.unit,
     color1: "#4d90fe",
     color2: "#ff5e3a",
     data: [
