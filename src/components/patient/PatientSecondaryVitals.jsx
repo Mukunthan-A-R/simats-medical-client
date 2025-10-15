@@ -7,7 +7,7 @@ const PatientSecondaryVitals = () => {
   return (
     <>
       <div
-        className="p-4 rounded-xl font-medium text-gray-800"
+        className=" rounded-xl font-medium text-gray-800"
         style={{
           boxShadow:
             "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24), 0 0 0 1px rgba(0,0,0,0.05)",
@@ -18,7 +18,7 @@ const PatientSecondaryVitals = () => {
         }}
         onClick={() => setShowSecondaryVitals(!showSecondaryVitals)}
       >
-        <span className="flex flex-row justify-between items-center">
+        <span className="flex flex-row p-4 justify-between items-center border-b-gray-500">
           Other Vitals Signs
           <ChevronDownIcon
             size={20}
@@ -27,10 +27,10 @@ const PatientSecondaryVitals = () => {
             }`}
           />
         </span>
+        <PatientSecondaryVitalDropDown
+          showSecondaryVitals={showSecondaryVitals}
+        />
       </div>
-      <PatientSecondaryVitalDropDown
-        showSecondaryVitals={showSecondaryVitals}
-      />
     </>
   );
 };

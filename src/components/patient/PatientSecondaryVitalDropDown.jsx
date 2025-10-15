@@ -6,7 +6,7 @@ const PatientSecondaryVitalDropDown = ({ showSecondaryVitals }) => {
 
   return (
     <div
-      className={`rounded-2xl ${
+      className={`rounded-xl ${
         showSecondaryVitals
           ? "transition-all duration-500 ease-in-out overflow-hidden"
           : ""
