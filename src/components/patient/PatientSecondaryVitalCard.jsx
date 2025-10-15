@@ -1,6 +1,6 @@
 import React from "react";
 
-const PatientSecondaryVitalCard = () => {
+const PatientSecondaryVitalCard = ({ data }) => {
   return (
     <div
       className="flex flex-row gap-4 px-4 py-4 border border-gray-400 rounded-lg"
@@ -25,11 +25,11 @@ const PatientSecondaryVitalCard = () => {
         >
           A
         </span>
-        <span className="font-medium text-gray-800">Respitory Rate</span>
+        <span className="font-medium text-gray-800">{data.name}</span>
       </div>
       <span className="flex flex-row items-end">
-        <div className="text-lg font-medium pr-2">17.2</div>
-        <p className="text-sm text-gray-600 pb-1">breaths/min</p>
+        <div className="text-lg font-medium pr-2">{data.data}</div>
+        <p className="text-sm text-gray-600 pb-1">{data.unit}</p>
       </span>
     </div>
   );
