@@ -1,6 +1,8 @@
 import React from "react";
 
-const PatientVitalsDataCard = ({ title }) => {
+const PatientVitalsDataCard = ({ data }) => {
+  console.log(data.name);
+
   return (
     <div
       className="bg-white p-4 rounded-xl"
@@ -24,17 +26,17 @@ const PatientVitalsDataCard = ({ title }) => {
                 "0 1px 3px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.4)",
               border: "1px solid rgba(0,0,0,0.2)",
             }}
-            className="bg-blue-900  px-2 rounded-2xl"
+            className="bg-blue-900  px-2 py-2 rounded-2xl"
           >
-            A
+            {data.icon}
           </span>
-          <p className="text-gray-800 font-medium">Blood Preasure</p>
+          <p className="text-gray-800 font-medium">{data?.name}</p>
         </span>
-        <p className="text-xs font-light">120/80 mmmHg</p>
+        <p className="text-xs font-light">{data.normal}</p>
       </div>
       <div className="mt-6">
-        <span className="text-lg font-semibold pr-1">115.1/78.8</span>
-        <span className="text-sm text-gray-500">mmHg</span>
+        <span className="text-lg font-semibold pr-1">{data.data}</span>
+        <span className="text-sm text-gray-500">{data.unit}</span>
       </div>
     </div>
   );
