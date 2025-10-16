@@ -14,12 +14,12 @@ const PatientHighPriorityNotification = ({
   getNotificationIcon,
 }) => {
   const getNotificationBgColor = (notification) =>
-    !notification.isRead ? "bg-blue-50 hover:bg-blue-100" : "hover:bg-gray-50";
+    !notification.isRead ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-gray-50";
 
   return (
-    <div>
-      <div className="px-4 py-2 bg-red-50 border-b border-red-100">
-        <p className="text-sm font-medium text-red-800 flex items-center">
+    <div className="overflow-hidden rounded-xl">
+      <div className="px-4 py-4 bg-red-200 border-b border-red-100">
+        <p className="text-sm font-medium text-red-900 flex items-center">
           <AlertTriangleIcon size={14} className="mr-2" />
           High Priority
         </p>

@@ -260,16 +260,20 @@ export function NotificationsScreen({ onNavigate }) {
         </div>
 
         {/* Notifications List */}
-        <div className="flex flex-col gap-y-5">
-          <PatientHighPriorityNotification
-            data={groupedNotifications.high}
-            getNotificationIcon={getNotificationIcon}
-          ></PatientHighPriorityNotification>
+        <div className="flex flex-col sm:flex-row gap-5">
+          <div className="flex-1">
+            <PatientHighPriorityNotification
+              data={groupedNotifications.high}
+              getNotificationIcon={getNotificationIcon}
+            ></PatientHighPriorityNotification>
+          </div>
 
-          <PatientGeneralNotification
-            data={groupedNotifications.medium}
-            getNotificationIcon={getNotificationIcon}
-          ></PatientGeneralNotification>
+          <div className="flex-1">
+            <PatientGeneralNotification
+              data={groupedNotifications.medium}
+              getNotificationIcon={getNotificationIcon}
+            ></PatientGeneralNotification>
+          </div>
         </div>
       </div>
     </div>

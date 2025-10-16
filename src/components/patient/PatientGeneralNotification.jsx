@@ -13,11 +13,11 @@ const PatientGeneralNotification = ({
   getNotificationIcon,
 }) => {
   const getNotificationBgColor = (notification) =>
-    !notification.isRead ? "bg-blue-50 hover:bg-blue-100" : "hover:bg-gray-50";
+    !notification.isRead ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-gray-50";
 
   return (
-    <div>
-      <div className="px-4 py-2 bg-gray-50 border-b border-gray-100">
+    <div className="overflow-hidden rounded-xl">
+      <div className="px-4 py-4 bg-gray-200 border-b border-gray-100">
         <p className="text-sm font-medium text-gray-700">Other Notifications</p>
       </div>
 
