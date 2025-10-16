@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { StudentNotificationPopup } from "../../components/students/StudentNotificationPopup";
 import { StudentFilterDropdown } from "../../components/students/StudentFilterDropdown";
+import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 // ========================
 // Individual Notification Item Component
@@ -198,11 +199,6 @@ export function StudentNotificationsScreen({ onNavigate }) {
     setDropdownOpen(false);
   };
 
-  const aquaButtonStyle =
-    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white/80 before:via-transparent before:to-transparent before:opacity-60";
-
   const groupedNotifications = {
     critical: notifications.filter((n) => n.priority === "critical"),
     high: notifications.filter((n) => n.priority === "high"),
@@ -267,40 +263,118 @@ export function StudentNotificationsScreen({ onNavigate }) {
       />
 
       {/* Notification Groups */}
-      {["critical", "high", "medium", "low"].map(
-        (priority) =>
-          groupedNotifications[priority].length > 0 && (
-            <div
-              key={priority}
-              className="mb-6 rounded-xl overflow-hidden  "
-              style={{ background: "rgba(255,255,255,0.7)" }}
-            >
-              <h2
-                className={`text-sm text-gray-800 font-medium py-2 px-4 ${getPriorityBg(
-                  priority
-                )}`}
+      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+        <div className="flex-1 overflow-x-hidden overflow-y-scroll h-70 pr-1">
+          {["critical"].map(
+            (priority) =>
+              groupedNotifications[priority].length > 0 && (
+                <div
+                  key={priority}
+                  className="mb-6 rounded-xl overflow-hidden  "
+                  style={{ background: "rgba(255,255,255,0.7)" }}
+                >
+                  <h2
+                    className={`text-sm text-gray-800 font-medium py-2 px-4 ${getPriorityBg(
+                      priority
+                    )}`}
+                  >
+                    {priority === "critical"
+                      ? "Critical Alerts"
+                      : priority === "high"
+                      ? "High Priority"
+                      : "Other Notifications"}
+                  </h2>
+                  <ul className="divide-y divide-gray-100">
+                    {groupedNotifications[priority].map((notification) => (
+                      <StudentNotificationItem
+                        key={notification.id}
+                        notification={notification}
+                        handleViewDetails={handleViewDetails}
+                        aquaButtonStyle={aquaButtonStyle}
+                        aquaGlossEffect={aquaGlossEffect}
+                        getNotificationIcon={getNotificationIcon}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              )
+          )}
+        </div>
+
+        <div className="flex-1 overflow-x-hidden overflow-y-scroll h-70 pr-1">
+          {["high"].map(
+            (priority) =>
+              groupedNotifications[priority].length > 0 && (
+                <div
+                  key={priority}
+                  className="mb-6 rounded-xl overflow-hidden  "
+                  style={{ background: "rgba(255,255,255,0.7)" }}
+                >
+                  <h2
+                    className={`text-sm text-gray-800 font-medium py-2 px-4 ${getPriorityBg(
+                      priority
+                    )}`}
+                  >
+                    {priority === "critical"
+                      ? "Critical Alerts"
+                      : priority === "high"
+                      ? "High Priority"
+                      : "Other Notifications"}
+                  </h2>
+                  <ul className="divide-y divide-gray-100">
+                    {groupedNotifications[priority].map((notification) => (
+                      <StudentNotificationItem
+                        key={notification.id}
+                        notification={notification}
+                        handleViewDetails={handleViewDetails}
+                        aquaButtonStyle={aquaButtonStyle}
+                        aquaGlossEffect={aquaGlossEffect}
+                        getNotificationIcon={getNotificationIcon}
+                      />
+                    ))}
+                  </ul>
+                </div>
+              )
+          )}
+        </div>
+      </div>
+
+      <div className="w-[calc(100%-7px)] sm:w-[calc(50%-7px)] overflow-x-hidden overflow-y-scroll pr-1 h-70">
+        {["medium"].map(
+          (priority) =>
+            groupedNotifications[priority].length > 0 && (
+              <div
+                key={priority}
+                className="mb-3 rounded-xl overflow-hidden "
+                style={{ background: "rgba(255,255,255,0.7)" }}
               >
-                {priority === "critical"
-                  ? "Critical Alerts"
-                  : priority === "high"
-                  ? "High Priority"
-                  : "Other Notifications"}
-              </h2>
-              <ul className="divide-y divide-gray-100">
-                {groupedNotifications[priority].map((notification) => (
-                  <StudentNotificationItem
-                    key={notification.id}
-                    notification={notification}
-                    handleViewDetails={handleViewDetails}
-                    aquaButtonStyle={aquaButtonStyle}
-                    aquaGlossEffect={aquaGlossEffect}
-                    getNotificationIcon={getNotificationIcon}
-                  />
-                ))}
-              </ul>
-            </div>
-          )
-      )}
+                <h2
+                  className={`text-sm text-gray-800 font-medium py-2 px-4 ${getPriorityBg(
+                    priority
+                  )}`}
+                >
+                  {priority === "critical"
+                    ? "Critical Alerts"
+                    : priority === "high"
+                    ? "High Priority"
+                    : "Other Notifications"}
+                </h2>
+                <ul className="divide-y divide-gray-100">
+                  {groupedNotifications[priority].map((notification) => (
+                    <StudentNotificationItem
+                      key={notification.id}
+                      notification={notification}
+                      handleViewDetails={handleViewDetails}
+                      aquaButtonStyle={aquaButtonStyle}
+                      aquaGlossEffect={aquaGlossEffect}
+                      getNotificationIcon={getNotificationIcon}
+                    />
+                  ))}
+                </ul>
+              </div>
+            )
+        )}
+      </div>
 
       {detailsModalOpen && selectedNotification && (
         <StudentNotificationPopup
