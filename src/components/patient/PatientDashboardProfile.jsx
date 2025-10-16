@@ -7,7 +7,7 @@ import PatientDashboardNotification from "./PatientDashboardNotification";
 
 export default function PatientDashboardProfile() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen w-full">
       {/* Student Profile Card */}
       <div
         className="overflow-hidden mb-6 cursor-pointer transform transition-transform duration-200 hover:scale-[1.01]"
