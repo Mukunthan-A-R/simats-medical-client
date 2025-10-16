@@ -38,10 +38,10 @@ const PatientHighPriorityNotification = ({
               <div
                 className={`flex-shrink-0 h-10 w-10 rounded-full ${
                   notification.type === "appointment"
-                    ? "bg-blue-100"
+                    ? "bg-blue-300"
                     : notification.type === "follow-up"
-                    ? "bg-purple-100"
-                    : "bg-green-100"
+                    ? "bg-purple-300"
+                    : "bg-green-300"
                 } flex items-center justify-center mr-4`}
               >
                 {getNotificationIcon(notification.type)}
@@ -70,7 +70,7 @@ const PatientHighPriorityNotification = ({
                   </p>
                 )}
               </div>
-              <ChevronRightIcon size={18} className="text-gray-400 ml-4" />
+              <ChevronRightIcon size={18} className="text-gray-600 ml-4" />
             </div>
           </li>
         ))}

@@ -13,7 +13,7 @@ const PatientGeneralNotification = ({
   getNotificationIcon,
 }) => {
   const getNotificationBgColor = (notification) =>
-    !notification.isRead ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-gray-50";
+    !notification.isRead ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-white";
 
   return (
     <div className="overflow-hidden rounded-xl">
@@ -34,10 +34,10 @@ const PatientGeneralNotification = ({
               <div
                 className={`flex-shrink-0 h-10 w-10 rounded-full ${
                   notification.type === "appointment"
-                    ? "bg-blue-100"
+                    ? "bg-blue-300"
                     : notification.type === "follow-up"
-                    ? "bg-purple-100"
-                    : "bg-green-100"
+                    ? "bg-purple-300"
+                    : "bg-green-300"
                 } flex items-center justify-center mr-4`}
               >
                 {getNotificationIcon(notification.type)}
@@ -66,7 +66,7 @@ const PatientGeneralNotification = ({
                   </p>
                 )}
               </div>
-              <ChevronRightIcon size={18} className="text-gray-400 ml-4" />
+              <ChevronRightIcon size={18} className="text-gray-600 ml-4" />
             </div>
           </li>
         ))}
