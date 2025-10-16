@@ -6,7 +6,7 @@ import PersonEmergencyContactInfo from "../../components/PersonEmergencyContactI
 
 export default function StudentProfileScreen() {
   return (
-    <div className="px-4 py-5 max-w-6xl mx-auto w-full">
+    <div className="px-4 py-5 max-w-6xl mx-auto flex flex-col min-h-screen w-full">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
         <div className="flex-1 sm:pb-6 ">
           {/* Profile Header */}

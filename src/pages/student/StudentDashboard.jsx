@@ -10,7 +10,7 @@ const StudentDashboard = () => {
   const [scoresTab, setScoresTab] = useState(false);
 
   return (
-    <div className="px-4 py-5 max-w-6xl mx-auto w-full">
+    <div className="flex flex-col min-h-screen px-4 py-5 max-w-6xl mx-auto w-full ">
       <StudentDashboardProfile
         setScoresTab={() => setScoresTab(!scoresTab)}
       ></StudentDashboardProfile>
