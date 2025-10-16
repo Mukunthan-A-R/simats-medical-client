@@ -25,6 +25,7 @@ import FacultyProfile from "./pages/faculty/FacultyProfile";
 import StudentAcademicsSection from "./components/students/StudentAcademicsSection";
 import PatientAdmissionRecords from "./pages/patient/PatientAdmissionRecords";
 import FacultyPatientsData from "./pages/faculty/FacultyPatientsData";
+import PatientReport from "./pages/patient/PatientReport";
 
 function App() {
   return (
@@ -104,6 +105,7 @@ function App() {
               path="prescriptions/:patientId"
               element={<PatientPrescription />}
             />
+            <Route path="report/:patientId" element={<PatientReport />} />
             <Route path="vitals/:patientId" element={<PatientVitals />} />
           </Route>
           <Route path="*" element={<UnderConstruction />} />
