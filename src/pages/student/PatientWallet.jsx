@@ -13,7 +13,7 @@ const PatientWallet = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="flex flex-col min-h-screen w-full p-4 md:px-8">
       <div className="flex items-center mb-4">
         <button
           className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
