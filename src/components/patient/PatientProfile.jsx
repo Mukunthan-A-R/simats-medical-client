@@ -13,17 +13,27 @@ export default function PatientProfile() {
 
   return (
     <div className="px-4 py-5 max-w-6xl mx-auto w-full">
-      {/* Profile Header */}
-      <PersonProfileHeader />
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+        <div className="flex-1 sm:pb-6 ">
+          {/* Profile Header */}
+          <PersonProfileHeader />
+        </div>
+        <div className="flex-1 ">
+          {/* Emergency Contact */}
+          <PersonEmergencyContactInfo />
+        </div>
+      </div>
 
-      {/* Personal Information */}
-      <PersonPersonalInformation />
-
-      {/* Contact Information */}
-      <PersonContactInfo />
-
-      {/* Emergency Contact */}
-      <PersonEmergencyContactInfo />
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-6">
+        <div className="flex-1 ">
+          {/* Personal Information */}
+          <PersonPersonalInformation />
+        </div>
+        <div className="flex-1 ">
+          {/* Contact Information */}
+          <PersonContactInfo />
+        </div>
+      </div>
 
       <PatientProfileInsurance />
     </div>
