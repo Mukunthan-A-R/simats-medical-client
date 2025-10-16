@@ -674,10 +674,10 @@ const PatientAdmissionRecords = () => {
   });
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-screen flex flex-col">
       <div className="flex items-center mb-4">
         <button
-          className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
+          className="mr-2 w-8 h-8 flex items-center justify-center rounded-full"
           onClick={() => navigate(-1)}
           style={{
             background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
@@ -690,7 +690,9 @@ const PatientAdmissionRecords = () => {
         </button>
         <h2 className="text-xl text-blue-900 font-medium">Admission Records</h2>
       </div>
-      <div className="rounded-xl overflow-hidden">
+
+      {/* Content area */}
+      <div className="flex-1 overflow-y-auto rounded-xl">
         {sortedAdmissions.map((admission) => (
           <PatientAdmissionHistoryCard
             key={admission.id}
