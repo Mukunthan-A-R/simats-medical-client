@@ -249,7 +249,7 @@ export function StudentNotificationsScreen({ onNavigate }) {
   // Render JSX
   // ========================
   return (
-    <div className="px-4 py-5 max-w-6xl mx-auto w-full">
+    <div className="px-4 py-5 max-w-6xl mx-auto flex flex-col min-h-screen w-full">
       <h1 className="text-xl font-semibold mb-4">Student Notifications</h1>
 
       <StudentFilterDropdown
