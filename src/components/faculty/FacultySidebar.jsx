@@ -1,12 +1,4 @@
-import React from "react";
-import {
-  HomeIcon,
-  BookOpenIcon,
-  UserIcon,
-  BellIcon,
-  LogOutIcon,
-  XIcon,
-} from "lucide-react";
+import { HomeIcon, UserIcon, LogOutIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 export default function FacultySidebar({
@@ -75,39 +67,6 @@ export default function FacultySidebar({
               </button>
             );
           })}
-
-          {/* Notifications */}
-          <button
-            onClick={() => onNavigate(`/faculty/notifications/${facultyId}`)}
-            className={`w-full p-3 flex items-center rounded-lg ${aquaButtonStyle} ${aquaGlossEffect} relative`}
-            style={{
-              background:
-                "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(245,245,245,0.8))",
-              boxShadow:
-                "0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.7)",
-              border: "1px solid rgba(0,0,0,0.1)",
-            }}
-          >
-            <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 ${aquaButtonStyle} ${aquaGlossEffect}`}
-              style={{
-                background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
-                boxShadow:
-                  "0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
-                border: "1px solid rgba(0,0,0,0.2)",
-              }}
-            >
-              <BellIcon size={16} className="text-white" />
-            </div>
-            <span className="text-gray-800 font-medium text-base">
-              Notifications
-            </span>
-            {notificationCount > 0 && (
-              <span className="absolute top-1 right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {notificationCount > 9 ? "9+" : notificationCount}
-              </span>
-            )}
-          </button>
 
           {/* Logout */}
           <button
