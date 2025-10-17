@@ -345,6 +345,19 @@ const PatientsReportViewer = ({ handleClose }) => {
               </div>
             </div>
           )}
+          <div className="flex justify-end pr-4">
+            <button
+              className="flex items-center gap-2 bg-blue-700 py-2 px-4 rounded-2xl text-white"
+              style={{
+                background: "linear-gradient(to bottom, #777ded, #0f1ad9)",
+                boxShadow:
+                  "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
+              }}
+            >
+              <DownloadIcon size={16} className="text-white" />
+              Download Report
+            </button>
+          </div>
         </div>
       </div>
     </div>
