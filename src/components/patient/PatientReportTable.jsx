@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   TestTubeIcon,
   ClockIcon,
@@ -6,8 +6,10 @@ import {
   EyeIcon,
   ClipboardListIcon,
 } from "lucide-react";
+import PatientsReportViewer from "./PatientsReportViewer";
 
 const PatientReportTable = ({ reports: reportsData }) => {
+  const [viewReport, setViewReport] = useState();
   // Group by date
   const groupedReports = reportsData.reduce((acc, report) => {
     const existingGroup = acc.find((group) => group.date === report.date);
@@ -202,6 +204,7 @@ const PatientReportTable = ({ reports: reportsData }) => {
                             boxShadow:
                               "0 1px 2px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.3)",
                           }}
+                          onClick={() => setViewReport(!viewReport)}
                         >
                           <EyeIcon size={18} className="text-white" />
                         </button>
@@ -213,6 +216,9 @@ const PatientReportTable = ({ reports: reportsData }) => {
             </div>
           ))}
         </div>
+      )}
+      {viewReport && (
+        <PatientsReportViewer handleClose={() => setViewReport(!viewReport)} />
       )}
     </div>
   );
