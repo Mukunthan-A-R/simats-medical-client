@@ -1,26 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  ArrowLeftIcon,
   BellIcon,
   ChevronRightIcon,
-  XIcon,
-  AlertTriangleIcon,
   UserIcon,
   ClipboardListIcon,
   GraduationCapIcon,
   FlaskConicalIcon,
   StethoscopeIcon,
-  AlertCircleIcon,
-  FilterIcon,
-  ChevronDownIcon,
 } from "lucide-react";
 import { StudentNotificationPopup } from "../../components/students/StudentNotificationPopup";
 import { StudentFilterDropdown } from "../../components/students/StudentFilterDropdown";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
-// ========================
 // Individual Notification Item Component
-// ========================
 const StudentNotificationItem = ({
   notification,
   handleViewDetails,
@@ -95,13 +87,8 @@ const StudentNotificationItem = ({
   </li>
 );
 
-// ========================
 // Main Notifications Screen
-// ========================
-export function StudentNotificationsScreen({ onNavigate }) {
-  // ========================
-  // Notifications Data inside component state
-  // ========================
+export function StudentNotificationsScreen() {
   const [notifications, setNotifications] = useState([
     {
       id: "notif-1",
@@ -237,17 +224,14 @@ export function StudentNotificationsScreen({ onNavigate }) {
   const getPriorityBg = (priority) => {
     switch (priority) {
       case "critical":
-        return "bg-red-100 text-red-800"; // Tailwind class for light red
+        return "bg-red-100 text-red-800";
       case "high":
-        return "bg-yellow-100 text-yellow-800"; // Tailwind class for light yellow
+        return "bg-yellow-100 text-yellow-800";
       default:
-        return "bg-gray-100"; // Light gray for medium/low
+        return "bg-gray-100";
     }
   };
 
-  // ========================
-  // Render JSX
-  // ========================
   return (
     <div className="px-4 py-5 max-w-6xl mx-auto flex flex-col min-h-screen w-full">
       <h1 className="text-xl font-semibold mb-4">Student Notifications</h1>
