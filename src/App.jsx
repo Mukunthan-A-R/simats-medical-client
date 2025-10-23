@@ -26,6 +26,7 @@ import StudentAcademicsSection from "./components/students/StudentAcademicsSecti
 import PatientAdmissionRecords from "./pages/patient/PatientAdmissionRecords";
 import FacultyPatientsData from "./pages/faculty/FacultyPatientsData";
 import PatientReport from "./pages/patient/PatientReport";
+import FacultyDischargeApproval from "./pages/faculty/FacultyDischargeApproval";
 
 function App() {
   return (
@@ -60,7 +61,7 @@ function App() {
             />
             <Route
               path="discharge-summary-approvals/:facultyId"
-              element={<UnderConstruction />}
+              element={<FacultyDischargeApproval />}
             />
             <Route
               path="admission-approvals/:facultyId"
