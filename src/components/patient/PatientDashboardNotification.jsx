@@ -1,13 +1,8 @@
 import { PillIcon } from "lucide-react";
 import React from "react";
+import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 const PatientDashboardNotification = () => {
-  // Aqua button style classes
-  const aquaButtonStyle =
-    "relative overflow-hidden text-white font-medium transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
   return (
     <div
       className="overflow-hidden mb-4"
@@ -21,7 +16,7 @@ const PatientDashboardNotification = () => {
           "linear-gradient(to bottom, rgba(235,245,255,0.9), rgba(225,235,245,0.8))",
       }}
     >
-      <div className="px-4 py-3 flex justify-between items-center">
+      <div className="px-2 sm:px-4 py-3 flex justify-between items-center">
         <div className="flex items-center min-w-0 flex-1">
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center mr-3 ${aquaButtonStyle} ${aquaGlossEffect}`}

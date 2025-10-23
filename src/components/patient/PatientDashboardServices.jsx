@@ -75,7 +75,7 @@ export default function PatientDashboardServices({
   ];
 
   return (
-    <div className="p-4">
+    <div className="sm:p-4">
       {/* Dashboard Menu Groups */}
       {menuGroups.map((group, groupIndex) => (
         <div key={groupIndex} className="mb-5">
@@ -103,7 +103,7 @@ export default function PatientDashboardServices({
                   border: "1px solid rgba(0,0,0,0.1)",
                 }}
               >
-                <div className="flex items-center mb-1">
+                <div className="flex items-center sm:mb-1">
                   <div
                     className="w-7 h-7 rounded-full text-white flex items-center justify-center mr-2"
                     style={{

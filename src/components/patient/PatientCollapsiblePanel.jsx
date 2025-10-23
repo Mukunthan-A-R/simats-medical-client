@@ -22,11 +22,11 @@ export default function PatientCollapsiblePanel({
         <div className="flex flex-row justify-center items-center text-red-500 gap-2">
           <AlertTriangleIcon size={20} />
           {!isOpen && (
-            <span className="font-medium text-gray-900">{title}</span>
+            <span className="font-medium text-sm text-gray-900">{title}</span>
           )}
           {isOpen && <span className="font-medium text-gray-900">Alerts</span>}
         </div>
-        <span className="ml-2">
+        <span className="ml-1">
           {isOpen ? (
             <ChevronUpIcon size={20} className=" text-gray-500" />
           ) : (
@@ -37,7 +37,7 @@ export default function PatientCollapsiblePanel({
 
       {/* Content */}
       <div
-        className={`px-4 pt-1  text-gray-700 transition-all duration-300 ${
+        className={`px-1 sm:px-4 pt-1  text-gray-700 transition-all duration-300 ${
           isOpen
             ? "max-h-[2000px] opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
