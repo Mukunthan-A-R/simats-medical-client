@@ -35,11 +35,11 @@ const PatientDischargeCard = ({ patient }) => {
           </h3>
           <p className="text-xs text-gray-500 truncate">{patient.patientId}</p>
         </div>
-        <span className="text-xs text-gray-400">
+        <span className="text-xs text-gray-700 font-medium">
+          <p>Dischare Request Date</p>
           {formatDate(patient.requestDate)}
         </span>
       </div>
-
       {/* Key Info Row */}
       <div className="grid grid-cols-3 text-xs sm:text-sm mt-1">
         <div className="truncate">
@@ -63,13 +63,11 @@ const PatientDischargeCard = ({ patient }) => {
           </button>
         </div>
       </div>
-
       {/* Reason & Alerts Combined */}
       <div className="rounded-md border border-gray-100 bg-gray-50/50 p-2 text-xs leading-snug">
         <p className="flex items-center text-blue-600 font-medium mb-1">
           <HeartPulseIcon size={11} className="mr-1" /> {patient.reason}
         </p>
-
         {patient.alerts?.length > 0 && (
           <p className="flex items-center text-red-600 font-medium">
             <AlertTriangleIcon size={11} className="mr-1" />{" "}
@@ -77,7 +75,10 @@ const PatientDischargeCard = ({ patient }) => {
           </p>
         )}
       </div>
-
+      <div className="font-medium text-gray-600 text-sm">
+        <p className="text-gray-900">Admission Date</p>
+        <p>Aug 30, 2023</p>
+      </div>
       {/* Actions */}
       <div className="flex justify-end gap-2 mt-1">
         <button
@@ -87,13 +88,12 @@ const PatientDischargeCard = ({ patient }) => {
           <XIcon size={12} /> Reject
         </button>
         <button
-          onClick={() => alert("Admitted")}
+          onClick={() => alert("Approve")}
           className="flex items-center gap-1 px-3 py-1 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
         >
-          <CheckIcon size={12} /> Admit
+          <CheckIcon size={12} /> Approve
         </button>
       </div>
-
       {/* Feedback Modal */}
       {showFeedbackModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
