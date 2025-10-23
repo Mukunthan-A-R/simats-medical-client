@@ -1,12 +1,4 @@
-import {
-  AlertTriangleIcon,
-  BellIcon,
-  CalendarIcon,
-  ChevronRightIcon,
-  ClockIcon,
-  PillIcon,
-} from "lucide-react";
-import React from "react";
+import { AlertTriangleIcon, ChevronRightIcon } from "lucide-react";
 import { formatDate } from "../../utils/constants";
 
 const PatientHighPriorityNotification = ({
@@ -18,7 +10,7 @@ const PatientHighPriorityNotification = ({
 
   return (
     <div
-      className="overflow-y-auto rounded-xl custom-scrollbar-hide"
+      className="overflow-y-auto overflow-x-hidden bg-white rounded-2xl no-scrollbar"
       style={{ maxHeight: "20rem" }}
     >
       <div className="px-4 py-4 bg-red-200 border-b border-red-100">

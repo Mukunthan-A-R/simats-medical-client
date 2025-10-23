@@ -17,7 +17,7 @@ const PatientGeneralNotification = ({
 
   return (
     <div
-      className="overflow-y-auto rounded-xl custom-scrollbar-hide"
+      className="overflow-y-auto overflow-x-hidden bg-white rounded-2xl no-scrollbar"
       style={{ maxHeight: "20rem" }}
     >
       <div className="px-4 py-4 bg-gray-200 border-b border-gray-100">

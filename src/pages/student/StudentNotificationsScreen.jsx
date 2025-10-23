@@ -249,7 +249,7 @@ export default function StudentNotificationsScreen() {
       {/* Notification Groups */}
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
         <div
-          className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar bg-white rounded-2xl"
+          className="flex-1 overflow-y-auto overflow-x-hidden bg-white rounded-2xl no-scrollbar"
           style={{ height: "17.5rem" }}
         >
           {["critical"].map((priority) => {
@@ -291,7 +291,7 @@ export default function StudentNotificationsScreen() {
         </div>
 
         <div
-          className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar"
+          className="flex-1 overflow-y-auto overflow-x-hidden bg-white rounded-2xl no-scrollbar"
           style={{ height: "17.5rem" }}
         >
           {["high"].map(
@@ -332,7 +332,7 @@ export default function StudentNotificationsScreen() {
       </div>
 
       <div
-        className="w-[calc(100%-7px)] sm:w-[calc(50%-7px)] flex-1 overflow-y-auto overflow-x-hidden pr-1 custom-scrollbar rounded-2xl"
+        className="w-[calc(100%-7px)] sm:w-[calc(50%-7px)] flex-1 overflow-y-auto overflow-x-hidden pr-1 bg-white rounded-2xl no-scrollbar"
         style={{ height: "17.5rem" }}
       >
         {["medium"].map(
