@@ -17,7 +17,10 @@ const PatientHighPriorityNotification = ({
     !notification.isRead ? "bg-blue-100 hover:bg-blue-200" : "hover:bg-gray-50";
 
   return (
-    <div className="overflow-hidden rounded-xl">
+    <div
+      className="overflow-y-auto rounded-xl custom-scrollbar-hide"
+      style={{ maxHeight: "20rem" }}
+    >
       <div className="px-4 py-4 bg-red-200 border-b border-red-100">
         <p className="text-sm font-medium text-red-900 flex items-center">
           <AlertTriangleIcon size={14} className="mr-2" />
@@ -46,6 +49,7 @@ const PatientHighPriorityNotification = ({
               >
                 {getNotificationIcon(notification.type)}
               </div>
+
               <div className="flex-1 min-w-0">
                 <div className="flex items-center">
                   <p className="text-sm font-medium text-gray-900 truncate">
@@ -70,6 +74,7 @@ const PatientHighPriorityNotification = ({
                   </p>
                 )}
               </div>
+
               <ChevronRightIcon size={18} className="text-gray-600 ml-4" />
             </div>
           </li>
