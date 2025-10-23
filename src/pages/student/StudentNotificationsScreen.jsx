@@ -88,7 +88,7 @@ const StudentNotificationItem = ({
 );
 
 // Main Notifications Screen
-export function StudentNotificationsScreen() {
+export default function StudentNotificationsScreen() {
   const [notifications, setNotifications] = useState([
     {
       id: "notif-1",

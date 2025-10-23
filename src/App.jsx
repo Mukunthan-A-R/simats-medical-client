@@ -1,33 +1,39 @@
-import { useState } from "react";
 import About from "./pages/About";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
-import StudentDashboard from "./pages/student/StudentDashboard";
-import FacultyDashboard from "./pages/faculty/FacultyDashboard";
+
+// Student Routes
 import StudentLayout from "./pages/layouts/StudentLayout";
+import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentProfile from "./pages/student/StudentProfile";
-import { StudentNotificationsScreen } from "./pages/student/StudentNotificationsScreen";
-import FacultyLayout from "./pages/layouts/FacultyLayout";
+import StudentNotificationsScreen from "./pages/student/StudentNotificationsScreen";
+import StudentAcademicsSection from "./components/students/StudentAcademicsSection";
+
+// Patient Routes
 import PatientLayout from "./pages/layouts/PatientLayout";
 import PatientDashboard from "./pages/patient/PatientDashboard";
 import PatientProfile from "./components/patient/PatientProfile";
 import PatientHealthRecords from "./pages/patient/PatientHealthRecords";
-import { PatientHospitalWallet } from "./pages/patient/PatientHospitalWallet";
-import { PatientPharmacyWallet } from "./pages/patient/PatientPharmacyWallet";
 import PatientPrescription from "./pages/patient/PatientPrescription";
 import PatientVitals from "./pages/patient/PatientVitals";
 import PatientNotifications from "./pages/patient/PatientNotifications";
 import PatientWallet from "./pages/student/PatientWallet";
+import PatientAdmissionRecords from "./pages/patient/PatientAdmissionRecords";
+import PatientReport from "./pages/patient/PatientReport";
+import { PatientHospitalWallet } from "./pages/patient/PatientHospitalWallet";
+import { PatientPharmacyWallet } from "./pages/patient/PatientPharmacyWallet";
+
+// Faculty Routes
+import FacultyDashboard from "./pages/faculty/FacultyDashboard";
+import FacultyLayout from "./pages/layouts/FacultyLayout";
 import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApprovals";
 import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
-import UnderConstruction from "./components/UnderConstruction";
 import FacultyProfile from "./pages/faculty/FacultyProfile";
-import StudentAcademicsSection from "./components/students/StudentAcademicsSection";
-import PatientAdmissionRecords from "./pages/patient/PatientAdmissionRecords";
 import FacultyPatientsData from "./pages/faculty/FacultyPatientsData";
-import PatientReport from "./pages/patient/PatientReport";
 import FacultyDischargeApproval from "./pages/faculty/FacultyDischargeApproval";
 import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
+
+import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
   return (

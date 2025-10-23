@@ -1,12 +1,4 @@
-import React from "react";
-import {
-  HomeIcon,
-  BookOpenIcon,
-  UserIcon,
-  BellIcon,
-  LogOutIcon,
-  Wallet,
-} from "lucide-react";
+import { HomeIcon, UserIcon, BellIcon, LogOutIcon, Wallet } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 export default function PatientSidebar({
