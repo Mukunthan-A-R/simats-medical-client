@@ -452,7 +452,7 @@ export default function StudentDashboardSliderWindow() {
               {emergencyContacts.map((contact) => (
                 <div
                   key={contact.id}
-                  className="p-2 sm:p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center"
+                  className="p-2 sm:p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center gap-y-2"
                 >
                   <img
                     src={contact.photo}
