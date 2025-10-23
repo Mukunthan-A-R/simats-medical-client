@@ -8,7 +8,7 @@ const StudentCategoryTab = ({ name }) => {
   const [toggleCategory, setToggleCategory] = useState(false);
 
   return (
-    <div>
+    <>
       <div
         className="flex justify-between mb-1.5 cursor-pointer"
         onClick={() => setToggleCategory(!toggleCategory)}
@@ -16,9 +16,9 @@ const StudentCategoryTab = ({ name }) => {
         <div className="flex items-center">
           <ChevronDownIcon
             size={16}
-            className={`mr-1 text-blue-600 transition-transform 
-                 ${toggleCategory == 1 ? "rotate-180" : ""}
-            `}
+            className={`mr-1 text-blue-600 transform transition-transform duration-300 ${
+              toggleCategory ? "rotate-180" : ""
+            }`}
           />
           <p className="text-xs font-medium text-gray-700">{name}</p>
         </div>
@@ -38,13 +38,15 @@ const StudentCategoryTab = ({ name }) => {
           }}
         ></div>
       </div>
-      {toggleCategory && (
-        <>
-          <StudentCategoryTabData category={name} />
-          <StudentTabCategoryMarks category={name}></StudentTabCategoryMarks>
-        </>
-      )}
-    </div>
+      <div
+        className={`transition-all duration-500 ease-in-out overflow-hidden ${
+          toggleCategory ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <StudentCategoryTabData category={name} />
+        <StudentTabCategoryMarks category={name} />
+      </div>
+    </>
   );
 };
 

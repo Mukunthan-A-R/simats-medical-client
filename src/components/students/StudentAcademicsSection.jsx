@@ -66,7 +66,7 @@ const StudentAcademicsSection = () => {
   };
 
   return (
-    <div className="p-4">
+    <div className="px-2 sm:px-4 py-2 sm:py-5 max-w-6xl mx-auto">
       <div className="flex items-center mb-4">
         <button
           className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}

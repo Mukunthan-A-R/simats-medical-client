@@ -1,12 +1,10 @@
-import { ChevronDownIcon } from "lucide-react";
-import React, { useState } from "react";
 import StudentCategoryTab from "./StudentCategoryTab";
 
 const StudentTabScoreCategories = () => {
   const category = { percentage: 87 };
 
   return (
-    <div className="px-4 sm:px-10 flex flex-col gap-2">
+    <div className="px-4 sm:px-10 flex flex-col gap-2 pb-4">
       <StudentCategoryTab name="Internal Medicine" />
       <StudentCategoryTab name="Pediatrics" />
       <StudentCategoryTab name="Surgery" />
