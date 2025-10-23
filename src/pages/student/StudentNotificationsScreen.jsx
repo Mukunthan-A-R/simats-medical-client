@@ -264,13 +264,17 @@ export function StudentNotificationsScreen({ onNavigate }) {
 
       {/* Notification Groups */}
       <div className="flex flex-col sm:flex-row gap-4 mb-8">
-        <div className="flex-1 overflow-x-hidden overflow-y-scroll h-70 pr-1">
-          {["critical"].map(
-            (priority) =>
-              groupedNotifications[priority].length > 0 && (
+        <div
+          className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar bg-white rounded-2xl"
+          style={{ height: "17.5rem" }}
+        >
+          {["critical"].map((priority) => {
+            const notifications = groupedNotifications?.[priority] || [];
+            return (
+              notifications.length > 0 && (
                 <div
                   key={priority}
-                  className="mb-6 rounded-xl overflow-hidden  "
+                  className="mb-6 rounded-xl overflow-hidden"
                   style={{ background: "rgba(255,255,255,0.7)" }}
                 >
                   <h2
@@ -285,7 +289,7 @@ export function StudentNotificationsScreen({ onNavigate }) {
                       : "Other Notifications"}
                   </h2>
                   <ul className="divide-y divide-gray-100">
-                    {groupedNotifications[priority].map((notification) => (
+                    {notifications.map((notification) => (
                       <StudentNotificationItem
                         key={notification.id}
                         notification={notification}
@@ -298,10 +302,14 @@ export function StudentNotificationsScreen({ onNavigate }) {
                   </ul>
                 </div>
               )
-          )}
+            );
+          })}
         </div>
 
-        <div className="flex-1 overflow-x-hidden overflow-y-scroll h-70 pr-1">
+        <div
+          className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar"
+          style={{ height: "17.5rem" }}
+        >
           {["high"].map(
             (priority) =>
               groupedNotifications[priority].length > 0 && (
@@ -339,7 +347,10 @@ export function StudentNotificationsScreen({ onNavigate }) {
         </div>
       </div>
 
-      <div className="w-[calc(100%-7px)] sm:w-[calc(50%-7px)] overflow-x-hidden overflow-y-scroll pr-1 h-70">
+      <div
+        className="w-[calc(100%-7px)] sm:w-[calc(50%-7px)] flex-1 overflow-y-auto overflow-x-hidden pr-1 custom-scrollbar rounded-2xl"
+        style={{ height: "17.5rem" }}
+      >
         {["medium"].map(
           (priority) =>
             groupedNotifications[priority].length > 0 && (
