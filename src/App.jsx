@@ -1,6 +1,7 @@
-import About from "./pages/About";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import About from "./pages/About";
 import Login from "./pages/Login";
+import ScrollToTop from "./components/ScrollToTop";
 
 // Student Routes
 import StudentLayout from "./pages/layouts/StudentLayout";
@@ -39,6 +40,7 @@ function App() {
   return (
     <>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Login />} />
           {/* <Route path="/login" element={<Login />} /> */}
