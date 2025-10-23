@@ -1,5 +1,3 @@
-import React, { useState, Fragment } from "react";
-
 import PatientMedicalRecordsRow from "./PatientMedicalRecordsRow";
 
 const PatientMedicalRecordsList = ({ records }) => {
@@ -37,7 +35,7 @@ const PatientMedicalRecordsList = ({ records }) => {
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 bg-amber-50">
+        <tbody className="divide-y divide-gray-200 bg-blue-50">
           {records.map((record) => (
             <PatientMedicalRecordsRow key={record.id} record={record} />
           ))}

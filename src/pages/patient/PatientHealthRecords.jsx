@@ -1,8 +1,6 @@
-import React from "react";
 import { ArrowLeft } from "lucide-react";
 import PatientInfoCard from "../../components/patient/PatientInfoCard";
 import PatientMedicalRecords from "../../components/patient/PatientMedicalRecords";
-import UnderConstruction from "../../components/UnderConstruction";
 import { useNavigate } from "react-router-dom";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
@@ -34,8 +32,6 @@ const PatientHealthRecords = () => {
       </div>
       <PatientInfoCard></PatientInfoCard>
       <PatientMedicalRecords></PatientMedicalRecords>
-
-      {/* <UnderConstruction /> */}
     </div>
   );
 };

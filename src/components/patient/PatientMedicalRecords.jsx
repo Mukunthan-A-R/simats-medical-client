@@ -98,7 +98,6 @@ const PatientMedicalRecords = () => {
     },
   ];
 
-  // ✅ Reusable shared styles
   const selectClasses =
     "w-full pl-2 pr-6 py-1.5 text-sm border border-gray-300 rounded-md appearance-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white";
   const wrapperClasses =
