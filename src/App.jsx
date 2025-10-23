@@ -13,10 +13,10 @@ import StudentAcademicsSection from "./components/students/StudentAcademicsSecti
 import PatientLayout from "./pages/layouts/PatientLayout";
 import PatientDashboard from "./pages/patient/PatientDashboard";
 import PatientProfile from "./components/patient/PatientProfile";
+import PatientNotifications from "./pages/patient/PatientNotifications";
 import PatientHealthRecords from "./pages/patient/PatientHealthRecords";
 import PatientPrescription from "./pages/patient/PatientPrescription";
 import PatientVitals from "./pages/patient/PatientVitals";
-import PatientNotifications from "./pages/patient/PatientNotifications";
 import PatientWallet from "./pages/student/PatientWallet";
 import PatientAdmissionRecords from "./pages/patient/PatientAdmissionRecords";
 import PatientReport from "./pages/patient/PatientReport";
@@ -24,11 +24,11 @@ import { PatientHospitalWallet } from "./pages/patient/PatientHospitalWallet";
 import { PatientPharmacyWallet } from "./pages/patient/PatientPharmacyWallet";
 
 // Faculty Routes
-import FacultyDashboard from "./pages/faculty/FacultyDashboard";
 import FacultyLayout from "./pages/layouts/FacultyLayout";
+import FacultyDashboard from "./pages/faculty/FacultyDashboard";
+import FacultyProfile from "./pages/faculty/FacultyProfile";
 import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApprovals";
 import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
-import FacultyProfile from "./pages/faculty/FacultyProfile";
 import FacultyPatientsData from "./pages/faculty/FacultyPatientsData";
 import FacultyDischargeApproval from "./pages/faculty/FacultyDischargeApproval";
 import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
@@ -44,7 +44,7 @@ function App() {
           {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/about" element={<About />} />
 
-          {/* Student routes wrapped in layout */}
+          {/* Student routes*/}
           <Route path="/student" element={<StudentLayout />}>
             <Route path="dashboard/:studentId" element={<StudentDashboard />} />
             <Route path="profile/:studentId" element={<StudentProfile />} />
@@ -58,7 +58,7 @@ function App() {
             />
           </Route>
 
-          {/* Teachers route wrapped in layout*/}
+          {/* Teachers route*/}
           <Route path="/faculty" element={<FacultyLayout />}>
             <Route path="dashboard/:facultyId" element={<FacultyDashboard />} />
             <Route path="profile/:facultyId" element={<FacultyProfile />} />
@@ -84,7 +84,7 @@ function App() {
             />
           </Route>
 
-          {/* Patient route wrapped in layout*/}
+          {/* Patient route*/}
           <Route path="/patient" element={<PatientLayout />}>
             <Route path="dashboard/:patientId" element={<PatientDashboard />} />
             <Route path="profile/:patientId" element={<PatientProfile />} />
