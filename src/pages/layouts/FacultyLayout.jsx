@@ -47,7 +47,7 @@ export default function FacultyLayout() {
 
         {/* Main Content */}
         <div
-          className="flex-1"
+          className="flex-1 min-h-screen"
           style={{
             backgroundImage: `
         repeating-linear-gradient(
