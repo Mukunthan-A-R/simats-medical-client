@@ -1,6 +1,7 @@
 import { ChevronLeftIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import PatientDischargeCard from "./PatientDischargeCard";
+import PatientCaseApprovalCard from "../../components/faculty/PatientCaseApprovalCard";
 
 const FacultyCaseApproval = () => {
   const navigate = useNavigate();
@@ -94,6 +95,7 @@ const FacultyCaseApproval = () => {
 
       {patients.map((patient) => (
         <>
+          <PatientCaseApprovalCard patient={patient} />
           <PatientDischargeCard patient={patient} />
         </>
       ))}
