@@ -189,7 +189,7 @@ export function NotificationsScreen({ onNavigate }) {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 w-full">
+    <div className="flex flex-col px-2 sm:px-4 py-2 sm:py-5 max-w-6xl mx-auto min-h-screen ">
       {/* Header */}
       <div className="p-4">
         <div className="flex items-center mb-4">
