@@ -200,7 +200,7 @@ export default function StudentDashboardSliderWindow() {
     <div className="w-full">
       {/* Tabs */}
       <div
-        className="flex mb-5 overflow-x-auto scrollbar-hide rounded-2xl w-full bg-red-500"
+        className="flex mb-5 overflow-x-auto scrollbar-hide rounded-2xl w-full"
         style={{
           borderRadius: "12px",
           boxShadow: "0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06)",
@@ -452,12 +452,12 @@ export default function StudentDashboardSliderWindow() {
               {emergencyContacts.map((contact) => (
                 <div
                   key={contact.id}
-                  className="p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center"
+                  className="p-2 sm:p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center"
                 >
                   <img
                     src={contact.photo}
                     alt={contact.name}
-                    className="w-10 h-10 rounded-full mr-3"
+                    className="w-7 sm:w-10 h-7 sm:h-10 rounded-full mr-3"
                   />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-gray-900">
@@ -468,7 +468,7 @@ export default function StudentDashboardSliderWindow() {
                     </p>
                     <div className="flex flex-row gap-2">
                       <button
-                        className="px-3 py-1 flex items-center justify-center font-medium text-xs gap-1 rounded-lg text-white  "
+                        className="px-2 sm:px-3 py-1 flex items-center justify-center font-medium text-[9px] sm:text-xs gap-1 rounded-lg text-white"
                         style={{
                           background:
                             "linear-gradient(to bottom, #4d90fe, #0066cc)",
@@ -478,11 +478,11 @@ export default function StudentDashboardSliderWindow() {
                           color: "white",
                         }}
                       >
-                        <PhoneCall size={13} />
+                        <PhoneCall size={12} />
                         Call
                       </button>
                       <button
-                        className="px-3 py-1 flex items-center justify-center  font-medium text-xs gap-1 rounded-lg  text-blue-800  "
+                        className="px-2 sm:px-3 py-1 flex items-center justify-center font-medium text-[9px] sm:text-xs gap-1 rounded-lg  text-blue-800 "
                         style={{
                           background:
                             "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
@@ -492,11 +492,11 @@ export default function StudentDashboardSliderWindow() {
                           color: "#0066cc",
                         }}
                       >
-                        <Mail size={13} />
+                        <Mail size={12} />
                         Email
                       </button>
                       <button
-                        className="px-3 py-1 flex items-center justify-center  font-medium text-xs gap-1 rounded-lg  text-blue-800 "
+                        className="px-2 sm:px-3 py-1 flex items-center justify-center font-medium text-[9px] sm:text-xs gap-1 rounded-lg  text-blue-800"
                         style={{
                           background:
                             "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
@@ -506,13 +506,13 @@ export default function StudentDashboardSliderWindow() {
                           color: "#0066cc",
                         }}
                       >
-                        <MessageCircle size={13} />
+                        <MessageCircle size={12} />
                         Message
                       </button>
                     </div>
                   </div>
                   <div
-                    className={`px-2 py-1 rounded-full text-xs font-medium capitalize ${
+                    className={`px-2 py-1 rounded-full text-[9px] sm:text-xs font-medium capitalize ${
                       contact.status === "available"
                         ? "bg-green-100 text-green-700"
                         : contact.status === "busy"
