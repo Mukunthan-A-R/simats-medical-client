@@ -25,6 +25,9 @@ import FacultyProfile from "./pages/faculty/FacultyProfile";
 import StudentAcademicsSection from "./components/students/StudentAcademicsSection";
 import PatientAdmissionRecords from "./pages/patient/PatientAdmissionRecords";
 import FacultyPatientsData from "./pages/faculty/FacultyPatientsData";
+import PatientReport from "./pages/patient/PatientReport";
+import FacultyDischargeApproval from "./pages/faculty/FacultyDischargeApproval";
+import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
 
 function App() {
   return (
@@ -55,11 +58,11 @@ function App() {
             <Route path="profile/:facultyId" element={<FacultyProfile />} />
             <Route
               path="case-record-approvals/:facultyId"
-              element={<UnderConstruction />}
+              element={<FacultyCaseApproval />}
             />
             <Route
               path="discharge-summary-approvals/:facultyId"
-              element={<UnderConstruction />}
+              element={<FacultyDischargeApproval />}
             />
             <Route
               path="admission-approvals/:facultyId"
@@ -104,6 +107,7 @@ function App() {
               path="prescriptions/:patientId"
               element={<PatientPrescription />}
             />
+            <Route path="report/:patientId" element={<PatientReport />} />
             <Route path="vitals/:patientId" element={<PatientVitals />} />
           </Route>
           <Route path="*" element={<UnderConstruction />} />

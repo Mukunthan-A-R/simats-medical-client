@@ -15,6 +15,7 @@ import {
   FileTextIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 // Wallet Balance Card
 const WalletCard = ({ balance }) => {
@@ -338,11 +339,6 @@ const TransactionHistory = ({
   onDownload,
   closeTransaction,
 }) => {
-  const aquaButtonStyle =
-    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
   return (
     <div
       className="rounded-xl overflow-hidden mb-6"

@@ -55,7 +55,7 @@ export default function PatientDashboardServices({
         {
           icon: <FileTextIcon size={18} />,
           title: "Investigation Reports",
-          action: () => navigate(`/patient/reports/${patientId}`),
+          action: () => navigate(`/patient/report/${patientId}`),
           iconColor: "text-blue-500",
         },
         {
