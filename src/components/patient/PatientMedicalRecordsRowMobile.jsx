@@ -7,6 +7,7 @@ import {
   UserIcon,
   CheckCircleIcon,
   XIcon,
+  AlertTriangleIcon,
 } from "lucide-react";
 import React, { useState } from "react";
 import PatientMedicalRecordReport from "./PatientMedicalRecordReport";
@@ -37,33 +38,31 @@ const PatientMedicalRecordCard = ({ record }) => {
   };
 
   return (
-    <div className="sm:hidden border border-gray-200 rounded-lg p-3 my-2 shadow-sm hover:shadow-md transition-all bg-white">
-      {/* Header: Icon + Type + Chevron */}
-      <div
-        className="flex items-center justify-between mb-2 cursor-pointer"
-        onClick={() => setExpanded(!expanded)}
-      >
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white">
+    <div className="sm:hidden bg-white border border-gray-200 rounded-lg shadow-sm p-3 my-2 hover:shadow-md transition-all">
+      {/* Header */}
+      <div className="flex justify-between items-start">
+        <div className="flex items-center gap-2 flex-1 min-w-0">
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
             {iconMap[record.iconType]}
           </div>
-          <div>
-            <div className="text-sm font-medium text-gray-900">
+          <div className="flex flex-col truncate">
+            <div className="text-sm font-semibold text-gray-900 truncate">
               {record.type}
             </div>
-            <div className="text-xs text-gray-500">
+            <div className="text-xs text-gray-500 truncate">
               {record.date} {record.time}
             </div>
           </div>
         </div>
         <div
-          className={`transform transition-transform ${
+          className={`cursor-pointer transform transition-transform ml-2 ${
             expanded ? "rotate-90" : ""
           }`}
+          onClick={() => setExpanded(!expanded)}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5 text-gray-400"
+            className="h-4 w-4 text-gray-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -78,46 +77,57 @@ const PatientMedicalRecordCard = ({ record }) => {
         </div>
       </div>
 
-      {/* Collapsible Details */}
-      {expanded && (
-        <div className="mt-2 border-t border-gray-200 pt-2 text-sm text-gray-700 space-y-2">
-          <div className="flex justify-between">
-            <span className="text-gray-500">Department</span>
-            <span>{record.department}</span>
+      {/* Summary Info */}
+      <div className="mt-2 flex flex-wrap justify-between gap-2 text-xs text-gray-700">
+        <div className="flex-1 min-w-[40%]">
+          <p className="text-gray-500">Record ID</p>
+          <p className="font-medium truncate">{record.id}</p>
+        </div>
+        <div className="flex-1 text-right min-w-[40%]">
+          <span
+            className="px-2 py-0.5 rounded-full text-xs font-semibold"
+            style={getStatusBadgeStyle(record.status)}
+          >
+            {record.status}
+          </span>
+        </div>
+        {record.alerts && record.alerts.length > 0 && (
+          <div className="w-full flex items-center gap-1 text-red-600 text-xs truncate mt-1">
+            <AlertTriangleIcon size={12} /> {record.alerts.join(", ")}
           </div>
-          <div className="flex justify-between">
-            <span className="text-gray-500">Status</span>
-            <span
-              className="px-2 py-0.5 rounded-full text-xs font-semibold"
-              style={getStatusBadgeStyle(record.status)}
-            >
-              {record.status}
-            </span>
+        )}
+      </div>
+
+      {/* Expanded Section */}
+      {expanded && (
+        <div className="mt-2 space-y-2 border-t border-gray-200 pt-2 text-xs text-gray-700">
+          <div>
+            <p className="text-gray-500">Department</p>
+            <p className="font-medium truncate">{record.department}</p>
           </div>
           <div>
-            <span className="text-gray-500">Description</span>
-            <p className="mt-1">{record.description}</p>
+            <p className="text-gray-500">Description</p>
+            <p className="font-medium truncate">{record.description}</p>
           </div>
-          <div className="flex justify-between">
-            <span className="flex items-center gap-1 text-gray-500">
-              <UserIcon size={14} /> Performed By
-            </span>
-            <span>{record.performedBy}</span>
-          </div>
-          {record.performedBy !== record.supervisedBy && (
-            <div className="flex justify-between">
-              <span className="flex items-center gap-1 text-gray-500">
-                <CheckCircleIcon size={14} /> Supervised By
-              </span>
-              <span>{record.supervisedBy}</span>
+          <div className="flex flex-wrap justify-between gap-2">
+            <div className="flex-1 min-w-[45%] flex items-center gap-1">
+              <UserIcon size={12} />{" "}
+              <span className="truncate">{record.performedBy}</span>
             </div>
-          )}
+            {record.performedBy !== record.supervisedBy && (
+              <div className="flex-1 min-w-[45%] flex items-center gap-1">
+                <CheckCircleIcon size={12} />{" "}
+                <span className="truncate">{record.supervisedBy}</span>
+              </div>
+            )}
+          </div>
+
           {record.images && record.images.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
+            <div className="flex flex-wrap gap-1 mt-1">
               {record.images.map((img, idx) => (
                 <div
                   key={idx}
-                  className="w-16 h-16 rounded overflow-hidden border cursor-pointer hover:border-blue-500 transition-colors"
+                  className="w-12 h-12 rounded overflow-hidden border flex-shrink-0"
                 >
                   <img
                     src={img.url}
@@ -128,10 +138,11 @@ const PatientMedicalRecordCard = ({ record }) => {
               ))}
             </div>
           )}
-          <div className="mt-3 flex justify-end">
+
+          <div className="mt-2 flex justify-end">
             <button
               onClick={() => setOpenReportModal(!openReportModal)}
-              className="px-4 py-2 text-white text-sm font-medium rounded-full bg-blue-500"
+              className="px-3 py-1 text-white text-xs font-medium rounded-full bg-blue-500"
             >
               View Full Report
             </button>

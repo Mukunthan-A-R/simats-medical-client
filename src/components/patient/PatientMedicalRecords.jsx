@@ -110,7 +110,7 @@ const PatientMedicalRecords = () => {
       {/* Search & Filter Section */}
       <div className={wrapperClasses}>
         <div className="flex flex-col sm:flex-row gap-2">
-          {/* Search Box */}
+          Search Box
           <div className="relative flex-1">
             <SearchIcon
               size={14}
@@ -124,10 +124,7 @@ const PatientMedicalRecords = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
-
-          {/* Filter Dropdowns */}
           <div className="flex gap-2 w-full sm:w-auto">
-            {/* Type Filter */}
             <div className="relative flex-1 sm:w-36">
               <select
                 className={selectClasses}
@@ -142,8 +139,6 @@ const PatientMedicalRecords = () => {
               </select>
               <ChevronDownIcon size={14} className={iconClasses} />
             </div>
-
-            {/* Department Filter */}
             <div className="relative flex-1 sm:w-36">
               <select
                 className={selectClasses}
