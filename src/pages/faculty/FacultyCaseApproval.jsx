@@ -32,10 +32,9 @@ const FacultyCaseApproval = () => {
       insuranceDetails: "Policy #HLTI-45678, Apollo Health Insurance",
       additionalNotes:
         "Patient is on blood thinners. Has a history of MI 2 years ago. Current ECG shows ST depression in leads V3-V5.",
-      patientPhoto:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+      patientPhoto: "https://avatars.dicebear.com/api/initials/ravi-kumar.svg",
       requestorPhoto:
-        "https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://avatars.dicebear.com/api/initials/priya-sharma.svg",
       alerts: ["Diabetes", "On Blood Thinners", "History of MI"],
     },
     {
@@ -65,10 +64,72 @@ const FacultyCaseApproval = () => {
       additionalNotes:
         "Patient had 3 episodes of seizures in the last 24 hours. Currently on Levetiracetam 500mg BD. Last seizure episode was 4 hours ago. Patient is pregnant (14 weeks).",
       patientPhoto:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://avatars.dicebear.com/api/initials/ananya-singh.svg",
       requestorPhoto:
-        "https://images.unsplash.com/photo-1537368910025-700350fe46c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
+        "https://avatars.dicebear.com/api/initials/rajesh-patel.svg",
       alerts: ["Pregnancy", "Epilepsy", "Migraine"],
+    },
+    {
+      id: "padm-003",
+      patientName: "Vikram Joshi",
+      patientId: "SMC-2023-0105",
+      department: "Orthopedics",
+      requestedBy: "Dr. Meena Krishnan",
+      requestDate: "2023-09-18",
+      urgency: "Medium",
+      reason: "Fracture follow-up",
+      age: 40,
+      gender: "Male",
+      contactNumber: "+91 91234 56789",
+      existingDiagnosis: "Tibia fracture post-surgery",
+      vitalSigns: {
+        bp: "130/85 mmHg",
+        pulse: "80 bpm",
+        temp: "36.8°C",
+        resp: "16/min",
+        spo2: "99%",
+      },
+      wardPreference: "W-310",
+      bedPreference: "Corner bed",
+      expectedStay: "2 days",
+      insuranceDetails: "Policy #HDFC-56789, HDFC Ergo Insurance",
+      additionalNotes: "Post-operative dressing change scheduled every 2 days.",
+      patientPhoto:
+        "https://avatars.dicebear.com/api/initials/vikram-joshi.svg",
+      requestorPhoto:
+        "https://avatars.dicebear.com/api/initials/meena-krishnan.svg",
+      alerts: ["Post-surgery care"],
+    },
+    {
+      id: "padm-004",
+      patientName: "Saira Banu",
+      patientId: "SMC-2023-0112",
+      department: "Oncology",
+      requestedBy: "Dr. Ashok Menon",
+      requestDate: "2023-09-19",
+      urgency: "High",
+      reason: "Chemotherapy cycle 4",
+      age: 49,
+      gender: "Female",
+      contactNumber: "+91 93456 22109",
+      existingDiagnosis: "Breast carcinoma (Stage II)",
+      vitalSigns: {
+        bp: "118/78 mmHg",
+        pulse: "90 bpm",
+        temp: "37.0°C",
+        resp: "17/min",
+        spo2: "98%",
+      },
+      wardPreference: "W-220",
+      bedPreference: "Window side",
+      expectedStay: "4 days",
+      insuranceDetails: "Policy #BAJAJ-11122, Bajaj Allianz Insurance",
+      additionalNotes:
+        "Requires IV line setup and antiemetic protocol pre-chemo.",
+      patientPhoto: "https://avatars.dicebear.com/api/initials/saira-banu.svg",
+      requestorPhoto:
+        "https://avatars.dicebear.com/api/initials/ashok-menon.svg",
+      alerts: ["Chemotherapy", "Nausea management"],
     },
   ];
 
