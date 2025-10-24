@@ -35,7 +35,7 @@ const PatientMedicalRecordsList = ({ records }) => {
             </th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-gray-200 bg-blue-50">
+        <tbody className="divide-y divide-gray-200 bg-white">
           {records.map((record) => (
             <PatientMedicalRecordsRow key={record.id} record={record} />
           ))}

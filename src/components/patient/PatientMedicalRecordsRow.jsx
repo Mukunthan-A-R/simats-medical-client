@@ -51,7 +51,7 @@ const PatientMedicalRecordsRow = ({ record }) => {
       >
         <td className="px-4 py-3 whitespace-nowrap">
           <div className="text-sm font-medium text-gray-900">{record.date}</div>
-          <div className="text-sm text-gray-500">{record.time}</div>
+          <div className="text-sm text-gray-800">{record.time}</div>
         </td>
         <td
           className="px-4 py-3 cursor-pointer"
