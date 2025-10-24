@@ -22,79 +22,89 @@ const PatientDischargeCard = ({ patient }) => {
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 sm:p-4 flex flex-col gap-2 my-2">
-      {/* Header Section */}
-      <div className="flex items-center gap-3">
-        <img
-          src={patient.patientPhoto}
-          alt={patient.patientName}
-          className="h-10 w-10 rounded-full object-cover border border-gray-300"
-        />
-        <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-gray-900 truncate">
-            {patient.patientName}
-          </h3>
-          <p className="text-xs text-gray-500 truncate">{patient.patientId}</p>
+      {/* === Row 1: 4 Columns (Responsive) === */}
+      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-4 items-center">
+        {/* Patient Info */}
+        <div className="flex items-center gap-2">
+          <img
+            src={patient.patientPhoto}
+            alt={patient.patientName}
+            className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover border border-gray-300"
+          />
+          <div className="leading-tight">
+            <h3 className="text-sm font-semibold text-gray-900 truncate">
+              {patient.patientName}
+            </h3>
+            <p className="text-xs text-gray-500 truncate">
+              {patient.patientId}
+            </p>
+          </div>
         </div>
-        <span className="text-xs text-gray-700 font-medium">
-          <p>Dischare Request Date</p>
-          {formatDate(patient.requestDate)}
-        </span>
-      </div>
-      {/* Key Info Row */}
-      <div className="grid grid-cols-3 text-xs sm:text-sm mt-1">
-        <div className="truncate">
-          <p className="text-gray-500">Dept</p>
-          <p className="font-medium text-gray-800 truncate">
+
+        {/* Department */}
+        <div>
+          <p className="text-gray-500 text-xs">Dept</p>
+          <p className="font-medium text-gray-800 text-sm truncate">
             {patient.department}
           </p>
         </div>
-        <div className="truncate">
-          <p className="text-gray-500">Requested By</p>
-          <p className="font-medium text-gray-800 truncate">
+
+        {/* Requested By */}
+        <div className="sm:pl-2 md:pl-4">
+          <p className="text-gray-500 text-xs">Requested By</p>
+          <p className="font-medium text-gray-800 text-sm truncate">
             {patient.requestedBy}
           </p>
         </div>
-        <div className="truncate">
+
+        {/* Admission Date */}
+        <div className="text-left md:text-right">
+          <p className="text-gray-500 text-xs">Admission</p>
+          <p className="font-medium text-gray-800 text-sm">
+            {formatDate ? formatDate("2023-08-30") : "Aug 30, 2023"}
+          </p>
+        </div>
+      </div>
+
+      {/* === Row 2: Reason, Alerts, and Actions === */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-gray-100 pt-2">
+        {/* Reason + Alerts */}
+        <div className="flex flex-col text-xs leading-snug flex-1">
+          <p className="flex items-center text-blue-600 font-medium">
+            <HeartPulseIcon size={12} className="mr-1" /> {patient.reason}
+          </p>
+          {patient.alerts?.length > 0 && (
+            <p className="flex items-center text-red-600 font-medium mt-0.5">
+              <AlertTriangleIcon size={12} className="mr-1" />
+              {patient.alerts.join(", ")}
+            </p>
+          )}
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-wrap justify-start sm:justify-end items-center gap-2">
           <button
-            onClick={() => setViewSummary(!viewSummary)}
+            onClick={() => setViewSummary(true)}
             className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all shadow-sm"
           >
-            Summary Report
+            Report Docs
+          </button>
+          <button
+            onClick={handleReject}
+            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 active:scale-95 transition-all shadow-sm"
+          >
+            <XIcon size={12} /> Reject
+          </button>
+          <button
+            onClick={() => alert("Approve")}
+            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
+          >
+            <CheckIcon size={12} /> Approve
           </button>
         </div>
       </div>
-      {/* Reason & Alerts Combined */}
-      <div className="rounded-md border border-gray-100 bg-gray-50/50 p-2 text-xs leading-snug">
-        <p className="flex items-center text-blue-600 font-medium mb-1">
-          <HeartPulseIcon size={11} className="mr-1" /> {patient.reason}
-        </p>
-        {patient.alerts?.length > 0 && (
-          <p className="flex items-center text-red-600 font-medium">
-            <AlertTriangleIcon size={11} className="mr-1" />{" "}
-            {patient.alerts.join(", ")}
-          </p>
-        )}
-      </div>
-      <div className="font-medium text-gray-600 text-sm">
-        <p className="text-gray-900">Admission Date</p>
-        <p>Aug 30, 2023</p>
-      </div>
-      {/* Actions */}
-      <div className="flex justify-end gap-2 mt-1">
-        <button
-          onClick={handleReject}
-          className="flex items-center gap-1 px-3 py-1 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 active:scale-95 transition-all shadow-sm"
-        >
-          <XIcon size={12} /> Reject
-        </button>
-        <button
-          onClick={() => alert("Approve")}
-          className="flex items-center gap-1 px-3 py-1 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
-        >
-          <CheckIcon size={12} /> Approve
-        </button>
-      </div>
-      {/* Feedback Modal */}
+
+      {/* === Feedback Modal === */}
       {showFeedbackModal && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-sm">
@@ -139,25 +149,28 @@ const PatientDischargeCard = ({ patient }) => {
           </div>
         </div>
       )}
-      <div className="relative">
-        {viewSummary && (
-          //   <PatientMedicalRecordReport></PatientMedicalRecordReport>
-          <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-lg shadow-xl w-full max-w-sm">
-              <div className="flex flex-row justify-between p-4">
-                <p className="text-lg font-medium">Patient Medical Data</p>
-                <button
-                  onClick={() => {
-                    setViewSummary(false);
-                  }}
-                >
-                  <XIcon size={20}></XIcon>
-                </button>
-              </div>
+
+      {/* === Summary Modal === */}
+      {viewSummary && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
+            <div className="flex justify-between items-center p-4 border-b border-gray-100">
+              <p className="text-sm font-medium text-gray-800">
+                Patient Medical Data
+              </p>
+              <button onClick={() => setViewSummary(false)}>
+                <XIcon
+                  size={20}
+                  className="text-gray-600 hover:text-gray-800"
+                />
+              </button>
+            </div>
+            <div className="p-4">
+              <PatientMedicalRecordReport />
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
