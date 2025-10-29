@@ -7,7 +7,7 @@ export const loginUser = async ({ username, password }) => {
     id: username,
     password,
   });
-  console.log(response);
+  //   console.log(response);
 
   return response.data;
 };
