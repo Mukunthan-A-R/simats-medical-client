@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { UserIcon, KeyIcon, LogInIcon } from "lucide-react";
 import Banner from "../../public/loginBanner.png";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../services/login";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,25 +14,46 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const {
+    mutate,
+    isPending,
+    isError,
+    error: loginError,
+  } = useMutation({
+    mutationFn: loginUser,
+
+    onSuccess: (data) => {
+      console.log("Login successful:", data);
+
+      const userId = data.user_id;
+      const role = data.role_id;
+      if (role == "2") {
+        alert("Logged in as student!");
+        navigate(`/student/dashboard/${userId}`);
+      } else if (role == "1") {
+        alert("Logged in as faculty!");
+        navigate(`/faculty/dashboard/${userId}`);
+      } else if (role == "3") {
+        alert("Logged in as patient!");
+        navigate(`/patient/dashboard/${userId}`);
+      }
+    },
+
+    onError: (error) => {
+      console.error("Login failed:", error);
+      setError("Invalid credentials. Please try again.");
+    },
+  });
+
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     setError("");
-
-    if (username === "s" && password === "s") {
-      alert("Logged in as student!");
-      navigate(`/student/dashboard/${userId}`);
-    } else if (username === "t" && password === "t") {
-      alert("Logged in as faculty!");
-      navigate(`/faculty/dashboard/${userId}`);
-    } else if (username === "p" && password === "p") {
-      alert("Logged in as patient!");
-      navigate(`/patient/dashboard/${userId}`);
-    } else {
-      setError(
-        "Invalid credentials. Use username/password: s/s for student, p/p for patient, t/t for faculty."
-      );
-    }
+    mutate({ username, password });
   };
+
+  if (isPending) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
