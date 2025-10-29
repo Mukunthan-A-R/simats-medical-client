@@ -4,8 +4,11 @@ import Banner from "../../public/loginBanner.png";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../services/login";
+import { useRecoilState } from "recoil";
+import { userLoginAtom } from "../context/userAtom";
 
 const Login = () => {
+  const [userData, setUserData] = useRecoilState(userLoginAtom);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -24,9 +27,15 @@ const Login = () => {
 
     onSuccess: (data) => {
       console.log("Login successful:", data);
-
       const userId = data.user_id;
       const role = data.role_id;
+
+      setUserData({
+        userId: userId,
+        roleId: role,
+        lastLogin: data.last_login,
+      });
+
       if (role == "2") {
         alert("Logged in as student!");
         navigate(`/student/dashboard/${userId}`);

@@ -4,7 +4,13 @@ import StudentDashboardSliderWindow from "../../components/students/StudentDashb
 import { useParams } from "react-router-dom";
 import StudentScoreTab from "../../components/students/StudentScoreTab";
 
+import { useRecoilValue } from "recoil";
+import { userLoginAtom } from "../../context/userAtom";
+
 const StudentDashboard = () => {
+  const userData = useRecoilValue(userLoginAtom);
+  console.log(userData);
+
   const { studentId } = useParams();
   console.log("studentId :" + studentId);
   const [scoresTab, setScoresTab] = useState(false);
