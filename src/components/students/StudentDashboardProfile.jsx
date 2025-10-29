@@ -1,9 +1,29 @@
 import React from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStudentById } from "../../services/studentService";
+import { useRecoilValue } from "recoil";
+import { userLoginAtom } from "../../context/userAtom";
 
 export default function StudentProfileCard({ setScoresTab }) {
   const navigate = useNavigate();
+  const userLogin = useRecoilValue(userLoginAtom);
+
+  const {
+    data: student,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["student", userLogin.userId],
+    queryFn: () => fetchStudentById(userLogin.userId),
+    enabled: !!userLogin.userId, // ✅ prevents running if ID is null/undefined
+  });
+
+  if (isLoading) return <p>Loading student data...</p>;
+
+  console.log("student");
+  console.log(student);
 
   return (
     <div>
