@@ -27,16 +27,15 @@ export default function FacultyLayout() {
     enabled: !!doctorId,
   });
 
+  console.log("doctor");
+  console.log(doctor);
+
   useEffect(() => {
     if (doctor) {
       const doctorData = doctor?.data || doctor;
       setUserDataVal(doctorData);
     }
   }, [doctorId, doctor]);
-
-  console.log("dcotor");
-  console.log(doctor);
-  console.log(doctorId);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);

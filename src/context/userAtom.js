@@ -19,6 +19,8 @@ export const userData = atom({
     gender: null,
     name: null,
     phone_no: null,
-    user_id: null,
+    student_id: null,
+    doctor_id: null,
+    patient_id: null,
   },
 });
