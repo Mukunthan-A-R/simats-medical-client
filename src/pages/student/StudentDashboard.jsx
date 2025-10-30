@@ -18,7 +18,6 @@ const StudentDashboard = () => {
         setScoresTab={() => setScoresTab(!scoresTab)}
       ></StudentDashboardProfile>
       {!scoresTab ? (
-        // <p>hi</p>
         <StudentDashboardSliderWindow></StudentDashboardSliderWindow>
       ) : (
         <StudentScoreTab></StudentScoreTab>

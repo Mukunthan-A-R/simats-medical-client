@@ -50,6 +50,10 @@ const StudentMyPatientTab = () => {
         </button>
       </div>
 
+      <div className="py-4 text-center text-gray-600">
+        {patientList.length === 0 && <p>No patients for now !</p>}
+      </div>
+
       {/* Patient List */}
       <div className="divide-y divide-gray-100">
         {displayedPatients.map((patient) => (
