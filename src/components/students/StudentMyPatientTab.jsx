@@ -1,17 +1,33 @@
+import { useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   ArrowRightIcon,
   ChevronDownIcon,
   RefreshCwIcon,
   UsersIcon,
 } from "lucide-react";
-import React, { useState } from "react";
-import {
-  additionalPatients,
-  assignedPatients,
-} from "./StudentDashboardSliderWindow";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStudentPatients } from "../../services/studentPatientsServices";
 
 const StudentMyPatientTab = () => {
+  const { studentId } = useParams();
   const [showAllPatients, setShowAllPatients] = useState(false);
+
+  const {
+    data: patients,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["studentPatients", studentId],
+    queryFn: () => fetchStudentPatients(studentId),
+    enabled: !!studentId,
+  });
+
+  if (isLoading) return <p>Loading patients...</p>;
+  //   if (isError) return <p>Failed to load patients.</p>;
+
+  console.log("patients");
+  console.log(patients.data);
 
   return (
     <div className="overflow-hidden mb-6 rounded-lg shadow-sm bg-white animate-fadeIn">
@@ -30,10 +46,7 @@ const StudentMyPatientTab = () => {
         </button>
       </div>
       <div className="divide-y divide-gray-100">
-        {[
-          ...assignedPatients,
-          ...(showAllPatients ? additionalPatients : []),
-        ].map((patient) => (
+        {[...patients.data, ...(showAllPatients ? [] : [])].map((patient) => (
           <div
             key={patient.id}
             className="p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center justify-between"
