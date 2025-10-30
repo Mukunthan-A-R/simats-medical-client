@@ -4,7 +4,7 @@ import PatientMedicalAllergies from "./PatientMedicalAllergies";
 import PatientDashboardServices from "./PatientDashboardServices";
 import PatientDashboardNotification from "./PatientDashboardNotification";
 
-export default function PatientDashboardProfile() {
+export default function PatientDashboardProfile({ userDataVal }) {
   return (
     <div
       className="overflow-hidden mb-6 cursor-pointer transform transition-transform duration-200 hover:scale-[1.01]"
@@ -52,10 +52,10 @@ export default function PatientDashboardProfile() {
             className="text-xl font-semibold text-gray-900 truncate"
             style={{ textShadow: "0 1px 0 rgba(255,255,255,0.5)" }}
           >
-            Welcome, Sarah Smith
+            Welcome, {userDataVal?.name}
           </h2>
           <p className="text-sm text-gray-500 mt-0.5">
-            ID: SMC-2023-0042 • Last visit: 15 May 2023
+            ID: {userDataVal?.patient_id}2 • Last visit: 15 May 2023
           </p>
         </div>
       </div>

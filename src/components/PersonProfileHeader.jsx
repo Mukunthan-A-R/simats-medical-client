@@ -85,7 +85,9 @@ export default function StudentProfileHeader({
           {userDataVal?.name || "User"}
         </h2>
         <p className="text-gray-500 text-sm">{`User ID : ${
-          userDataVal?.student_id || userDataVal?.doctor_id
+          userDataVal?.student_id ||
+          userDataVal?.doctor_id ||
+          userDataVal.patient_id
         }`}</p>
       </div>
     </div>

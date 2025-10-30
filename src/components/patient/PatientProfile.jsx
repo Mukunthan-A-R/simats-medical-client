@@ -1,14 +1,15 @@
-import React from "react";
-
 import PersonContactInfo from "../PersonContactInfo";
 import PersonEmergencyContactInfo from "../PersonEmergencyContactInfo";
 import PersonProfileHeader from "../PersonProfileHeader";
 import PersonPersonalInformation from "../PersonPersonalInformation";
 import PatientProfileInsurance from "./PatientProfileInsurance";
 import { useParams } from "react-router-dom";
+import { userData } from "../../context/userAtom";
+import { useRecoilValue } from "recoil";
 
 export default function PatientProfile() {
   const { patientId } = useParams();
+  const userDataVal = useRecoilValue(userData);
   console.log("patientId : " + patientId);
 
   return (
@@ -16,7 +17,7 @@ export default function PatientProfile() {
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-8">
         <div className="flex-1 sm:pb-6 ">
           {/* Profile Header */}
-          <PersonProfileHeader />
+          <PersonProfileHeader userDataVal={userDataVal} />
         </div>
         <div className="flex-1 ">
           {/* Emergency Contact */}
@@ -27,11 +28,11 @@ export default function PatientProfile() {
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mt-6">
         <div className="flex-1 ">
           {/* Personal Information */}
-          <PersonPersonalInformation />
+          <PersonPersonalInformation userDataVal={userDataVal} />
         </div>
         <div className="flex-1 ">
           {/* Contact Information */}
-          <PersonContactInfo />
+          <PersonContactInfo userDataVal={userDataVal} />
         </div>
       </div>
 

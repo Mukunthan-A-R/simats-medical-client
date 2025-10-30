@@ -2,13 +2,43 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import PatientSidebar from "../../components/patient/PatientSidebar";
+import { userData, userLoginAtom } from "../../context/userAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPatientById } from "../../services/patientService";
 
 export default function PatientLayout() {
-  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const navigate = useNavigate();
-
+  const userLogin = useRecoilValue(userLoginAtom);
   // Track window size for responsiveness
+  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [userDataVal, setUserDataVal] = useRecoilState(userData);
+
+  const patientId = userLogin?.userId || null;
+  // console.log("userLogin");
+  // console.log(userLogin);
+
+  const {
+    data: patient,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["patient", patientId],
+    queryFn: () => fetchPatientById(patientId),
+    enabled: !!patientId,
+  });
+  console.log("patient");
+  console.log(patient);
+
+  useEffect(() => {
+    if (patient) {
+      const patientData = patient?.data || patient;
+      setUserDataVal(patientData);
+    }
+  }, [patientId, patient, setUserDataVal]);
+
+  // console.log(patientId);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
