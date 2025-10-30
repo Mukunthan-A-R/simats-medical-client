@@ -16,8 +16,6 @@ export default function PatientLayout() {
   const [userDataVal, setUserDataVal] = useRecoilState(userData);
 
   const patientId = userLogin?.userId || null;
-  // console.log("userLogin");
-  // console.log(userLogin);
 
   const {
     data: patient,
@@ -28,8 +26,6 @@ export default function PatientLayout() {
     queryFn: () => fetchPatientById(patientId),
     enabled: !!patientId,
   });
-  console.log("patient");
-  console.log(patient);
 
   useEffect(() => {
     if (patient) {
@@ -37,8 +33,6 @@ export default function PatientLayout() {
       setUserDataVal(patientData);
     }
   }, [patientId, patient, setUserDataVal]);
-
-  // console.log(patientId);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
