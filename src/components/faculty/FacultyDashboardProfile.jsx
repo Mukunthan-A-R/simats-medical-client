@@ -1,7 +1,7 @@
 import { BookOpenIcon } from "lucide-react";
 import React from "react";
 
-const FacultyDashboardProfile = () => {
+const FacultyDashboardProfile = ({ userData }) => {
   return (
     <div className="px-3 py-4  w-full">
       {/* Faculty Profile Card */}
@@ -47,10 +47,10 @@ const FacultyDashboardProfile = () => {
           </div>
           <div className="flex-1 min-w-0">
             <h2 className="text-lg font-semibold text-gray-900 truncate">
-              Welcome, Dr. Sarah Johnson
+              Welcome, Dr. {userData?.name}
             </h2>
             <p className="text-xs text-gray-500">
-              ID: FAC-2023-0078 • Department: Cardiology
+              ID: {userData?.doctor_id} • Department: Cardiology
             </p>
           </div>
         </div>

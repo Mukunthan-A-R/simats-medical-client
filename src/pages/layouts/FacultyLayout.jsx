@@ -2,13 +2,41 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import FacultySidebar from "../../components/faculty/FacultySidebar";
+import { fetchDoctorById } from "../../services/doctorService";
+import { useQuery } from "@tanstack/react-query";
+import { userData, userLoginAtom } from "../../context/userAtom";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 export default function FacultyLayout() {
-  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const navigate = useNavigate();
-
+  const userLogin = useRecoilValue(userLoginAtom);
   // Track window size for responsiveness
+  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [userDataVal, setUserDataVal] = useRecoilState(userData);
+
+  const doctorId = userLogin?.userId || null;
+
+  const {
+    data: doctor,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["doctor", doctorId],
+    queryFn: () => fetchDoctorById(doctorId),
+    enabled: !!doctorId,
+  });
+
+  useEffect(() => {
+    if (doctor) {
+      const doctorData = doctor?.data || doctor;
+      setUserDataVal(doctorData);
+    }
+  }, [doctorId, doctor]);
+
+  console.log("dcotor");
+  console.log(doctor);
+  console.log(doctorId);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
