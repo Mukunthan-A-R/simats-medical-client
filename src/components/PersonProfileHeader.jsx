@@ -35,8 +35,7 @@ const editButtonStyle = {
 };
 
 export default function StudentProfileHeader({
-  name = "John Doe",
-  studentId = "SMC-2023-0042",
+  userDataVal,
   imgSrc = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ4kHDPwdUsng85LawKD6dQ78XErUyhu3PDu1XLAryK7jrw2mulwXmUwG3GSVr8z7RiK0&usqp=CAU",
   onEditClick,
 }) {
@@ -61,7 +60,7 @@ export default function StudentProfileHeader({
           />
           <img
             src={imgSrc}
-            alt={name}
+            alt={userDataVal.name}
             className="h-30 sm:h-full w-full object-cover"
           />
         </div>
@@ -83,9 +82,9 @@ export default function StudentProfileHeader({
           className="text-xl font-semibold text-gray-800 truncate"
           style={{ textShadow: "0 1px 0 rgba(255,255,255,0.5)" }}
         >
-          {name}
+          {userDataVal?.name || "User"}
         </h2>
-        <p className="text-gray-500 text-sm">{`Student ID: ${studentId}`}</p>
+        <p className="text-gray-500 text-sm">{`Student ID: ${userDataVal?.student_id}`}</p>
       </div>
     </div>
   );

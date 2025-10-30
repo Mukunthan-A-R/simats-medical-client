@@ -33,14 +33,7 @@ const ContactItem = ({ icon: Icon, value, label }) => {
 };
 
 // Main component
-export default function PersonContactInfo({
-  phone = "+91 98765 43210",
-  email = "johndoe@example.com",
-  addressLine1 = "123 Main Street, Anna Nagar",
-  addressLine2 = "Chennai, Tamil Nadu - 600040",
-  aquaButtonStyle = "",
-  aquaGlossEffect = "",
-}) {
+export default function PersonContactInfo({ userDataVal }) {
   return (
     <div
       className="rounded-xl overflow-hidden shadow-md mb-6"
@@ -73,22 +66,21 @@ export default function PersonContactInfo({
       <div className="p-4 space-y-4">
         <ContactItem
           icon={PhoneIcon}
-          value={phone}
+          value={userDataVal.phone_no}
           label="Primary"
           aquaButtonStyle={aquaButtonStyle}
           aquaGlossEffect={aquaGlossEffect}
         />
         <ContactItem
           icon={MailIcon}
-          value={email}
+          value={userDataVal.email}
           label="Email"
           aquaButtonStyle={aquaButtonStyle}
           aquaGlossEffect={aquaGlossEffect}
         />
         <ContactItem
           icon={MapPinIcon}
-          value={addressLine1}
-          label={addressLine2}
+          value={userDataVal.address}
           aquaButtonStyle={aquaButtonStyle}
           aquaGlossEffect={aquaGlossEffect}
         />

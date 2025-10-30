@@ -19,11 +19,9 @@ const VerifiedBadge = () => (
 
 // Main component
 export default function PersonPersonalInformation({
+  userDataVal,
   aadhaar = "XXXX XXXX 4567",
   abha = "12-3456-7890-1234",
-  dob = "15 May 1985",
-  gender = "Male",
-  bloodGroup = "O+",
 }) {
   return (
     <div
@@ -78,7 +76,7 @@ export default function PersonPersonalInformation({
           <span className="text-sm text-gray-500">Date of Birth</span>
           <div className="flex items-center mt-1">
             <CalendarIcon size={14} className="text-blue-600 mr-2" />
-            <span className="text-gray-800">{dob}</span>
+            <span className="text-gray-800">{userDataVal.dob}</span>
           </div>
         </div>
 
@@ -87,7 +85,7 @@ export default function PersonPersonalInformation({
           <span className="text-sm text-gray-500">Gender</span>
           <div className="flex items-center mt-1">
             <UserIcon size={14} className="text-blue-600 mr-2" />
-            <span className="text-gray-800">{gender}</span>
+            <span className="text-gray-800">{userDataVal.gender}</span>
           </div>
         </div>
 
@@ -96,7 +94,7 @@ export default function PersonPersonalInformation({
           <span className="text-sm text-gray-500">Blood Group</span>
           <div className="flex items-center mt-1">
             <DropletIcon size={14} className="text-red-600 mr-2" />
-            <span className="text-gray-800">{bloodGroup}</span>
+            <span className="text-gray-800">{userDataVal.blood_group}</span>
           </div>
         </div>
       </div>
