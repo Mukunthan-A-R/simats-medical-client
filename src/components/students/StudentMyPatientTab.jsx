@@ -24,8 +24,12 @@ const StudentMyPatientTab = () => {
     enabled: !!studentId,
   });
 
-  if (isLoading) return <p>Loading patients...</p>;
-  if (isError) return <p>Failed to load patients.</p>;
+  if (isLoading)
+    return <p className="text-gray-700 text-center">Loading patients...</p>;
+  if (isError)
+    return (
+      <p className="text-red-500 text-center ">Failed to load patients.</p>
+    );
 
   const patientList = patients?.data || [];
   const displayedPatients = showAllPatients
