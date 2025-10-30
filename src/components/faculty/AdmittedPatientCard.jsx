@@ -11,30 +11,31 @@ function AdmittedPatientCard({ patient, onNavigate }) {
           {/* Photo */}
           <div className="mr-3 h-10 w-10 rounded-full overflow-hidden border-2 border-white shadow">
             <img
-              src={patient.photo}
-              alt={patient.name}
+              src={patient?.photo}
+              alt={patient?.name}
               className="h-full w-full object-cover"
             />
           </div>
           {/* Info */}
           <div className="min-w-0">
             <p className="font-medium text-sm text-gray-900 truncate">
-              {patient.name}
+              {patient?.name}
             </p>
             <span className="text-xs text-gray-500">
-              {patient.age}y, {patient.gender}
+              {patient?.dob}y, {patient?.gender}
             </span>
             <div className="flex items-center text-xs text-gray-600 mt-0.5">
               <CalendarIcon size={10} className="mr-1" /> Admitted:{" "}
-              {patient.admissionDate}
+              {patient?.admissionDate}
             </div>
             <div className="flex items-center text-xs text-gray-600 mt-0.5">
-              <StethoscopeIcon size={10} className="mr-1" /> {patient.diagnosis}
+              <StethoscopeIcon size={10} className="mr-1" />{" "}
+              {patient?.diagnosis}
             </div>
             {/* Alerts */}
-            {patient.alerts?.length > 0 && (
+            {patient?.alerts?.length > 0 && (
               <div className="mt-1 flex flex-wrap gap-1">
-                {patient.alerts.map((a, i) => (
+                {patient?.alerts.map((a, i) => (
                   <span
                     key={i}
                     className="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-red-100 text-red-700 border border-red-200"
@@ -47,17 +48,17 @@ function AdmittedPatientCard({ patient, onNavigate }) {
           </div>
         </div>
         {/* Status */}
-        {patient.status && (
+        {patient?.status && (
           <div className="ml-2">
             <span className="inline-flex items-center justify-center w-20 px-1.5 py-0.5 rounded-full text-[10px] font-medium bg-green-100 text-green-700 border border-green-200 text-center leading-tight">
-              {patient.status.toLowerCase() === "under observation" ? (
+              {patient?.status.toLowerCase() === "under observation" ? (
                 <>
                   Under
                   <br />
                   observation
                 </>
               ) : (
-                patient.status
+                patient?.status
               )}
             </span>
           </div>

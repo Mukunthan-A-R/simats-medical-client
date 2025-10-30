@@ -12,68 +12,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import AdmittedPatientCard from "./AdmittedPatientCard";
 import ClinicPatientCard from "./ClinicPatientCard";
+import AdmittedPatientCardData from "./AdmittedPatientCardData";
 
 export default function FacultyDashboardWindow() {
-  // ---------------- Mock Data ----------------
-  const admittedPatients = [
-    {
-      id: "SMC-2023-0042",
-      name: "John Doe",
-      age: 45,
-      gender: "Male",
-      admissionDate: "2023-05-15",
-      wardNumber: "W-301",
-      bedNumber: "B-12",
-      diagnosis: "Unstable Angina",
-      photo:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      status: "Stable",
-      alerts: ["Penicillin Allergy"],
-    },
-    {
-      id: "SMC-2023-0078",
-      name: "Ravi Kumar",
-      age: 62,
-      gender: "Male",
-      admissionDate: "2023-09-15",
-      wardNumber: "W-205",
-      bedNumber: "B-04",
-      diagnosis: "Chest pain and arrhythmia",
-      photo:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      status: "Under observation",
-      alerts: ["Diabetes"],
-    },
-    {
-      id: "SMC-2023-0092",
-      name: "Ananya Singh",
-      age: 28,
-      gender: "Female",
-      admissionDate: "2023-09-17",
-      wardNumber: "W-103",
-      bedNumber: "B-08",
-      diagnosis: "Recurrent seizures",
-      photo:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      status: "Critical",
-      alerts: ["Pregnancy", "Epilepsy"],
-    },
-    {
-      id: "SMC-2023-0105",
-      name: "Vikram Reddy",
-      age: 54,
-      gender: "Male",
-      admissionDate: "2023-09-18",
-      wardNumber: "W-201",
-      bedNumber: "B-15",
-      diagnosis: "Chronic abdominal pain",
-      photo:
-        "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-      status: "Stable",
-      alerts: [],
-    },
-  ];
-
   const clinicPatients = [
     {
       id: "SMC-2023-0112",
@@ -184,21 +125,13 @@ export default function FacultyDashboardWindow() {
 
       {/* Content */}
       <div className="p-2 space-y-2">
-        {activeTab === "admitted"
-          ? admittedPatients.map((p) => (
-              <AdmittedPatientCard
-                key={p.id}
-                patient={p}
-                onNavigate={onNavigate}
-              />
-            ))
-          : clinicPatients.map((p) => (
-              <ClinicPatientCard
-                key={p.id}
-                patient={p}
-                onNavigate={onNavigate}
-              />
-            ))}
+        {activeTab === "admitted" ? (
+          <AdmittedPatientCardData />
+        ) : (
+          clinicPatients.map((p) => (
+            <ClinicPatientCard key={p.id} patient={p} onNavigate={onNavigate} />
+          ))
+        )}
       </div>
     </div>
   );
