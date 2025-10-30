@@ -8,3 +8,17 @@ export const userLoginAtom = atom({
     lastLogin: null,
   },
 });
+
+export const userData = atom({
+  key: "userData",
+  default: {
+    address: null,
+    blood_group: null,
+    dob: null,
+    email: null,
+    gender: null,
+    name: null,
+    phone_no: null,
+    student_id: null,
+  },
+});

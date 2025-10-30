@@ -1,29 +1,12 @@
 import React from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { fetchStudentById } from "../../services/studentService";
-import { useRecoilValue } from "recoil";
-import { userLoginAtom } from "../../context/userAtom";
 
-export default function StudentProfileCard({ setScoresTab }) {
+export default function StudentProfileCard({ setScoresTab, userDataVal }) {
   const navigate = useNavigate();
-  const userLogin = useRecoilValue(userLoginAtom);
-
-  const {
-    data: student,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["student", userLogin.userId],
-    queryFn: () => fetchStudentById(userLogin.userId),
-    enabled: !!userLogin.userId, // ✅ prevents running if ID is null/undefined
-  });
-
-  if (isLoading) return <p>Loading student data...</p>;
 
   console.log("student");
-  console.log(student);
+  console.log(userDataVal);
 
   return (
     <div>
@@ -75,11 +58,12 @@ export default function StudentProfileCard({ setScoresTab }) {
               className="text-xl font-semibold text-gray-900 truncate"
               style={{ textShadow: "0 1px 0 rgba(255,255,255,0.5)" }}
             >
-              Welcome, Sarah Smith
+              Welcome, {userDataVal?.name}
             </h2>
             <p className="text-sm text-gray-500 mt-0.5">
-              ID: SMS-2023-1234 • Year: 3 • Semester: 6
+              ID: {userDataVal?.student_id} • Year: 3 • Semester: 6
             </p>
+            <p className="text-sm text-gray-500 mt-0.5">{userDataVal?.email}</p>
           </div>
         </div>
 

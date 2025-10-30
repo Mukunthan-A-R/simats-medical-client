@@ -3,12 +3,36 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import StudentSidebar from "../../components/students/StudentSidebar";
 
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userLoginAtom, userData } from "../../context/userAtom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStudentById } from "../../services/studentService";
+
 export default function StudentLayout() {
-  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const navigate = useNavigate();
+  const userLogin = useRecoilValue(userLoginAtom);
 
   // Track window size for responsiveness
+  const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [userDataVal, setUserDataVal] = useRecoilState(userData);
+
+  const {
+    data: student,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["student", userLogin.userId],
+    queryFn: () => fetchStudentById(userLogin.userId),
+    enabled: !!userLogin.userId,
+  });
+
+  useEffect(() => {
+    if (student) {
+      const studentData = student?.data || student;
+      setUserDataVal(studentData);
+    }
+  }, [student, setUserDataVal]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -28,6 +52,10 @@ export default function StudentLayout() {
   const handleMenuIconClick = () => {
     setIsSideOpen(!isSideOpen);
   };
+
+  if (isLoading) {
+    return <p>Loading ...</p>;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
