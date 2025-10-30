@@ -17,6 +17,7 @@ const StudentMyPatientTab = () => {
     data: patients,
     isLoading,
     isError,
+    refetch,
   } = useQuery({
     queryKey: ["studentPatients", studentId],
     queryFn: () => fetchStudentPatients(studentId),
@@ -24,14 +25,17 @@ const StudentMyPatientTab = () => {
   });
 
   if (isLoading) return <p>Loading patients...</p>;
-  //   if (isError) return <p>Failed to load patients.</p>;
+  if (isError) return <p>Failed to load patients.</p>;
 
-  console.log("patients");
-  console.log(patients.data);
+  const patientList = patients?.data || [];
+  const displayedPatients = showAllPatients
+    ? patientList
+    : patientList.slice(0, 5);
 
   return (
     <div className="overflow-hidden mb-6 rounded-lg shadow-sm bg-white animate-fadeIn">
-      <div className="px-5 py-4  flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
+      {/* Header */}
+      <div className="px-5 py-4 flex items-center justify-between bg-gradient-to-b from-gray-100 to-gray-200">
         <div className="flex items-center">
           <UsersIcon size={18} className="text-blue-600 mr-2.5" />
           <h3 className="font-medium text-gray-800 text-base">
@@ -39,18 +43,19 @@ const StudentMyPatientTab = () => {
           </h3>
         </div>
         <button
-          //   onClick={handleChangeClinic}
+          onClick={() => refetch()}
           className="px-3 py-1.5 rounded-md text-xs font-medium bg-gradient-to-b from-gray-100 to-gray-200 text-blue-600 flex items-center border border-gray-300 shadow-inner"
         >
           <RefreshCwIcon size={12} className="mr-1.5" /> Refresh List
         </button>
       </div>
+
+      {/* Patient List */}
       <div className="divide-y divide-gray-100">
-        {[...patients.data, ...(showAllPatients ? [] : [])].map((patient) => (
+        {displayedPatients.map((patient) => (
           <div
-            key={patient.id}
+            key={patient.patient_id}
             className="p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center justify-between"
-            onClick={() => onNavigate(`patient-case-record/${patient.id}`)}
           >
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-gradient-to-b from-blue-400 to-blue-700 flex items-center justify-center mr-3 shadow-inner border border-gray-300">
@@ -61,7 +66,7 @@ const StudentMyPatientTab = () => {
                   {patient.name}
                 </p>
                 <p className="text-xs text-gray-600">
-                  {patient.age} years • {patient.diagnosis}
+                  {patient.gender} • {patient.blood_group || "N/A"}
                 </p>
               </div>
             </div>
@@ -69,20 +74,24 @@ const StudentMyPatientTab = () => {
           </div>
         ))}
       </div>
-      <div className="px-5 py-3  flex justify-center bg-gradient-to-b from-gray-100 to-gray-200">
-        <button
-          onClick={() => setShowAllPatients(!showAllPatients)}
-          className="px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-b from-blue-500 to-blue-700 text-white flex items-center shadow-inner border border-gray-300"
-        >
-          <span>{showAllPatients ? "Show Less" : "View All Patients"}</span>
-          <ChevronDownIcon
-            size={16}
-            className={`ml-1.5 transition-transform duration-300 ${
-              showAllPatients ? "rotate-180" : ""
-            }`}
-          />
-        </button>
-      </div>
+
+      {/* Show More / Show Less Button */}
+      {patientList.length > 5 && (
+        <div className="px-5 py-3 flex justify-center bg-gradient-to-b from-gray-100 to-gray-200">
+          <button
+            onClick={() => setShowAllPatients(!showAllPatients)}
+            className="px-4 py-2 rounded-md text-sm font-medium bg-gradient-to-b from-blue-500 to-blue-700 text-white flex items-center shadow-inner border border-gray-300"
+          >
+            <span>{showAllPatients ? "Show Less" : "View All Patients"}</span>
+            <ChevronDownIcon
+              size={16}
+              className={`ml-1.5 transition-transform duration-300 ${
+                showAllPatients ? "rotate-180" : ""
+              }`}
+            />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
