@@ -1,4 +1,5 @@
 import { AlertTriangleIcon, CalendarIcon, StethoscopeIcon } from "lucide-react";
+import { AgeCalc } from "../../utils/userAgeCalculator";
 
 function AdmittedPatientCard({ patient, onNavigate }) {
   return (
@@ -21,17 +22,17 @@ function AdmittedPatientCard({ patient, onNavigate }) {
             <p className="font-medium text-sm text-gray-900 truncate">
               {patient?.name}
             </p>
-            <span className="text-xs text-gray-500">
-              {patient?.dob}y, {patient?.gender}
+            <span className="text-sm text-gray-600">
+              {AgeCalc(patient?.dob)}y, {patient?.gender}
             </span>
-            <div className="flex items-center text-xs text-gray-600 mt-0.5">
+            <div className="flex items-center text-sm text-gray-600 mt-0.5">
               <CalendarIcon size={10} className="mr-1" /> Admitted:{" "}
-              {patient?.admissionDate}
+              {patient?.admission_date}
             </div>
-            <div className="flex items-center text-xs text-gray-600 mt-0.5">
+            {/* <div className="flex items-center text-xs text-gray-600 mt-0.5">
               <StethoscopeIcon size={10} className="mr-1" />{" "}
               {patient?.diagnosis}
-            </div>
+            </div> */}
             {/* Alerts */}
             {patient?.alerts?.length > 0 && (
               <div className="mt-1 flex flex-wrap gap-1">

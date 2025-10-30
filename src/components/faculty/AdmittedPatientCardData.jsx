@@ -40,10 +40,7 @@ const AdmittedPatientCardData = () => {
   return (
     <div className="space-y-3">
       {admittedPatients.map((patient) => (
-        <AdmittedPatientCard
-          key={patient.patient?.id || patient.assignmentId}
-          patient={patient}
-        />
+        <AdmittedPatientCard key={patient?.patient_id} patient={patient} />
       ))}
     </div>
   );
