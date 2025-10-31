@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -8,6 +8,6 @@ export const fetchPatientById = async (id) => {
     return null;
   }
 
-  const response = await axios.get(`${BASE_URL}/api/patient/${id}`);
+  const response = await axiosInstance.get(`${BASE_URL}/api/patient/${id}`);
   return response.data;
 };

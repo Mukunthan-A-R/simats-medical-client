@@ -15,7 +15,7 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("authToken");
     if (!token) {
-      logout(); // Token missing → log out user
+      logout();
       return Promise.reject({ message: "No token found, logging out..." });
     }
     config.headers.Authorization = `Bearer ${token}`;

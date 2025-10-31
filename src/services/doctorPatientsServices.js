@@ -1,4 +1,4 @@
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 const BASE_URL = "http://localhost:5000";
 
@@ -8,7 +8,7 @@ export const fetchDoctorPatients = async (doctorId) => {
     return null;
   }
 
-  const response = await axios.get(
+  const response = await axiosInstance.get(
     `${BASE_URL}/api/my-patients/doctor/${doctorId}`
   );
   return response.data;
