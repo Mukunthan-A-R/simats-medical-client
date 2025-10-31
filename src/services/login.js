@@ -7,7 +7,14 @@ export const loginUser = async ({ username, password }) => {
     id: username,
     password,
   });
-  //   console.log(response);
+  // console.log("response");
+  // console.log(response);
 
-  return response.data;
+  const { token, user } = response.data;
+
+  if (token) {
+    localStorage.setItem("authToken", token);
+  }
+
+  return user;
 };
