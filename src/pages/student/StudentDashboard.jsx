@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import StudentDashboardProfile from "../../components/students/StudentDashboardProfile";
-import StudentDashboardSliderWindow from "../../components/students/StudentDashboardSliderWindow";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import StudentScoreTab from "../../components/students/StudentScoreTab";
 import { useRecoilState } from "recoil";
 import { userData } from "../../context/userAtom";
+import StudentDashboardSliderWindow from "../../components/students/dashboard/StudentDashboardSliderWindow";
+import StudentScoreTab from "../../components/students/dashboard/StudentScoreTab";
+import StudentDashboardProfile from "../../components/students/dashboard/StudentDashboardProfile";
 
 const StudentDashboard = () => {
   const { studentId } = useParams();

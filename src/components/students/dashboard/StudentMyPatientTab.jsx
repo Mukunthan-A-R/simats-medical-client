@@ -7,7 +7,7 @@ import {
   UsersIcon,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchStudentPatients } from "../../services/studentPatientsServices";
+import { fetchStudentPatients } from "../../../services/studentPatientsServices";
 
 const StudentMyPatientTab = () => {
   const { studentId } = useParams();
