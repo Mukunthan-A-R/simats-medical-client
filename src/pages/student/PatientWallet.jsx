@@ -1,8 +1,8 @@
 import { ChevronLeftIcon, Plus } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import PatientWalletsSwitch from "../../components/patient/PatientWalletsSwitch";
-import PatientTransactionHistory from "../patient/PatientTransactionHistory";
+import PatientWalletsSwitch from "../../components/patient/wallet/PatientWalletsSwitch";
+import PatientTransactionHistory from "../../components/patient/wallet/PatientTransactionHistory";
 
 const PatientWallet = () => {
   const navigate = useNavigate();

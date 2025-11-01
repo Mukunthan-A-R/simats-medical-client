@@ -1,6 +1,6 @@
 import React from "react";
-import GeneralDataWallet from "../../components/GeneralDataWallet";
-import PharmacyDataWallet from "../../components/patient/PharmacyDataWallet";
+import GeneralDataWallet from "../../GeneralDataWallet";
+import PharmacyDataWallet from "../PharmacyDataWallet";
 
 const PatientTransactionHistory = ({ selectedWallet }) => {
   const pharmacyData = {
