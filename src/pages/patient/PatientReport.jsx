@@ -1,9 +1,9 @@
 import { ChevronLeftIcon } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import PatientReportFilter from "../../components/patient/PatientReportFilter";
-import PatientsReportHeader from "../../components/patient/PatientsReportHeader";
-import PatientReportTable from "../../components/patient/PatientReportTable";
+import PatientReportFilter from "../../components/patient/report/PatientReportFilter";
+import PatientsReportHeader from "../../components/patient/report/PatientsReportHeader";
+import PatientReportTable from "../../components/patient/report/PatientReportTable";
 
 const PatientReport = () => {
   const navigate = useNavigate();

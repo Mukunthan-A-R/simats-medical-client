@@ -6,7 +6,7 @@ import {
   EyeIcon,
   ClipboardListIcon,
 } from "lucide-react";
-import PatientsReportViewer from "./PatientsReportViewer";
+import PatientsReportViewer from "../PatientsReportViewer";
 
 const PatientReportTable = ({ reports: reportsData }) => {
   const [viewReport, setViewReport] = useState();
