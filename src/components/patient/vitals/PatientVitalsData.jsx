@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import PatientVitalsDataCard from "../PatientVitalsDataCard";
-import PatientSecondaryVitals from "../PatientSecondaryVitals";
-import PatientVitalsDataChart from "../PatientVitalsDataChart";
+
 import {
   ActivityIcon,
   DropletIcon,
   HeartPulseIcon,
   ThermometerIcon,
 } from "lucide-react";
+import PatientVitalsDataCard from "./PatientVitalsDataCard";
+import PatientVitalsDataChart from "./PatientVitalsDataChart";
 
 const PatientViralsData = () => {
   const [openGraph, setOpenGraph] = useState(false);
