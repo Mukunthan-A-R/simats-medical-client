@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import PatientVitalsDataCard from "./PatientVitalsDataCard";
-import PatientSecondaryVitals from "./PatientSecondaryVitals";
-import PatientVitalsDataChart from "./PatientVitalsDataChart";
+import PatientVitalsDataCard from "../PatientVitalsDataCard";
+import PatientSecondaryVitals from "../PatientSecondaryVitals";
+import PatientVitalsDataChart from "../PatientVitalsDataChart";
 import {
   ActivityIcon,
   DropletIcon,

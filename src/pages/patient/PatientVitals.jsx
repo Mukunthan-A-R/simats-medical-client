@@ -1,7 +1,7 @@
 import { ChevronLeftIcon } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import PatientVitalsData from "../../components/patient/PatientVitalsData";
+import PatientVitalsData from "../../components/patient/vitals/PatientVitalsData";
 
 const PatientVitals = () => {
   const navigate = useNavigate();
