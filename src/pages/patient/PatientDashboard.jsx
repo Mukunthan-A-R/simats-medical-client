@@ -1,8 +1,8 @@
 import React from "react";
-import PatientDashboardProfile from "../../components/patient/PatientDashboardProfile";
+import PatientDashboardProfile from "../../components/patient/dashboard/PatientDashboardProfile";
 import { useParams } from "react-router-dom";
-import PatientDashboardServices from "../../components/patient/PatientDashboardServices";
-import PatientDashboardNotification from "../../components/patient/PatientDashboardNotification";
+import PatientDashboardServices from "../../components/patient/dashboard/PatientDashboardServices";
+import PatientDashboardNotification from "../../components/patient/dashboard/PatientDashboardNotification";
 import { userData } from "../../context/userAtom";
 import { useRecoilValue } from "recoil";
 

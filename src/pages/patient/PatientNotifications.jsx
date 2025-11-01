@@ -13,8 +13,8 @@ import {
   ChevronLeftIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import PatientHighPriorityNotification from "../../components/patient/PatientHighPriorityNotification";
-import PatientGeneralNotification from "../../components/patient/PatientGeneralNotification";
+import PatientHighPriorityNotification from "../../components/patient/notification/PatientHighPriorityNotification";
+import PatientGeneralNotification from "../../components/patient/notification/PatientGeneralNotification";
 
 // Mock data for notifications
 const notificationsData = [

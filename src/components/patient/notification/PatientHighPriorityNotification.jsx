@@ -1,5 +1,5 @@
 import { AlertTriangleIcon, ChevronRightIcon } from "lucide-react";
-import { formatDate } from "../../utils/constants";
+import { formatDate } from "../../../utils/constants";
 
 const PatientHighPriorityNotification = ({
   data: groupedNotifications,
