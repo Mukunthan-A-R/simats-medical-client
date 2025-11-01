@@ -8,7 +8,7 @@ import StudentLayout from "./pages/layouts/StudentLayout";
 import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentProfile from "./pages/student/StudentProfile";
 import StudentNotificationsScreen from "./pages/student/StudentNotificationsScreen";
-import StudentAcademicsSection from "./components/students/StudentAcademicsSection";
+import StudentAcademicsSection from "./components/students/dashboard/academics/StudentAcademicsSection";
 
 // Patient Routes
 import PatientLayout from "./pages/layouts/PatientLayout";

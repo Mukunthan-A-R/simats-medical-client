@@ -1,6 +1,6 @@
 import AdmittedPatientCard from "./AdmittedPatientCard";
 import { useQuery } from "@tanstack/react-query";
-import { fetchDoctorPatients } from "../../services/doctorPatientsServices";
+import { fetchDoctorPatients } from "../../../services/doctorPatientsServices";
 import { useParams } from "react-router-dom";
 
 const AdmittedPatientCardData = () => {

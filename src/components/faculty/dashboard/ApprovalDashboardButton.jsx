@@ -1,6 +1,6 @@
 import { ChevronRightIcon, ClipboardListIcon } from "lucide-react";
 import React from "react";
-import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
+import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 
 const ApprovalDashboardButton = ({
   as: Tag = "ClipboardListIcon",
