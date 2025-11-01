@@ -8,7 +8,7 @@ import {
   FlaskConicalIcon,
   StethoscopeIcon,
 } from "lucide-react";
-import { StudentNotificationPopup } from "../../components/students/StudentNotificationPopup";
+import { StudentNotificationPopup } from "../../components/students/notification/StudentNotificationPopup";
 import { StudentFilterDropdown } from "../../components/students/StudentFilterDropdown";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 

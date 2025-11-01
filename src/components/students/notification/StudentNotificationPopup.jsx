@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { XIcon } from "lucide-react";
-import { formatDate } from "../../utils/constants";
+import { formatDate } from "../../../utils/constants";
 
 export function StudentNotificationPopup({ notification, onClose, onRespond }) {
   const modalRef = useRef(null);

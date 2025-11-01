@@ -1,6 +1,6 @@
 import React from "react";
 import { ChevronRightIcon } from "lucide-react";
-import { formatDate } from "../../utils/constants";
+import { formatDate } from "../../../utils/constants";
 
 export function StudentNotificationCard({
   notification,
