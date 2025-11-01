@@ -1,9 +1,9 @@
 import React from "react";
-import FacultyDashboardProfile from "../../components/faculty/FacultyDashboardProfile";
-import FacultyDashboardWindow from "../../components/faculty/FacultyDashboardWindow";
-import FacultyDashboardApprovals from "../../components/faculty/FacultyDashboardApprovals";
 import { userData } from "../../context/userAtom";
 import { useRecoilValue } from "recoil";
+import FacultyDashboardProfile from "../../components/faculty/dashboard/FacultyDashboardProfile";
+import FacultyDashboardApprovals from "../../components/faculty/dashboard/FacultyDashboardApprovals";
+import FacultyDashboardWindow from "../../components/faculty/dashboard/FacultyDashboardWindow";
 
 const FacultyDashboard = () => {
   const userDataVal = useRecoilValue(userData);

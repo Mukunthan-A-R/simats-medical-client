@@ -1,5 +1,5 @@
 import { AlertTriangleIcon, CalendarIcon, StethoscopeIcon } from "lucide-react";
-import { AgeCalc } from "../../utils/userAgeCalculator";
+import { AgeCalc } from "../../../utils/userAgeCalculator";
 
 function AdmittedPatientCard({ patient, onNavigate }) {
   return (
