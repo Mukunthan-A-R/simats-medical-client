@@ -9,7 +9,7 @@ import {
   StethoscopeIcon,
 } from "lucide-react";
 import { StudentNotificationPopup } from "../../components/students/notification/StudentNotificationPopup";
-import { StudentFilterDropdown } from "../../components/students/StudentFilterDropdown";
+import { StudentFilterDropdown } from "../../components/students/notification/StudentFilterDropdown";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 // Individual Notification Item Component
