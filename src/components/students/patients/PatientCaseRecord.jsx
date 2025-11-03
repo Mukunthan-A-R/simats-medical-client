@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   CheckCircleIcon,
   ClipboardListIcon,
@@ -8,6 +8,7 @@ import {
   UserIcon,
 } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
+import CreateCaseRecord from "./CreateCaseRecord";
 
 // Header component
 const CaseRecordsHeader = ({ onAdd }) => (
@@ -25,7 +26,7 @@ const CaseRecordsHeader = ({ onAdd }) => (
           "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
         color: "white",
       }}
-      // onClick={() => setShowAddEntryForm(!showAddEntryForm)}
+      onClick={onAdd}
     >
       <PlusIcon size={12} className="mr-1.5" />
       Add Entry
@@ -100,6 +101,8 @@ const CaseRecordCard = ({ record }) => {
 
 // Main component
 const PatientCaseRecord = () => {
+  const [newRecord, setNewRecord] = useState(false);
+
   const caseRecords = [
     {
       id: 1,
@@ -120,6 +123,7 @@ const PatientCaseRecord = () => {
 
   const handleAddEntry = () => {
     console.log("Add entry clicked");
+    setNewRecord(true);
   };
 
   return (
@@ -136,6 +140,13 @@ const PatientCaseRecord = () => {
           </div>
         )}
       </div>
+      {newRecord && (
+        <CreateCaseRecord
+          onClose={() => {
+            setNewRecord(false);
+          }}
+        />
+      )}
     </div>
   );
 };
