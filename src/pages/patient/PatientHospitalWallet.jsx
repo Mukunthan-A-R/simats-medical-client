@@ -19,11 +19,6 @@ import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 
 // Wallet Balance Card
 const WalletCard = ({ balance }) => {
-  const aquaButtonStyle =
-    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
   return (
     <div
       className="px-4 py-3 rounded-xl mb-4 text-white"
@@ -68,11 +63,6 @@ const WalletCard = ({ balance }) => {
 
 // Add Funds Button
 const AddFundsButton = () => {
-  const aquaButtonStyle =
-    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
   return (
     <button
       className={`w-full flex items-center justify-center p-3 rounded-xl mb-5 ${aquaButtonStyle} ${aquaGlossEffect}`}
@@ -91,11 +81,6 @@ const AddFundsButton = () => {
 
 // Transaction Details Component
 const TransactionDetails = ({ transaction, onClose, onPrint, onDownload }) => {
-  const aquaButtonStyle =
-    "relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner";
-  const aquaGlossEffect =
-    "before:absolute before:inset-0 before:bg-gradient-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50";
-
   return (
     <div className="bg-white p-6 border-t border-gray-100 print:p-8 print:shadow-none print:border-0">
       <div className="flex items-center justify-between mb-6 print:hidden">
