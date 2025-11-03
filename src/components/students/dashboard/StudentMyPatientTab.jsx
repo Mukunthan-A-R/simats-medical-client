@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   ArrowRightIcon,
   ChevronDownIcon,
@@ -10,6 +10,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchStudentPatients } from "../../../services/studentPatientsServices";
 
 const StudentMyPatientTab = () => {
+  const navigate = useNavigate();
+
   const { studentId } = useParams();
   const [showAllPatients, setShowAllPatients] = useState(false);
 
@@ -62,6 +64,9 @@ const StudentMyPatientTab = () => {
       <div className="divide-y divide-gray-100">
         {displayedPatients.map((patient) => (
           <div
+            onClick={() => {
+              navigate(`/student/patient/${patient.patient_id}`);
+            }}
             key={patient.patient_id}
             className="p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center justify-between"
           >

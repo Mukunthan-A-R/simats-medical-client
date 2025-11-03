@@ -35,6 +35,7 @@ import FacultyDischargeApproval from "./pages/faculty/FacultyDischargeApproval";
 import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
 
 import UnderConstruction from "./components/UnderConstruction";
+import PatientDetails from "./pages/student/PatientDetails";
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
               path="notifications/:studentId"
               element={<StudentNotificationsScreen />}
             />
+            <Route path="patient/:patientId" element={<PatientDetails />} />
           </Route>
 
           {/* Teachers route*/}
