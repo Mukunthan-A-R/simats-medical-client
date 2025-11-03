@@ -8,7 +8,7 @@ export const loginUser = async ({ username, password }) => {
     password,
   });
   // console.log("response");
-  // console.log(response);
+  console.log(response);
 
   const { token, user } = response.data;
 
