@@ -1,19 +1,7 @@
-import React, { useState } from "react";
-import {
-  ClipboardListIcon,
-  HeartPulseIcon,
-  PillIcon,
-  PlusIcon,
-  XIcon,
-  CheckCircleIcon,
-  ClockIcon,
-  UserIcon,
-  UserCheckIcon,
-} from "lucide-react";
+import { useState } from "react";
+import { ClipboardListIcon, HeartPulseIcon, PillIcon } from "lucide-react";
 import PatientCaseRecord from "./PatientCaseRecord";
-import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 
-// Simple tab button subcomponent for reusability
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
     onClick={onClick}
@@ -31,7 +19,6 @@ const TabButton = ({ isActive, onClick, icon, label }) => (
 const PatientMedicalData = () => {
   const [activeTab, setActiveTab] = useState("records");
 
-  // mock data for vitals & meds
   const vitals = [
     {
       date: "2025-11-01",
@@ -97,59 +84,7 @@ const PatientMedicalData = () => {
       </div>
 
       {/* Case Records Tab */}
-      {activeTab === "records" && (
-        <div
-          className="overflow-hidden mb-6 animate-fadeIn"
-          style={{
-            backgroundColor: "white",
-            borderRadius: "12px",
-            boxShadow:
-              "0 2px 5px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)",
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          <div
-            className="px-5 py-4 border-b"
-            style={{
-              backgroundImage: "linear-gradient(to bottom, #f8f9fb, #e9eef5)",
-              boxShadow:
-                "inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 0 rgba(0,0,0,0.06)",
-              borderBottom: "1px solid rgba(0,0,0,0.08)",
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <ClipboardListIcon size={18} className="text-blue-600 mr-2.5" />
-                <h3
-                  className="font-medium text-gray-800 text-base"
-                  style={{
-                    textShadow: "0 1px 0 rgba(255,255,255,0.5)",
-                  }}
-                >
-                  Case Records
-                </h3>
-              </div>
-              <button
-                className={`px-3 py-1.5 rounded-md text-xs font-medium ${aquaButtonStyle} ${aquaGlossEffect} flex items-center`}
-                style={{
-                  background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
-                  border: "1px solid rgba(0,0,0,0.2)",
-                  boxShadow:
-                    "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
-                  color: "white",
-                }}
-                // onClick={() => setShowAddEntryForm(!showAddEntryForm)}
-              >
-                <PlusIcon size={12} className="mr-1.5" />
-                Add Entry
-              </button>
-            </div>
-          </div>
-
-          {/* Case Records List */}
-          <PatientCaseRecord></PatientCaseRecord>
-        </div>
-      )}
+      {activeTab === "records" && <PatientCaseRecord></PatientCaseRecord>}
 
       {/* Vitals Tab */}
       {activeTab === "vitals" && (
