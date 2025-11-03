@@ -8,7 +8,7 @@ const PatientDetails = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="p-4">
+    <div className="p-4 h-screen">
       <div className="mb-4 flex items-center">
         <button
           className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
