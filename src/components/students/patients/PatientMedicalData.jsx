@@ -15,7 +15,7 @@ import {
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
     onClick={onClick}
-    className={`flex items-center px-4 py-3 text-sm font-medium transition-all ${
+    className={`flex items-center px-4 py-3 font-medium transition-all ${
       isActive
         ? "text-blue-600 border-b-2 border-blue-600 bg-white"
         : "text-gray-500 hover:text-blue-600"
