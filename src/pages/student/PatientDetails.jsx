@@ -1,6 +1,7 @@
 import { ChevronLeftIcon } from "lucide-react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import PatientProfileData from "../../components/students/patients/PatientProfileData";
 
 const PatientDetails = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const PatientDetails = () => {
         </button>
         <h1 className="text-xl font-semibold text-blue-900">Patient Details</h1>
       </div>
+      <PatientProfileData></PatientProfileData>
     </div>
   );
 };
