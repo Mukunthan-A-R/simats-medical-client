@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ClipboardListIcon, HeartPulseIcon, PillIcon } from "lucide-react";
 import PatientCaseRecord from "./PatientCaseRecord";
+import PatientViralsData from "../../patient/vitals/PatientVitalsData";
 
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
@@ -87,57 +88,7 @@ const PatientMedicalData = () => {
       {activeTab === "records" && <PatientCaseRecord></PatientCaseRecord>}
 
       {/* Vitals Tab */}
-      {activeTab === "vitals" && (
-        <div
-          className="overflow-hidden mb-6 animate-fadeIn"
-          style={{
-            backgroundColor: "white",
-            borderRadius: "12px",
-            boxShadow:
-              "0 2px 5px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)",
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          <div
-            className="px-5 py-4 border-b flex items-center"
-            style={{
-              backgroundImage: "linear-gradient(to bottom, #f8f9fb, #e9eef5)",
-            }}
-          >
-            <HeartPulseIcon size={18} className="text-blue-600 mr-2.5" />
-            <h3 className="font-medium text-gray-800 text-base">
-              Vitals Tracker
-            </h3>
-          </div>
-
-          <div className="p-4">
-            <table className="min-w-full text-sm border-collapse">
-              <thead>
-                <tr className="bg-gray-100 text-gray-700">
-                  <th className="py-2 px-3 text-left">Date</th>
-                  <th className="py-2 px-3 text-left">Time</th>
-                  <th className="py-2 px-3 text-left">BP</th>
-                  <th className="py-2 px-3 text-left">HR</th>
-                  <th className="py-2 px-3 text-left">Temp</th>
-                  <th className="py-2 px-3 text-left">SpO₂</th>
-                </tr>
-              </thead>
-              <tbody>
-                {vitals.map((v, i) => (
-                  <tr key={i} className="border-t">
-                    <td className="py-2 px-3">{v.date}</td>
-                    <td className="py-2 px-3">{v.time}</td>
-                    <td className="py-2 px-3">{v.bp}</td>
-                    <td className="py-2 px-3">{v.hr} bpm</td>
-                    <td className="py-2 px-3">{v.temp}</td>
-                    <td className="py-2 px-3">{v.spo2}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
+      {activeTab === "vitals" && <PatientViralsData />}
 
       {/* Medications Tab */}
       {activeTab === "meds" && (

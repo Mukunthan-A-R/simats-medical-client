@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import PatientVitalsDataCard from "./PatientVitalsDataCard";
 import PatientVitalsDataChart from "./PatientVitalsDataChart";
+import PatientSecondaryVitals from "../PatientSecondaryVitals";
 
 const PatientViralsData = () => {
   const [openGraph, setOpenGraph] = useState(false);
