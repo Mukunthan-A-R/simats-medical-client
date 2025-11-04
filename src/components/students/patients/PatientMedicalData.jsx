@@ -21,40 +21,6 @@ const TabButton = ({ isActive, onClick, icon, label }) => (
 const PatientMedicalData = () => {
   const [activeTab, setActiveTab] = useState("records");
 
-  const vitals = [
-    {
-      date: "2025-11-01",
-      time: "08:30 AM",
-      bp: "122/80",
-      hr: 76,
-      temp: "98.6°F",
-      spo2: "98%",
-    },
-    {
-      date: "2025-11-02",
-      time: "09:00 AM",
-      bp: "125/82",
-      hr: 80,
-      temp: "98.7°F",
-      spo2: "97%",
-    },
-  ];
-
-  const medications = [
-    {
-      name: "Aspirin 75mg",
-      dosage: "Once Daily",
-      route: "Oral",
-      start: "2025-10-30",
-    },
-    {
-      name: "Atorvastatin 20mg",
-      dosage: "Once Daily (Night)",
-      route: "Oral",
-      start: "2025-10-28",
-    },
-  ];
-
   return (
     <div className="mt-6">
       {/* Tab Navigation */}
