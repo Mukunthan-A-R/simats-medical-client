@@ -6,6 +6,7 @@ export const userLoginAtom = atom({
     userId: null,
     token: null,
     lastLogin: null,
+    roleId: null,
   },
 });
 

@@ -9,7 +9,7 @@ import { fetchStudentById } from "../../services/studentService";
 
 export default function StudentLayout() {
   const navigate = useNavigate();
-  const userLogin = useRecoilValue(userLoginAtom);
+  const [userLogin, setUserLogin] = useRecoilState(userLoginAtom);
 
   // Track window size for responsiveness
   const [isSideOpen, setIsSideOpen] = useState(!(window.innerWidth < 768));
@@ -21,10 +21,13 @@ export default function StudentLayout() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["student", userLogin.userId],
-    queryFn: () => fetchStudentById(userLogin.userId),
-    enabled: !!userLogin.userId,
+    queryKey: ["student", userLogin?.userId],
+    queryFn: () => fetchStudentById(userLogin?.userId),
+    enabled: !!userLogin?.userId,
   });
+
+  console.log("student");
+  console.log(student);
 
   useEffect(() => {
     if (student) {

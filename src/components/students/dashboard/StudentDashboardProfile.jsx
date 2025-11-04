@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 export default function StudentProfileCard({ setScoresTab, userDataVal }) {
   const navigate = useNavigate();
 
-  console.log("student");
-  console.log(userDataVal);
+  // console.log("student");
+  // console.log(userDataVal);
 
   return (
     <div>
