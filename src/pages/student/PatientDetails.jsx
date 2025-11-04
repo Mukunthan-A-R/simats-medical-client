@@ -8,10 +8,11 @@ const PatientDetails = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="p-4 h-screen">
+    <div className="min-h-screen flex flex-col p-4 bg-gray-50">
+      {/* Header */}
       <div className="mb-4 flex items-center">
         <button
-          className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
+          className="mr-2 w-8 h-8 flex items-center justify-center rounded-full"
           onClick={() => navigate(-1)}
           style={{
             background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
@@ -24,8 +25,12 @@ const PatientDetails = () => {
         </button>
         <h1 className="text-xl font-semibold text-blue-900">Patient Details</h1>
       </div>
-      <PatientProfileData></PatientProfileData>
-      <PatientMedicalData></PatientMedicalData>
+
+      {/* Content */}
+      <div className="flex-1 overflow-y-auto">
+        <PatientProfileData />
+        <PatientMedicalData />
+      </div>
     </div>
   );
 };

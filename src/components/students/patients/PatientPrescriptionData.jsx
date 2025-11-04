@@ -2,6 +2,7 @@ import { useState } from "react";
 import CurrentMedications from "./medication/CurrentMedications";
 import MedicationsHeader from "./medication/MedicationsHeader";
 import PendingPrescriptionRequest from "./medication/PendingPrescriptionRequest";
+import NewMedicationForm from "./medication/NewMedicationForm";
 
 const PatientPrescriptionData = () => {
   const [showAddForm, setShowAddForm] = useState(false);
@@ -56,6 +57,7 @@ const PatientPrescriptionData = () => {
         showAddForm={showAddForm}
         onToggle={() => setShowAddForm(!showAddForm)}
       />
+      {showAddForm && <NewMedicationForm />}
 
       <CurrentMedications medications={sampleMeds} />
 
