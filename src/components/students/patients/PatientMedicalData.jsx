@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ClipboardListIcon, HeartPulseIcon, PillIcon } from "lucide-react";
 import PatientCaseRecord from "./PatientCaseRecord";
 import PatientViralsData from "../../patient/vitals/PatientVitalsData";
+import PatientPrescriptionData from "./PatientPrescriptionData";
 
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
@@ -91,45 +92,7 @@ const PatientMedicalData = () => {
       {activeTab === "vitals" && <PatientViralsData />}
 
       {/* Medications Tab */}
-      {activeTab === "meds" && (
-        <div
-          className="overflow-hidden mb-6 animate-fadeIn"
-          style={{
-            backgroundColor: "white",
-            borderRadius: "12px",
-            boxShadow:
-              "0 2px 5px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.12), 0 0 0 1px rgba(0,0,0,0.04)",
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          <div
-            className="px-5 py-4 border-b flex items-center"
-            style={{
-              backgroundImage: "linear-gradient(to bottom, #f8f9fb, #e9eef5)",
-            }}
-          >
-            <PillIcon size={18} className="text-blue-600 mr-2.5" />
-            <h3 className="font-medium text-gray-800 text-base">
-              Medication History
-            </h3>
-          </div>
-
-          <div className="p-4 grid gap-3">
-            {medications.map((med, i) => (
-              <div
-                key={i}
-                className="p-3 rounded-md border border-gray-200 bg-gray-50"
-              >
-                <h4 className="text-gray-900 font-medium">{med.name}</h4>
-                <p className="text-gray-700 text-sm">
-                  {med.dosage} — {med.route}
-                </p>
-                <p className="text-xs text-gray-500">Started: {med.start}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {activeTab === "meds" && <PatientPrescriptionData />}
     </div>
   );
 };
