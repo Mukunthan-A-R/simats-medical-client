@@ -1,25 +1,6 @@
 import React from "react";
 import { PillIcon } from "lucide-react"; // or wherever your PillIcon is imported from
 
-/**
- * CurrentMedications Component
- * Displays a list of medications with name, dosage, frequency, duration, and status.
- *
- * @param {Array} medications - Array of medication objects
- * Each medication should have:
- * {
- *   id: string | number,
- *   name: string,
- *   dosage: string,
- *   frequency: string,
- *   startDate: string,
- *   endDate?: string,
- *   instructions?: string,
- *   status: "Active" | "Inactive",
- *   prescribedBy: string,
- *   department: string
- * }
- */
 const CurrentMedications = ({ medications = [] }) => {
   return (
     <div className="p-4">
