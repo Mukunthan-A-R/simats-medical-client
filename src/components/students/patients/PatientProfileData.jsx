@@ -15,7 +15,8 @@ const PatientProfileData = ({ patient }) => {
     email: patient?.email,
     address: patient?.address,
     admissionDate: new Date(patient?.admission_date).toLocaleDateString(),
-    photo: "https://randomuser.me/api/portraits/men/45.jpg",
+    photo:
+      "https://cdn.rafled.com/anime-icons/images/c96dc487c6cbd53d7904a723581d19e486bea3c49451d49df15a8cf27684eef6.jpg",
   };
 
   return (
