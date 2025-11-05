@@ -3,12 +3,12 @@ import { AgeCalc } from "../../../utils/userAgeCalculator";
 
 const PatientProfileData = ({ patient }) => {
   const patientData = {
-    id: patient.patient_id,
-    name: patient.name,
-    age: AgeCalc(patient.dob),
-    gender: patient.gender,
-    bloodGroup: patient.blood_group,
-    contact: patient.phone_no,
+    id: patient?.patient_id,
+    name: patient?.name,
+    age: AgeCalc(patient?.dob),
+    gender: patient?.gender,
+    bloodGroup: patient?.blood_group,
+    contact: patient?.phone_no,
     photo: "https://randomuser.me/api/portraits/men/45.jpg",
   };
 
