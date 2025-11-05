@@ -1,11 +1,26 @@
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 import { ChevronLeftIcon } from "lucide-react";
-import React from "react";
-import { useNavigate } from "react-router-dom";
 import PatientProfileData from "../../components/students/patients/PatientProfileData";
 import PatientMedicalData from "../../components/students/patients/PatientMedicalData";
+import { fetchPatientById } from "../../services/patientService";
 
 const PatientDetails = () => {
   const navigate = useNavigate();
+  const { patientId } = useParams();
+
+  const {
+    data: patientData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["patient", patientId],
+    queryFn: () => fetchPatientById(patientId),
+    enabled: !!patientId,
+  });
+
+  console.log("patient Data");
+  console.log(patientData);
 
   return (
     <div className="min-h-screen flex flex-col p-4 bg-gray-50">
@@ -28,7 +43,7 @@ const PatientDetails = () => {
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
-        <PatientProfileData />
+        <PatientProfileData patient={patientData} />
         <PatientMedicalData />
       </div>
     </div>

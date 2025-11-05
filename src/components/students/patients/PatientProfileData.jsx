@@ -1,13 +1,14 @@
 import React from "react";
+import { AgeCalc } from "../../../utils/userAgeCalculator";
 
-const PatientProfileData = () => {
+const PatientProfileData = ({ patient }) => {
   const patientData = {
-    id: "PAT-2025-0142",
-    name: "John Doe",
-    age: 45,
-    gender: "Male",
-    bloodGroup: "B+",
-    contact: "+1 (555) 902-4432",
+    id: patient.patient_id,
+    name: patient.name,
+    age: AgeCalc(patient.dob),
+    gender: patient.gender,
+    bloodGroup: patient.blood_group,
+    contact: patient.phone_no,
     photo: "https://randomuser.me/api/portraits/men/45.jpg",
   };
 

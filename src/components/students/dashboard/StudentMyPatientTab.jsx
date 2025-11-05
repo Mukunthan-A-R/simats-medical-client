@@ -26,6 +26,9 @@ const StudentMyPatientTab = () => {
     enabled: !!studentId,
   });
 
+  // console.log("patients");
+  // console.log(patients);
+
   if (isLoading)
     return <p className="text-gray-700 text-center">Loading patients...</p>;
   if (isError)

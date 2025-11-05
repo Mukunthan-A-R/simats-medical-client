@@ -26,8 +26,8 @@ export default function StudentLayout() {
     enabled: !!userLogin?.userId,
   });
 
-  console.log("student");
-  console.log(student);
+  // console.log("student");
+  // console.log(student);
 
   useEffect(() => {
     if (student) {
