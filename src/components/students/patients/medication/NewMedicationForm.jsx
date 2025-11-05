@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import MedicationFrequencyButton from "./MedicationFrequencyButton";
+import { aquaButtonStyle, aquaGlossEffect } from "../../../../utils/constants";
 
 const NewMedicationForm = () => {
   const [newMedication, setNewMedication] = useState({
@@ -10,10 +11,6 @@ const NewMedicationForm = () => {
     endDate: "",
     instructions: "",
   });
-
-  // Button gradient and gloss classes
-  const aquaButtonStyle = "bg-blue-600 hover:bg-blue-700";
-  const aquaGlossEffect = "shadow-md";
 
   const handleAddMedication = () => {
     console.log("New Prescription:", newMedication);
