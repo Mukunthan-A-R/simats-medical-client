@@ -7,6 +7,14 @@ import {
   UserCheckIcon,
   UserIcon,
 } from "lucide-react";
+import {
+  Check,
+  Clock,
+  ChevronDown,
+  ChevronUp,
+  User,
+  UserCheck,
+} from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 import CreateCaseRecord from "./CreateCaseRecord";
 import { useQuery } from "@tanstack/react-query";
@@ -37,66 +45,96 @@ const CaseRecordsHeader = ({ onAdd }) => (
 );
 
 // Individual case record card
+// Individual case record card
 const CaseRecordCard = ({ record }) => {
-  const statusGradient =
-    record.status === "Approved"
-      ? "from-green-400 to-green-600"
-      : "from-orange-400 to-red-500";
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Use record.approval and normalize case
+  const isApproved = record.approval?.toLowerCase() === "approved";
+
+  const statusGradient = isApproved
+    ? "from-green-400 to-green-600"
+    : "from-orange-400 to-red-500";
 
   return (
-    <div className="p-4 hover:bg-blue-50 transition-colors rounded-md">
-      <div className="flex items-center justify-between mb-2">
+    <div className="border border-gray-200 rounded-md shadow-sm mb-3">
+      {/* Header */}
+      <div
+        className="flex items-center justify-between p-4 cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <div className="flex items-center">
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 bg-gradient-to-b ${statusGradient} border border-gray-300 shadow`}
+            className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-gradient-to-b ${statusGradient} border border-gray-300 shadow`}
           >
-            {record.status === "Approved" ? (
-              <CheckCircleIcon size={14} className="text-white" />
+            {isApproved ? (
+              <Check size={16} className="text-white" />
             ) : (
-              <ClockIcon size={14} className="text-white" />
+              <Clock size={16} className="text-white" />
             )}
           </div>
           <div>
             <h4 className="text-sm font-medium text-gray-900">
               {record.procedure}
             </h4>
-            <p className="text-xs text-gray-500 mt-0.5">
-              {record.date} • {record.time} • {record.department}
+            <p className="text-xs text-gray-500">
+              {record.patient_id} • Dept {record.dept_id} •{" "}
+              {new Date(record.created_at).toLocaleDateString()}
             </p>
           </div>
         </div>
-      </div>
-
-      <div className="p-3 rounded-md text-sm bg-blue-50 border border-blue-100 mb-2">
-        <p className="text-gray-700 mb-1">
-          <span className="font-medium">Findings:</span> {record.findings}
-        </p>
-        <p className="text-gray-700 mb-1">
-          <span className="font-medium">Diagnosis:</span> {record.diagnosis}
-        </p>
-        <p className="text-gray-700">
-          <span className="font-medium">Treatment:</span> {record.treatment}
-        </p>
-      </div>
-
-      <div className="flex justify-between text-xs text-gray-600">
         <div>
-          <UserIcon size={12} className="inline mr-1" /> Provider:{" "}
-          {record.provider}
-          {record.approver && (
-            <>
-              {" "}
-              • <UserCheckIcon
-                size={12}
-                className="inline mx-1"
-              /> Approver: {record.approver}
-            </>
+          {isOpen ? (
+            <ChevronUp size={18} className="text-gray-500" />
+          ) : (
+            <ChevronDown size={18} className="text-gray-500" />
           )}
         </div>
-        <div className="text-green-600 font-medium">
-          Approved on: {record.approvedOn}
-        </div>
       </div>
+
+      {/* Card content */}
+      {isOpen && (
+        <div className="p-4 bg-white border-t border-gray-200 text-sm text-gray-700 space-y-2">
+          <p>
+            <span className="font-medium">Assignment ID:</span>{" "}
+            {record.assignment_id}
+          </p>
+          <p>
+            <span className="font-medium">Findings:</span> {record.findings}
+          </p>
+          <p>
+            <span className="font-medium">Diagnosis:</span> {record.diagnosis}
+          </p>
+          <p>
+            <span className="font-medium">Treatment:</span> {record.treatment}
+          </p>
+          <p>
+            <span className="font-medium">Vital Signs:</span>{" "}
+            {record.vital_signs}
+          </p>
+          <p>
+            <span className="font-medium">Symptoms:</span> {record.symptoms}
+          </p>
+          <p>
+            <span className="font-medium">Observation:</span>{" "}
+            {record.observation}
+          </p>
+          <p>
+            <span className="font-medium">Provider:</span>{" "}
+            <User size={14} className="inline mr-1" /> {record.student_id}
+          </p>
+          <p>
+            <span className="font-medium">Doctor:</span>{" "}
+            <UserCheck size={14} className="inline mr-1" /> {record.doctor_id}
+          </p>
+          <p>
+            <span className="font-medium">Approved On:</span>{" "}
+            {record.approved_time
+              ? new Date(record.approved_time).toLocaleString()
+              : "Pending"}
+          </p>
+        </div>
+      )}
     </div>
   );
 };
@@ -115,29 +153,11 @@ const PatientCaseRecord = ({ assignmentId }) => {
     enabled: !!assignmentId,
   });
 
-  console.log("caseRecord");
-  console.log(caseRecord?.caseRecords);
-  console.log(caseRecord?.total_records);
+  // console.log("caseRecord");
+  // console.log(caseRecord?.caseRecords);
+  // console.log(caseRecord?.total_records);
 
   const caseRecords = caseRecord?.caseRecords || [];
-
-  // const caseRecords = [
-  //   {
-  //     id: 1,
-  //     procedure: "Cardiac Examination",
-  //     department: "Cardiology",
-  //     findings: "Mild chest pain, normal ECG",
-  //     diagnosis: "Angina",
-  //     treatment: "Prescribed rest and medications",
-  //     status: "Approved",
-  //     provider: "Dr. Smith",
-  //     approver: "Dr. Allen",
-  //     date: "2025-11-01",
-  //     time: "10:45 AM",
-  //     grade: "A",
-  //     approvedOn: "2025-11-02 14:15",
-  //   },
-  // ];
 
   const handleAddEntry = () => {
     console.log("Add entry clicked");
@@ -150,7 +170,7 @@ const PatientCaseRecord = ({ assignmentId }) => {
       <div className="divide-y divide-gray-100">
         {caseRecords.length > 0 ? (
           caseRecords.map((record) => (
-            <CaseRecordCard key={record.id} record={record} />
+            <CaseRecordCard key={record.record_id} record={record} />
           ))
         ) : (
           <div className="p-6 text-center text-gray-500">
