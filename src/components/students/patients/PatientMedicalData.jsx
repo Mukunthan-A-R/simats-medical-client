@@ -21,10 +21,6 @@ const TabButton = ({ isActive, onClick, icon, label }) => (
 const PatientMedicalData = ({ patient }) => {
   const [activeTab, setActiveTab] = useState("records");
 
-  console.log("patient Data");
-  console.log(patient);
-  console.log(patient?.assignment_id);
-
   return (
     <div className="mt-6">
       {/* Tab Navigation */}
