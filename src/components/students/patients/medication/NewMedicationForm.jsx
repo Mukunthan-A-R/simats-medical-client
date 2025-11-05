@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import MedicationFrequencyButton from "./MedicationFrequencyButton";
 
 const NewMedicationForm = () => {
   const [newMedication, setNewMedication] = useState({
@@ -67,30 +68,6 @@ const NewMedicationForm = () => {
           />
         </div>
 
-        {/* Frequency */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Frequency <span className="text-red-500">*</span>
-          </label>
-          <select
-            value={newMedication.frequency}
-            onChange={(e) =>
-              setNewMedication({ ...newMedication, frequency: e.target.value })
-            }
-            className="bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-          >
-            <option value="">Select frequency</option>
-            <option value="Once daily">Once daily</option>
-            <option value="Twice daily">Twice daily</option>
-            <option value="Three times daily">Three times daily</option>
-            <option value="Four times daily">Four times daily</option>
-            <option value="Every 4 hours">Every 4 hours</option>
-            <option value="Every 6 hours">Every 6 hours</option>
-            <option value="Every 8 hours">Every 8 hours</option>
-            <option value="As needed">As needed</option>
-          </select>
-        </div>
-
         {/* Start Date */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -119,6 +96,40 @@ const NewMedicationForm = () => {
             }
             className="bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
+        </div>
+
+        {/* Frequency */}
+        <div className="md:col-span-2">
+          <MedicationFrequencyButton></MedicationFrequencyButton>
+        </div>
+
+        {/* Medication Timing */}
+        <div className="space-y-4">
+          <label className="block text-sm font-medium text-gray-700">
+            Medication Timing <span className="text-red-500">*</span>
+          </label>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                name="mealTiming"
+                value="Before Meal"
+                className="text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              <span className="font-medium">Before Meal</span>
+            </label>
+
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="radio"
+                name="mealTiming"
+                value="After Meal"
+                className="text-blue-600 focus:ring-blue-500 border-gray-300"
+              />
+              <span className="font-medium">After Meal</span>
+            </label>
+          </div>
         </div>
 
         {/* Instructions */}
