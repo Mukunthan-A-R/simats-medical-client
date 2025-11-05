@@ -9,6 +9,8 @@ import {
 } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 import CreateCaseRecord from "./CreateCaseRecord";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPatientCaseRecords } from "../../../services/patientCaseRecordsServices";
 
 // Header component
 const CaseRecordsHeader = ({ onAdd }) => (
@@ -100,26 +102,42 @@ const CaseRecordCard = ({ record }) => {
 };
 
 // Main component
-const PatientCaseRecord = () => {
+const PatientCaseRecord = ({ assignmentId }) => {
   const [newRecord, setNewRecord] = useState(false);
 
-  const caseRecords = [
-    {
-      id: 1,
-      procedure: "Cardiac Examination",
-      department: "Cardiology",
-      findings: "Mild chest pain, normal ECG",
-      diagnosis: "Angina",
-      treatment: "Prescribed rest and medications",
-      status: "Approved",
-      provider: "Dr. Smith",
-      approver: "Dr. Allen",
-      date: "2025-11-01",
-      time: "10:45 AM",
-      grade: "A",
-      approvedOn: "2025-11-02 14:15",
-    },
-  ];
+  const {
+    data: caseRecord,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["patient", assignmentId],
+    queryFn: () => fetchPatientCaseRecords(assignmentId),
+    enabled: !!assignmentId,
+  });
+
+  console.log("caseRecord");
+  console.log(caseRecord?.caseRecords);
+  console.log(caseRecord?.total_records);
+
+  const caseRecords = caseRecord?.caseRecords || [];
+
+  // const caseRecords = [
+  //   {
+  //     id: 1,
+  //     procedure: "Cardiac Examination",
+  //     department: "Cardiology",
+  //     findings: "Mild chest pain, normal ECG",
+  //     diagnosis: "Angina",
+  //     treatment: "Prescribed rest and medications",
+  //     status: "Approved",
+  //     provider: "Dr. Smith",
+  //     approver: "Dr. Allen",
+  //     date: "2025-11-01",
+  //     time: "10:45 AM",
+  //     grade: "A",
+  //     approvedOn: "2025-11-02 14:15",
+  //   },
+  // ];
 
   const handleAddEntry = () => {
     console.log("Add entry clicked");

@@ -18,8 +18,12 @@ const TabButton = ({ isActive, onClick, icon, label }) => (
   </button>
 );
 
-const PatientMedicalData = () => {
+const PatientMedicalData = ({ patient }) => {
   const [activeTab, setActiveTab] = useState("records");
+
+  console.log("patient Data");
+  console.log(patient);
+  console.log(patient?.assignment_id);
 
   return (
     <div className="mt-6">
@@ -52,7 +56,11 @@ const PatientMedicalData = () => {
       </div>
 
       {/* Case Records Tab */}
-      {activeTab === "records" && <PatientCaseRecord></PatientCaseRecord>}
+      {activeTab === "records" && (
+        <PatientCaseRecord
+          assignmentId={patient?.assignment_id}
+        ></PatientCaseRecord>
+      )}
 
       {/* Vitals Tab */}
       {activeTab === "vitals" && <PatientViralsData />}

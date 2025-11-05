@@ -19,9 +19,6 @@ const PatientDetails = () => {
     enabled: !!patientId,
   });
 
-  console.log("patient Data");
-  console.log(patientData);
-
   return (
     <div className="min-h-screen flex flex-col p-4 bg-gray-50">
       {/* Header */}
@@ -44,7 +41,7 @@ const PatientDetails = () => {
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         <PatientProfileData patient={patientData} />
-        <PatientMedicalData />
+        <PatientMedicalData patient={patientData} />
       </div>
     </div>
   );
