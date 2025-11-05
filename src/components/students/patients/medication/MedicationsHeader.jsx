@@ -1,11 +1,8 @@
 import React from "react";
 import { PillIcon, PlusIcon, XIcon } from "lucide-react";
+import { aquaButtonStyle, aquaGlossEffect } from "../../../../utils/constants";
 
 const MedicationsHeader = ({ showAddForm = false, onToggle }) => {
-  // gradient and gloss classes (you can customize)
-  const aquaButtonStyle = "bg-blue-600 hover:bg-blue-700";
-  const aquaGlossEffect = "shadow-md";
-
   return (
     <div
       className="overflow-hidden mb-6 animate-fadeIn"
