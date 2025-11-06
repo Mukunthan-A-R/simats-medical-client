@@ -6,6 +6,7 @@ import {
   PlusIcon,
   UserCheckIcon,
   UserIcon,
+  XIcon,
 } from "lucide-react";
 import {
   Check,
@@ -21,8 +22,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPatientCaseRecords } from "../../../services/patientCaseRecordsServices";
 
 // Header component
-const CaseRecordsHeader = ({ onAdd }) => (
-  <div className="px-5 py-4 border-b bg-gradient-to-b from-gray-100 to-gray-200 shadow-inner flex items-center justify-between rounded-t-xl">
+const CaseRecordsHeader = ({ onAdd, isFormOpen }) => (
+  <div className="px-5 py-4 bg-gradient-to-b from-gray-100 to-gray-200 shadow-inner flex items-center justify-between rounded-t-xl">
     <div className="flex items-center gap-2">
       <ClipboardListIcon size={18} className="text-blue-600" />
       <h3 className="font-medium text-gray-800 text-base">Case Records</h3>
@@ -38,8 +39,18 @@ const CaseRecordsHeader = ({ onAdd }) => (
       }}
       onClick={onAdd}
     >
-      <PlusIcon size={12} className="mr-1.5" />
-      Add Entry
+      {/* Toggle the icon and text based on isFormOpen */}
+      {isFormOpen ? (
+        <>
+          <XIcon size={12} className="mr-1.5" />
+          Close Entry
+        </>
+      ) : (
+        <>
+          <PlusIcon size={12} className="mr-1.5" />
+          Add Entry
+        </>
+      )}
     </button>
   </div>
 );
@@ -161,12 +172,19 @@ const PatientCaseRecord = ({ assignmentId }) => {
 
   const handleAddEntry = () => {
     console.log("Add entry clicked");
-    setNewRecord(true);
+    setNewRecord(!newRecord);
   };
 
   return (
     <div className="overflow-hidden mb-6 rounded-xl shadow-sm border border-gray-200 bg-white animate-fadeIn">
-      <CaseRecordsHeader onAdd={handleAddEntry} />
+      <CaseRecordsHeader onAdd={handleAddEntry} isFormOpen={newRecord} />
+      {newRecord && (
+        <CreateCaseRecord
+          onClose={() => {
+            setNewRecord(false);
+          }}
+        />
+      )}
       <div className="divide-y divide-gray-100">
         {caseRecords.length > 0 ? (
           caseRecords.map((record) => (
@@ -178,13 +196,6 @@ const PatientCaseRecord = ({ assignmentId }) => {
           </div>
         )}
       </div>
-      {newRecord && (
-        <CreateCaseRecord
-          onClose={() => {
-            setNewRecord(false);
-          }}
-        />
-      )}
     </div>
   );
 };
