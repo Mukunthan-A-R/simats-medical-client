@@ -27,3 +27,16 @@ export const approveCaseRecord = async (recordId) => {
 
   return response.data;
 };
+
+export const rejectCaseRecord = async (recordId) => {
+  if (!recordId) {
+    console.warn("rejectCaseRecord called without a recordId");
+    return null;
+  }
+
+  const response = await axiosInstance.put(
+    `${BASE_URL}/api/case-records/doctor/patients/${recordId}/reject`
+  );
+
+  return response.data;
+};

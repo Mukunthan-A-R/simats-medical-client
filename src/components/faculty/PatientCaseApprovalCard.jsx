@@ -8,7 +8,10 @@ import {
 import { useState } from "react";
 import { formatDate } from "../../utils/constants";
 import PatientMedicalRecordReport from "../../components/patient/PatientMedicalRecordReport";
-import { approveCaseRecord } from "../../services/doctorCaseRecords";
+import {
+  approveCaseRecord,
+  rejectCaseRecord,
+} from "../../services/doctorCaseRecords";
 import { useMutation } from "@tanstack/react-query";
 
 const PatientCaseApprovalCard = ({ patient }) => {
@@ -17,7 +20,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
 
   const {
     mutate: approveRecord,
-    isPending,
+    isPending: isPendingApprove,
     isError,
     isSuccess,
   } = useMutation({
@@ -32,13 +35,28 @@ const PatientCaseApprovalCard = ({ patient }) => {
     },
   });
 
+  const { mutate: rejectRecord, isPending: isPendingReject } = useMutation({
+    mutationFn: rejectCaseRecord,
+    onSuccess: (data) => {
+      console.log("Record rejected successfully:", data);
+      alert(`Approved Rejected successfully.`);
+    },
+    onError: (error) => {
+      console.error("Error rejecting record:", error);
+    },
+  });
+
   const handleCloseSummary = () => {
     setViewSummary(false);
   };
 
-  const handleReject = () => setShowFeedbackModal(true);
   const handleCloseModal = () => {
     setShowFeedbackModal(false);
+  };
+
+  const handleReject = () => {
+    rejectRecord(patient.record_id);
+    return;
   };
 
   const handleApprove = () => {
