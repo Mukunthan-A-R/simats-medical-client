@@ -11,7 +11,6 @@ import PatientMedicalRecordReport from "../../components/patient/PatientMedicalR
 
 const PatientCaseApprovalCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  const [feedbackText, setFeedbackText] = useState("");
   const [viewSummary, setViewSummary] = useState(false);
 
   const handleCloseSummary = () => {
@@ -21,7 +20,6 @@ const PatientCaseApprovalCard = ({ patient }) => {
   const handleReject = () => setShowFeedbackModal(true);
   const handleCloseModal = () => {
     setShowFeedbackModal(false);
-    setFeedbackText("");
   };
 
   return (
@@ -126,13 +124,9 @@ const PatientCaseApprovalCard = ({ patient }) => {
               </button>
             </div>
             <div className="p-3">
-              <textarea
-                className="w-full border border-gray-200 rounded-md p-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
-                rows={3}
-                placeholder="Enter feedback..."
-                value={feedbackText}
-                onChange={(e) => setFeedbackText(e.target.value)}
-              />
+              <p className="py-3 pl-2 text-gray-800">
+                Sure want to Reject this patient !
+              </p>
               <div className="flex justify-end gap-2 mt-3">
                 <button
                   onClick={handleCloseModal}
@@ -142,7 +136,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
                 </button>
                 <button
                   onClick={() => {
-                    alert("Rejected with feedback!");
+                    alert("data submitted !");
                     handleCloseModal();
                   }}
                   className="px-3 py-1.5 rounded-full text-xs text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
