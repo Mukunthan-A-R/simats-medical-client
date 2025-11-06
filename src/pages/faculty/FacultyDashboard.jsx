@@ -4,9 +4,14 @@ import { useRecoilValue } from "recoil";
 import FacultyDashboardProfile from "../../components/faculty/dashboard/FacultyDashboardProfile";
 import FacultyDashboardApprovals from "../../components/faculty/dashboard/FacultyDashboardApprovals";
 import FacultyDashboardWindow from "../../components/faculty/dashboard/FacultyDashboardWindow";
+import { useParams } from "react-router-dom";
 
 const FacultyDashboard = () => {
   const userDataVal = useRecoilValue(userData);
+
+  const { facultyId } = useParams();
+  console.log("userId");
+  console.log(facultyId);
 
   return (
     <div className="px-4 py-5 max-w-4xl mx-auto w-full">

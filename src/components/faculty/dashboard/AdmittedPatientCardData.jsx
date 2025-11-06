@@ -7,27 +7,28 @@ const AdmittedPatientCardData = () => {
   const id = useParams();
   const doctorId = id.facultyId;
 
-  const {
-    data: patientsData,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["doctorPatients", doctorId],
-    queryFn: () => fetchDoctorPatients(doctorId),
-    enabled: !!doctorId,
-  });
+  // const {
+  //   data: patientsData,
+  //   isLoading,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: ["doctorPatients", doctorId],
+  //   queryFn: () => fetchDoctorPatients(doctorId),
+  //   enabled: !!doctorId,
+  // });
+  const patientsData = [];
 
-  if (isLoading) {
-    return <p className="p-4 text-center text-gray-700">Loading patients...</p>;
-  }
+  // if (isLoading) {
+  //   return <p className="p-4 text-center text-gray-700">Loading patients...</p>;
+  // }
 
-  if (isError) {
-    return (
-      <p className="p-4 text-center text-red-600">
-        Failed to load patients. Please try again.
-      </p>
-    );
-  }
+  // if (isError) {
+  //   return (
+  //     <p className="p-4 text-center text-red-600">
+  //       Failed to load patients. Please try again.
+  //     </p>
+  //   );
+  // }
 
   const admittedPatients = patientsData?.data || [];
 
