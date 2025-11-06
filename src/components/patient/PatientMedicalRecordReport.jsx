@@ -1,11 +1,4 @@
-import {
-  PrinterIcon,
-  DownloadIcon,
-  UserIcon,
-  FileIcon,
-  AlertTriangleIcon,
-  CheckCircleIcon,
-} from "lucide-react";
+import { PrinterIcon, DownloadIcon, UserIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 import PatientMedicalReportSecondary from "./PatientMedicalReportSecondary";
 

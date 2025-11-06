@@ -5,7 +5,7 @@ import {
   XCircleIcon,
   XIcon,
 } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { formatDate } from "../../utils/constants";
 import PatientMedicalRecordReport from "../../components/patient/PatientMedicalRecordReport";
 
@@ -23,9 +23,6 @@ const PatientCaseApprovalCard = ({ patient }) => {
     setShowFeedbackModal(false);
     setFeedbackText("");
   };
-
-  console.log("patient");
-  console.log(patient);
 
   return (
     <div

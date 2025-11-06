@@ -1,10 +1,4 @@
-import {
-  ClipboardListIcon,
-  CheckCircleIcon,
-  ZoomInIcon,
-  ZoomOutIcon,
-} from "lucide-react";
-import { useState } from "react";
+import { ClipboardListIcon, CheckCircleIcon } from "lucide-react";
 import { useParams } from "react-router-dom";
 
 export default function PatientMedicalReportSecondary({ patient }) {
