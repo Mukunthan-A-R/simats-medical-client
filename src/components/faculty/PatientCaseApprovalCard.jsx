@@ -8,10 +8,29 @@ import {
 import { useState } from "react";
 import { formatDate } from "../../utils/constants";
 import PatientMedicalRecordReport from "../../components/patient/PatientMedicalRecordReport";
+import { approveCaseRecord } from "../../services/doctorCaseRecords";
+import { useMutation } from "@tanstack/react-query";
 
 const PatientCaseApprovalCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [viewSummary, setViewSummary] = useState(false);
+
+  const {
+    mutate: approveRecord,
+    isPending,
+    isError,
+    isSuccess,
+  } = useMutation({
+    mutationFn: approveCaseRecord,
+    onSuccess: (data) => {
+      console.log("✅ Record approved:", data);
+      alert(`Record ${patient.record_id} approved successfully.`);
+    },
+    onError: (error) => {
+      console.error("❌ Error approving record:", error);
+      alert("Failed to approve record.");
+    },
+  });
 
   const handleCloseSummary = () => {
     setViewSummary(false);
@@ -20,6 +39,12 @@ const PatientCaseApprovalCard = ({ patient }) => {
   const handleReject = () => setShowFeedbackModal(true);
   const handleCloseModal = () => {
     setShowFeedbackModal(false);
+  };
+
+  const handleApprove = () => {
+    // alert("I approve you");
+    approveRecord(patient.record_id);
+    return;
   };
 
   return (
@@ -99,7 +124,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
             <XIcon size={12} /> Reject
           </button>
           <button
-            onClick={() => alert("Approve")}
+            onClick={handleApprove}
             className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
           >
             <CheckIcon size={12} /> Approve
