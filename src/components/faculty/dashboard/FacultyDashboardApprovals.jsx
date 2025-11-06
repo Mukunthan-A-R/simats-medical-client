@@ -6,10 +6,11 @@ import {
   PillIcon,
   FileTextIcon,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const FacultyDashboardApprovals = () => {
   const navigate = useNavigate();
+  const { facultyId } = useParams();
 
   return (
     <div>
@@ -19,27 +20,33 @@ const FacultyDashboardApprovals = () => {
           as={ClipboardListIcon}
           caseRecords={8}
           title="Case Records Approvals"
-          onNavigate={() => navigate("/faculty/case-record-approvals/123")}
+          onNavigate={() =>
+            navigate(`/faculty/case-record-approvals/${facultyId}`)
+          }
         />
         <ApprovalDashboardButton
           as={FileTextIcon}
           caseRecords={10}
           title={"Discharge Summaries Approvals"}
           onNavigate={() =>
-            navigate("/faculty/discharge-summary-approvals/123")
+            navigate(`/faculty/discharge-summary-approvals/${facultyId}`)
           }
         ></ApprovalDashboardButton>
         <ApprovalDashboardButton
           as={BedIcon}
           caseRecords={4}
           title={"Admission Approvals"}
-          onNavigate={() => navigate("/faculty/admission-approvals/123")}
+          onNavigate={() =>
+            navigate(`/faculty/admission-approvals/${facultyId}`)
+          }
         ></ApprovalDashboardButton>
         <ApprovalDashboardButton
           as={PillIcon}
           caseRecords={1}
           title={"Prescription Approvals"}
-          onNavigate={() => navigate("/faculty/prescription-approvals/123")}
+          onNavigate={() =>
+            navigate(`/faculty/prescription-approvals/${facultyId}`)
+          }
         ></ApprovalDashboardButton>
       </div>
     </div>

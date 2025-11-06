@@ -10,8 +10,8 @@ import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 import PatientMedicalReportSecondary from "./PatientMedicalReportSecondary";
 
 const PatientMedicalRecordReport = ({
-  record: selectedReport,
-  closeReportModal,
+  patient: selectedReport,
+  onClose: closeReportModal,
 }) => {
   console.log("selectedReport");
   console.log(selectedReport);

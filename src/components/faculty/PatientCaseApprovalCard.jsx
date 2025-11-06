@@ -14,6 +14,10 @@ const PatientCaseApprovalCard = ({ patient }) => {
   const [feedbackText, setFeedbackText] = useState("");
   const [viewSummary, setViewSummary] = useState(false);
 
+  const handleCloseSummary = () => {
+    setViewSummary(false);
+  };
+
   const handleReject = () => setShowFeedbackModal(true);
   const handleCloseModal = () => {
     setShowFeedbackModal(false);
@@ -21,7 +25,10 @@ const PatientCaseApprovalCard = ({ patient }) => {
   };
 
   return (
-    <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 sm:p-4 flex flex-col gap-2 my-2">
+    <div
+      key={patient.record_id}
+      className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 sm:p-4 flex flex-col gap-2 my-2"
+    >
       {/* === Row 1: 4 Columns (Responsive) === */}
       <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-4 items-center">
         {/* Patient Info */}
@@ -45,7 +52,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
         <div>
           <p className="text-gray-500 text-xs">Dept</p>
           <p className="font-medium text-gray-800 text-sm truncate">
-            {patient.department}
+            {patient.dept_id}
           </p>
         </div>
 
@@ -71,14 +78,12 @@ const PatientCaseApprovalCard = ({ patient }) => {
         {/* Reason + Alerts */}
         <div className="flex flex-col text-xs leading-snug flex-1">
           <p className="flex items-center text-blue-600 font-medium">
-            <HeartPulseIcon size={12} className="mr-1" /> {patient.reason}
+            <HeartPulseIcon size={12} className="mr-1" /> {patient.diagnosis}
           </p>
-          {patient.alerts?.length > 0 && (
-            <p className="flex items-center text-red-600 font-medium mt-0.5">
-              <AlertTriangleIcon size={12} className="mr-1" />
-              {patient.alerts.join(", ")}
-            </p>
-          )}
+          <p className="flex items-center text-red-600 font-medium mt-0.5">
+            <AlertTriangleIcon size={12} className="mr-1" />
+            {patient.findings}
+          </p>
         </div>
 
         {/* Buttons */}
@@ -166,7 +171,10 @@ const PatientCaseApprovalCard = ({ patient }) => {
               </button>
             </div>
             <div className="p-4">
-              <PatientMedicalRecordReport />
+              <PatientMedicalRecordReport
+                onClose={handleCloseSummary}
+                patient={patient}
+              />
             </div>
           </div>
         </div>
