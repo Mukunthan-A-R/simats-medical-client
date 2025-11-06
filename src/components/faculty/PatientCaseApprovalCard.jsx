@@ -24,6 +24,9 @@ const PatientCaseApprovalCard = ({ patient }) => {
     setFeedbackText("");
   };
 
+  console.log("patient");
+  console.log(patient);
+
   return (
     <div
       key={patient.record_id}
@@ -35,15 +38,15 @@ const PatientCaseApprovalCard = ({ patient }) => {
         <div className="flex items-center gap-2">
           <img
             src={patient.patientPhoto}
-            alt={patient.patientName}
+            alt={patient.patient_name}
             className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover border border-gray-300"
           />
           <div className="leading-tight">
             <h3 className="text-sm font-semibold text-gray-900 truncate">
-              {patient.patientName}
+              {patient.patient_name}
             </h3>
             <p className="text-xs text-gray-500 truncate">
-              {patient.patientId}
+              {patient.patient_id}
             </p>
           </div>
         </div>
@@ -52,7 +55,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
         <div>
           <p className="text-gray-500 text-xs">Dept</p>
           <p className="font-medium text-gray-800 text-sm truncate">
-            {patient.dept_id}
+            {patient.dept_name}
           </p>
         </div>
 
@@ -60,7 +63,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
         <div className="sm:pl-2 md:pl-4">
           <p className="text-gray-500 text-xs">Requested By</p>
           <p className="font-medium text-gray-800 text-sm truncate">
-            {patient.requestedBy}
+            {patient.student_name}
           </p>
         </div>
 
