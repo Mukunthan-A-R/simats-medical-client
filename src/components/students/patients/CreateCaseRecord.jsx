@@ -5,6 +5,7 @@ import DoctorSelect from "./DoctorSelect";
 import { useMutation } from "@tanstack/react-query";
 import { createPatientCaseRecord } from "../../../services/patientCaseRecordsServices";
 import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const CreateCaseRecord = ({ onClose, assignmentId }) => {
   const { patientId, studentId } = useParams();
@@ -25,11 +26,11 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
     mutationFn: createPatientCaseRecord,
     onSuccess: (data) => {
       console.log("Case record created successfully:", data);
-      // optional: show success toast, reset form, refetch queries, etc.
+      toast.success("New Case Record Created");
     },
     onError: (error) => {
       console.error("Error creating case record:", error);
-      // optional: show error toast
+      toast.error("Error in creating Case record");
     },
   });
 
