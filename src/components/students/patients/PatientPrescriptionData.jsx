@@ -57,7 +57,9 @@ const PatientPrescriptionData = () => {
         showAddForm={showAddForm}
         onToggle={() => setShowAddForm(!showAddForm)}
       />
-      {showAddForm && <NewMedicationForm />}
+      {showAddForm && (
+        <NewMedicationForm onToggle={() => setShowAddForm(!showAddForm)} />
+      )}
 
       <CurrentMedications medications={sampleMeds} />
 

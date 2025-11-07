@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MedicationFrequencyButton from "./MedicationFrequencyButton";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../../utils/constants";
 
-const NewMedicationForm = () => {
+const NewMedicationForm = ({ onToggle }) => {
   const [newMedication, setNewMedication] = useState({
     name: "",
     dosage: "",
@@ -24,6 +24,7 @@ const NewMedicationForm = () => {
       endDate: "",
       instructions: "",
     });
+    onToggle();
   };
 
   return (
