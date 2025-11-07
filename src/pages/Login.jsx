@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../services/login";
 import { useRecoilState } from "recoil";
 import { userLoginAtom } from "../context/userAtom";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [userData, setUserData] = useRecoilState(userLoginAtom);
@@ -37,19 +38,20 @@ const Login = () => {
       });
 
       if (role == "2") {
-        alert("Logged in as student!");
+        toast.success("Logged in as student!");
         navigate(`/student/dashboard/${userId}`);
       } else if (role == "1") {
-        alert("Logged in as faculty!");
+        toast.success("Logged in as faculty!");
         navigate(`/faculty/dashboard/${userId}`);
       } else if (role == "3") {
-        alert("Logged in as patient!");
+        toast.success("Logged in as patient!");
         navigate(`/patient/dashboard/${userId}`);
       }
     },
 
     onError: (error) => {
       console.error("Login failed:", error);
+      toast.error("Login failed");
       setError("Invalid credentials. Please try again.");
     },
   });

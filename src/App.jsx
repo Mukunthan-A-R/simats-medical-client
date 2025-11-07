@@ -36,6 +36,7 @@ import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
 
 import UnderConstruction from "./components/UnderConstruction";
 import PatientDetails from "./pages/student/PatientDetails";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -125,6 +126,7 @@ function App() {
           </Route>
           <Route path="*" element={<UnderConstruction />} />
         </Routes>
+        <Toaster position="top-right" reverseOrder={false} />
       </BrowserRouter>
     </>
   );
