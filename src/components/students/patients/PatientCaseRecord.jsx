@@ -104,45 +104,84 @@ const CaseRecordCard = ({ record }) => {
 
       {/* Card content */}
       {isOpen && (
-        <div className="p-4 bg-white border-t border-gray-200 text-sm text-gray-700 space-y-2">
-          <p>
-            <span className="font-medium">Assignment ID:</span>{" "}
-            {record.assignment_id}
-          </p>
-          <p>
-            <span className="font-medium">Findings:</span> {record.findings}
-          </p>
-          <p>
-            <span className="font-medium">Diagnosis:</span> {record.diagnosis}
-          </p>
-          <p>
-            <span className="font-medium">Treatment:</span> {record.treatment}
-          </p>
-          <p>
-            <span className="font-medium">Vital Signs:</span>{" "}
-            {record.vital_signs}
-          </p>
-          <p>
-            <span className="font-medium">Symptoms:</span> {record.symptoms}
-          </p>
-          <p>
-            <span className="font-medium">Observation:</span>{" "}
-            {record.observation}
-          </p>
-          <p>
-            <span className="font-medium">Provider:</span>{" "}
-            <User size={14} className="inline mr-1" /> {record.student_id}
-          </p>
-          <p>
-            <span className="font-medium">Doctor:</span>{" "}
-            <UserCheck size={14} className="inline mr-1" /> {record.doctor_id}
-          </p>
-          <p>
-            <span className="font-medium">Approved On:</span>{" "}
-            {record.approved_time
-              ? new Date(record.approved_time).toLocaleString()
-              : "Pending"}
-          </p>
+        <div className="p-6 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300 text-sm text-gray-700">
+          {/* Header */}
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold text-gray-800">
+              Case Record Details
+            </h3>
+            <span
+              className={`px-2 py-1 text-xs font-medium rounded-full ${
+                record.approval === "approved"
+                  ? "bg-green-100 text-green-700"
+                  : record.approval === "rejected"
+                  ? "bg-red-100 text-red-700"
+                  : "bg-yellow-100 text-yellow-700"
+              }`}
+            >
+              {record.approval.charAt(0).toUpperCase() +
+                record.approval.slice(1)}
+            </span>
+          </div>
+
+          {/* Details Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
+            <p>
+              <span className="font-medium text-gray-800">Assignment ID:</span>{" "}
+              {record.assignment_id}
+            </p>
+            <p>
+              <span className="font-medium text-gray-800">Vital Signs:</span>{" "}
+              {record.vital_signs}
+            </p>
+            <p>
+              <span className="font-medium text-gray-800">Symptoms:</span>{" "}
+              {record.symptoms}
+            </p>
+            <p>
+              <span className="font-medium text-gray-800">Observation:</span>{" "}
+              {record.observation}
+            </p>
+            <p>
+              <span className="font-medium text-gray-800">Findings:</span>{" "}
+              {record.findings}
+            </p>
+            <p>
+              <span className="font-medium text-gray-800">Diagnosis:</span>{" "}
+              {record.diagnosis}
+            </p>
+            <p className="sm:col-span-2">
+              <span className="font-medium text-gray-800">Treatment:</span>{" "}
+              {record.treatment}
+            </p>
+          </div>
+
+          {/* Divider */}
+          <div className="my-4 border-t border-gray-200"></div>
+
+          {/* Footer Info */}
+          <div className="flex flex-col sm:flex-row justify-between gap-3 text-gray-600">
+            <div>
+              <p className="flex items-center">
+                <User size={14} className="mr-2 text-blue-600" />
+                <span className="font-medium">Provider:</span>{" "}
+                {record.student_id}
+              </p>
+              <p className="flex items-center mt-1">
+                <UserCheck size={14} className="mr-2 text-green-600" />
+                <span className="font-medium">Doctor:</span> {record.doctor_id}
+              </p>
+            </div>
+
+            <div className="text-right">
+              <p>
+                <span className="font-medium text-gray-800">Approved On:</span>{" "}
+                {record.approved_time
+                  ? new Date(record.approved_time).toLocaleString()
+                  : "Pending"}
+              </p>
+            </div>
+          </div>
         </div>
       )}
     </div>
