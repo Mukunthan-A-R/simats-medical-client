@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDoctorsForDropdown } from "../../../services/doctorDropDown";
 
-const DoctorSelect = () => {
+const DoctorSelect = ({ onChange }) => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   const { data, isLoading, error } = useQuery({
@@ -16,6 +16,12 @@ const DoctorSelect = () => {
       value: doc.doctor_id,
       label: `${doc.doctor_name} - ${doc.dept_name || "No Dept"}`,
     })) || [];
+
+  useEffect(() => {
+    if (onChange) {
+      onChange(selectedDoctor);
+    }
+  }, [selectedDoctor, onChange]);
 
   if (isLoading) return <div>Loading doctors...</div>;
   if (error) return <div>Error loading doctors</div>;
@@ -31,7 +37,7 @@ const DoctorSelect = () => {
         isClearable
       />
       {selectedDoctor && (
-        <div className="mt-2 text-gray-700">
+        <div className="mt-2 text-gray-700 font-medium">
           Selected: {selectedDoctor.label} (ID: {selectedDoctor.value})
         </div>
       )}

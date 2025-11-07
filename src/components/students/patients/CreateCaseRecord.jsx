@@ -153,7 +153,11 @@ const CreateCaseRecord = ({ onClose }) => {
               </div>
             ))}
             {/* Faculty for Approval */}
-            <DoctorSelect></DoctorSelect>
+            <DoctorSelect
+              onChange={(data) => {
+                setSelectedFaculty(data?.value);
+              }}
+            ></DoctorSelect>
 
             {/* Submit Button */}
             <div className="flex justify-end pt-3 pb-2">

@@ -184,7 +184,7 @@ const PatientCaseRecord = ({ assignmentId }) => {
           }}
         />
       )}
-      <div className="divide-y divide-gray-100 px-3">
+      <div className="divide-y divide-gray-100 px-3 pt-2">
         {caseRecords.length > 0 ? (
           caseRecords.map((record) => (
             <CaseRecordCard key={record.record_id} record={record} />
