@@ -37,7 +37,19 @@ const FacultyCaseApproval = () => {
     );
   }
 
-  const patients = caseRecords || [];
+  const patientsData = caseRecords || [];
+
+  const patients = patientsData.filter(
+    (record) => record?.approval?.trim().toLowerCase() === "requested"
+  );
+
+  if (patients.length === 0) {
+    return (
+      <p className="text-blue-600 text-center mt-8">
+        No Cases Records Pending !
+      </p>
+    );
+  }
 
   return (
     <div className="p-4">

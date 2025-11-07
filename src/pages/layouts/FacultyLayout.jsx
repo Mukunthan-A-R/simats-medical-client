@@ -27,8 +27,8 @@ export default function FacultyLayout() {
     enabled: !!doctorId,
   });
 
-  console.log("doctor");
-  console.log(doctor);
+  // console.log("doctor");
+  // console.log(doctor);
 
   useEffect(() => {
     if (doctor) {
