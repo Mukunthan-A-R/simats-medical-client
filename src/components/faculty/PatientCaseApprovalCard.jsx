@@ -13,6 +13,7 @@ import {
   rejectCaseRecord,
 } from "../../services/doctorCaseRecords";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 const PatientCaseApprovalCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
@@ -34,11 +35,11 @@ const PatientCaseApprovalCard = ({ patient }) => {
         queryClient.invalidateQueries(["patient"]),
         queryClient.invalidateQueries(["patientCaseRecords"]),
       ]);
-      alert(`Record ${patient.record_id} approved successfully.`);
+      toast.success(`Record ${patient.record_id} approved successfully.`);
     },
     onError: (error) => {
       console.error("❌ Error approving record:", error);
-      alert("Failed to approve record.");
+      toast.error(`Failed to approve record.`);
     },
   });
 
@@ -51,9 +52,10 @@ const PatientCaseApprovalCard = ({ patient }) => {
         queryClient.invalidateQueries(["patientCaseRecords"]),
       ]);
 
-      alert(`Approved Rejected successfully.`);
+      toast.success(`Approval Rejected successfully.`);
     },
     onError: (error) => {
+      toast.success(`Error Rejecting Approval.`);
       console.error("Error rejecting record:", error);
     },
   });
