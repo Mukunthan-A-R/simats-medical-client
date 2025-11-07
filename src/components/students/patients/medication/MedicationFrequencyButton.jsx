@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const frequencyOptions = {
   "1-0-0": "Once daily",
@@ -11,20 +11,16 @@ const frequencyOptions = {
   PRN: "As needed",
 };
 
-export default function MedicationFrequencyButton() {
-  const [selectedFrequency, setSelectedFrequency] = useState("");
-
-  const handleFrequencyChange = (e) => {
-    setSelectedFrequency(e.target.value);
-  };
-
+export default function MedicationFrequencyButton({
+  selectedFrequency,
+  onFrequencyChange,
+}) {
   return (
     <div className="space-y-4">
       <label className="block text-sm font-medium text-gray-700">
         Frequency <span className="text-red-500">*</span>
       </label>
 
-      {/* Responsive grid: 1 col (sm), 2 cols (md), 3 cols (lg) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mx-2 md:mx-8">
         {Object.keys(frequencyOptions).map((notation) => (
           <label
@@ -36,7 +32,7 @@ export default function MedicationFrequencyButton() {
               name="frequency"
               value={notation}
               checked={selectedFrequency === notation}
-              onChange={handleFrequencyChange}
+              onChange={(e) => onFrequencyChange(e.target.value)}
               className="text-blue-600 focus:ring-blue-500 border-gray-300"
             />
             <span className="font-medium">{notation}</span>

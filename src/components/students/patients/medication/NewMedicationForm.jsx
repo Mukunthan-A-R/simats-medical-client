@@ -97,7 +97,12 @@ const NewMedicationForm = () => {
 
         {/* Frequency */}
         <div className="md:col-span-2">
-          <MedicationFrequencyButton></MedicationFrequencyButton>
+          <MedicationFrequencyButton
+            selectedFrequency={newMedication.frequency}
+            onFrequencyChange={(value) =>
+              setNewMedication({ ...newMedication, frequency: value })
+            }
+          />
         </div>
 
         {/* Medication Timing */}
