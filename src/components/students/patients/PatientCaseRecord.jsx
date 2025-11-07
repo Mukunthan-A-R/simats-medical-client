@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ClipboardListIcon, PlusIcon, XIcon } from "lucide-react";
+import { ClipboardListIcon, PlusIcon, X, XIcon } from "lucide-react";
 import {
   Check,
   Clock,
@@ -48,16 +48,21 @@ const CaseRecordsHeader = ({ onAdd, isFormOpen }) => (
 );
 
 // Individual case record card
-// Individual case record card
 const CaseRecordCard = ({ record }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Use record.approval and normalize case
-  const isApproved = record.approval?.toLowerCase() === "approved";
+  // Normalize approval status
+  const isApproved = record.approval?.toLowerCase();
 
-  const statusGradient = isApproved
-    ? "from-green-400 to-green-600"
-    : "from-orange-400 to-red-500";
+  // Determine gradient based on status
+  let statusGradient;
+  if (isApproved === "approved") {
+    statusGradient = "from-green-400 to-green-600";
+  } else if (isApproved === "rejected") {
+    statusGradient = "from-red-400 to-red-600";
+  } else {
+    statusGradient = "from-orange-400 to-yellow-500";
+  }
 
   return (
     <div className="border border-gray-200 rounded-md shadow-sm mb-3">
@@ -70,8 +75,10 @@ const CaseRecordCard = ({ record }) => {
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-gradient-to-b ${statusGradient} border border-gray-300 shadow`}
           >
-            {isApproved ? (
+            {isApproved === "approved" ? (
               <Check size={16} className="text-white" />
+            ) : isApproved === "rejected" ? (
+              <X size={16} className="text-white" />
             ) : (
               <Clock size={16} className="text-white" />
             )}
