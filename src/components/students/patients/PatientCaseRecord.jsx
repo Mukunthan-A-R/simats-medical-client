@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-  CheckCircleIcon,
-  ClipboardListIcon,
-  ClockIcon,
-  PlusIcon,
-  UserCheckIcon,
-  UserIcon,
-  XIcon,
-} from "lucide-react";
+import { useState } from "react";
+import { ClipboardListIcon, PlusIcon, XIcon } from "lucide-react";
 import {
   Check,
   Clock,
@@ -159,7 +151,7 @@ const PatientCaseRecord = ({ assignmentId }) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["patient", assignmentId],
+    queryKey: ["patientCaseRecords", assignmentId],
     queryFn: () => fetchPatientCaseRecords(assignmentId),
     enabled: !!assignmentId,
   });

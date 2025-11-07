@@ -12,11 +12,14 @@ import {
   approveCaseRecord,
   rejectCaseRecord,
 } from "../../services/doctorCaseRecords";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const PatientCaseApprovalCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [viewSummary, setViewSummary] = useState(false);
+
+  // console.log(patient);
+  const queryClient = useQueryClient();
 
   const {
     mutate: approveRecord,
@@ -27,6 +30,10 @@ const PatientCaseApprovalCard = ({ patient }) => {
     mutationFn: approveCaseRecord,
     onSuccess: (data) => {
       console.log("✅ Record approved:", data);
+      Promise.all([
+        queryClient.invalidateQueries(["patient"]),
+        queryClient.invalidateQueries(["patientCaseRecords"]),
+      ]);
       alert(`Record ${patient.record_id} approved successfully.`);
     },
     onError: (error) => {
@@ -39,6 +46,11 @@ const PatientCaseApprovalCard = ({ patient }) => {
     mutationFn: rejectCaseRecord,
     onSuccess: (data) => {
       console.log("Record rejected successfully:", data);
+      Promise.all([
+        queryClient.invalidateQueries(["patient"]),
+        queryClient.invalidateQueries(["patientCaseRecords"]),
+      ]);
+
       alert(`Approved Rejected successfully.`);
     },
     onError: (error) => {
@@ -64,6 +76,10 @@ const PatientCaseApprovalCard = ({ patient }) => {
     approveRecord(patient.record_id);
     return;
   };
+
+  if (patient?.approval != "requested") {
+    return;
+  }
 
   return (
     <div
