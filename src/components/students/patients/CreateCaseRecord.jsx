@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { XIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
+import DoctorSelect from "./DoctorSelect";
 
 const CreateCaseRecord = ({ onClose }) => {
   const [selectedDepartment, setSelectedDepartment] = useState("");
@@ -61,12 +62,6 @@ const CreateCaseRecord = ({ onClose }) => {
       "Trauma Assessment",
     ],
   };
-
-  const facultyApprovers = [
-    { id: 1, name: "Dr. Allen", department: "Cardiology" },
-    { id: 2, name: "Dr. Brown", department: "Neurology" },
-    { id: 3, name: "Dr. Smith", department: "Orthopedics" },
-  ];
 
   const handleInputChange = (field, value) => {
     setFormValues((prev) => ({ ...prev, [field]: value }));
@@ -158,23 +153,8 @@ const CreateCaseRecord = ({ onClose }) => {
               </div>
             ))}
             {/* Faculty for Approval */}
-            <div>
-              <label className="block font-medium mb-1">
-                Faculty for Approval *
-              </label>
-              <select
-                value={selectedFaculty}
-                onChange={(e) => setSelectedFaculty(e.target.value)}
-                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="">Select Approver</option>
-                {facultyApprovers.map((faculty) => (
-                  <option key={faculty.id} value={faculty.id}>
-                    {faculty.name} - {faculty.department}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <DoctorSelect></DoctorSelect>
+
             {/* Submit Button */}
             <div className="flex justify-end pt-3 pb-2">
               <button
