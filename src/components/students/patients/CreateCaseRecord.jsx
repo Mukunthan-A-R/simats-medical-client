@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import { XIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 import DoctorSelect from "./DoctorSelect";
+import { useMutation } from "@tanstack/react-query";
+import { createPatientCaseRecord } from "../../../services/patientCaseRecordsServices";
+import { useParams } from "react-router-dom";
 
-const CreateCaseRecord = ({ onClose }) => {
+const CreateCaseRecord = ({ onClose, assignmentId }) => {
+  const { patientId, studentId } = useParams();
+
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedProcedure, setSelectedProcedure] = useState("");
   const [selectedFaculty, setSelectedFaculty] = useState("");
@@ -16,52 +21,17 @@ const CreateCaseRecord = ({ onClose }) => {
     treatment: "",
   });
 
-  const departmentProcedures = {
-    "Internal Medicine": [
-      "Physical Examination",
-      "Blood Pressure Monitoring",
-      "ECG Interpretation",
-      "Venipuncture",
-      "Insulin Administration",
-      "Blood Glucose Monitoring",
-      "Nasogastric Tube Insertion",
-    ],
-    Pediatrics: [
-      "Growth Assessment",
-      "Developmental Screening",
-      "Vaccination",
-      "Otoscopic Examination",
-      "Pediatric Physical Exam",
-    ],
-    Surgery: [
-      "Suturing",
-      "Wound Dressing",
-      "Surgical Scrubbing",
-      "Catheterization",
-      "Sterile Field Preparation",
-    ],
-    "OB/GYN": [
-      "Pelvic Examination",
-      "Pap Smear Collection",
-      "Fetal Heart Rate Monitoring",
-      "Breast Examination",
-      "Prenatal Assessment",
-    ],
-    Psychiatry: [
-      "Mental Status Examination",
-      "Depression Screening",
-      "Anxiety Assessment",
-      "Cognitive Evaluation",
-      "Risk Assessment",
-    ],
-    "Emergency Medicine": [
-      "Triage",
-      "CPR",
-      "Airway Management",
-      "Splinting",
-      "Trauma Assessment",
-    ],
-  };
+  const mutation = useMutation({
+    mutationFn: createPatientCaseRecord,
+    onSuccess: (data) => {
+      console.log("Case record created successfully:", data);
+      // optional: show success toast, reset form, refetch queries, etc.
+    },
+    onError: (error) => {
+      console.error("Error creating case record:", error);
+      // optional: show error toast
+    },
+  });
 
   const handleInputChange = (field, value) => {
     setFormValues((prev) => ({ ...prev, [field]: value }));
@@ -82,11 +52,26 @@ const CreateCaseRecord = ({ onClose }) => {
       return;
     }
 
+    const deptId = departmentsByName[selectedDepartment];
+
+    const formData = {
+      assignment_id: Number(assignmentId),
+      dept_id: deptId,
+      procedure: selectedProcedure,
+      vital_signs: formValues.vitalSigns,
+      symptoms: formValues.symptoms,
+      observation: formValues.observations,
+      findings: formValues.findings,
+      diagnosis: formValues.diagnosis,
+      treatment: formValues.treatment,
+      doctor_id: selectedFaculty,
+      student_id: studentId,
+      patient_id: patientId,
+    };
+    mutation.mutate(formData);
+
     console.log("Submitted Case Record:", {
-      selectedDepartment,
-      selectedProcedure,
-      ...formValues,
-      selectedFaculty,
+      formData,
     });
     onClose();
   };
@@ -185,3 +170,59 @@ const CreateCaseRecord = ({ onClose }) => {
 };
 
 export default CreateCaseRecord;
+
+export const departmentProcedures = {
+  "Internal Medicine": [
+    "Physical Examination",
+    "Blood Pressure Monitoring",
+    "ECG Interpretation",
+    "Venipuncture",
+    "Insulin Administration",
+    "Blood Glucose Monitoring",
+    "Nasogastric Tube Insertion",
+  ],
+  Pediatrics: [
+    "Growth Assessment",
+    "Developmental Screening",
+    "Vaccination",
+    "Otoscopic Examination",
+    "Pediatric Physical Exam",
+  ],
+  Surgery: [
+    "Suturing",
+    "Wound Dressing",
+    "Surgical Scrubbing",
+    "Catheterization",
+    "Sterile Field Preparation",
+  ],
+  "OB/GYN": [
+    "Pelvic Examination",
+    "Pap Smear Collection",
+    "Fetal Heart Rate Monitoring",
+    "Breast Examination",
+    "Prenatal Assessment",
+  ],
+  Psychiatry: [
+    "Mental Status Examination",
+    "Depression Screening",
+    "Anxiety Assessment",
+    "Cognitive Evaluation",
+    "Risk Assessment",
+  ],
+  "Emergency Medicine": [
+    "Triage",
+    "CPR",
+    "Airway Management",
+    "Splinting",
+    "Trauma Assessment",
+  ],
+};
+
+export const departmentsByName = {
+  "Internal Medicine": 1,
+  Pediatrics: 2,
+  Surgery: 3,
+  "OB/GYN": 4,
+  Psychiatry: 5,
+  "Emergency Medicine": 6,
+};

@@ -68,7 +68,7 @@ const StudentMyPatientTab = () => {
         {displayedPatients.map((patient) => (
           <div
             onClick={() => {
-              navigate(`/student/patient/${patient.patient_id}`);
+              navigate(`/student/${studentId}/patient/${patient.patient_id}`);
             }}
             key={patient.patient_id}
             className="p-4 hover:bg-blue-50 transition-colors cursor-pointer flex items-center justify-between"

@@ -179,6 +179,7 @@ const PatientCaseRecord = ({ assignmentId }) => {
       <CaseRecordsHeader onAdd={handleAddEntry} isFormOpen={newRecord} />
       {newRecord && (
         <CreateCaseRecord
+          assignmentId={assignmentId}
           onClose={() => {
             setNewRecord(false);
           }}

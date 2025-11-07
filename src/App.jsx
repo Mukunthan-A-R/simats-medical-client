@@ -59,7 +59,10 @@ function App() {
               path="notifications/:studentId"
               element={<StudentNotificationsScreen />}
             />
-            <Route path="patient/:patientId" element={<PatientDetails />} />
+            <Route
+              path=":studentId/patient/:patientId"
+              element={<PatientDetails />}
+            />
           </Route>
 
           {/* Teachers route*/}
