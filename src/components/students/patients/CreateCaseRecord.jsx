@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { XIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 import DoctorSelect from "./DoctorSelect";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPatientCaseRecord } from "../../../services/patientCaseRecordsServices";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const CreateCaseRecord = ({ onClose, assignmentId }) => {
   const { patientId, studentId } = useParams();
+  const queryClient = useQueryClient();
 
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [selectedProcedure, setSelectedProcedure] = useState("");
@@ -27,6 +28,10 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
     onSuccess: (data) => {
       console.log("Case record created successfully:", data);
       toast.success("New Case Record Created");
+
+      queryClient.invalidateQueries({
+        queryKey: ["patientCaseRecords", assignmentId],
+      });
     },
     onError: (error) => {
       console.error("Error creating case record:", error);
