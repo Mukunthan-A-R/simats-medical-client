@@ -1,3 +1,4 @@
+import { QueryClient, useMutation } from "@tanstack/react-query";
 import {
   AlertTriangleIcon,
   CheckIcon,
@@ -6,13 +7,52 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { useState } from "react";
+import { updateDoctorApprovalStatus } from "../../services/doctorApprovalService";
+import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const PatientAdmissionCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [feedbackText, setFeedbackText] = useState("");
 
+  const queryClient = new QueryClient();
+  const { facultyId: doctorId } = useParams();
+
   const handleReject = () => setShowFeedbackModal(true);
   const handleCloseModal = () => {
+    setShowFeedbackModal(false);
+    setFeedbackText("");
+  };
+
+  const { mutate: handleApproval, isPending: isMutating } = useMutation({
+    mutationFn: ({ requestId, doctorId, status, remarks }) =>
+      updateDoctorApprovalStatus(requestId, doctorId, status, remarks),
+    onSuccess: (data) => {
+      toast.success(`Request ${data?.message || "updated successfully"}`);
+      queryClient.invalidateQueries(["doctorPendingApprovals"]);
+    },
+    onError: (error) => {
+      console.error("Approval update failed:", error);
+      toast.error("Failed to update request.");
+    },
+  });
+
+  const onAdmit = () => {
+    handleApproval({
+      requestId: patient?.request_id,
+      doctorId,
+      status: "approved",
+      remarks: "",
+    });
+  };
+
+  const onRejectSubmit = () => {
+    handleApproval({
+      requestId: patient?.request_id,
+      doctorId,
+      status: "rejected",
+      remarks: feedbackText || "No remarks provided",
+    });
     setShowFeedbackModal(false);
     setFeedbackText("");
   };
@@ -109,7 +149,8 @@ const PatientAdmissionCard = ({ patient }) => {
             <XIcon size={12} /> Reject
           </button>
           <button
-            onClick={() => alert("Admitted")}
+            disabled={isMutating}
+            onClick={onAdmit}
             className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
           >
             <CheckIcon size={12} /> Admit
@@ -149,11 +190,9 @@ const PatientAdmissionCard = ({ patient }) => {
                   Cancel
                 </button>
                 <button
-                  onClick={() => {
-                    alert(`Rejected with feedback: ${feedbackText}`);
-                    handleCloseModal();
-                  }}
-                  className="px-3 py-1.5 rounded-full text-xs text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                  disabled={isMutating}
+                  onClick={onRejectSubmit}
+                  className="px-3 py-1.5 rounded-full text-xs text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 disabled:opacity-50"
                 >
                   Submit
                 </button>
