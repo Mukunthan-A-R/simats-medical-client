@@ -19,9 +19,6 @@ const FacultyAdmissionApprovals = () => {
     enabled: !!doctorId,
   });
 
-  console.log("patientsData");
-  console.log(patientsData);
-
   if (isLoading) {
     return <p className="p-4 text-center text-gray-700">Loading patients...</p>;
   }
