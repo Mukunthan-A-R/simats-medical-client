@@ -6,7 +6,6 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { useState } from "react";
-import { formatDate } from "../../utils/constants";
 
 const PatientAdmissionCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
@@ -18,65 +17,81 @@ const PatientAdmissionCard = ({ patient }) => {
     setFeedbackText("");
   };
 
+  const formatDate = (dateStr) =>
+    dateStr ? new Date(dateStr).toLocaleDateString() : "N/A";
+
   return (
     <div className="bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 p-3 sm:p-4 flex flex-col gap-2 my-2">
-      {/* === Row 1: Patient Info + Dept + Requested By + Status === */}
-      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-y-2 gap-x-4 items-center">
+      {/* === Row 1: Patient Info + Requested By + Status === */}
+      <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-y-2 gap-x-4 items-center">
         {/* Patient Info */}
         <div className="flex items-center gap-2">
           <img
-            src={patient.patientPhoto}
-            alt={patient.patientName}
+            src={patient?.patientPhoto || "/default-avatar.png"}
+            alt={patient?.patient_name}
             className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover border border-gray-300"
           />
           <div className="leading-tight">
             <h3 className="text-sm font-semibold text-gray-900 truncate">
-              {patient.patientName}
+              {patient?.patient_name}
             </h3>
             <p className="text-xs text-gray-500 truncate">
-              {patient.patientId}
+              {patient?.patient_id}
+            </p>
+            <p className="text-xs text-gray-500 truncate">
+              DOB: {formatDate(patient?.patient_dob)}
             </p>
           </div>
         </div>
 
-        {/* Department */}
-        <div>
-          <p className="text-gray-500 text-xs">Dept</p>
-          <p className="font-medium text-gray-800 text-sm truncate">
-            {patient.department}
-          </p>
-        </div>
-
         {/* Requested By */}
-        <div className="sm:pl-2 md:pl-4">
+        <div>
           <p className="text-gray-500 text-xs">Requested By</p>
           <p className="font-medium text-gray-800 text-sm truncate">
-            {patient.requestedBy}
+            {patient?.student_name}
           </p>
         </div>
 
         {/* Status */}
         <div className="text-left md:text-right">
           <p className="text-gray-500 text-xs">Status</p>
-          <p className="font-medium text-blue-600 text-sm">Pending</p>
+          <p className="font-medium text-blue-600 text-sm">{patient?.status}</p>
           <p className="text-[11px] text-gray-400 mt-0.5">
-            {formatDate(patient.requestDate)}
+            Requested: {formatDate(patient?.requested_at)}
           </p>
         </div>
       </div>
 
-      {/* === Row 2: Reason, Alerts, Actions === */}
+      {/* === Row 2: Details, Alerts, Actions === */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-gray-100 pt-2">
-        {/* Reason & Alerts */}
+        {/* Details & Alerts */}
         <div className="flex flex-col text-xs leading-snug flex-1">
           <p className="flex items-center text-blue-600 font-medium">
-            <HeartPulseIcon size={12} className="mr-1" /> {patient.reason}
+            <HeartPulseIcon size={12} className="mr-1" />
+            Admission Date: {formatDate(patient?.admission_date)}
           </p>
 
-          {patient.alerts?.length > 0 && (
+          <p className="text-gray-500 text-xs mt-0.5">
+            Blood Group: {patient?.patient_blood_group || "N/A"}, Gender:{" "}
+            {patient?.patient_gender || "N/A"}
+          </p>
+
+          <p className="text-gray-500 text-xs mt-0.5">
+            Phone: {patient?.patient_phone || "N/A"}
+          </p>
+
+          {/* <p className="text-gray-500 text-xs mt-0.5">
+            Email: {patient?.patient_email || "N/A"}
+          </p>
+
+          <p className="text-gray-500 text-xs mt-0.5">
+            Address: {patient?.patient_address || "N/A"}
+          </p> */}
+
+          {patient?.alerts?.length > 0 && (
             <p className="flex items-center text-red-600 font-medium mt-0.5">
               <AlertTriangleIcon size={12} className="mr-1" />
-              {patient.alerts.join(", ")}
+              {patient?.alerts?.join(", ")}
             </p>
           )}
         </div>
@@ -131,7 +146,7 @@ const PatientAdmissionCard = ({ patient }) => {
                 </button>
                 <button
                   onClick={() => {
-                    alert("Rejected with feedback!");
+                    alert(`Rejected with feedback: ${feedbackText}`);
                     handleCloseModal();
                   }}
                   className="px-3 py-1.5 rounded-full text-xs text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
