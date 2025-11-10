@@ -27,10 +27,14 @@ const PatientAdmissionCard = ({ patient }) => {
         {/* Patient Info */}
         <div className="flex items-center gap-2">
           <img
-            src={patient?.patientPhoto || "/default-avatar.png"}
+            src={
+              patient?.patientPhoto ||
+              "https://media.istockphoto.com/id/1495088043/vector/user-profile-icon-avatar-or-person-icon-profile-picture-portrait-symbol-default-portrait.jpg?s=612x612&w=0&k=20&c=dhV2p1JwmloBTOaGAtaA3AW1KSnjsdMt7-U_3EZElZ0="
+            }
             alt={patient?.patient_name}
             className="h-9 w-9 sm:h-10 sm:w-10 rounded-full object-cover border border-gray-300"
           />
+
           <div className="leading-tight">
             <h3 className="text-sm font-semibold text-gray-900 truncate">
               {patient?.patient_name}
