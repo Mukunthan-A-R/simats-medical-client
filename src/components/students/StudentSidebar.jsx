@@ -1,6 +1,7 @@
 import React from "react";
 import { HomeIcon, UserIcon, BellIcon, LogOutIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
+import { useParams } from "react-router-dom";
 
 export default function StudentSidebar({
   isOpen,
@@ -8,7 +9,7 @@ export default function StudentSidebar({
   onNavigate,
   notificationCount = 0,
 }) {
-  const studentId = 123;
+  const { studentId } = useParams();
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { HomeIcon, UserIcon, LogOutIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
+import { useParams } from "react-router-dom";
 
 export default function FacultySidebar({
   isOpen,
@@ -7,7 +8,7 @@ export default function FacultySidebar({
   onNavigate,
   notificationCount = 0,
 }) {
-  const facultyId = 123;
+  const { facultyId } = useParams();
 
   return (
     <>

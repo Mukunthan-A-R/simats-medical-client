@@ -1,12 +1,11 @@
 import React from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function StudentProfileCard({ setScoresTab, userDataVal }) {
   const navigate = useNavigate();
 
-  // console.log("student");
-  // console.log(userDataVal);
+  const { studentId } = useParams();
 
   return (
     <div>
@@ -69,7 +68,7 @@ export default function StudentProfileCard({ setScoresTab, userDataVal }) {
 
         {/* Academic Status */}
         <div
-          onClick={() => navigate("/student/academics/123")}
+          onClick={() => navigate(`/student/academics/${studentId}`)}
           className="px-6 py-4 border-t"
           style={{
             backgroundColor: "rgba(0,100,255,0.05)",

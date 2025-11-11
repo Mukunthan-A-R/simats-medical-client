@@ -9,8 +9,7 @@ import {
   ActivityIcon,
   SearchIcon,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import AdmittedPatientCard from "./AdmittedPatientCard";
+import { useNavigate, useParams } from "react-router-dom";
 import ClinicPatientCard from "./ClinicPatientCard";
 import AdmittedPatientCardData from "./AdmittedPatientCardData";
 
@@ -83,6 +82,8 @@ export default function FacultyDashboardWindow() {
     },
   ];
 
+  const { faculrtId: doctorId } = useParams();
+
   // ---------------- State ----------------
   const [activeTab, setActiveTab] = useState("admitted");
 
@@ -90,7 +91,7 @@ export default function FacultyDashboardWindow() {
   const navigate = useNavigate();
 
   const onNavigate = (url) => {
-    navigate("/faculty/my-patient/123");
+    navigate(`/faculty/my-patient/${doctorId}`);
     console.log("Navigate to:", url);
   };
 

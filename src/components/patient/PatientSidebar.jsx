@@ -1,5 +1,6 @@
 import { HomeIcon, UserIcon, BellIcon, LogOutIcon, Wallet } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
+import { useParams } from "react-router-dom";
 
 export default function PatientSidebar({
   isOpen,
@@ -7,7 +8,7 @@ export default function PatientSidebar({
   onNavigate,
   notificationCount = 0,
 }) {
-  const patientId = "123";
+  const { patientId } = useParams();
 
   return (
     <>
