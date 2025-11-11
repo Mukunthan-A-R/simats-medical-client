@@ -1,4 +1,4 @@
-import { QueryClient, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import {
   AlertTriangleIcon,
   CheckIcon,
@@ -15,7 +15,7 @@ const PatientAdmissionCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [feedbackText, setFeedbackText] = useState("");
 
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const { facultyId: doctorId } = useParams();
 
   const handleReject = () => setShowFeedbackModal(true);
