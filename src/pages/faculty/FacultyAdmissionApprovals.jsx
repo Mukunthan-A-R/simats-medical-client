@@ -53,6 +53,12 @@ const FacultyAdmissionApprovals = () => {
         </h1>
       </div>
 
+      {patients.length === 0 && (
+        <p className="text-center text-blue-700">
+          No Admission Approvals for now
+        </p>
+      )}
+
       {patients.map((patient) => (
         <PatientAdmissionCard
           key={patient?.patient_id}
