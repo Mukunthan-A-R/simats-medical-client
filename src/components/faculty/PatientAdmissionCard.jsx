@@ -144,14 +144,14 @@ const PatientAdmissionCard = ({ patient }) => {
         <div className="flex flex-wrap justify-start sm:justify-end items-center gap-2">
           <button
             onClick={handleReject}
-            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 active:scale-95 transition-all shadow-sm"
+            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 active:scale-95 transition-all shadow-sm"
           >
             <XIcon size={12} /> Reject
           </button>
           <button
             disabled={isMutating}
             onClick={onAdmit}
-            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
+            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
           >
             <CheckIcon size={12} /> Admit
           </button>
@@ -192,7 +192,7 @@ const PatientAdmissionCard = ({ patient }) => {
                 <button
                   disabled={isMutating}
                   onClick={onRejectSubmit}
-                  className="px-3 py-1.5 rounded-full text-xs text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 disabled:opacity-50"
+                  className="px-3 py-1.5 rounded-full text-xs text-white from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 disabled:opacity-50"
                 >
                   Submit
                 </button>
