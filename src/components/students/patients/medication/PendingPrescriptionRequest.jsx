@@ -2,7 +2,10 @@ import React from "react";
 import { ClockIcon } from "lucide-react";
 import { formatDate } from "../../../../utils/constants";
 
-const PendingPrescriptionRequest = ({ requests = [] }) => {
+const PendingPrescriptionRequest = ({
+  requests = [],
+  title = "Prescription Requests",
+}) => {
   const getStatusStyles = (status) => {
     const normalized = status?.toLowerCase();
     switch (normalized) {
@@ -13,12 +16,12 @@ const PendingPrescriptionRequest = ({ requests = [] }) => {
         };
       case "approved":
         return {
-          bg: "rgba(209, 250, 229, 0.3)",
+          bg: "rgba(209, 250, 229, 0.1)",
           textColor: "#059669",
         };
       case "rejected":
         return {
-          bg: "rgba(254, 226, 226, 0.3)",
+          bg: "rgba(254, 226, 226, 0.4)",
           textColor: "#dc2626",
         };
       default:
@@ -31,9 +34,7 @@ const PendingPrescriptionRequest = ({ requests = [] }) => {
 
   return (
     <div className="p-4">
-      <h4 className="text-sm font-medium text-gray-700 mt-6 mb-3">
-        Prescription Requests
-      </h4>
+      <h4 className="text-sm font-medium text-gray-700 mt-6 mb-3">{title}</h4>
 
       {requests.length > 0 ? (
         <div className="space-y-3">

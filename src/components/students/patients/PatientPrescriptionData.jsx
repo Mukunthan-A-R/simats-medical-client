@@ -31,7 +31,11 @@ const PatientPrescriptionData = ({ assignmentId }) => {
   );
 
   const currentMedications = prescriptions.filter(
-    (item) => item.status !== "pending" // You can refine this (e.g. === "approved")
+    (item) => item.status === "approved"
+  );
+
+  const rejectedRequests = prescriptions.filter(
+    (item) => item.status === "rejected"
   );
 
   return (
@@ -51,6 +55,10 @@ const PatientPrescriptionData = ({ assignmentId }) => {
       {/* ✅ Pass filtered data to child components */}
       <CurrentMedications medications={currentMedications} />
       <PendingPrescriptionRequest requests={pendingRequests} />
+      <PendingPrescriptionRequest
+        requests={rejectedRequests}
+        title="Rejected Requests"
+      />
     </div>
   );
 };
