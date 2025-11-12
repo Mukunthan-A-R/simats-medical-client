@@ -1,5 +1,5 @@
 import React from "react";
-import { PillIcon } from "lucide-react"; // or wherever your PillIcon is imported from
+import { PillIcon } from "lucide-react";
 
 const CurrentMedications = ({ medications = [] }) => {
   return (
@@ -12,7 +12,7 @@ const CurrentMedications = ({ medications = [] }) => {
         <div className="space-y-3">
           {medications.map((med) => (
             <div
-              key={med.id}
+              key={med.medication_id}
               className="p-3 rounded-lg transition-all hover:shadow-md"
               style={{
                 backgroundColor: "rgba(255,255,255,0.7)",
@@ -26,7 +26,7 @@ const CurrentMedications = ({ medications = [] }) => {
                 <div>
                   <h5 className="font-medium text-gray-800 flex items-center">
                     <PillIcon size={14} className="mr-2 text-blue-600" />
-                    {med.name} {med.dosage}
+                    {med.medication_name} {med.dosage}
                   </h5>
 
                   <div className="mt-2 space-y-1">
@@ -36,7 +36,7 @@ const CurrentMedications = ({ medications = [] }) => {
                     </p>
                     <p className="text-sm text-gray-700">
                       <span className="font-medium">Duration:</span>{" "}
-                      {med.startDate} to {med.endDate || "Ongoing"}
+                      {med.start_date} to {med.end_date || "Ongoing"}
                     </p>
                     {med.instructions && (
                       <p className="text-sm text-gray-700">
@@ -53,19 +53,25 @@ const CurrentMedications = ({ medications = [] }) => {
                     className="px-2 py-1 text-xs font-medium rounded-full"
                     style={{
                       backgroundColor:
-                        med.status === "Active"
+                        med.status === "approved"
                           ? "rgba(16, 185, 129, 0.1)"
-                          : "rgba(107, 114, 128, 0.1)",
-                      color: med.status === "Active" ? "#059669" : "#4B5563",
+                          : med.status === "pending"
+                          ? "rgba(59, 130, 246, 0.1)"
+                          : "rgba(239, 68, 68, 0.1)",
+                      color:
+                        med.status === "approved"
+                          ? "#059669"
+                          : med.status === "pending"
+                          ? "#2563EB"
+                          : "#B91C1C",
                     }}
                   >
-                    {med.status}
+                    {med.status.charAt(0).toUpperCase() + med.status.slice(1)}
                   </span>
 
                   <p className="text-xs text-gray-500 mt-2">
-                    Prescribed by: {med.prescribedBy}
+                    Prescribed by: {med.doctor_id}
                   </p>
-                  <p className="text-xs text-gray-500">{med.department}</p>
                 </div>
               </div>
             </div>

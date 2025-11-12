@@ -3,53 +3,35 @@ import CurrentMedications from "./medication/CurrentMedications";
 import MedicationsHeader from "./medication/MedicationsHeader";
 import PendingPrescriptionRequest from "./medication/PendingPrescriptionRequest";
 import NewMedicationForm from "./medication/NewMedicationForm";
+import { useQuery } from "@tanstack/react-query";
+import { fetchMedicationsByAssignment } from "../../../services/studentMedication";
 
-const PatientPrescriptionData = () => {
+const PatientPrescriptionData = ({ assignmentId }) => {
   const [showAddForm, setShowAddForm] = useState(false);
 
-  const sampleMeds = [
-    {
-      id: 1,
-      name: "Amoxicillin",
-      dosage: "500mg",
-      frequency: "Twice a day",
-      startDate: "2025-10-01",
-      endDate: "2025-11-01",
-      instructions: "Take after meals",
-      status: "Active",
-      prescribedBy: "Dr. Smith",
-      department: "General Medicine",
-    },
-    {
-      id: 2,
-      name: "Vitamin D",
-      dosage: "1000 IU",
-      frequency: "Once daily",
-      startDate: "2025-09-10",
-      endDate: null,
-      status: "Inactive",
-      prescribedBy: "Dr. Lee",
-      department: "Nutrition",
-    },
-  ];
+  console.log("assignmentId");
+  console.log(assignmentId);
 
-  const sampleRequests = [
-    {
-      id: 1,
-      medicationName: "Amoxicillin",
-      dosage: "500mg",
-      requestDate: "2025-10-03",
-      notes: "Urgent refill",
-      status: "Pending",
-    },
-    {
-      id: 2,
-      medicationName: "Vitamin D",
-      dosage: "1000 IU",
-      requestDate: "2025-09-28",
-      status: "Approved",
-    },
-  ];
+  const {
+    data: patientsData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["studentMedications", assignmentId],
+    queryFn: () => fetchMedicationsByAssignment(assignmentId),
+    enabled: !!assignmentId,
+  });
+
+  console.log("patientsData");
+  console.log(patientsData);
+
+  if (isLoading) {
+    return <p>Loading ...</p>;
+  }
+
+  const sampleMeds = patientsData || [];
+
+  const sampleRequests = patientsData || [];
 
   return (
     <div className="bg-white rounded-2xl">
