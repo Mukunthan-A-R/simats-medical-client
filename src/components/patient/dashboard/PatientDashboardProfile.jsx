@@ -1,8 +1,6 @@
 import { GraduationCapIcon } from "lucide-react";
 import PatientCollapsiblePanel from "./PatientCollapsiblePanel";
 import PatientMedicalAllergies from "./PatientMedicalAllergies";
-import PatientDashboardServices from "./PatientDashboardServices";
-import PatientDashboardNotification from "./PatientDashboardNotification";
 
 export default function PatientDashboardProfile({ userDataVal }) {
   return (
@@ -55,7 +53,7 @@ export default function PatientDashboardProfile({ userDataVal }) {
             Welcome, {userDataVal?.name}
           </h2>
           <p className="text-sm text-gray-500 mt-0.5">
-            ID: {userDataVal?.patient_id}2 • Last visit: 15 May 2023
+            ID: {userDataVal?.patient_id} • Last visit: 15 May 2023
           </p>
         </div>
       </div>

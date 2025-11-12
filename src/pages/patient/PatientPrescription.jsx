@@ -5,7 +5,7 @@ import {
   PillIcon,
   SearchIcon,
 } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PatientPrescriptionDetails from "../../components/patient/PatientPrescriptionDetails";
 
@@ -95,7 +95,7 @@ const PatientPrescription = () => {
         </div>
       </div>
 
-      <div className="">
+      <div className="overflow-hidden rounded-lg">
         <div
           className="p-4 border-b border-gray-100 flex justify-between items-center"
           style={{
@@ -290,7 +290,7 @@ const PrescriptionDataComponent = () => {
   ];
 
   return (
-    <div className="bg-white rounded-b-lg">
+    <div className="bg-white rounded-b-lg over">
       {prescriptionsData.map((prescription) => (
         <div
           key={prescription.id}
