@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import MedicationFrequencyButton from "./MedicationFrequencyButton";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../../utils/constants";
+import DoctorSelect from "../DoctorSelect";
 
 const NewMedicationForm = ({ onToggle }) => {
   const [newMedication, setNewMedication] = useState({
@@ -9,23 +10,50 @@ const NewMedicationForm = ({ onToggle }) => {
     frequency: "",
     startDate: "",
     endDate: "",
+    timing: "",
     instructions: "",
   });
 
-  const handleAddMedication = () => {
-    console.log("New Prescription:", newMedication);
+  const [selectedDoctor, setSelectedDoctor] = useState("");
 
-    // Optional: clear form after logging
+  const handleAddMedication = () => {
+    // ✅ Combine all form data
+    const payload = {
+      medication_name: newMedication.name,
+      dosage: newMedication.dosage,
+      frequency: newMedication.frequency,
+      start_date: newMedication.startDate,
+      end_date: newMedication.endDate,
+      medication_timing: newMedication.timing,
+      instructions: newMedication.instructions,
+      doctor_id: selectedDoctor || null,
+      status: "pending",
+      created_at: new Date().toISOString(),
+    };
+
+    console.log("🩺 New Prescription Data:", payload);
+
+    // Optional: clear and close form
     setNewMedication({
       name: "",
       dosage: "",
       frequency: "",
       startDate: "",
       endDate: "",
+      timing: "",
       instructions: "",
     });
+    setSelectedDoctor("");
     onToggle();
   };
+
+  // ✅ Disable submit if any required field is missing
+  const isSubmitDisabled =
+    !newMedication.name ||
+    !newMedication.dosage ||
+    !newMedication.frequency ||
+    !newMedication.timing ||
+    !selectedDoctor;
 
   return (
     <div className="p-4 bg-blue-50 border-b border-blue-100 animate-slideDown rounded-lg">
@@ -41,7 +69,7 @@ const NewMedicationForm = ({ onToggle }) => {
           </label>
           <input
             type="text"
-            placeholder="e.g. Lisinopril"
+            placeholder="e.g. Paracetamol"
             value={newMedication.name}
             onChange={(e) =>
               setNewMedication({ ...newMedication, name: e.target.value })
@@ -57,7 +85,7 @@ const NewMedicationForm = ({ onToggle }) => {
           </label>
           <input
             type="text"
-            placeholder="e.g. 10mg"
+            placeholder="e.g. 500mg"
             value={newMedication.dosage}
             onChange={(e) =>
               setNewMedication({ ...newMedication, dosage: e.target.value })
@@ -111,27 +139,28 @@ const NewMedicationForm = ({ onToggle }) => {
           <label className="block text-sm font-medium text-gray-700">
             Medication Timing <span className="text-red-500">*</span>
           </label>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                name="mealTiming"
-                value="Before Meal"
-                className="text-blue-600 focus:ring-blue-500 border-gray-300"
-              />
-              <span className="font-medium">Before Meal</span>
-            </label>
-
-            <label className="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="radio"
-                name="mealTiming"
-                value="After Meal"
-                className="text-blue-600 focus:ring-blue-500 border-gray-300"
-              />
-              <span className="font-medium">After Meal</span>
-            </label>
+            {["Before Meal", "After Meal"].map((timing) => (
+              <label
+                key={timing}
+                className="flex items-center space-x-2 cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name="mealTiming"
+                  value={timing}
+                  checked={newMedication.timing === timing}
+                  onChange={(e) =>
+                    setNewMedication({
+                      ...newMedication,
+                      timing: e.target.value,
+                    })
+                  }
+                  className="text-blue-600 focus:ring-blue-500 border-gray-300"
+                />
+                <span className="font-medium">{timing}</span>
+              </label>
+            ))}
           </div>
         </div>
 
@@ -142,7 +171,7 @@ const NewMedicationForm = ({ onToggle }) => {
           </label>
           <textarea
             rows={3}
-            placeholder="Special instructions for taking this medication"
+            placeholder="e.g. Take with water after meals"
             value={newMedication.instructions}
             onChange={(e) =>
               setNewMedication({
@@ -153,23 +182,27 @@ const NewMedicationForm = ({ onToggle }) => {
             className="bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
           />
         </div>
+
+        {/* Doctor Select */}
+        <div className="md:col-span-2">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Assigned Doctor <span className="text-red-500">*</span>
+          </label>
+          <DoctorSelect
+            onChange={(data) => {
+              setSelectedDoctor(data?.value);
+            }}
+          />
+        </div>
       </div>
 
-      {/* Add Button */}
+      {/* Submit Button */}
       <div className="flex justify-end">
         <button
-          disabled={
-            !newMedication.name ||
-            !newMedication.dosage ||
-            !newMedication.frequency
-          }
+          disabled={isSubmitDisabled}
           onClick={handleAddMedication}
           className={`px-4 py-2 rounded-md text-sm font-medium text-white ${aquaButtonStyle} ${aquaGlossEffect} ${
-            !newMedication.name ||
-            !newMedication.dosage ||
-            !newMedication.frequency
-              ? "opacity-50 cursor-not-allowed"
-              : ""
+            isSubmitDisabled ? "opacity-50 cursor-not-allowed" : ""
           }`}
           style={{
             background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
