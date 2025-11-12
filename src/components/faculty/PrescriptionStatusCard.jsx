@@ -12,8 +12,21 @@ import {
   XIcon,
 } from "lucide-react";
 import { AgeCalc } from "../../utils/userAgeCalculator";
+import FacultyPrescriptionRejectionPopup from "./FacultyPrescriptionRejectionPopup";
+import { useState } from "react";
 
-const PrescriptionStatusCard = ({ item, handleApprove, handleReject }) => {
+const PrescriptionStatusCard = ({ item }) => {
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+
+  // Faculty handle functions
+  const handleApprove = (item) => {
+    alert(`Approved prescription for ${item.patientName}`);
+  };
+
+  const handleReject = (item) => {
+    setShowFeedbackModal(true);
+  };
+
   return (
     <div
       className="rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md w-full"
@@ -206,6 +219,16 @@ const PrescriptionStatusCard = ({ item, handleApprove, handleReject }) => {
           </button>
         </div>
       </div>
+
+      {/* Rejection Feedback Modal */}
+      {showFeedbackModal && (
+        <FacultyPrescriptionRejectionPopup
+          handleCancel={() => {
+            setShowFeedbackModal(false);
+            setCurrentItem(null);
+          }}
+        />
+      )}
     </div>
   );
 };

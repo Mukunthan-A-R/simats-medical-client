@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ChevronLeftIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import FacultyPrescriptionRejectionPopup from "../../components/faculty/FacultyPrescriptionRejectionPopup";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDoctorMedications } from "../../services/doctorMedication";
 import PrescriptionStatusCard from "../../components/faculty/PrescriptionStatusCard";
@@ -10,8 +9,6 @@ const FacultyPrescriptionApprovals = () => {
   const { facultyId: doctorId } = useParams();
 
   const navigate = useNavigate();
-  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
-  const [currentItem, setCurrentItem] = useState(null);
 
   const {
     data: pendingPrescriptions,
@@ -27,28 +24,14 @@ const FacultyPrescriptionApprovals = () => {
     return <p>Loading ... </p>;
   }
 
-  console.log("data");
-  console.log(pendingPrescriptions?.data);
-  console.log(pendingPrescriptions?.count);
-
-  // Faculty handle functions
-  const handleApprove = (item) => {
-    alert(`Approved prescription for ${item.patientName}`);
-  };
-
-  const handleReject = (item) => {
-    setCurrentItem(item);
-    setShowFeedbackModal(true);
-  };
+  // console.log("data");
+  // console.log(pendingPrescriptions?.data);
+  // console.log(pendingPrescriptions?.count);
 
   const currentPrescriptions = pendingPrescriptions.data;
 
-  console.log("currentPrescriptions");
-  console.log(currentPrescriptions);
-
-  // const currentPrescriptions = pendingPrescriptions.sort(
-  //   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  // );
+  // console.log("currentPrescriptions");
+  // console.log(currentPrescriptions);
 
   return (
     <div className="p-4">
@@ -82,16 +65,6 @@ const FacultyPrescriptionApprovals = () => {
           <PrescriptionStatusCard key={item?.medication_id} item={item} />
         ))}
       </div>
-
-      {/* Rejection Feedback Modal */}
-      {showFeedbackModal && (
-        <FacultyPrescriptionRejectionPopup
-          handleCancel={() => {
-            setShowFeedbackModal(false);
-            setCurrentItem(null);
-          }}
-        />
-      )}
     </div>
   );
 };
