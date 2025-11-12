@@ -25,6 +25,9 @@ const PatientPrescriptionData = ({ assignmentId }) => {
   // Default to empty array if no data
   const prescriptions = patientsData || [];
 
+  console.log("patientsData");
+  console.log(patientsData);
+
   // ✅ Filter prescriptions by status
   const pendingRequests = prescriptions.filter(
     (item) => item.status === "pending"

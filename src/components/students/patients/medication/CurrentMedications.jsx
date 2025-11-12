@@ -71,7 +71,9 @@ const CurrentMedications = ({ medications = [] }) => {
                   </span>
 
                   <p className="text-xs text-gray-500 mt-2">
-                    Prescribed by: {med.doctor_id}
+                    Prescribed by: Dr. {med.doctor_name}
+                    <br />
+                    Dept: {med.department_name}
                   </p>
                 </div>
               </div>

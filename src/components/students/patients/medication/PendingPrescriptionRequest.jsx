@@ -57,18 +57,23 @@ const PendingPrescriptionRequest = ({
                   <div>
                     <h5 className="font-medium text-gray-800 flex items-center">
                       <ClockIcon size={14} className="mr-2 text-amber-600" />
-                      Request for {req.medication_name} ({req.dosage})
+                      Request for: {req.medication_name} ({req.dosage})
                     </h5>
+                    <p className="text-sm text-gray-700 mt-1">
+                      <span className="font-medium">Requested to:</span> Dr.{" "}
+                      {req.doctor_name} - {req.department_name}
+                    </p>
 
                     <p className="text-sm text-gray-700 mt-1">
-                      <span className="font-medium">Requested:</span>{" "}
+                      <span className="font-medium">Requested on:</span>{" "}
                       {formatDate(req.created_at)}
                     </p>
 
                     {req.instructions && (
                       <p className="text-sm text-gray-700 mt-1">
                         <span className="font-medium">Instructions:</span>{" "}
-                        {req.instructions}
+                        {req.instructions} ({req.frequency}) (
+                        {req.medication_timing})
                       </p>
                     )}
                   </div>
