@@ -42,7 +42,10 @@ const PatientPrescriptionData = ({ assignmentId }) => {
       />
 
       {showAddForm && (
-        <NewMedicationForm onToggle={() => setShowAddForm(!showAddForm)} />
+        <NewMedicationForm
+          onToggle={() => setShowAddForm(!showAddForm)}
+          assignmentId={assignmentId}
+        />
       )}
 
       {/* ✅ Pass filtered data to child components */}

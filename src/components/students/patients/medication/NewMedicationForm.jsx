@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import MedicationFrequencyButton from "./MedicationFrequencyButton";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../../utils/constants";
 import DoctorSelect from "../DoctorSelect";
+import { createMedicationRequest } from "../../../../services/studentMedication";
+import toast from "react-hot-toast";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-const NewMedicationForm = ({ onToggle }) => {
+const NewMedicationForm = ({ onToggle, assignmentId }) => {
   const [newMedication, setNewMedication] = useState({
     name: "",
     dosage: "",
@@ -16,24 +19,46 @@ const NewMedicationForm = ({ onToggle }) => {
 
   const [selectedDoctor, setSelectedDoctor] = useState("");
 
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: createMedicationRequest,
+    onSuccess: (data) => {
+      console.log("✅ Prescription created:", data);
+
+      // Show toast
+      toast.success("Prescription request sent successfully.");
+
+      // Refetch student medications for this assignment
+      queryClient.invalidateQueries(["studentMedications", assignmentId]);
+    },
+    onError: (error) => {
+      console.error("❌ Failed to send prescription request:", error);
+      toast.error("Failed to send prescription request.");
+    },
+  });
+
   const handleAddMedication = () => {
-    // ✅ Combine all form data
+    if (isSubmitDisabled) return;
+
     const payload = {
+      assignment_id: assignmentId,
+      doctor_id: selectedDoctor,
       medication_name: newMedication.name,
       dosage: newMedication.dosage,
-      frequency: newMedication.frequency,
       start_date: newMedication.startDate,
       end_date: newMedication.endDate,
+      frequency: newMedication.frequency,
       medication_timing: newMedication.timing,
       instructions: newMedication.instructions,
-      doctor_id: selectedDoctor || null,
       status: "pending",
       created_at: new Date().toISOString(),
     };
 
-    console.log("🩺 New Prescription Data:", payload);
+    console.log("Submitting payload:", payload);
+    mutation.mutate(payload);
 
-    // Optional: clear and close form
+    // Reset form
     setNewMedication({
       name: "",
       dosage: "",
@@ -47,13 +72,14 @@ const NewMedicationForm = ({ onToggle }) => {
     onToggle();
   };
 
-  // ✅ Disable submit if any required field is missing
+  // Disable submit if required fields missing or mutation is loading
   const isSubmitDisabled =
     !newMedication.name ||
     !newMedication.dosage ||
     !newMedication.frequency ||
     !newMedication.timing ||
-    !selectedDoctor;
+    !selectedDoctor ||
+    mutation.isLoading;
 
   return (
     <div className="p-4 bg-blue-50 border-b border-blue-100 animate-slideDown rounded-lg">
@@ -97,7 +123,7 @@ const NewMedicationForm = ({ onToggle }) => {
         {/* Start Date */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Start Date
+            Start Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -112,7 +138,7 @@ const NewMedicationForm = ({ onToggle }) => {
         {/* End Date */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            End Date
+            End Date <span className="text-red-500">*</span>
           </label>
           <input
             type="date"
@@ -134,7 +160,7 @@ const NewMedicationForm = ({ onToggle }) => {
           />
         </div>
 
-        {/* Medication Timing */}
+        {/* Timing */}
         <div className="space-y-4">
           <label className="block text-sm font-medium text-gray-700">
             Medication Timing <span className="text-red-500">*</span>
@@ -188,15 +214,11 @@ const NewMedicationForm = ({ onToggle }) => {
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Assigned Doctor <span className="text-red-500">*</span>
           </label>
-          <DoctorSelect
-            onChange={(data) => {
-              setSelectedDoctor(data?.value);
-            }}
-          />
+          <DoctorSelect onChange={(data) => setSelectedDoctor(data?.value)} />
         </div>
       </div>
 
-      {/* Submit Button */}
+      {/* Submit */}
       <div className="flex justify-end">
         <button
           disabled={isSubmitDisabled}
@@ -211,7 +233,7 @@ const NewMedicationForm = ({ onToggle }) => {
               "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
           }}
         >
-          Add Prescription
+          {mutation.isLoading ? "Submitting..." : "Add Prescription"}
         </button>
       </div>
     </div>
