@@ -51,8 +51,6 @@ const NewMedicationForm = ({ onToggle, assignmentId }) => {
       frequency: newMedication.frequency,
       medication_timing: newMedication.timing,
       instructions: newMedication.instructions,
-      status: "pending",
-      created_at: new Date().toISOString(),
     };
 
     console.log("Submitting payload:", payload);
