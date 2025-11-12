@@ -89,6 +89,13 @@ const PendingPrescriptionRequest = ({
                     >
                       {req.status.charAt(0).toUpperCase() + req.status.slice(1)}
                     </span>
+                    <p className="text-xs text-gray-500 mt-2">
+                      <span className="font-medium">Prescribed by: </span>
+                      Dr. {req.doctor_name}
+                      <br />
+                      <span className="font-medium">Dept: </span>
+                      {req.department_name}
+                    </p>
                   </div>
                 </div>
               </div>

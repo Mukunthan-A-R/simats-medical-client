@@ -33,7 +33,7 @@ const CurrentMedications = ({ medications = [] }) => {
                   <div className="mt-2 space-y-1">
                     <p className="text-sm text-gray-700">
                       <span className="font-medium">Frequency:</span>{" "}
-                      {med.frequency}
+                      {med.frequency} ({med.medication_timing})
                     </p>
                     <p className="text-sm text-gray-700">
                       <span className="font-medium">Duration:</span>{" "}
@@ -71,9 +71,11 @@ const CurrentMedications = ({ medications = [] }) => {
                   </span>
 
                   <p className="text-xs text-gray-500 mt-2">
-                    Prescribed by: Dr. {med.doctor_name}
+                    <span className="font-medium">Prescribed by: </span>
+                    Dr. {med.doctor_name}
                     <br />
-                    Dept: {med.department_name}
+                    <span className="font-medium">Dept: </span>
+                    {med.department_name}
                   </p>
                 </div>
               </div>
