@@ -9,16 +9,10 @@ export const fetchDoctorMedications = async (doctorId, status = "pending") => {
   return response.data;
 };
 
-export const updateDoctorApprovalStatus = async (
-  medicationId,
-  doctorId,
-  status,
-  remarks = ""
-) => {
-  const response = await axiosInstance.patch(`${BASE_URL}/${medicationId}`, {
-    doctor_id: doctorId,
+export const updateDoctorApprovalStatus = async (medicationId, status) => {
+  const response = await axiosInstance.patch(`${BASE_URL}/`, {
+    medication_id: medicationId,
     status,
-    remarks,
   });
   return response.data;
 };
