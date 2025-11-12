@@ -1,20 +1,22 @@
 import React from "react";
-import { ClockIcon } from "lucide-react"; // adjust import if needed
+import { ClockIcon } from "lucide-react";
+import { formatDate } from "../../../../utils/constants";
 
 const PendingPrescriptionRequest = ({ requests = [] }) => {
   const getStatusStyles = (status) => {
-    switch (status) {
-      case "Pending":
+    const normalized = status?.toLowerCase();
+    switch (normalized) {
+      case "pending":
         return {
           bg: "rgba(254, 243, 199, 0.3)",
           textColor: "#d97706",
         };
-      case "Approved":
+      case "approved":
         return {
           bg: "rgba(209, 250, 229, 0.3)",
           textColor: "#059669",
         };
-      case "Rejected":
+      case "rejected":
         return {
           bg: "rgba(254, 226, 226, 0.3)",
           textColor: "#dc2626",
@@ -40,7 +42,7 @@ const PendingPrescriptionRequest = ({ requests = [] }) => {
 
             return (
               <div
-                key={req.id}
+                key={req.medication_id}
                 className="p-3 rounded-lg transition-all hover:shadow-md"
                 style={{
                   backgroundColor: styles.bg,
@@ -54,15 +56,18 @@ const PendingPrescriptionRequest = ({ requests = [] }) => {
                   <div>
                     <h5 className="font-medium text-gray-800 flex items-center">
                       <ClockIcon size={14} className="mr-2 text-amber-600" />
-                      Request for {req.medicationName} {req.dosage}
+                      Request for {req.medication_name} ({req.dosage})
                     </h5>
+
                     <p className="text-sm text-gray-700 mt-1">
                       <span className="font-medium">Requested:</span>{" "}
-                      {req.requestDate}
+                      {formatDate(req.created_at)}
                     </p>
-                    {req.notes && (
+
+                    {req.instructions && (
                       <p className="text-sm text-gray-700 mt-1">
-                        <span className="font-medium">Notes:</span> {req.notes}
+                        <span className="font-medium">Instructions:</span>{" "}
+                        {req.instructions}
                       </p>
                     )}
                   </div>
@@ -76,7 +81,7 @@ const PendingPrescriptionRequest = ({ requests = [] }) => {
                         color: styles.textColor,
                       }}
                     >
-                      {req.status}
+                      {req.status.charAt(0).toUpperCase() + req.status.slice(1)}
                     </span>
                   </div>
                 </div>

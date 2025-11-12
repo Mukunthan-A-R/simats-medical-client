@@ -9,9 +9,6 @@ import { fetchMedicationsByAssignment } from "../../../services/studentMedicatio
 const PatientPrescriptionData = ({ assignmentId }) => {
   const [showAddForm, setShowAddForm] = useState(false);
 
-  console.log("assignmentId");
-  console.log(assignmentId);
-
   const {
     data: patientsData,
     isLoading,
@@ -22,16 +19,20 @@ const PatientPrescriptionData = ({ assignmentId }) => {
     enabled: !!assignmentId,
   });
 
-  console.log("patientsData");
-  console.log(patientsData);
+  if (isLoading) return <p>Loading ...</p>;
+  if (isError) return <p>Error loading prescriptions.</p>;
 
-  if (isLoading) {
-    return <p>Loading ...</p>;
-  }
+  // Default to empty array if no data
+  const prescriptions = patientsData || [];
 
-  const sampleMeds = patientsData || [];
+  // ✅ Filter prescriptions by status
+  const pendingRequests = prescriptions.filter(
+    (item) => item.status === "pending"
+  );
 
-  const sampleRequests = patientsData || [];
+  const currentMedications = prescriptions.filter(
+    (item) => item.status !== "pending" // You can refine this (e.g. === "approved")
+  );
 
   return (
     <div className="bg-white rounded-2xl">
@@ -39,13 +40,14 @@ const PatientPrescriptionData = ({ assignmentId }) => {
         showAddForm={showAddForm}
         onToggle={() => setShowAddForm(!showAddForm)}
       />
+
       {showAddForm && (
         <NewMedicationForm onToggle={() => setShowAddForm(!showAddForm)} />
       )}
 
-      <CurrentMedications medications={sampleMeds} />
-
-      <PendingPrescriptionRequest requests={sampleRequests} />
+      {/* ✅ Pass filtered data to child components */}
+      <CurrentMedications medications={currentMedications} />
+      <PendingPrescriptionRequest requests={pendingRequests} />
     </div>
   );
 };

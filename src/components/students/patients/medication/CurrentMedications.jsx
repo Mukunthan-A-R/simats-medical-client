@@ -1,5 +1,6 @@
 import React from "react";
 import { PillIcon } from "lucide-react";
+import { formatDate } from "../../../../utils/constants";
 
 const CurrentMedications = ({ medications = [] }) => {
   return (
@@ -36,7 +37,7 @@ const CurrentMedications = ({ medications = [] }) => {
                     </p>
                     <p className="text-sm text-gray-700">
                       <span className="font-medium">Duration:</span>{" "}
-                      {med.start_date} to {med.end_date || "Ongoing"}
+                      {formatDate(med.start_date)} to {formatDate(med.end_date)}
                     </p>
                     {med.instructions && (
                       <p className="text-sm text-gray-700">
