@@ -18,7 +18,7 @@ const PatientPrescriptionDetails = ({ prescription, onClose }) => {
       case "active":
       case "approved":
         return { color: "bg-green-500", icon: "🟢" };
-      case "completed":
+      case "rejected":
         return { color: "bg-gray-500", icon: "⚪" };
       case "pending":
         return { color: "bg-blue-500", icon: "🔵" };
@@ -78,6 +78,22 @@ const PatientPrescriptionDetails = ({ prescription, onClose }) => {
             <p>
               <span className="font-medium">Department:</span>{" "}
               {prescription.department_name}
+            </p>
+          </div>
+
+          {/* Student Info */}
+          <div className="p-5 bg-gray-100 rounded-lg">
+            <h4 className="font-medium mb-3 flex items-center">
+              <UserIcon size={16} className="mr-2" />
+              Student / Assistant Information
+            </h4>
+            <p>
+              <span className="font-medium">Name:</span>{" "}
+              {prescription.student_name}
+            </p>
+            <p>
+              <span className="font-medium">Phone:</span>{" "}
+              {prescription.student_phone}
             </p>
           </div>
 

@@ -184,7 +184,7 @@ const PrescriptionDataComponent = ({ patientMedicationData = [] }) => {
           {/* Left side */}
           <div className="flex flex-row items-center gap-2">
             <div
-              className="h-10 w-10 rounded-full flex items-center justify-center mr-3 flex-shrink-0"
+              className="h-10 w-10 rounded-full flex items-center justify-center mr-3"
               style={{
                 background: "linear-gradient(to bottom, #e6f0ff, #cce0ff)",
                 border: "1px solid rgba(0,0,0,0.1)",
@@ -198,14 +198,14 @@ const PrescriptionDataComponent = ({ patientMedicationData = [] }) => {
                 RX-{item.medication_id}
               </p>
               <p>{new Date(item.created_at).toLocaleDateString()}</p>
-              <p>{item.doctor_name}</p>
-              <p>{item.department_name}</p>
+              <p className="font-medium">Dr. {item.doctor_name}</p>
+              <p className="font-medium">Dept: {item.department_name}</p>
             </div>
           </div>
 
           {/* Right side */}
           <div className="text-right flex flex-col items-end gap-y-1">
-            <p className="font-medium capitalize">{item.status}</p>
+            {/* <p className="font-medium capitalize">{item.status}</p> */}
 
             <button
               className={`px-4 py-0.5 rounded-full text-xs text-white font-medium ${
