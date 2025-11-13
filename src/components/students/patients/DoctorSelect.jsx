@@ -3,7 +3,7 @@ import Select from "react-select";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDoctorsForDropdown } from "../../../services/doctorDropDown";
 
-const DoctorSelect = ({ onChange }) => {
+const DoctorSelect = ({ onChange, title = "Faculty for Approval *" }) => {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
 
   const { data, isLoading, error } = useQuery({
@@ -28,7 +28,7 @@ const DoctorSelect = ({ onChange }) => {
 
   return (
     <div>
-      <label className="block font-medium mb-1">Faculty for Approval *</label>
+      <label className="block font-medium mb-1">{title}</label>
       <Select
         options={options}
         value={selectedDoctor}

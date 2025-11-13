@@ -6,6 +6,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createPatientCaseRecord } from "../../../services/patientCaseRecordsServices";
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import RequestDoctorAssignment from "../../patient/dashboard/RequestDoctorAssignment";
 
 const CreateCaseRecord = ({ onClose, assignmentId }) => {
   const { patientId, studentId } = useParams();
@@ -26,17 +27,12 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
   const mutation = useMutation({
     mutationFn: createPatientCaseRecord,
     onSuccess: (data) => {
-      console.log("Case record created successfully:", data);
       toast.success("New Case Record Created");
-
       queryClient.invalidateQueries({
         queryKey: ["patientCaseRecords", assignmentId],
       });
     },
-    onError: (error) => {
-      console.error("Error creating case record:", error);
-      toast.error("Error in creating Case record");
-    },
+    onError: () => toast.error("Error in creating Case record"),
   });
 
   const handleInputChange = (field, value) => {
@@ -59,7 +55,6 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
     }
 
     const deptId = departmentsByName[selectedDepartment];
-
     const formData = {
       assignment_id: Number(assignmentId),
       dept_id: deptId,
@@ -74,11 +69,8 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
       student_id: studentId,
       patient_id: patientId,
     };
-    mutation.mutate(formData);
 
-    console.log("Submitted Case Record:", {
-      formData,
-    });
+    mutation.mutate(formData);
     onClose();
   };
 
@@ -97,6 +89,9 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
             className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
           >
             <option value="">Select Department</option>
+            <option key="request-doctor" value="Request Doctor Admission">
+              Request Doctor Admission
+            </option>
             {Object.keys(departmentProcedures).map((dept) => (
               <option key={dept} value={dept}>
                 {dept}
@@ -104,71 +99,85 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
             ))}
           </select>
         </div>
-        {/* Procedure */}
-        {selectedDepartment && (
-          <div>
-            <label className="block font-medium mb-1">Procedure *</label>
-            <select
-              value={selectedProcedure}
-              onChange={(e) => setSelectedProcedure(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="">Select Procedure</option>
-              {departmentProcedures[selectedDepartment].map((proc) => (
-                <option key={proc} value={proc}>
-                  {proc}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-        {/* All text areas below appear once a procedure is selected */}
-        {selectedProcedure && (
-          <>
-            {[
-              { key: "vitalSigns", label: "Vital Signs *" },
-              { key: "symptoms", label: "Symptoms *" },
-              { key: "observations", label: "Observations *" },
-              { key: "findings", label: "Findings *" },
-              { key: "diagnosis", label: "Diagnosis *" },
-              { key: "treatment", label: "Treatment *" },
-            ].map(({ key, label }) => (
-              <div key={key}>
-                <label className="block font-medium mb-1">{label}</label>
-                <textarea
-                  rows="3"
-                  value={formValues[key]}
-                  onChange={(e) => handleInputChange(key, e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 resize-y focus:ring-blue-500 focus:border-blue-500"
-                />
-              </div>
-            ))}
-            {/* Faculty for Approval */}
-            <DoctorSelect
-              onChange={(data) => {
-                setSelectedFaculty(data?.value);
-              }}
-            ></DoctorSelect>
 
-            {/* Submit Button */}
-            <div className="flex justify-end pt-3 pb-2">
-              <button
-                className={`px-4 py-2 rounded-md text-sm font-medium text-white ${aquaButtonStyle} ${aquaGlossEffect} ${
-                  !isFormValid() ? "opacity-50 cursor-not-allowed" : ""
-                }`}
-                style={{
-                  background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
-                  border: "1px solid rgba(0,0,0,0.2)",
-                  boxShadow:
-                    "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
-                }}
-                disabled={!isFormValid()}
-                onClick={handleSubmit}
-              >
-                Submit for Review
-              </button>
-            </div>
-          </>
+        {/* 👇 Conditional Component */}
+        {selectedDepartment === "Request Doctor Admission" ? (
+          <RequestDoctorAssignment
+            onClose={onClose}
+            assignmentId={assignmentId}
+          />
+        ) : (
+          selectedDepartment && (
+            <>
+              {/* Procedure */}
+              <div>
+                <label className="block font-medium mb-1">Procedure *</label>
+                <select
+                  value={selectedProcedure}
+                  onChange={(e) => setSelectedProcedure(e.target.value)}
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                >
+                  <option value="">Select Procedure</option>
+                  {departmentProcedures[selectedDepartment]?.map((proc) => (
+                    <option key={proc} value={proc}>
+                      {proc}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Text Fields */}
+              {selectedProcedure && (
+                <>
+                  {[
+                    { key: "vitalSigns", label: "Vital Signs *" },
+                    { key: "symptoms", label: "Symptoms *" },
+                    { key: "observations", label: "Observations *" },
+                    { key: "findings", label: "Findings *" },
+                    { key: "diagnosis", label: "Diagnosis *" },
+                    { key: "treatment", label: "Treatment *" },
+                  ].map(({ key, label }) => (
+                    <div key={key}>
+                      <label className="block font-medium mb-1">{label}</label>
+                      <textarea
+                        rows="3"
+                        value={formValues[key]}
+                        onChange={(e) => handleInputChange(key, e.target.value)}
+                        className="w-full border border-gray-300 rounded-md px-3 py-2 resize-y focus:ring-blue-500 focus:border-blue-500"
+                      />
+                    </div>
+                  ))}
+
+                  {/* Faculty Select */}
+                  <DoctorSelect
+                    onChange={(data) => {
+                      setSelectedFaculty(data?.value);
+                    }}
+                  />
+
+                  {/* Submit Button */}
+                  <div className="flex justify-end pt-3 pb-2">
+                    <button
+                      className={`px-4 py-2 rounded-md text-sm font-medium text-white ${aquaButtonStyle} ${aquaGlossEffect} ${
+                        !isFormValid() ? "opacity-50 cursor-not-allowed" : ""
+                      }`}
+                      style={{
+                        background:
+                          "linear-gradient(to bottom, #4d90fe, #0066cc)",
+                        border: "1px solid rgba(0,0,0,0.2)",
+                        boxShadow:
+                          "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
+                      }}
+                      disabled={!isFormValid()}
+                      onClick={handleSubmit}
+                    >
+                      Submit for Review
+                    </button>
+                  </div>
+                </>
+              )}
+            </>
+          )
         )}
       </div>
     </div>
