@@ -6,14 +6,47 @@ import {
   SearchIcon,
 } from "lucide-react";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PatientPrescriptionDetails from "../../components/patient/PatientPrescriptionDetails";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPatientById } from "../../services/patientService";
+import { fetchMedicationsByAssignment } from "../../services/studentMedication";
 
 const PatientPrescription = () => {
   const navigate = useNavigate();
+  const { patientId } = useParams();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filterStatus, setFilterStatus] = useState("All");
+
+  const {
+    data: patientData,
+    // isLoading,
+    // isError,
+  } = useQuery({
+    queryKey: ["patient", patientId],
+    queryFn: () => fetchPatientById(patientId),
+    enabled: !!patientId,
+  });
+
+  let assignmentId = patientData?.assignment_id;
+
+  const {
+    data: patientMedicationData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["studentMedications", assignmentId],
+    queryFn: () => fetchMedicationsByAssignment(assignmentId),
+    enabled: !!assignmentId,
+  });
+
+  if (isLoading) return <p>Loading ...</p>;
+  if (isError) return <p>Error loading prescriptions.</p>;
+
+  console.log("patientData");
+  console.log(patientMedicationData);
+  // console.log(patientData?.assignment_id);
 
   return (
     <div className="px-6 py-4">
@@ -120,180 +153,32 @@ const PatientPrescription = () => {
             6 Prescriptions
           </span>
         </div>
-        <PrescriptionDataComponent />
+        <PrescriptionDataComponent
+          patientMedicationData={patientMedicationData}
+        />
       </div>
     </div>
   );
 };
 
 export default PatientPrescription;
-
-const PrescriptionDataComponent = () => {
+const PrescriptionDataComponent = ({ patientMedicationData = [] }) => {
   const [prescriptionModal, setPrescriptionModal] = useState(false);
   const [selectedPrescription, setSelectedPrescription] = useState(null);
 
-  const prescriptionsData = [
-    {
-      id: "RX-2023-0056",
-      date: "2023-05-15",
-      doctor: "Dr. Sarah Johnson",
-      department: "Cardiology",
-      status: "Active",
-      medications: [
-        {
-          name: "Lisinopril",
-          dosage: "10mg",
-          frequency: "Once daily",
-          duration: "3 months",
-          instructions: "Take in the morning with food",
-          refillsRemaining: 2,
-          startDate: "2023-05-15",
-          endDate: "2023-08-15",
-        },
-        {
-          name: "Aspirin",
-          dosage: "81mg",
-          frequency: "Once daily",
-          duration: "3 months",
-          instructions: "Take with food",
-          refillsRemaining: 2,
-          startDate: "2023-05-15",
-          endDate: "2023-08-15",
-        },
-      ],
-    },
-    {
-      id: "RX-2023-0042",
-      date: "2023-04-10",
-      doctor: "Dr. Michael Chang",
-      department: "Orthopedics",
-      status: "Active",
-      medications: [
-        {
-          name: "Naproxen",
-          dosage: "500mg",
-          frequency: "Twice daily",
-          duration: "2 weeks",
-          instructions: "Take with food. Avoid alcohol.",
-          refillsRemaining: 0,
-          startDate: "2023-04-10",
-          endDate: "2023-04-24",
-        },
-      ],
-    },
-    {
-      id: "RX-2023-0035",
-      date: "2023-03-20",
-      doctor: "Dr. Lisa Wong",
-      department: "Dermatology",
-      status: "Receive",
-      medications: [
-        {
-          name: "Hydrocortisone",
-          dosage: "1%",
-          frequency: "Twice daily",
-          duration: "2 weeks",
-          instructions: "Apply thin layer to affected area.",
-          refillsRemaining: 1,
-          startDate: "2023-03-20",
-          endDate: "2023-04-03",
-        },
-      ],
-    },
-    {
-      id: "RX-2023-0031",
-      date: "2023-03-05",
-      doctor: "Dr. Emily Rodriguez",
-      department: "Gastroenterology",
-      status: "Completed",
-      medications: [
-        {
-          name: "Omeprazole",
-          dosage: "40mg",
-          frequency: "Once daily",
-          duration: "4 weeks",
-          instructions: "Take 30 minutes before breakfast",
-          refillsRemaining: 0,
-          startDate: "2023-03-05",
-          endDate: "2023-04-02",
-        },
-        {
-          name: "Sucralfate",
-          dosage: "1g",
-          frequency: "Four times daily",
-          duration: "2 weeks",
-          instructions: "Take on empty stomach",
-          refillsRemaining: 0,
-          startDate: "2023-03-05",
-          endDate: "2023-03-19",
-        },
-      ],
-    },
-    {
-      id: "RX-2023-0018",
-      date: "2023-02-12",
-      doctor: "Dr. Robert Chen",
-      department: "Internal Medicine",
-      status: "Completed",
-      medications: [
-        {
-          name: "Amoxicillin",
-          dosage: "500mg",
-          frequency: "Three times daily",
-          duration: "10 days",
-          instructions: "Take until complete. Finish all medication.",
-          refillsRemaining: 0,
-          startDate: "2023-02-12",
-          endDate: "2023-02-22",
-        },
-      ],
-    },
-    {
-      id: "RX-2022-0245",
-      date: "2022-12-18",
-      doctor: "Dr. James Wilson",
-      department: "Neurology",
-      status: "Completed",
-      medications: [
-        {
-          name: "Sumatriptan",
-          dosage: "50mg",
-          frequency: "As needed for migraine",
-          duration: "3 months",
-          instructions:
-            "Take at first sign of migraine. Do not exceed 200mg in 24 hours.",
-          refillsRemaining: 0,
-          startDate: "2022-12-18",
-          endDate: "2023-03-18",
-        },
-      ],
-    },
-    {
-      id: "RX-2022-0189",
-      date: "2022-10-30",
-      doctor: "Dr. Patricia Martinez",
-      department: "Radiology",
-      status: "Completed",
-      medications: [
-        {
-          name: "Prednisone",
-          dosage: "20mg",
-          frequency: "Once daily, tapering dose",
-          duration: "12 days",
-          instructions: "Take with food. Follow tapering schedule exactly.",
-          refillsRemaining: 0,
-          startDate: "2022-10-30",
-          endDate: "2022-11-11",
-        },
-      ],
-    },
-  ];
+  if (!patientMedicationData || patientMedicationData.length === 0) {
+    return (
+      <div className="p-4 text-center text-gray-500">
+        No prescriptions found.
+      </div>
+    );
+  }
 
   return (
-    <div className="bg-white rounded-b-lg over">
-      {prescriptionsData.map((prescription) => (
+    <div className="bg-white rounded-b-lg">
+      {patientMedicationData.map((item) => (
         <div
-          key={prescription.id}
+          key={item.medication_id}
           className="text-black p-4 flex flex-row justify-between border-b border-gray-200 last:border-none"
         >
           {/* Left side */}
@@ -310,22 +195,23 @@ const PrescriptionDataComponent = () => {
             </div>
             <div className="text-gray-600 text-sm">
               <p className="font-medium text-black text-base">
-                {prescription.id}
+                RX-{item.medication_id}
               </p>
-              <p>{prescription.date}</p>
-              <p>{prescription.doctor}</p>
-              <p>{prescription.department}</p>
+              <p>{new Date(item.created_at).toLocaleDateString()}</p>
+              <p>{item.doctor_name}</p>
+              <p>{item.department_name}</p>
             </div>
           </div>
 
           {/* Right side */}
           <div className="text-right flex flex-col items-end gap-y-1">
-            <p className="font-medium">{prescription.status}</p>
+            <p className="font-medium capitalize">{item.status}</p>
+
             <button
               className={`px-4 py-0.5 rounded-full text-xs text-white font-medium ${
-                prescription.status.toLowerCase() === "active"
+                item.status.toLowerCase() === "approved"
                   ? "bg-green-600"
-                  : prescription.status.toLowerCase() === "completed"
+                  : item.status.toLowerCase() === "rejected"
                   ? "bg-gray-500"
                   : "bg-blue-600"
               }`}
@@ -338,14 +224,13 @@ const PrescriptionDataComponent = () => {
                 alignItems: "center",
               }}
             >
-              {prescription.status}
+              {item.status}
             </button>
 
             <button
               className="h-7 flex items-center px-2 py-0 text-xs font-medium text-white rounded-md mt-1"
               onClick={() => {
-                console.log("open");
-                setSelectedPrescription(prescription);
+                setSelectedPrescription(item);
                 setPrescriptionModal(true);
               }}
               style={{
@@ -361,6 +246,7 @@ const PrescriptionDataComponent = () => {
           </div>
         </div>
       ))}
+
       {/* Modal */}
       {prescriptionModal && selectedPrescription && (
         <PatientPrescriptionDetails
