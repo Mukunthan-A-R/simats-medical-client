@@ -202,10 +202,6 @@ const PatientCaseRecord = ({ assignmentId }) => {
     enabled: !!assignmentId,
   });
 
-  // console.log("caseRecord");
-  // console.log(caseRecord?.caseRecords);
-  // console.log(caseRecord?.total_records);
-
   const caseRecords = caseRecord?.caseRecords || [];
 
   const handleAddEntry = () => {

@@ -3,6 +3,7 @@ import PatientVitalsDataChart from "./PatientVitalsDataChart";
 import PatientSecondaryVitals from "../PatientSecondaryVitals";
 import NewPrimaryVitalsForm from "../../vitals/NewPrimaryVitalsForm";
 import PrimaryVitals from "./PrimaryVitals";
+import NewSecondaryVitalsForm from "../../vitals/NewSecondaryVitalsForm";
 
 const PatientViralsData = ({ assignmentId }) => {
   const [openGraph, setOpenGraph] = useState(false);
@@ -52,6 +53,8 @@ const PatientViralsData = ({ assignmentId }) => {
         assignmentId={assignmentId}
         handleCardClick={handleCardClick}
       ></PrimaryVitals>
+
+      <NewSecondaryVitalsForm></NewSecondaryVitalsForm>
 
       {/* SECONDARY VITALS */}
       <div className="mt-4">
