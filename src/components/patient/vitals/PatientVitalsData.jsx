@@ -9,6 +9,15 @@ const PatientViralsData = ({ assignmentId }) => {
   const [graphData, setGraphData] = useState(null);
   const [addVitals, setAddVitals] = useState(false);
 
+  const handleCardClick = (vital) => {
+    if (graphData?.id === vital.id && openGraph) {
+      setOpenGraph(false);
+    } else {
+      setGraphData(vital);
+      setOpenGraph(true);
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4 p-3">
       {/* HEADER + ADD VITALS BUTTON */}
@@ -36,7 +45,10 @@ const PatientViralsData = ({ assignmentId }) => {
       )}
 
       {/* PRIMARY VITALS CARDS */}
-      <PrimaryVitals assignmentId={assignmentId}></PrimaryVitals>
+      <PrimaryVitals
+        assignmentId={assignmentId}
+        handleCardClick={handleCardClick}
+      ></PrimaryVitals>
 
       {/* SECONDARY VITALS */}
       <div className="mt-4">

@@ -9,7 +9,7 @@ import PatientVitalsDataCard from "./PatientVitalsDataCard";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestPrimaryVitals } from "../../../services/primaryVitals";
 
-const PrimaryVitals = ({ assignmentId }) => {
+const PrimaryVitals = ({ assignmentId, handleCardClick }) => {
   const {
     data: latestVitals,
     isLoading,
@@ -81,10 +81,6 @@ const PrimaryVitals = ({ assignmentId }) => {
       color1: "#ff4d4f",
     },
   ];
-
-  const handleCardClick = (vital) => {
-    console.log("Clicked vital:", vital);
-  };
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
