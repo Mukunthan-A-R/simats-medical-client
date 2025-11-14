@@ -13,13 +13,14 @@ const SecondaryVitalSelect = ({ onChange, title = "Select Vital *" }) => {
 
   const options =
     data?.data?.map((vital) => ({
-      value: vital.id,
-      label: vital.name.replace(/_/g, " ").toUpperCase(), // Make label readable
+      value: vital.type_id, // make sure this matches your backend key
+      label: vital.name.replace(/_/g, " ").toUpperCase(),
     })) || [];
 
   useEffect(() => {
     if (onChange) {
-      onChange(selectedVital);
+      // Only return the id of the selected vital
+      onChange(selectedVital?.value || null);
     }
   }, [selectedVital, onChange]);
 
@@ -36,11 +37,6 @@ const SecondaryVitalSelect = ({ onChange, title = "Select Vital *" }) => {
         placeholder="Select Vital"
         isClearable
       />
-      {selectedVital && (
-        <div className="mt-2 text-gray-700 font-medium">
-          Selected: {selectedVital.label} (ID: {selectedVital.value})
-        </div>
-      )}
     </div>
   );
 };
