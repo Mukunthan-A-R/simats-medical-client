@@ -54,7 +54,7 @@ const PatientViralsData = ({ assignmentId }) => {
         handleCardClick={handleCardClick}
       ></PrimaryVitals>
 
-      <NewSecondaryVitalsForm></NewSecondaryVitalsForm>
+      <NewSecondaryVitalsForm assignmentId={assignmentId} />
 
       {/* SECONDARY VITALS */}
       <div className="mt-4">
