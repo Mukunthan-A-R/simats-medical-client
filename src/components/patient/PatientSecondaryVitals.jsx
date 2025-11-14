@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PatientSecondaryVitalDropDown from "./PatientSecondaryVitalDropDown";
 import NewSecondaryVitalsForm from "../vitals/NewSecondaryVitalsForm";
 
-const PatientSecondaryVitals = () => {
+const PatientSecondaryVitals = ({ assignmentId }) => {
   const [showSecondaryVitals, setShowSecondaryVitals] = useState(false);
   const [secondaryVital, setSecondaryVital] = useState(false);
 
@@ -48,11 +48,7 @@ const PatientSecondaryVitals = () => {
       </div>
 
       {/* Show the form only if secondaryVital is true */}
-      {secondaryVital && (
-        <NewSecondaryVitalsForm
-        // assignmentId={assignmentId}
-        />
-      )}
+      {secondaryVital && <NewSecondaryVitalsForm assignmentId={assignmentId} />}
 
       <PatientSecondaryVitalDropDown
         showSecondaryVitals={showSecondaryVitals}

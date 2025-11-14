@@ -56,7 +56,7 @@ const PatientViralsData = ({ assignmentId }) => {
 
       {/* SECONDARY VITALS */}
       <div className="mt-4">
-        <PatientSecondaryVitals />
+        <PatientSecondaryVitals assignmentId={assignmentId} />
       </div>
 
       {/* CHART SECTION */}
