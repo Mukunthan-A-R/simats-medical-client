@@ -40,7 +40,10 @@ const PatientViralsData = ({ assignmentId }) => {
       {/* ADD NEW VITALS FORM */}
       {addVitals && (
         <div className="mb-4 animate-slideDown">
-          <NewPrimaryVitalsForm assignmentId={assignmentId} />
+          <NewPrimaryVitalsForm
+            onClose={() => setOpenGraph(false)}
+            assignmentId={assignmentId}
+          />
         </div>
       )}
 

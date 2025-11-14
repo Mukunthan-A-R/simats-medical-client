@@ -20,7 +20,7 @@ const NewPrimaryVitalsForm = ({ onClose, assignmentId }) => {
     mutationFn: createPrimaryVitals,
     onSuccess: () => {
       toast.success("Primary vitals added successfully");
-      queryClient.invalidateQueries(["primaryVitals", assignmentId]);
+      queryClient.invalidateQueries(["latestPrimaryVitals"]);
       onClose?.();
     },
     onError: (err) => {
