@@ -11,6 +11,7 @@ export const fetchPatientCaseRecords = async (assignmentId) => {
   const response = await axiosInstance.get(
     `${BASE_URL}/api/fetch-case-records/patient/${assignmentId}`
   );
+
   return response.data;
 };
 
