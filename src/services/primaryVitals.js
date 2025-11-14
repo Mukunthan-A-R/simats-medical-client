@@ -9,3 +9,17 @@ export const createPrimaryVitals = async (data) => {
   );
   return response.data;
 };
+
+export const getLatestPrimaryVitals = async (assignmentId) => {
+  const response = await axiosInstance.get(
+    `${BASE_URL}/api/primary-vitals/recent/${assignmentId}`
+  );
+  return response.data;
+};
+
+export const getAllPrimaryVitals = async (assignmentId) => {
+  const response = await axiosInstance.get(
+    `${BASE_URL}/api/primary-vitals/${assignmentId}`
+  );
+  return response.data;
+};
