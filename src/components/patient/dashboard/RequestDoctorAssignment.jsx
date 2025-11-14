@@ -13,6 +13,18 @@ const RequestDoctorAssignment = ({ onClose, assignmentId }) => {
       toast.success("Doctor request created successfully");
       onClose?.();
     },
+    onError: (error) => {
+      const status = error?.response?.status;
+
+      if (status === 409) {
+        toast.error(
+          error.response.data?.message ||
+            "A request already exists. Please wait for the doctor's response."
+        );
+      } else {
+        toast.error("Something went wrong. Please try again.");
+      }
+    },
   });
 
   const handleSubmit = (e) => {
