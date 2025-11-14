@@ -54,7 +54,13 @@ const NewSecondaryVitalsForm = ({ assignmentId }) => {
 
       <button
         type="submit"
-        className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+        className={`px-4 py-2 rounded-md text-sm font-medium text-white`}
+        style={{
+          background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
+          border: "1px solid rgba(0,0,0,0.2)",
+          boxShadow:
+            "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
+        }}
       >
         Submit
       </button>
