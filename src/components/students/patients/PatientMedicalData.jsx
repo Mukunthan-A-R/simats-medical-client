@@ -59,7 +59,9 @@ const PatientMedicalData = ({ patient }) => {
       )}
 
       {/* Vitals Tab */}
-      {activeTab === "vitals" && <PatientViralsData />}
+      {activeTab === "vitals" && (
+        <PatientViralsData assignmentId={patient?.assignment_id} />
+      )}
 
       {/* Medications Tab */}
       {activeTab === "meds" && (

@@ -9,8 +9,9 @@ import {
 import PatientVitalsDataCard from "./PatientVitalsDataCard";
 import PatientVitalsDataChart from "./PatientVitalsDataChart";
 import PatientSecondaryVitals from "../PatientSecondaryVitals";
+import NewPrimaryVitalsForm from "../../vitals/NewPrimaryVitalsForm";
 
-const PatientViralsData = () => {
+const PatientViralsData = ({ assignmentId }) => {
   const [openGraph, setOpenGraph] = useState(false);
   const [graphData, setGraphData] = useState(null);
 
@@ -69,6 +70,8 @@ const PatientViralsData = () => {
 
   return (
     <div className="flex flex-col gap-2 p-2 sm:p-3">
+      {/* ADD NEW VITALS ROWS */}
+      <NewPrimaryVitalsForm assignmentId={assignmentId}></NewPrimaryVitalsForm>
       {/* PRIMARY VITALS ROWS */}
       <div className="flex flex-col sm:flex-row gap-2">
         {primaryVitals.slice(0, 2).map((vital) => (
@@ -81,7 +84,6 @@ const PatientViralsData = () => {
           </div>
         ))}
       </div>
-
       <div className="flex flex-col sm:flex-row gap-2">
         {primaryVitals.slice(2).map((vital) => (
           <div
