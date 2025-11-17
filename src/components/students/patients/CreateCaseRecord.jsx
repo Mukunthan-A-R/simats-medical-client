@@ -7,6 +7,7 @@ import { createPatientCaseRecord } from "../../../services/patientCaseRecordsSer
 import { useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import RequestDoctorAssignment from "../../patient/dashboard/RequestDoctorAssignment";
+import ProcedureSelect from "../../../utils/dropDown/ProcedureSelect";
 
 const CreateCaseRecord = ({ onClose, assignmentId }) => {
   const { patientId, studentId } = useParams();
@@ -110,21 +111,10 @@ const CreateCaseRecord = ({ onClose, assignmentId }) => {
           selectedDepartment && (
             <>
               {/* Procedure */}
-              <div>
-                <label className="block font-medium mb-1">Procedure *</label>
-                <select
-                  value={selectedProcedure}
-                  onChange={(e) => setSelectedProcedure(e.target.value)}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
-                >
-                  <option value="">Select Procedure</option>
-                  {departmentProcedures[selectedDepartment]?.map((proc) => (
-                    <option key={proc} value={proc}>
-                      {proc}
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <ProcedureSelect
+                deptId={departmentsByName[selectedDepartment]}
+                onChange={(data) => setSelectedProcedure(data?.label)}
+              />
 
               {/* Text Fields */}
               {selectedProcedure && (
