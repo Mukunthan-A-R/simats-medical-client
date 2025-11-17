@@ -11,18 +11,20 @@ export const createSecondaryVital = async (data) => {
   return response.data;
 };
 
-// Get all vitals for an assignment (optional but common)
-export const getAllSecondaryVitals = async (assignmentId) => {
-  const response = await axiosInstance.get(
-    `${BASE_URL}/api/secondary-vitals?assignment_id=${assignmentId}`
-  );
-  return response.data;
-};
-
 // Get latest secondary vitals for an assignment
 export const getLatestSecondarySecondaryVitals = async (assignmentId) => {
   const response = await axiosInstance.get(
     `${BASE_URL}/api/secondary-vitals/recent/${assignmentId}`
   );
+  return response.data;
+};
+
+// Get all secondary vitals for an assignment, optionally filtered by type_id
+export const getAllSecondaryVitals = async (assignmentId, typeId = null) => {
+  let url = `${BASE_URL}/api/secondary-vitals/all/${assignmentId}`;
+  if (typeId) {
+    url += `?type_id=${typeId}`;
+  }
+  const response = await axiosInstance.get(url);
   return response.data;
 };
