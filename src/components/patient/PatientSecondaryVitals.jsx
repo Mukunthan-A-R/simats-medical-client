@@ -51,6 +51,7 @@ const PatientSecondaryVitals = ({ assignmentId }) => {
       {secondaryVital && <NewSecondaryVitalsForm assignmentId={assignmentId} />}
 
       <PatientSecondaryVitalDropDown
+        assignmentId={assignmentId}
         showSecondaryVitals={showSecondaryVitals}
       />
     </>

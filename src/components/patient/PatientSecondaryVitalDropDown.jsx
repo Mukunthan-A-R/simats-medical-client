@@ -1,8 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PatientSecondaryVitalCard from "./PatientSecondaryVitalCard";
 import { DropletIcon, ScaleIcon, Stethoscope } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { getLatestSecondarySecondaryVitals } from "../../services/secondaryVitals";
 
-const PatientSecondaryVitalDropDown = ({ showSecondaryVitals }) => {
+const iconMap = {
+  respiratory_rate: <Stethoscope size={16} />,
+  weight: <ScaleIcon size={16} />,
+  height: <ScaleIcon size={16} />,
+  bmi: <ScaleIcon size={16} />,
+  blood_glucose: <DropletIcon size={16} />,
+  total_cholesterol: <DropletIcon size={16} />,
+};
+
+const PatientSecondaryVitalDropDown = ({
+  showSecondaryVitals,
+  assignmentId,
+}) => {
+  const [vitalData, setVitalData] = useState([]);
+
+  // ✅ Only this line changes for v5
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["latestSecondaryVitals", assignmentId],
+    queryFn: () => getLatestSecondarySecondaryVitals(assignmentId),
+    enabled: showSecondaryVitals && !!assignmentId,
+  });
+
+  useEffect(() => {
+    if (data) setVitalData(data);
+  }, [data]);
+
   if (!showSecondaryVitals) return null;
 
   return (
@@ -22,79 +49,67 @@ const PatientSecondaryVitalDropDown = ({ showSecondaryVitals }) => {
       }}
     >
       <div className="flex flex-col sm:flex-row px-4 py-3 sm:px-8 gap-4 sm:gap-6 rounded-2xl">
-        <div className="flex-1">
+        {vitalData.slice(0, 2).map((vital) => (
+          <div className="flex-1" key={vital.type_name}>
+            <PatientSecondaryVitalCard
+              data={{
+                id: vital.type_name,
+                name: vital.type_name
+                  .replace(/_/g, " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase()),
+                icon: iconMap[vital.type_name] || <Stethoscope size={16} />,
+                unit: "",
+                data: vital.value,
+                normal: "",
+                description: vital.type_name.replace(/_/g, " "),
+                color1: "#8dd1e1",
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col sm:flex-row px-4 py-3 sm:px-8 gap-4 sm:gap-6 rounded-2xl">
+        {vitalData.slice(2, 4).map((vital) => (
+          <div className="flex-1" key={vital.type_name}>
+            <PatientSecondaryVitalCard
+              data={{
+                id: vital.type_name,
+                name: vital.type_name
+                  .replace(/_/g, " ")
+                  .replace(/\b\w/g, (c) => c.toUpperCase()),
+                icon: iconMap[vital.type_name] || <Stethoscope size={16} />,
+                unit: "",
+                data: vital.value,
+                normal: "",
+                description: vital.type_name.replace(/_/g, " "),
+                color1: "#8dd1e1",
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      {vitalData[4] && (
+        <div className="w-1/2 px-4 py-3 sm:px-8 sm:pr-4 rounded-2xl">
           <PatientSecondaryVitalCard
             data={{
-              id: "respiratoryRate",
-              name: "Respiratory Rate",
-              icon: <Stethoscope size={16} />,
-              unit: "breaths/min",
-              data: "16.3",
-              normal: "12-20 breaths/min",
-              description: "Breaths per minute",
+              id: vitalData[4].type_name,
+              name: vitalData[4].type_name
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (c) => c.toUpperCase()),
+              icon: iconMap[vitalData[4].type_name] || (
+                <Stethoscope size={16} />
+              ),
+              unit: "",
+              data: vitalData[4].value,
+              normal: "",
+              description: vitalData[4].type_name.replace(/_/g, " "),
               color1: "#8dd1e1",
             }}
           />
         </div>
-        <div className="flex-1">
-          <PatientSecondaryVitalCard
-            data={{
-              id: "weight",
-              name: "Weight",
-              icon: <ScaleIcon size={16} />,
-              unit: "lbs",
-              data: "164",
-              normal: "Varies",
-              description: "Body weight",
-              color1: "#a4de6c",
-            }}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col sm:flex-row px-4 py-3 sm:px-8 gap-4 sm:gap-6 rounded-2xl">
-        <div className="flex-1">
-          <PatientSecondaryVitalCard
-            data={{
-              id: "bloodGlucose",
-              name: "Blood Glucose",
-              icon: <DropletIcon size={16} />,
-              unit: "mg/dL",
-              data: "86.9",
-              normal: "70-99 mg/dL (fasting)",
-              description: "Blood sugar level",
-              color1: "#d0ed57",
-            }}
-          />
-        </div>
-        <div className="flex-1">
-          <PatientSecondaryVitalCard
-            data={{
-              id: "cholesterolTotal",
-              name: "Total Cholesterol",
-              icon: <DropletIcon size={16} />,
-              unit: "mg/dL",
-              data: "182.7",
-              normal: "<200 mg/dL",
-              description: "Total cholesterol level",
-              color1: "#ffc658",
-            }}
-          />
-        </div>
-      </div>
-      <div className="w-1/2  px-4 py-3 sm:px-8 sm:pr-4 rounded-2xl">
-        <PatientSecondaryVitalCard
-          data={{
-            id: "bmi",
-            name: "BMI",
-            icon: <ScaleIcon size={16} />,
-            unit: "kg/m²",
-            data: "24.2",
-            normal: "18.5-24.9",
-            description: "Body Mass Index",
-            color1: "#8884d8",
-          }}
-        />
-      </div>
+      )}
     </div>
   );
 };

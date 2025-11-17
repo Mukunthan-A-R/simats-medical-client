@@ -14,7 +14,7 @@ const NewSecondaryVitalsForm = ({ assignmentId }) => {
     mutationFn: createSecondaryVital,
     onSuccess: () => {
       toast.success("Secondary vital recorded!");
-      queryClient.invalidateQueries(["secondaryVitals"]);
+      queryClient.invalidateQueries(["latestSecondaryVitals"]);
       setSelectedVitalId(null);
       setValue("");
     },

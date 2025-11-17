@@ -19,10 +19,10 @@ export const getAllSecondaryVitals = async (assignmentId) => {
   return response.data;
 };
 
-// Get latest vitals for an assignment (only if you want this endpoint)
-export const getLatestSecondaryVital = async (assignmentId) => {
+// Get latest secondary vitals for an assignment
+export const getLatestSecondarySecondaryVitals = async (assignmentId) => {
   const response = await axiosInstance.get(
-    `${BASE_URL}/api/secondary-vitals/latest/${assignmentId}`
+    `${BASE_URL}/api/secondary-vitals/recent/${assignmentId}`
   );
   return response.data;
 };
