@@ -3,6 +3,8 @@ import About from "./pages/About";
 import Login from "./pages/Login";
 import ScrollToTop from "./components/ScrollToTop";
 
+// MIAS module 1 commit
+
 // Student Routes
 import StudentLayout from "./pages/layouts/StudentLayout";
 import StudentDashboard from "./pages/student/StudentDashboard";
