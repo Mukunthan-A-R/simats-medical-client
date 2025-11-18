@@ -39,6 +39,8 @@ import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
 import UnderConstruction from "./components/UnderConstruction";
 import PatientDetails from "./pages/student/PatientDetails";
 import { Toaster } from "react-hot-toast";
+import AdminLayout from "./pages/layouts/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 function App() {
   return (
@@ -49,6 +51,24 @@ function App() {
           <Route path="/" element={<Login />} />
           {/* <Route path="/login" element={<Login />} /> */}
           <Route path="/about" element={<About />} />
+
+          {/* Admin routes*/}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route path="dashboard/:studentId" element={<AdminDashboard />} />
+            {/* <Route path="profile/:studentId" element={<StudentProfile />} />
+            <Route
+              path="academics/:studentId"
+              element={<StudentAcademicsSection />}
+            />
+            <Route
+              path="notifications/:studentId"
+              element={<StudentNotificationsScreen />}
+            />
+            <Route
+              path=":studentId/patient/:patientId"
+              element={<PatientDetails />}
+            /> */}
+          </Route>
 
           {/* Student routes*/}
           <Route path="/student" element={<StudentLayout />}>
