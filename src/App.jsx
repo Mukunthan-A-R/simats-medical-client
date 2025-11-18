@@ -41,6 +41,9 @@ import PatientDetails from "./pages/student/PatientDetails";
 import { Toaster } from "react-hot-toast";
 import AdminLayout from "./pages/layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminDepartments from "./pages/admin/AdminDepartments";
+import AdminDepartmentProcedures from "./pages/admin/AdminDepartmentProcedures";
+import AdminProceduresForm from "./pages/admin/AdminProceduresForm";
 
 function App() {
   return (
@@ -54,7 +57,19 @@ function App() {
 
           {/* Admin routes*/}
           <Route path="/admin" element={<AdminLayout />}>
-            <Route path="dashboard/:studentId" element={<AdminDashboard />} />
+            <Route path="dashboard/:adminId" element={<AdminDashboard />} />
+            <Route
+              path="/admin/department/:adminId"
+              element={<AdminDepartments />}
+            />
+            <Route
+              path="/admin/department/procedures/:adminId"
+              element={<AdminDepartmentProcedures />}
+            />
+            <Route
+              path="/admin/procedure/form/:adminId"
+              element={<AdminProceduresForm />}
+            />
             {/* <Route path="profile/:studentId" element={<StudentProfile />} />
             <Route
               path="academics/:studentId"

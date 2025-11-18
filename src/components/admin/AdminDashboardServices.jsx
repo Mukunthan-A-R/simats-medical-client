@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function AdminDashboardServices({
   onNavigate = () => {},
   //   showMedicationReminder = true,
-  patientId,
+  adminId,
 }) {
   const navigate = useNavigate();
 
@@ -16,20 +16,20 @@ export default function AdminDashboardServices({
         {
           icon: <Building2 size={18} />,
           title: "Departments",
-          action: () => navigate(`/admin/department/${patientId}`),
+          action: () => navigate(`/admin/department/${adminId}`),
           iconColor: "text-blue-500",
         },
         {
           icon: <Workflow size={18} />,
           title: "Department Procedure",
-          action: () => navigate(`/admin/department/procedures/${patientId}`),
+          action: () => navigate(`/admin/department/procedures/${adminId}`),
           highlight: true,
           iconColor: "text-blue-500",
         },
         {
           icon: <FilePlus size={18} />,
           title: "Add Procedure Form",
-          action: () => navigate(`/admin/procedure/form/${patientId}`),
+          action: () => navigate(`/admin/procedure/form/${adminId}`),
           iconColor: "text-blue-500",
         },
       ],
