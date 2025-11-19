@@ -125,6 +125,9 @@ const PatientSecondaryVitalDropDown = ({
         <SecondaryVitalsTable
           assignmentId={assignmentId}
           typeId={typeId}
+          onClose={() => {
+            setIsSelected(false);
+          }}
         ></SecondaryVitalsTable>
       )}
     </div>
