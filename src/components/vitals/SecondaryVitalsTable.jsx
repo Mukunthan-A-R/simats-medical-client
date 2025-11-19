@@ -10,8 +10,6 @@ const SecondaryVitalsTable = ({ assignmentId, typeId }) => {
     enabled: !!assignmentId && !!typeId,
   });
 
-  console.log(data);
-
   if (isLoading) {
     return (
       <div className="p-4 text-center text-gray-500">Loading vitals...</div>
@@ -36,43 +34,58 @@ const SecondaryVitalsTable = ({ assignmentId, typeId }) => {
     data[0]?.systolic !== undefined && data[0]?.diastolic !== undefined;
 
   return (
-    <div className="mt-5 p-4 rounded-xl bg-white shadow-sm border border-gray-200">
-      <h2 className="text-lg font-semibold mb-4">
-        Vital History ({data[0]?.type_name})
+    <div
+      className="mt-4 p-4 rounded-2xl shadow-md border border-gray-200 overflow-hidden"
+      style={{
+        background: "linear-gradient(to bottom, #f8f9fa, #eef1f6)",
+      }}
+    >
+      <h2 className="text-lg font-medium mb-3 text-gray-800">
+        Vital History ({data[0]?.type_name.replace(/_/g, " ")})
       </h2>
 
-      <div className="overflow-x-auto rounded-lg border border-gray-200">
-        <table className="w-full border-collapse">
-          <thead className="bg-gray-100/60">
-            <tr className="text-left text-gray-700 text-sm">
+      <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm max-h-64">
+        <table className="min-w-full border-collapse">
+          <thead className="sticky top-0 bg-gray-100">
+            <tr className="text-left text-gray-600 text-sm uppercase tracking-wide">
               {isBloodPressure ? (
                 <>
-                  <th className="p-3 border-b">Systolic</th>
-                  <th className="p-3 border-b">Diastolic</th>
+                  <th className="px-4 py-2 border-b">Systolic</th>
+                  <th className="px-4 py-2 border-b">Diastolic</th>
                 </>
               ) : (
-                <th className="p-3 border-b">Value</th>
+                <th className="px-4 py-2 border-b">Value</th>
               )}
-              <th className="p-3 border-b">Recorded At</th>
+              <th className="px-4 py-2 border-b">Recorded At</th>
             </tr>
           </thead>
 
-          <tbody>
-            {data.map((item) => (
+          <tbody className="divide-y divide-gray-200">
+            {data.map((item, idx) => (
               <tr
                 key={item.id}
-                className="hover:bg-gray-50 transition-colors text-sm"
+                className="hover:bg-gray-50 transition-colors"
+                style={{
+                  backgroundColor:
+                    idx % 2 === 0 ? "white" : "rgba(249,250,251,0.7)",
+                }}
               >
                 {isBloodPressure ? (
                   <>
-                    <td className="p-3 border-b">{item.systolic}</td>
-                    <td className="p-3 border-b">{item.diastolic}</td>
+                    <td className="px-4 py-2 text-sm font-medium text-gray-900">
+                      {item.systolic}
+                    </td>
+                    <td className="px-4 py-2 text-sm font-medium text-gray-900">
+                      {item.diastolic}
+                    </td>
                   </>
                 ) : (
-                  <td className="p-3 border-b">{item.value}</td>
+                  <td className="px-4 py-2 text-sm font-medium text-gray-900">
+                    {item.value}
+                  </td>
                 )}
 
-                <td className="p-3 border-b">
+                <td className="px-4 py-2 text-sm text-gray-500">
                   {formatDate(item?.recorded_at)}
                 </td>
               </tr>

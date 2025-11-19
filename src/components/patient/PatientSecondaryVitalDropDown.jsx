@@ -22,14 +22,11 @@ const PatientSecondaryVitalDropDown = ({
   const [isSelected, setIsSelected] = useState(false);
   const [typeId, setTypeId] = useState(null);
 
-  // ✅ Only this line changes for v5
   const { data, isLoading, error } = useQuery({
     queryKey: ["latestSecondaryVitals", assignmentId],
     queryFn: () => getLatestSecondarySecondaryVitals(assignmentId),
     enabled: showSecondaryVitals && !!assignmentId,
   });
-
-  console.log(isSelected, typeId);
 
   useEffect(() => {
     if (data) setVitalData(data);
