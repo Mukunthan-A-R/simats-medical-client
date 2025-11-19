@@ -1,8 +1,9 @@
 import React from "react";
 
-const PatientSecondaryVitalCard = ({ data }) => {
+const PatientSecondaryVitalCard = ({ data, onClick }) => {
   return (
     <div
+      onClick={onClick}
       className="flex flex-row gap-4 px-4 py-4 border border-gray-400 rounded-lg"
       style={{
         backgroundColor: "rgba(245,245,245,0.8)",

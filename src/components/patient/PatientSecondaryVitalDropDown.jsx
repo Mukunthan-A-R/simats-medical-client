@@ -3,6 +3,7 @@ import PatientSecondaryVitalCard from "./PatientSecondaryVitalCard";
 import { DropletIcon, ScaleIcon, Stethoscope } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestSecondarySecondaryVitals } from "../../services/secondaryVitals";
+import SecondaryVitalsTable from "../vitals/SecondaryVitalsTable";
 
 const iconMap = {
   respiratory_rate: <Stethoscope size={16} />,
@@ -18,6 +19,8 @@ const PatientSecondaryVitalDropDown = ({
   assignmentId,
 }) => {
   const [vitalData, setVitalData] = useState([]);
+  const [isSelected, setIsSelected] = useState(false);
+  const [typeId, setTypeId] = useState(null);
 
   // ✅ Only this line changes for v5
   const { data, isLoading, error } = useQuery({
@@ -25,6 +28,8 @@ const PatientSecondaryVitalDropDown = ({
     queryFn: () => getLatestSecondarySecondaryVitals(assignmentId),
     enabled: showSecondaryVitals && !!assignmentId,
   });
+
+  console.log(isSelected, typeId);
 
   useEffect(() => {
     if (data) setVitalData(data);
@@ -52,6 +57,10 @@ const PatientSecondaryVitalDropDown = ({
         {vitalData.slice(0, 2).map((vital) => (
           <div className="flex-1" key={vital.type_name}>
             <PatientSecondaryVitalCard
+              onClick={() => {
+                setIsSelected(true);
+                setTypeId(vital.type_id);
+              }}
               data={{
                 id: vital.type_name,
                 name: vital.type_name
@@ -73,6 +82,10 @@ const PatientSecondaryVitalDropDown = ({
         {vitalData.slice(2, 4).map((vital) => (
           <div className="flex-1" key={vital.type_name}>
             <PatientSecondaryVitalCard
+              onClick={() => {
+                setIsSelected(true);
+                setTypeId(vital.type_id);
+              }}
               data={{
                 id: vital.type_name,
                 name: vital.type_name
@@ -109,6 +122,13 @@ const PatientSecondaryVitalDropDown = ({
             }}
           />
         </div>
+      )}
+
+      {isSelected && (
+        <SecondaryVitalsTable
+          assignmentId={assignmentId}
+          typeId={typeId}
+        ></SecondaryVitalsTable>
       )}
     </div>
   );
