@@ -1,11 +1,13 @@
+// File: FormBuilder.jsx
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 
+// iOS 6 Gradient Button Class
 const iosButton =
   "px-4 py-2 rounded-lg text-white font-semibold shadow " +
   "bg-gradient-to-b from-[#6eb7ff] to-[#1a73e8] border border-[#1a73e8] active:from-[#1a73e8] active:to-[#1558b0]";
 
-const Field = ({ field, updateField, removeField }) => {
+// Field Component
+const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
   const handleOptionChange = (index, value) => {
     const newOptions = [...field.options];
     newOptions[index] = value;
@@ -20,86 +22,103 @@ const Field = ({ field, updateField, removeField }) => {
   };
 
   return (
-    <div className="border border-gray-300 rounded-xl p-4 mb-4 bg-gradient-to-b from-[#fafafa] to-[#e6e6e6] shadow flex-1">
-      <div className="flex justify-between items-center mb-2">
-        <input
-          type="text"
-          placeholder="Field Label"
-          value={field.label}
-          onChange={(e) => updateField(field.id, "label", e.target.value)}
-          className="border border-gray-400 bg-gradient-to-b from-white to-gray-100 shadow-inner p-2 rounded w-full mr-4 focus:outline-none focus:ring-1 focus:ring-blue-400"
-        />
-
+    <div className="flex space-x-3 mb-4">
+      {/* Move Buttons */}
+      <div className="flex flex-col space-y-2">
         <button
-          onClick={() => removeField(field.id)}
-          className="px-3 py-1 rounded-lg text-white font-semibold shadow 
-          bg-gradient-to-b from-[#ff6b6b] to-[#d64545] border border-[#d64545]
-          active:from-[#d64545] active:to-[#b23232]"
+          onClick={() => moveUp(field.id)}
+          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm"
         >
-          Delete
+          ↑
+        </button>
+        <button
+          onClick={() => moveDown(field.id)}
+          className="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300 text-sm"
+        >
+          ↓
         </button>
       </div>
 
-      {field.type === "text" && (
-        <input
-          type="text"
-          disabled
-          placeholder="Text Input"
-          className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
-        />
-      )}
+      {/* Field Card */}
+      <div className="flex-1 border border-gray-300 rounded-xl p-4 bg-gradient-to-b from-[#fafafa] to-[#e6e6e6] shadow">
+        <div className="flex justify-between items-center mb-2">
+          {/* Label Input */}
+          <input
+            type="text"
+            placeholder="Field Label"
+            value={field.label}
+            onChange={(e) => updateField(field.id, "label", e.target.value)}
+            className="border border-gray-400 bg-gradient-to-b from-white to-gray-100 shadow-inner p-2 rounded w-full mr-4 focus:outline-none focus:ring-1 focus:ring-blue-400"
+          />
 
-      {field.type === "textarea" && (
-        <textarea
-          disabled
-          placeholder="Textarea"
-          className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
-        />
-      )}
-
-      {field.type === "radio" && (
-        <div>
-          {field.options.map((opt, idx) => (
-            <div key={idx} className="flex items-center mb-2">
-              <input type="radio" disabled className="mr-2" />
-              <input
-                type="text"
-                value={opt}
-                onChange={(e) => handleOptionChange(idx, e.target.value)}
-                className="border border-gray-400 p-1 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full focus:ring-1 focus:ring-blue-400"
-              />
-            </div>
-          ))}
-
+          {/* Delete Button */}
           <button
-            onClick={addOption}
-            className="text-blue-600 text-sm hover:text-blue-800 mt-1"
+            onClick={() => removeField(field.id)}
+            className="px-3 py-1 rounded-lg text-white font-semibold shadow 
+              bg-gradient-to-b from-[#ff6b6b] to-[#d64545] border border-[#d64545]
+              active:from-[#d64545] active:to-[#b23232]"
           >
-            + Add Option
+            Delete
           </button>
         </div>
-      )}
+
+        {/* Field Preview */}
+        {field.type === "text" && (
+          <input
+            type="text"
+            disabled
+            placeholder="Text Input"
+            className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
+          />
+        )}
+        {field.type === "textarea" && (
+          <textarea
+            disabled
+            placeholder="Textarea"
+            className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
+          />
+        )}
+        {field.type === "radio" && (
+          <div>
+            {field.options.map((opt, idx) => (
+              <div key={idx} className="flex items-center mb-2">
+                <input type="radio" disabled className="mr-2" />
+                <input
+                  type="text"
+                  value={opt}
+                  onChange={(e) => handleOptionChange(idx, e.target.value)}
+                  className="border border-gray-400 p-1 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full focus:ring-1 focus:ring-blue-400"
+                />
+              </div>
+            ))}
+            <button
+              onClick={addOption}
+              className="text-blue-600 text-sm hover:text-blue-800 mt-1"
+            >
+              + Add Option
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
-const FormBuilder = () => {
-  const { adminId } = useParams(); // fetch adminId from URL
+// Main FormBuilder
+const FormBuilder = ({ onSubmitFormStructure }) => {
   const [fields, setFields] = useState([]);
 
-  const generateUniqueId = () => {
-    return `${Date.now()}-${adminId}`;
-  };
-
   const addField = (type) => {
-    const newField = {
-      id: generateUniqueId(),
-      type,
-      label: "",
-      options: type === "radio" ? ["Option 1"] : [],
-      serial_no: fields.length + 1,
-    };
-    setFields((prev) => [...prev, newField]);
+    setFields((prev) => [
+      ...prev,
+      {
+        id: Date.now(), // unique identifier
+        serial_no: prev.length + 1, // order
+        type,
+        label: "",
+        options: type === "radio" ? ["Option 1"] : [],
+      },
+    ]);
   };
 
   const updateField = (id, key, value) => {
@@ -109,13 +128,10 @@ const FormBuilder = () => {
   };
 
   const removeField = (id) => {
-    setFields((prev) => {
-      const newFields = prev.filter((f) => f.id !== id);
-      return newFields.map((f, idx) => ({ ...f, serial_no: idx + 1 }));
-    });
+    setFields((prev) => prev.filter((f) => f.id !== id));
   };
 
-  const moveFieldUp = (id) => {
+  const moveUp = (id) => {
     setFields((prev) => {
       const index = prev.findIndex((f) => f.id === id);
       if (index <= 0) return prev;
@@ -128,7 +144,7 @@ const FormBuilder = () => {
     });
   };
 
-  const moveFieldDown = (id) => {
+  const moveDown = (id) => {
     setFields((prev) => {
       const index = prev.findIndex((f) => f.id === id);
       if (index === -1 || index === prev.length - 1) return prev;
@@ -141,10 +157,15 @@ const FormBuilder = () => {
     });
   };
 
+  const handleSubmitForm = () => {
+    if (typeof onSubmitFormStructure === "function") {
+      onSubmitFormStructure(fields);
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4 text-gray-800">Form Builder</h1>
-
+      {/* Add Field Buttons */}
       <div className="flex space-x-3 mb-6">
         <button onClick={() => addField("text")} className={iosButton}>
           Add Text
@@ -152,57 +173,48 @@ const FormBuilder = () => {
         <button
           onClick={() => addField("textarea")}
           className="px-4 py-2 rounded-lg text-white font-semibold shadow
-          bg-gradient-to-b from-[#66cc77] to-[#2e8b57] border border-[#2e8b57]
-          active:from-[#2e8b57] active:to-[#1f623d]"
+            bg-gradient-to-b from-[#66cc77] to-[#2e8b57] border border-[#2e8b57]
+            active:from-[#2e8b57] active:to-[#1f623d]"
         >
           Add Textarea
         </button>
         <button
           onClick={() => addField("radio")}
           className="px-4 py-2 rounded-lg text-white font-semibold shadow
-          bg-gradient-to-b from-[#b57aff] to-[#7a3fd6] border border-[#7a3fd6]
-          active:from-[#7a3fd6] active:to-[#552a99]"
+            bg-gradient-to-b from-[#b57aff] to-[#7a3fd6] border border-[#7a3fd6]
+            active:from-[#7a3fd6] active:to-[#552a99]"
         >
           Add Radio
         </button>
       </div>
 
-      <div className="space-y-4">
+      {/* Fields */}
+      <div>
         {fields.map((field) => (
-          <div key={field.id} className="flex items-start space-x-2">
-            {/* Left side: Up/Down buttons */}
-            <div className="flex flex-col space-y-1 mt-4">
-              <button
-                onClick={() => moveFieldUp(field.id)}
-                className="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300"
-              >
-                ↑
-              </button>
-              <button
-                onClick={() => moveFieldDown(field.id)}
-                className="px-2 py-1 rounded bg-gray-200 hover:bg-gray-300"
-              >
-                ↓
-              </button>
-            </div>
-
-            {/* Right side: Field Card */}
-            <Field
-              field={field}
-              updateField={updateField}
-              removeField={removeField}
-            />
-          </div>
+          <Field
+            key={field.id}
+            field={field}
+            updateField={updateField}
+            removeField={removeField}
+            moveUp={moveUp}
+            moveDown={moveDown}
+          />
         ))}
       </div>
 
+      {/* Debug */}
       <h2 className="text-lg font-semibold mt-6 mb-2 text-gray-700">
         Form Data (Debug)
       </h2>
-
       <pre className="bg-gray-100 p-2 rounded shadow-inner">
         {JSON.stringify(fields, null, 2)}
       </pre>
+      {/* Submit Button */}
+      <div className="flex justify-end mt-4">
+        <button onClick={handleSubmitForm} className={iosButton}>
+          Create Form
+        </button>
+      </div>
     </div>
   );
 };

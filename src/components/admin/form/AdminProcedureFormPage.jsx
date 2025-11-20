@@ -26,6 +26,10 @@ const AdminProcedureFormPage = () => {
     setProcedureId(procedure?.value || null); // backend procedure ID
   };
 
+  const handleSubmitFormStructure = (formStructure) => {
+    console.log("Form structure received in parent:", formStructure);
+  };
+
   return (
     <div className="min-h-screen px-2 sm:px-4 py-4 sm:py-6 max-w-4xl mx-auto">
       {/* Department & Procedure Selection */}
@@ -68,7 +72,10 @@ const AdminProcedureFormPage = () => {
           </h2>
 
           {/* FormBuilder Component */}
-          <FormBuilder procedureId={procedureId} />
+          <FormBuilder
+            procedureId={procedureId}
+            onSubmitFormStructure={handleSubmitFormStructure}
+          />
         </div>
       )}
     </div>
