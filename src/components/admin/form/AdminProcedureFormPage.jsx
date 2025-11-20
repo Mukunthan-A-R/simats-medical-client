@@ -27,7 +27,13 @@ const AdminProcedureFormPage = () => {
   };
 
   const handleSubmitFormStructure = (formStructure) => {
-    console.log("Form structure received in parent:", formStructure);
+    const dataToSubmit = {
+      deptId: departmentsByName[selectedDepartment],
+      procedureId,
+      formStructure,
+    };
+
+    console.log("Full form data to submit:", dataToSubmit);
   };
 
   return (
