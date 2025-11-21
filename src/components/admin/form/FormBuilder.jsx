@@ -71,6 +71,21 @@ const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
             className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
           />
         )}
+        {field.type === "number" && (
+          <input
+            type="number"
+            disabled
+            placeholder="Number Input"
+            className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
+          />
+        )}
+        {field.type === "date" && (
+          <input
+            type="date"
+            disabled
+            className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
+          />
+        )}
         {field.type === "textarea" && (
           <textarea
             disabled
@@ -78,11 +93,11 @@ const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
             className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full mb-2"
           />
         )}
-        {field.type === "radio" && (
+        {(field.type === "radio" || field.type === "checkbox") && (
           <div>
             {field.options.map((opt, idx) => (
               <div key={idx} className="flex items-center mb-2">
-                <input type="radio" disabled className="mr-2" />
+                <input type={field.type} disabled className="mr-2" />
                 <input
                   type="text"
                   value={opt}
@@ -116,7 +131,7 @@ const FormBuilder = ({ onSubmitFormStructure }) => {
         serial_no: prev.length + 1, // order
         type,
         label: "",
-        options: type === "radio" ? ["Option 1"] : [],
+        options: type === "radio" || type === "checkbox" ? ["Option 1"] : [],
       },
     ]);
   };
@@ -166,25 +181,24 @@ const FormBuilder = ({ onSubmitFormStructure }) => {
   return (
     <div className="max-w-2xl mx-auto p-6">
       {/* Add Field Buttons */}
-      <div className="flex space-x-3 mb-6">
+      <div className="flex flex-wrap gap-3 mb-6">
         <button onClick={() => addField("text")} className={iosButton}>
           Add Text
         </button>
-        <button
-          onClick={() => addField("textarea")}
-          className="px-4 py-2 rounded-lg text-white font-semibold shadow
-            bg-gradient-to-b from-[#66cc77] to-[#2e8b57] border border-[#2e8b57]
-            active:from-[#2e8b57] active:to-[#1f623d]"
-        >
+        <button onClick={() => addField("number")} className={iosButton}>
+          Add Number
+        </button>
+        <button onClick={() => addField("date")} className={iosButton}>
+          Add Date
+        </button>
+        <button onClick={() => addField("textarea")} className={iosButton}>
           Add Textarea
         </button>
-        <button
-          onClick={() => addField("radio")}
-          className="px-4 py-2 rounded-lg text-white font-semibold shadow
-            bg-gradient-to-b from-[#b57aff] to-[#7a3fd6] border border-[#7a3fd6]
-            active:from-[#7a3fd6] active:to-[#552a99]"
-        >
+        <button onClick={() => addField("radio")} className={iosButton}>
           Add Radio
+        </button>
+        <button onClick={() => addField("checkbox")} className={iosButton}>
+          Add Checkbox
         </button>
       </div>
 
@@ -209,6 +223,7 @@ const FormBuilder = ({ onSubmitFormStructure }) => {
       <pre className="bg-gray-100 p-2 rounded shadow-inner">
         {JSON.stringify(fields, null, 2)}
       </pre>
+
       {/* Submit Button */}
       <div className="flex justify-end mt-4">
         <button onClick={handleSubmitForm} className={iosButton}>
