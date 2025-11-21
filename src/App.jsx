@@ -44,6 +44,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminDepartments from "./pages/admin/AdminDepartments";
 import AdminDepartmentProcedures from "./pages/admin/AdminDepartmentProcedures";
 import AdminProceduresForm from "./pages/admin/AdminProceduresForm";
+import AdminViewProceduresForm from "./pages/admin/AdminViewProceduresForm";
 
 function App() {
   return (
@@ -69,6 +70,10 @@ function App() {
             <Route
               path="/admin/procedure/form/:adminId"
               element={<AdminProceduresForm />}
+            />
+            <Route
+              path="/admin/view/procedure-form/:adminId"
+              element={<AdminViewProceduresForm />}
             />
             {/* <Route path="profile/:studentId" element={<StudentProfile />} />
             <Route
