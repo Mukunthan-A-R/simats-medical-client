@@ -15,6 +15,8 @@ const AdminProcedureFormPage = () => {
   );
   const [selectedProcedure, setSelectedProcedure] = useState("");
   const [procedureId, setProcedureId] = useState(null);
+  const [formTitle, setFormTitle] = useState("");
+  const [formDescription, setFormDescription] = useState("");
 
   useEffect(() => {
     setSelectedProcedure("");
@@ -72,17 +74,46 @@ const AdminProcedureFormPage = () => {
 
       {/* FormBuilder */}
       {selectedProcedure && procedureId && (
-        <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-          <h2 className="text-lg font-medium mb-4">
-            {selectedDepartment} - {selectedProcedure} - Form Builder
-          </h2>
+        <>
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 space-y-4">
+            <h2 className="text-lg font-medium">Form Details</h2>
 
-          {/* FormBuilder Component */}
-          <FormBuilder
-            procedureId={procedureId}
-            onSubmitFormStructure={handleSubmitFormStructure}
-          />
-        </div>
+            {/* Form Title */}
+            <div>
+              <label className="block font-medium mb-1">Form Title *</label>
+              <input
+                type="text"
+                value={formTitle}
+                onChange={(e) => setFormTitle(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter form title"
+              />
+            </div>
+
+            {/* Form Description */}
+            <div>
+              <label className="block font-medium mb-1">Form Description</label>
+              <textarea
+                value={formDescription}
+                onChange={(e) => setFormDescription(e.target.value)}
+                className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter form description (optional)"
+              />
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+            <h2 className="text-lg font-medium mb-4">
+              {selectedDepartment} - {selectedProcedure} - Form Builder
+            </h2>
+
+            {/* FormBuilder Component */}
+            <FormBuilder
+              procedureId={procedureId}
+              onSubmitFormStructure={handleSubmitFormStructure}
+            />
+          </div>
+        </>
       )}
     </div>
   );
