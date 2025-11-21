@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import PageHeader from "../../components/header/PageHeader";
 import ProcedureSelect from "../../utils/dropDown/ProcedureSelect";
 import { departmentsByName } from "../../components/students/patients/CreateCaseRecord";
+import ProcedureFormList from "../../components/admin/form/ProcedureFormList";
 
 const AdminProceduresForm = () => {
   const { deptId: paramDeptId } = useParams();
@@ -18,32 +19,22 @@ const AdminProceduresForm = () => {
   const [selectedProcedure, setSelectedProcedure] = useState("");
   const [procedureId, setProcedureId] = useState(null);
 
-  // Reset procedure when department changes
+  // NEW: State to toggle viewing forms
+  const [showForms, setShowForms] = useState(false);
+
+  // Reset when department changes
   useEffect(() => {
     setSelectedProcedure("");
     setProcedureId(null);
+    setShowForms(false);
   }, [selectedDepartment]);
 
   // Handle procedure change
   const handleProcedureChange = (procedure) => {
     setSelectedProcedure(procedure?.label || "");
     setProcedureId(procedure?.value || null);
-
-    console.log("Selected Procedure ID:", procedure?.value);
+    setShowForms(false); // hide old results
   };
-
-  // Log when both are selected
-  useEffect(() => {
-    if (selectedDepartment && procedureId) {
-      console.log("Selected Department:", selectedDepartment);
-      console.log(
-        "Selected Department ID:",
-        departmentsByName[selectedDepartment]
-      );
-      console.log("Selected Procedure:", selectedProcedure);
-      console.log("Selected Procedure ID:", procedureId);
-    }
-  }, [selectedDepartment, procedureId]);
 
   return (
     <div className="min-h-screen px-2 sm:px-4 py-4 sm:py-6 max-w-4xl mx-auto">
@@ -57,7 +48,9 @@ const AdminProceduresForm = () => {
           <label className="block font-medium mb-1">Department *</label>
           <select
             value={selectedDepartment}
-            onChange={(e) => setSelectedDepartment(e.target.value)}
+            onChange={(e) => {
+              setSelectedDepartment(e.target.value);
+            }}
             className="w-full border border-gray-300 rounded-md px-3 py-2"
           >
             <option value="">Select Department</option>
@@ -76,7 +69,20 @@ const AdminProceduresForm = () => {
             onChange={handleProcedureChange}
           />
         )}
+
+        {/* VIEW BUTTON */}
+        {procedureId && (
+          <button
+            onClick={() => setShowForms(true)}
+            className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          >
+            View
+          </button>
+        )}
       </div>
+
+      {/* Show forms only after clicking View */}
+      {procedureId && <ProcedureFormList procedureId={procedureId} />}
     </div>
   );
 };

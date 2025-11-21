@@ -12,3 +12,11 @@ export const createProcedureForm = async (formData) => {
     throw err;
   }
 };
+
+// Fetch all forms under one procedure
+export const getFormsByProcedure = async (procedureId) => {
+  const response = await axiosInstance.get(
+    `${BASE_URL}/procedure/${procedureId}`
+  );
+  return response.data;
+};
