@@ -33,8 +33,6 @@ const ProcedureFormList = ({ procedureId }) => {
     );
   }
 
-  console.log(data);
-
   return (
     <div className="space-y-8 mt-6">
       {data.map((form) => (
