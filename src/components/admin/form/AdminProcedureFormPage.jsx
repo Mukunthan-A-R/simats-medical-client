@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+
 import FormBuilder from "./FormBuilder";
 import ProcedureSelect from "../../../utils/dropDown/ProcedureSelect";
 import { departmentsByName } from "../../students/patients/CreateCaseRecord";
+import { createProcedureForm } from "../../../services/procedureFormService";
 
 const AdminProcedureFormPage = () => {
   const { deptId: paramDeptId } = useParams();
+
+  // --- STATE ---
   const [selectedDepartment, setSelectedDepartment] = useState(
     paramDeptId
       ? Object.keys(departmentsByName).find(
@@ -18,6 +24,25 @@ const AdminProcedureFormPage = () => {
   const [formTitle, setFormTitle] = useState("");
   const [formDescription, setFormDescription] = useState("");
 
+  const queryClient = useQueryClient();
+
+  // --- TANSTACK MUTATION ---
+  const mutation = useMutation({
+    mutationFn: (mappedData) => createProcedureForm(mappedData),
+    onSuccess: (data) => {
+      toast.success(data?.message || "Form created successfully");
+      queryClient.invalidateQueries(["procedureForms"]);
+
+      // Reset form after success
+      setFormTitle("");
+      setFormDescription("");
+    },
+    onError: (err) => {
+      toast.error(err?.response?.data?.err || "Failed to create form");
+    },
+  });
+
+  // --- EFFECTS ---
   useEffect(() => {
     setSelectedProcedure("");
     setProcedureId(null);
@@ -25,17 +50,34 @@ const AdminProcedureFormPage = () => {
 
   const handleProcedureChange = (procedure) => {
     setSelectedProcedure(procedure?.label || "");
-    setProcedureId(procedure?.value || null); // backend procedure ID
+    setProcedureId(procedure?.value || null);
   };
 
+  // --- HANDLE SUBMIT ---
   const handleSubmitFormStructure = (formStructure) => {
-    const dataToSubmit = {
-      deptId: departmentsByName[selectedDepartment],
-      procedureId,
-      formStructure,
+    if (!formTitle || !procedureId || !formStructure.length) {
+      toast.error(
+        "Please fill all required fields and add at least one form field."
+      );
+      return;
+    }
+
+    // Map frontend fields to backend schema
+    const mappedData = {
+      procedure_id: Number(procedureId),
+      name: formTitle,
+      description: formDescription || "",
+      fields: formStructure.map((f, idx) => ({
+        label: f.label,
+        field_name: f.label.toLowerCase().replace(/\s+/g, "_"),
+        field_type: f.type,
+        is_required: true, // default to required
+        order_index: idx + 1,
+        config: f.options?.length ? { options: f.options } : {},
+      })),
     };
 
-    console.log("Full form data to submit:", dataToSubmit);
+    mutation.mutate(mappedData);
   };
 
   return (
@@ -72,13 +114,12 @@ const AdminProcedureFormPage = () => {
         )}
       </div>
 
-      {/* FormBuilder */}
+      {/* Form Details */}
       {selectedProcedure && procedureId && (
         <>
           <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 space-y-4">
             <h2 className="text-lg font-medium">Form Details</h2>
 
-            {/* Form Title */}
             <div>
               <label className="block font-medium mb-1">Form Title *</label>
               <input
@@ -90,7 +131,6 @@ const AdminProcedureFormPage = () => {
               />
             </div>
 
-            {/* Form Description */}
             <div>
               <label className="block font-medium mb-1">Form Description</label>
               <textarea
@@ -102,15 +142,16 @@ const AdminProcedureFormPage = () => {
             </div>
           </div>
 
+          {/* Form Builder */}
           <div className="bg-white rounded-lg shadow p-4 sm:p-6">
             <h2 className="text-lg font-medium mb-4">
               {selectedDepartment} - {selectedProcedure} - Form Builder
             </h2>
 
-            {/* FormBuilder Component */}
             <FormBuilder
               procedureId={procedureId}
               onSubmitFormStructure={handleSubmitFormStructure}
+              isSubmitting={mutation.isLoading}
             />
           </div>
         </>
