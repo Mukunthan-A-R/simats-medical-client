@@ -12,16 +12,3 @@ export const createProcedureForm = async (formData) => {
     throw err;
   }
 };
-
-// Fetch a procedure form by ID
-export const fetchProcedureFormById = async (formId) => {
-  if (!formId) return null;
-
-  try {
-    const response = await axiosInstance.get(`${BASE_URL}/${formId}`);
-    return response.data;
-  } catch (err) {
-    console.error("Error fetching procedure form:", err);
-    return null;
-  }
-};
