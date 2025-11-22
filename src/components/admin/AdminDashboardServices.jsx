@@ -34,7 +34,7 @@ export default function AdminDashboardServices({
         },
         {
           icon: <FilePlus size={18} />,
-          title: "Add Procedure Form",
+          title: "View Procedure Form",
           action: () => navigate(`/admin/view/procedure-form/${adminId}`),
           iconColor: "text-blue-500",
         },
