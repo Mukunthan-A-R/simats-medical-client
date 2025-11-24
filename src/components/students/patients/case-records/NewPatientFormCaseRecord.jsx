@@ -4,6 +4,7 @@ import PageHeader from "../../../header/PageHeader";
 import ProcedureSelect from "../../../../utils/dropDown/ProcedureSelect";
 import { departmentsByName } from "../CreateCaseRecord";
 import ProcedureFormList from "../../../admin/form/ProcedureFormList";
+import ProcedureSelectButtons from "../../../admin/form/ProcedureSelectButtons";
 
 const NewPatientFormCaseRecord = () => {
   const { deptId: paramDeptId } = useParams();
@@ -80,7 +81,7 @@ const NewPatientFormCaseRecord = () => {
       </div>
 
       {/* Show forms only after clicking View */}
-      {procedureId && <ProcedureFormList procedureId={procedureId} />}
+      {procedureId && <ProcedureSelectButtons procedureId={procedureId} />}
     </div>
   );
 };
