@@ -5,45 +5,41 @@ export default function PatientMedicalReportSecondary({ patient }) {
   const { facultyId } = useParams();
   if (!patient) return null;
 
+  // Use form_data or fallback to empty object
+  const dynamicData = patient.form_data || {};
+
   return (
     <div className="mx-auto bg-white rounded-lg shadow-md p-6 text-gray-800">
-      {/* Findings */}
+      {/* Findings and Parameters */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 flex items-center text-sm">
           <ClipboardListIcon size={14} className="mr-1 text-blue-600" />
           Findings and Parameters
         </h4>
         <div className="text-sm text-gray-700 space-y-1">
-          <p>
-            <span className="font-medium">Procedure:</span> {patient.procedure}
-          </p>
-          <p>
-            <span className="font-medium">Symptoms:</span> {patient.symptoms}
-          </p>
-          <p>
-            <span className="font-medium">Observation:</span>{" "}
-            {patient.observation}
-          </p>
-          <p>
-            <span className="font-medium">Findings:</span> {patient.findings}
-          </p>
-          <p>
-            <span className="font-medium">Vital Signs:</span>{" "}
-            {patient.vital_signs}
-          </p>
-          <p>
-            <span className="font-medium">Treatment:</span> {patient.treatment}
-          </p>
+          {Object.entries(dynamicData).map(([key, value]) => (
+            <p key={key}>
+              <span className="font-medium">
+                {key
+                  .replace(/_/g, " ")
+                  .replace(/\b\w/g, (l) => l.toUpperCase())}
+                :
+              </span>{" "}
+              {value || "-"}
+            </p>
+          ))}
         </div>
       </div>
 
       {/* Diagnosis */}
-      <div className="mb-4">
-        <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 text-sm">
-          Diagnosis
-        </h4>
-        <p className="text-sm text-gray-700">{patient.diagnosis}</p>
-      </div>
+      {patient.diagnosis && (
+        <div className="mb-4">
+          <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 text-sm">
+            Diagnosis
+          </h4>
+          <p className="text-sm text-gray-700">{patient.diagnosis}</p>
+        </div>
+      )}
 
       {/* Evaluation & Verification */}
       <div className="mb-4 bg-blue-50 p-3 rounded-lg">

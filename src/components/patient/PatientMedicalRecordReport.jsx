@@ -143,16 +143,8 @@ const PatientMedicalRecordReport = ({
                 </h4>
                 <p className="text-sm text-gray-700">
                   Name: {selectedReport.doctor_name} <br />
-                  Gender: {selectedReport.doctor_gender} <br />
-                  DOB:{" "}
-                  {new Date(
-                    selectedReport.doctor_dob
-                  ).toLocaleDateString()}{" "}
-                  <br />
-                  Blood Group: {selectedReport.doctor_blood_group} <br />
-                  Contact: {selectedReport.doctor_phone} <br />
+                  {/* Gender: {selectedReport.doctor_gender} <br /> */}
                   Email: {selectedReport.doctor_email} <br />
-                  Address: {selectedReport.doctor_address}
                 </p>
               </div>
 
@@ -171,16 +163,7 @@ const PatientMedicalRecordReport = ({
                 <p className="text-sm text-gray-700">
                   Name: {selectedReport.student_name} <br />
                   ID: {selectedReport.student_id} <br />
-                  Gender: {selectedReport.student_gender} <br />
-                  DOB:{" "}
-                  {new Date(
-                    selectedReport.student_dob
-                  ).toLocaleDateString()}{" "}
-                  <br />
-                  Blood Group: {selectedReport.student_blood_group} <br />
-                  Contact: {selectedReport.student_phone} <br />
                   Email: {selectedReport.student_email} <br />
-                  Address: {selectedReport.student_address}
                 </p>
               </div>
             </div>

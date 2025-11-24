@@ -2,8 +2,8 @@ import { ChevronLeftIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import PatientCaseApprovalCard from "../../components/faculty/PatientCaseApprovalCard";
 import { useQuery } from "@tanstack/react-query";
-import { fetchDoctorCaseRecords } from "../../services/doctorCaseRecords";
 import React from "react";
+import { fetchDoctorProcedureCaseRecords } from "../../services/doctorProcedureCaseRecord";
 
 const FacultyCaseApproval = () => {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ const FacultyCaseApproval = () => {
     isError,
   } = useQuery({
     queryKey: ["patient", doctorId],
-    queryFn: () => fetchDoctorCaseRecords(doctorId),
+    queryFn: () => fetchDoctorProcedureCaseRecords(doctorId),
     enabled: !!doctorId,
   });
 
