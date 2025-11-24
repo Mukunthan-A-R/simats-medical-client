@@ -6,7 +6,7 @@ import { departmentsByName } from "../CreateCaseRecord";
 import ProcedureFormList from "../../../admin/form/ProcedureFormList";
 import ProcedureSelectButtons from "../../../admin/form/ProcedureSelectButtons";
 
-const NewPatientFormCaseRecord = () => {
+const NewPatientFormCaseRecord = ({ assignmentId }) => {
   const { deptId: paramDeptId } = useParams();
 
   const [selectedDepartment, setSelectedDepartment] = useState(
@@ -81,7 +81,12 @@ const NewPatientFormCaseRecord = () => {
       </div>
 
       {/* Show forms only after clicking View */}
-      {procedureId && <ProcedureSelectButtons procedureId={procedureId} />}
+      {procedureId && (
+        <ProcedureSelectButtons
+          assignmentId={assignmentId}
+          procedureId={procedureId}
+        />
+      )}
     </div>
   );
 };

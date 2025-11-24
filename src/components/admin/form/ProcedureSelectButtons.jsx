@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getFormsByProcedure } from "../../../services/procedureFormService";
 import DynamicForm from "../../students/form/DynamicForm";
+import { useParams } from "react-router-dom";
 
-const ProcedureSelectButtons = ({ procedureId, onSelect }) => {
+const ProcedureSelectButtons = ({ procedureId, onSelect, assignmentId }) => {
+  const { studentId, patientId } = useParams();
   const [selectedForm, setSelectedForm] = useState(null);
 
   const { data, isLoading, isError } = useQuery({
@@ -59,7 +61,10 @@ const ProcedureSelectButtons = ({ procedureId, onSelect }) => {
       {/* Dynamic Form */}
       {selectedForm && (
         <DynamicForm
+          assignmentId={assignmentId}
           form={selectedForm}
+          studentId={studentId}
+          patientId={patientId}
           onSubmit={(data) => console.log("Submitted Data:", data)}
         />
       )}

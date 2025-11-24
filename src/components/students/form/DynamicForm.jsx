@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createProcedureCaseRecord } from "../../../services/procedureCaseRecordService";
+import DoctorSelect from "../patients/DoctorSelect";
 
-const DynamicForm = ({ form, onSubmit }) => {
+const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
   const [formData, setFormData] = useState(
     form.fields.reduce((acc, field) => {
       acc[field.field_name] = "";
@@ -8,17 +11,50 @@ const DynamicForm = ({ form, onSubmit }) => {
     }, {})
   );
 
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (data) =>
+      createProcedureCaseRecord({
+        procedure_id: form.procedure_id,
+        form_id: form.form_id,
+        form_data: data,
+        doctor_id: selectedDoctor, // include selected doctor here
+        student_id: studentId,
+        patient_id: patientId,
+        assignment_id: assignmentId,
+        approval: "requested",
+      }),
+    onSuccess: () => {
+      alert("Procedure Case Record created successfully!");
+      queryClient.invalidateQueries(["procedureCaseRecords", assignmentId]);
+      setFormData(
+        form.fields.reduce((acc, field) => {
+          acc[field.field_name] = "";
+          return acc;
+        }, {})
+      );
+      setSelectedDoctor(null); // reset doctor selection
+    },
+    onError: (err) => {
+      console.error("Error creating procedure case record:", err);
+      alert("Failed to create procedure case record.");
+    },
+  });
+
   const handleChange = (e, field) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field.field_name]: e.target.value,
-    }));
+    setFormData((prev) => ({ ...prev, [field.field_name]: e.target.value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted:", formData);
-    onSubmit?.(formData);
+    if (!selectedDoctor) {
+      alert("Please select a doctor before submitting.");
+      return;
+    }
+    mutation.mutate(formData);
   };
 
   return (
@@ -39,7 +75,6 @@ const DynamicForm = ({ form, onSubmit }) => {
             config,
           } = field;
 
-          // Render select if field_type === "select"
           if (field_type === "select") {
             return (
               <div key={field_id}>
@@ -64,7 +99,6 @@ const DynamicForm = ({ form, onSubmit }) => {
             );
           }
 
-          // Render textarea
           if (field_type === "textarea") {
             return (
               <div key={field_id}>
@@ -83,7 +117,6 @@ const DynamicForm = ({ form, onSubmit }) => {
             );
           }
 
-          // Default input types (text, number, date, time, etc.)
           return (
             <div key={field_id}>
               <label className="block text-gray-700 font-medium mb-1">
@@ -100,11 +133,20 @@ const DynamicForm = ({ form, onSubmit }) => {
           );
         })}
 
+        {/* Doctor Select */}
+        <div className="mt-4">
+          <label className="block text-gray-700 font-medium mb-1">
+            Assign Doctor *
+          </label>
+          <DoctorSelect onChange={(data) => setSelectedDoctor(data?.value)} />
+        </div>
+
         <button
           type="submit"
           className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          disabled={mutation.isLoading}
         >
-          Submit
+          {mutation.isLoading ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>

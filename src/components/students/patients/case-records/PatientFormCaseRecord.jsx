@@ -27,7 +27,11 @@ const PatientFormCaseRecord = ({ assignmentId }) => {
 
   return (
     <div className="overflow-hidden mb-6 rounded-xl shadow-sm border border-gray-200 bg-white animate-fadeIn">
-      <CaseRecordsHeader onAdd={handleAddEntry} isFormOpen={newRecord} />
+      <CaseRecordsHeader
+        onAdd={handleAddEntry}
+        assignmentId={assignmentId}
+        isFormOpen={newRecord}
+      />
       {/* {newRecord && (
         <CreateCaseRecord
           assignmentId={assignmentId}
@@ -54,7 +58,7 @@ const PatientFormCaseRecord = ({ assignmentId }) => {
 export default PatientFormCaseRecord;
 
 // Header component
-const CaseRecordsHeader = ({ onAdd, isFormOpen }) => (
+const CaseRecordsHeader = ({ onAdd, isFormOpen, assignmentId }) => (
   <>
     <div className="px-5 py-4 bg-gradient-to-b from-gray-100 to-gray-200 shadow-inner flex items-center justify-between rounded-t-xl">
       <div className="flex items-center gap-2">
@@ -86,6 +90,10 @@ const CaseRecordsHeader = ({ onAdd, isFormOpen }) => (
         )}
       </button>
     </div>
-    {isFormOpen && <NewPatientFormCaseRecord></NewPatientFormCaseRecord>}
+    {isFormOpen && (
+      <NewPatientFormCaseRecord
+        assignmentId={assignmentId}
+      ></NewPatientFormCaseRecord>
+    )}
   </>
 );
