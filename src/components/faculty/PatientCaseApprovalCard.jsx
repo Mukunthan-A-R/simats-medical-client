@@ -8,12 +8,12 @@ import {
 import { useState } from "react";
 import { formatDate } from "../../utils/constants";
 import PatientMedicalRecordReport from "../../components/patient/PatientMedicalRecordReport";
-import {
-  approveCaseRecord,
-  rejectCaseRecord,
-} from "../../services/doctorCaseRecords";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import {
+  approveProcedureCaseRecord,
+  rejectProcedureCaseRecord,
+} from "../../services/doctorProcedureCaseRecord";
 
 const PatientCaseApprovalCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
@@ -28,7 +28,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
     isError,
     isSuccess,
   } = useMutation({
-    mutationFn: approveCaseRecord,
+    mutationFn: approveProcedureCaseRecord,
     onSuccess: (data) => {
       console.log("✅ Record approved:", data);
       Promise.all([
@@ -44,7 +44,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
   });
 
   const { mutate: rejectRecord, isPending: isPendingReject } = useMutation({
-    mutationFn: rejectCaseRecord,
+    mutationFn: rejectProcedureCaseRecord,
     onSuccess: (data) => {
       console.log("Record rejected successfully:", data);
       Promise.all([
