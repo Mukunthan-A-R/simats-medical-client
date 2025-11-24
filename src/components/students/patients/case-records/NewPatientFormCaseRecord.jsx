@@ -38,7 +38,7 @@ const NewPatientFormCaseRecord = ({ assignmentId }) => {
   };
 
   return (
-    <div className="min-h-screen px-2 sm:px-4 py-4 sm:py-6 max-w-4xl mx-auto">
+    <div className="px-2 sm:px-4 py-4 sm:py-6 mx-auto">
       <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6 space-y-4">
         <h2 className="text-lg font-medium">Select Department & Procedure</h2>
 

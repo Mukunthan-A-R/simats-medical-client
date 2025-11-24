@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ClipboardListIcon, PlusIcon, XIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../../utils/constants";
 import NewPatientFormCaseRecord from "./NewPatientFormCaseRecord";
+import ProcedureCaseRecordsList from "./ProcedureCaseRecordsList";
 
 const PatientFormCaseRecord = ({ assignmentId }) => {
   const [newRecord, setNewRecord] = useState(false);
@@ -32,25 +33,9 @@ const PatientFormCaseRecord = ({ assignmentId }) => {
         assignmentId={assignmentId}
         isFormOpen={newRecord}
       />
-      {/* {newRecord && (
-        <CreateCaseRecord
-          assignmentId={assignmentId}
-          onClose={() => {
-            setNewRecord(false);
-          }}
-        />
-      )} */}
-      {/* <div className="divide-y divide-gray-100 px-3 pt-2">
-        {caseRecords.length > 0 ? (
-          caseRecords.map((record) => (
-            <CaseRecordCard key={record.record_id} record={record} />
-          ))
-        ) : (
-          <div className="p-6 text-center text-gray-500">
-            No case records yet.
-          </div>
-        )}
-      </div> */}
+      <ProcedureCaseRecordsList
+        assignmentId={assignmentId}
+      ></ProcedureCaseRecordsList>
     </div>
   );
 };
