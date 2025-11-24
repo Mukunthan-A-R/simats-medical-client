@@ -3,6 +3,7 @@ import { ClipboardListIcon, HeartPulseIcon, PillIcon } from "lucide-react";
 import PatientCaseRecord from "./PatientCaseRecord";
 import PatientViralsData from "../../patient/vitals/PatientVitalsData";
 import PatientPrescriptionData from "./PatientPrescriptionData";
+import PatientFormCaseRecord from "./case-records/PatientFormCaseRecord";
 
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
@@ -53,9 +54,15 @@ const PatientMedicalData = ({ patient }) => {
 
       {/* Case Records Tab */}
       {activeTab === "records" && (
-        <PatientCaseRecord
-          assignmentId={patient?.assignment_id}
-        ></PatientCaseRecord>
+        <>
+          {/* <PatientCaseRecord
+            assignmentId={patient?.assignment_id}
+          ></PatientCaseRecord> */}
+
+          <PatientFormCaseRecord
+            assignmentId={patient?.assignment_id}
+          ></PatientFormCaseRecord>
+        </>
       )}
 
       {/* Vitals Tab */}
