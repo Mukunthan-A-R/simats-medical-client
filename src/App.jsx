@@ -117,6 +117,10 @@ function App() {
               element={<FacultyCaseApproval />}
             />
             <Route
+              path=":studentId/patient/:patientId"
+              element={<PatientDetails />}
+            />
+            <Route
               path="discharge-summary-approvals/:facultyId"
               element={<FacultyDischargeApproval />}
             />

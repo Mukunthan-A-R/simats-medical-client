@@ -1,11 +1,17 @@
 import { AlertTriangleIcon, CalendarIcon, StethoscopeIcon } from "lucide-react";
 import { AgeCalc } from "../../../utils/userAgeCalculator";
 import { formatDate } from "../../../utils/constants";
+import { useNavigate, useParams } from "react-router-dom";
 
 function AdmittedPatientCard({ patient, onNavigate }) {
+  const { facultyId } = useParams();
+  const navigate = useNavigate();
+
   return (
     <div
-      //   onClick={() => onNavigate(`patient-case-record/${patient.id}`)}
+      onClick={() =>
+        navigate(`/faculty/${facultyId}/patient/${patient.patient_id}`)
+      }
       className="rounded-lg border border-gray-200 shadow-sm bg-gradient-to-b from-white to-gray-50 cursor-pointer hover:bg-gray-50 transition-colors"
     >
       <div className="p-3 flex justify-between">
