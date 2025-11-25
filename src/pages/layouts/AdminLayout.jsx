@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { NavBar } from "../../components/NavBar";
 import StudentSidebar from "../../components/students/StudentSidebar";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { userLoginAtom, userData } from "../../context/userAtom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchStudentById } from "../../services/studentService";
+import { fetchAdminById } from "../../services/adminService";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -16,25 +16,25 @@ export default function AdminLayout() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [userDataVal, setUserDataVal] = useRecoilState(userData);
 
-  // const {
-  //   data: student,
-  //   isLoading,
-  //   isError,
-  // } = useQuery({
-  //   queryKey: ["student", userLogin?.userId],
-  //   queryFn: () => fetchStudentById(userLogin?.userId),
-  //   enabled: !!userLogin?.userId,
-  // });
+  const {
+    data: admin,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["admin", userLogin?.userId],
+    queryFn: () => fetchAdminById(userLogin?.userId),
+    enabled: !!userLogin?.userId,
+  });
 
-  // console.log("student");
-  // console.log(student);
+  console.log("admin");
+  console.log(admin);
 
-  // useEffect(() => {
-  //   if (student) {
-  //     const studentData = student?.data || student;
-  //     setUserDataVal(studentData);
-  //   }
-  // }, [student, setUserDataVal]);
+  useEffect(() => {
+    if (admin) {
+      const adminData = admin?.data || admin;
+      setUserDataVal(adminData);
+    }
+  }, [admin, setUserDataVal]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -55,9 +55,9 @@ export default function AdminLayout() {
     setIsSideOpen(!isSideOpen);
   };
 
-  // if (isLoading) {
-  //   return <p>Loading ...</p>;
-  // }
+  if (isLoading) {
+    return <p>Loading ...</p>;
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
