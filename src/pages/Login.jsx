@@ -37,6 +37,13 @@ const Login = () => {
         lastLogin: data.last_login,
       });
 
+      console.log("New data");
+      console.log({
+        userId: userId,
+        roleId: role,
+        lastLogin: data.last_login,
+      });
+
       if (role == "2") {
         toast.success("Logged in as student!");
         navigate(`/student/dashboard/${userId}`);
@@ -46,6 +53,9 @@ const Login = () => {
       } else if (role == "3") {
         toast.success("Logged in as patient!");
         navigate(`/patient/dashboard/${userId}`);
+      } else if (role == "4") {
+        toast.success("Logged in as Admin!");
+        navigate(`/admin/dashboard/${userId}`);
       }
     },
 

@@ -16,25 +16,25 @@ export default function AdminLayout() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [userDataVal, setUserDataVal] = useRecoilState(userData);
 
-  const {
-    data: student,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["student", userLogin?.userId],
-    queryFn: () => fetchStudentById(userLogin?.userId),
-    enabled: !!userLogin?.userId,
-  });
+  // const {
+  //   data: student,
+  //   isLoading,
+  //   isError,
+  // } = useQuery({
+  //   queryKey: ["student", userLogin?.userId],
+  //   queryFn: () => fetchStudentById(userLogin?.userId),
+  //   enabled: !!userLogin?.userId,
+  // });
 
   // console.log("student");
   // console.log(student);
 
-  useEffect(() => {
-    if (student) {
-      const studentData = student?.data || student;
-      setUserDataVal(studentData);
-    }
-  }, [student, setUserDataVal]);
+  // useEffect(() => {
+  //   if (student) {
+  //     const studentData = student?.data || student;
+  //     setUserDataVal(studentData);
+  //   }
+  // }, [student, setUserDataVal]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -55,9 +55,9 @@ export default function AdminLayout() {
     setIsSideOpen(!isSideOpen);
   };
 
-  if (isLoading) {
-    return <p>Loading ...</p>;
-  }
+  // if (isLoading) {
+  //   return <p>Loading ...</p>;
+  // }
 
   return (
     <div className="flex flex-col min-h-screen">
