@@ -5,9 +5,13 @@ import PendingPrescriptionRequest from "./medication/PendingPrescriptionRequest"
 import NewMedicationForm from "./medication/NewMedicationForm";
 import { useQuery } from "@tanstack/react-query";
 import { fetchMedicationsByAssignment } from "../../../services/studentMedication";
+import { useLocation } from "react-router-dom";
 
 const PatientPrescriptionData = ({ assignmentId }) => {
   const [showAddForm, setShowAddForm] = useState(false);
+
+  const location = useLocation();
+  const isStaffRoute = location.pathname.includes("/faculty");
 
   const {
     data: patientsData,
@@ -25,18 +29,13 @@ const PatientPrescriptionData = ({ assignmentId }) => {
   // Default to empty array if no data
   const prescriptions = patientsData || [];
 
-  console.log("patientsData");
-  console.log(patientsData);
-
-  // ✅ Filter prescriptions by status
+  // Filter prescriptions by status
   const pendingRequests = prescriptions.filter(
     (item) => item.status === "pending"
   );
-
   const currentMedications = prescriptions.filter(
     (item) => item.status === "approved"
   );
-
   const rejectedRequests = prescriptions.filter(
     (item) => item.status === "rejected"
   );
@@ -44,11 +43,12 @@ const PatientPrescriptionData = ({ assignmentId }) => {
   return (
     <div className="bg-white rounded-2xl">
       <MedicationsHeader
+        isStaffRoute={isStaffRoute}
         showAddForm={showAddForm}
         onToggle={() => setShowAddForm(!showAddForm)}
       />
 
-      {showAddForm && (
+      {showAddForm && !isStaffRoute && (
         <NewMedicationForm
           onToggle={() => setShowAddForm(!showAddForm)}
           assignmentId={assignmentId}

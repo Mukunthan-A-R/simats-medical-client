@@ -2,7 +2,7 @@ import React from "react";
 import { PillIcon, PlusIcon, XIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../../utils/constants";
 
-const MedicationsHeader = ({ showAddForm = false, onToggle }) => {
+const MedicationsHeader = ({ isStaffRoute, showAddForm = false, onToggle }) => {
   return (
     <div
       className="overflow-hidden mb-6 animate-fadeIn"
@@ -37,28 +37,30 @@ const MedicationsHeader = ({ showAddForm = false, onToggle }) => {
 
         {/* Right: Add / Cancel button */}
         <div className="flex space-x-2">
-          <button
-            className={`px-3 py-1.5 rounded-md text-xs font-medium text-white flex items-center ${aquaButtonStyle} ${aquaGlossEffect}`}
-            onClick={onToggle}
-            style={{
-              background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
-              border: "1px solid rgba(0,0,0,0.2)",
-              boxShadow:
-                "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4)",
-            }}
-          >
-            {showAddForm ? (
-              <>
-                <XIcon size={12} className="mr-1.5" />
-                Cancel
-              </>
-            ) : (
-              <>
-                <PlusIcon size={12} className="mr-1.5" />
-                Add Prescription
-              </>
-            )}
-          </button>
+          {!isStaffRoute && (
+            <button
+              className={`px-3 py-1.5 rounded-md text-xs font-medium text-white flex items-center ${aquaButtonStyle} ${aquaGlossEffect}`}
+              onClick={onToggle}
+              style={{
+                background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
+                border: "1px solid rgba(0,0,0,0.2)",
+                boxShadow:
+                  "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4)",
+              }}
+            >
+              {showAddForm ? (
+                <>
+                  <XIcon size={12} className="mr-1.5" />
+                  Cancel
+                </>
+              ) : (
+                <>
+                  <PlusIcon size={12} className="mr-1.5" />
+                  Add Prescription
+                </>
+              )}
+            </button>
+          )}
         </div>
       </div>
     </div>

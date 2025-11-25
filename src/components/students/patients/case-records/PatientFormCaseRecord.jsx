@@ -25,7 +25,6 @@ const PatientFormCaseRecord = ({ assignmentId }) => {
   const caseRecords = caseRecord?.caseRecords || [];
 
   const handleAddEntry = () => {
-    console.log("Add entry clicked");
     setNewRecord(!newRecord);
   };
 

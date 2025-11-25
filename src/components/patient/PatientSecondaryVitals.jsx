@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PatientSecondaryVitalDropDown from "./PatientSecondaryVitalDropDown";
 import NewSecondaryVitalsForm from "../vitals/NewSecondaryVitalsForm";
 
-const PatientSecondaryVitals = ({ assignmentId }) => {
+const PatientSecondaryVitals = ({ assignmentId, isStaffRoute }) => {
   const [showSecondaryVitals, setShowSecondaryVitals] = useState(false);
   const [secondaryVital, setSecondaryVital] = useState(false);
 
@@ -23,18 +23,20 @@ const PatientSecondaryVitals = ({ assignmentId }) => {
         <span className="flex flex-row p-4 justify-between items-center border-b-gray-500">
           Other Vitals Signs
           <div className="flex items-center gap-2">
-            <button
-              className={`px-4 py-2 rounded-md text-sm font-medium text-white`}
-              style={{
-                background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
-                border: "1px solid rgba(0,0,0,0.2)",
-                boxShadow:
-                  "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
-              }}
-              onClick={() => setSecondaryVital(!secondaryVital)} // fixed
-            >
-              {secondaryVital ? "Close" : "Add"} {/* fixed */}
-            </button>
+            {!isStaffRoute && (
+              <button
+                className={`px-4 py-2 rounded-md text-sm font-medium text-white`}
+                style={{
+                  background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
+                  border: "1px solid rgba(0,0,0,0.2)",
+                  boxShadow:
+                    "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
+                }}
+                onClick={() => setSecondaryVital(!secondaryVital)} // fixed
+              >
+                {secondaryVital ? "Close" : "Add"} {/* fixed */}
+              </button>
+            )}
 
             <ChevronDownIcon
               onClick={() => setShowSecondaryVitals(!showSecondaryVitals)}
@@ -48,7 +50,9 @@ const PatientSecondaryVitals = ({ assignmentId }) => {
       </div>
 
       {/* Show the form only if secondaryVital is true */}
-      {secondaryVital && <NewSecondaryVitalsForm assignmentId={assignmentId} />}
+      {secondaryVital && !isStaffRoute && (
+        <NewSecondaryVitalsForm assignmentId={assignmentId} />
+      )}
 
       <PatientSecondaryVitalDropDown
         assignmentId={assignmentId}
