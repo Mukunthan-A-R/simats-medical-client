@@ -6,6 +6,7 @@ import { useRecoilState } from "recoil";
 import { userLoginAtom, userData } from "../../context/userAtom";
 import { useQuery } from "@tanstack/react-query";
 import { fetchAdminById } from "../../services/adminService";
+import AdminSidebar from "../../components/admin/AdminSidebar";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ export default function AdminLayout() {
       <div className="flex flex-row">
         {/* Sidebar */}
         {isSideOpen && (
-          <StudentSidebar
+          <AdminSidebar
             isOpen={isSideOpen}
             onClose={() => setIsSideOpen(false)}
             onNavigate={handleNav}
