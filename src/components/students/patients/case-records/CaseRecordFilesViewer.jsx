@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchFileByFieldId } from "../../../../services/fileService";
 
 const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
-  // Fetch files ONLY when the record is opened
+  const [previewUrl, setPreviewUrl] = useState(null); // For fullscreen preview
+
+  // Fetch only when isOpen == true
   const { data: files, isLoading } = useQuery({
     queryKey: ["caseRecordFiles", fileIds],
     queryFn: async () => {
@@ -15,53 +17,73 @@ const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
       );
       return results;
     },
-    enabled: isOpen && fileIds.length > 0, // fetch only if opened
+    enabled: isOpen && fileIds.length > 0,
     staleTime: Infinity,
   });
 
   if (!fileIds || fileIds.length === 0) return null;
 
   return (
-    <div className="mt-4">
-      <h3 className="text-md font-semibold mb-2">Attached Files</h3>
+    <div className="mt-5">
+      <h3 className="text-md font-semibold mb-2">Attachments</h3>
 
       {isLoading && <p>Loading files...</p>}
 
-      {/* Show Images / PDF */}
       {!isLoading && files && (
         <div className="grid grid-cols-2 gap-4">
           {files.map((file, idx) => {
             const url = file.fileUrl;
-
-            // Identify PDF vs image
             const isPdf = url.includes("pdf");
 
             return (
-              <div key={idx} className="border rounded p-2 bg-gray-50">
-                {isPdf ? (
-                  <iframe
-                    src={url}
-                    title={`pdf-${idx}`}
-                    className="w-full h-48 rounded"
-                  ></iframe>
-                ) : (
+              <div
+                key={idx}
+                className="border border-gray-400 rounded-xl p-2 bg-gray-50 shadow-sm"
+              >
+                {/* IMAGE PREVIEW */}
+                {!isPdf && (
                   <img
                     src={url}
-                    alt="case attachment"
-                    className="rounded-md shadow w-full h-auto"
+                    onClick={() => setPreviewUrl(url)}
+                    alt="case-file"
+                    className="rounded-md shadow w-full h-auto cursor-pointer hover:opacity-80 transition"
                   />
                 )}
 
+                {/* PDF PREVIEW */}
+                {isPdf && (
+                  <iframe
+                    src={url}
+                    className="w-full h-48 rounded shadow"
+                    title={`pdf-${idx}`}
+                  ></iframe>
+                )}
+
+                {/* Download Button */}
                 <a
                   href={url}
                   download
-                  className="text-blue-600 text-sm underline block mt-2"
+                  className="text-blue-600 text-sm underline block mt-2 text-center"
                 >
                   Download File
                 </a>
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* FULLSCREEN LIGHTBOX VIEW */}
+      {previewUrl && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
+          onClick={() => setPreviewUrl(null)}
+        >
+          <img
+            src={previewUrl}
+            alt="preview"
+            className="max-w-[90%] max-h-[90%] rounded shadow-lg"
+          />
         </div>
       )}
     </div>
