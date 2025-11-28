@@ -6,37 +6,26 @@ import DoctorSelect from "../patients/DoctorSelect";
 const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
   const [formData, setFormData] = useState(
     form.fields.reduce((acc, field) => {
-      acc[field.field_name] = "";
+      acc[field.field_name] = field.field_type === "file" ? [] : "";
       return acc;
     }, {})
   );
 
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (data) =>
-      createProcedureCaseRecord({
-        procedure_id: form.procedure_id,
-        form_id: form.form_id,
-        form_data: data,
-        doctor_id: selectedDoctor, // include selected doctor here
-        student_id: studentId,
-        patient_id: patientId,
-        assignment_id: assignmentId,
-        approval: "requested",
-      }),
+    mutationFn: (data) => createProcedureCaseRecord(data),
     onSuccess: () => {
       alert("Procedure Case Record created successfully!");
       queryClient.invalidateQueries(["procedureCaseRecords", assignmentId]);
       setFormData(
         form.fields.reduce((acc, field) => {
-          acc[field.field_name] = "";
+          acc[field.field_name] = field.field_type === "file" ? [] : "";
           return acc;
         }, {})
       );
-      setSelectedDoctor(null); // reset doctor selection
+      setSelectedDoctor(null);
     },
     onError: (err) => {
       console.error("Error creating procedure case record:", err);
@@ -45,7 +34,14 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
   });
 
   const handleChange = (e, field) => {
-    setFormData((prev) => ({ ...prev, [field.field_name]: e.target.value }));
+    if (field.field_type === "file") {
+      setFormData((prev) => ({
+        ...prev,
+        [field.field_name]: Array.from(e.target.files),
+      }));
+    } else {
+      setFormData((prev) => ({ ...prev, [field.field_name]: e.target.value }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -54,7 +50,34 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
       alert("Please select a doctor before submitting.");
       return;
     }
-    mutation.mutate(formData);
+
+    // Prepare FormData
+    const submissionData = new FormData();
+    submissionData.append("procedure_id", form.procedure_id);
+    submissionData.append("form_id", form.form_id);
+    submissionData.append("doctor_id", selectedDoctor);
+    submissionData.append("student_id", studentId);
+    submissionData.append("patient_id", patientId);
+    submissionData.append("assignment_id", assignmentId);
+    submissionData.append("approval", "requested");
+
+    // Keep all non-file fields as form_data JSON
+    const nonFileFields = {};
+    Object.keys(formData).forEach((key) => {
+      if (!Array.isArray(formData[key])) {
+        nonFileFields[key] = formData[key];
+      }
+    });
+    submissionData.append("form_data", JSON.stringify(nonFileFields));
+
+    // Append file fields separately
+    Object.keys(formData).forEach((key) => {
+      if (Array.isArray(formData[key])) {
+        formData[key].forEach((file) => submissionData.append(key, file));
+      }
+    });
+
+    mutation.mutate(submissionData);
   };
 
   return (
@@ -113,6 +136,33 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
                   required={is_required}
                   rows={3}
                 />
+              </div>
+            );
+          }
+
+          if (field_type === "file") {
+            return (
+              <div key={field_id}>
+                <label className="block text-gray-700 font-medium mb-1">
+                  {label}{" "}
+                  {is_required && <span className="text-red-500">*</span>}
+                </label>
+                <input
+                  type="file"
+                  multiple
+                  onChange={(e) => handleChange(e, field)}
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  required={is_required}
+                />
+
+                {/* List selected file names */}
+                {formData[field_name] && formData[field_name].length > 0 && (
+                  <ul className="mt-1 text-sm text-gray-700 list-disc list-inside">
+                    {formData[field_name].map((file, idx) => (
+                      <li key={idx}>{file.name}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             );
           }

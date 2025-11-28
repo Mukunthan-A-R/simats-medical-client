@@ -1,12 +1,9 @@
-// File: FormBuilder.jsx
 import React, { useState } from "react";
 
-// iOS 6 Gradient Button Class
 const iosButton =
   "px-4 py-2 rounded-lg text-white font-semibold shadow " +
   "bg-gradient-to-b from-[#6eb7ff] to-[#1a73e8] border border-[#1a73e8] active:from-[#1a73e8] active:to-[#1558b0]";
 
-// Field Component
 const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
   const handleOptionChange = (index, value) => {
     const newOptions = [...field.options];
@@ -21,9 +18,17 @@ const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
     ]);
   };
 
+  // Handle file selection for this field
+  const handleFileChange = (e) => {
+    updateField(
+      field.id,
+      "files",
+      e.target.files ? Array.from(e.target.files) : []
+    );
+  };
+
   return (
     <div className="flex space-x-3 mb-4">
-      {/* Move Buttons */}
       <div className="flex flex-col space-y-2">
         <button
           onClick={() => moveUp(field.id)}
@@ -39,10 +44,8 @@ const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
         </button>
       </div>
 
-      {/* Field Card */}
       <div className="flex-1 border border-gray-300 rounded-xl p-4 bg-gradient-to-b from-[#fafafa] to-[#e6e6e6] shadow">
         <div className="flex justify-between items-center mb-2">
-          {/* Label Input */}
           <input
             type="text"
             placeholder="Field Label"
@@ -50,8 +53,6 @@ const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
             onChange={(e) => updateField(field.id, "label", e.target.value)}
             className="border border-gray-400 bg-gradient-to-b from-white to-gray-100 shadow-inner p-2 rounded w-full mr-4 focus:outline-none focus:ring-1 focus:ring-blue-400"
           />
-
-          {/* Delete Button */}
           <button
             onClick={() => removeField(field.id)}
             className="px-3 py-1 rounded-lg text-white font-semibold shadow 
@@ -114,12 +115,20 @@ const Field = ({ field, updateField, removeField, moveUp, moveDown }) => {
             </button>
           </div>
         )}
+        {/* File Field */}
+        {field.type === "file" && (
+          <input
+            type="file"
+            multiple={field.config?.multiple || false}
+            onChange={handleFileChange}
+            className="border border-gray-400 p-2 rounded bg-gradient-to-b from-white to-gray-100 shadow-inner w-full"
+          />
+        )}
       </div>
     </div>
   );
 };
 
-// Main FormBuilder
 const FormBuilder = ({ onSubmitFormStructure }) => {
   const [fields, setFields] = useState([]);
 
@@ -127,11 +136,12 @@ const FormBuilder = ({ onSubmitFormStructure }) => {
     setFields((prev) => [
       ...prev,
       {
-        id: Date.now(), // unique identifier
-        serial_no: prev.length + 1, // order
+        id: Date.now(),
+        serial_no: prev.length + 1,
         type,
         label: "",
         options: type === "radio" || type === "checkbox" ? ["Option 1"] : [],
+        files: type === "file" ? [] : undefined, // store selected files
       },
     ]);
   };
@@ -199,6 +209,9 @@ const FormBuilder = ({ onSubmitFormStructure }) => {
         </button>
         <button onClick={() => addField("checkbox")} className={iosButton}>
           Add Checkbox
+        </button>
+        <button onClick={() => addField("file")} className={iosButton}>
+          Add File
         </button>
       </div>
 

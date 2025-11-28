@@ -7,7 +7,7 @@ const BASE_URL = "http://localhost:5000";
 const axiosInstance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 
@@ -19,6 +19,12 @@ axiosInstance.interceptors.request.use(
       return Promise.reject({ message: "No token found, logging out..." });
     }
     config.headers.Authorization = `Bearer ${token}`;
+
+    // If the data is FormData, delete Content-Type so axios can set multipart/form-data
+    if (config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
+    }
+
     return config;
   },
   (error) => {
@@ -27,5 +33,3 @@ axiosInstance.interceptors.request.use(
 );
 
 export default axiosInstance;
-
-// utils/auth.js
