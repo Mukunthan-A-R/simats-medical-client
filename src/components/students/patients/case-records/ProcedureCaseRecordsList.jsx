@@ -10,6 +10,7 @@ import {
   User,
   UserCheck,
 } from "lucide-react";
+import CaseRecordFilesViewer from "./CaseRecordFilesViewer";
 
 const ProcedureCaseRecordsList = ({ assignmentId }) => {
   const { data, isLoading, isError } = useQuery({
@@ -122,7 +123,12 @@ const ProcedureCaseRecordCard = ({ record }) => {
               ))}
           </div>
 
-          <div className="my-4 border-t border-gray-200"></div>
+          <CaseRecordFilesViewer
+            fileIds={record.form_data?.fields || []}
+            isOpen={isOpen}
+          />
+
+          <div className="my-4 border-t border-gray-200"> hi amigo</div>
 
           {/* Footer */}
           <div className="flex flex-col sm:flex-row justify-between gap-3 text-gray-600">
