@@ -128,7 +128,7 @@ const ProcedureCaseRecordCard = ({ record }) => {
             isOpen={isOpen}
           />
 
-          <div className="my-4 border-t border-gray-200"> hi amigo</div>
+          <div className="my-4 border-t border-gray-200"></div>
 
           {/* Footer */}
           <div className="flex flex-col sm:flex-row justify-between gap-3 text-gray-600">
