@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProcedureCaseRecord } from "../../../services/procedureCaseRecordService";
 import DoctorSelect from "../patients/DoctorSelect";
+import toast from "react-hot-toast";
 
 const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
+  const queryClient = useQueryClient();
+
+  // Initialize formData with empty strings or empty arrays for file fields
   const [formData, setFormData] = useState(
     form.fields.reduce((acc, field) => {
       acc[field.field_name] = field.field_type === "file" ? [] : "";
@@ -12,13 +16,15 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
   );
 
   const [selectedDoctor, setSelectedDoctor] = useState(null);
-  const queryClient = useQueryClient();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // React Query mutation
   const mutation = useMutation({
     mutationFn: (data) => createProcedureCaseRecord(data),
     onSuccess: () => {
-      alert("Procedure Case Record created successfully!");
+      toast.success("Procedure Case Record created successfully!");
       queryClient.invalidateQueries(["procedureCaseRecords", assignmentId]);
+      // Reset form
       setFormData(
         form.fields.reduce((acc, field) => {
           acc[field.field_name] = field.field_type === "file" ? [] : "";
@@ -29,56 +35,65 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
     },
     onError: (err) => {
       console.error("Error creating procedure case record:", err);
-      alert("Failed to create procedure case record.");
+      toast.error("Failed to create procedure case record.");
     },
   });
 
+  // Handle input changes
   const handleChange = (e, field) => {
     if (field.field_type === "file") {
-      setFormData((prev) => ({
-        ...prev,
-        [field.field_name]: Array.from(e.target.files),
-      }));
+      const files = Array.from(e.target.files);
+      setFormData((prev) => ({ ...prev, [field.field_name]: files }));
     } else {
       setFormData((prev) => ({ ...prev, [field.field_name]: e.target.value }));
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!selectedDoctor) {
-      alert("Please select a doctor before submitting.");
-      return;
-    }
+  // Handle form submit
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
 
-    // Prepare FormData
-    const submissionData = new FormData();
-    submissionData.append("procedure_id", form.procedure_id);
-    submissionData.append("form_id", form.form_id);
-    submissionData.append("doctor_id", selectedDoctor);
-    submissionData.append("student_id", studentId);
-    submissionData.append("patient_id", patientId);
-    submissionData.append("assignment_id", assignmentId);
-    submissionData.append("approval", "requested");
-
-    // Keep all non-file fields as form_data JSON
-    const nonFileFields = {};
-    Object.keys(formData).forEach((key) => {
-      if (!Array.isArray(formData[key])) {
-        nonFileFields[key] = formData[key];
+      if (isSubmitting || mutation.isLoading) return;
+      if (!selectedDoctor) {
+        alert("Please select a doctor before submitting.");
+        return;
       }
-    });
-    submissionData.append("form_data", JSON.stringify(nonFileFields));
 
-    // Append file fields separately
-    Object.keys(formData).forEach((key) => {
-      if (Array.isArray(formData[key])) {
-        formData[key].forEach((file) => submissionData.append(key, file));
-      }
-    });
+      setIsSubmitting(true);
 
-    mutation.mutate(submissionData);
-  };
+      // Prepare FormData
+      const submissionData = new FormData();
+      submissionData.append("procedure_id", form.procedure_id);
+      submissionData.append("form_id", form.form_id);
+      submissionData.append("doctor_id", selectedDoctor);
+      submissionData.append("student_id", studentId);
+      submissionData.append("patient_id", patientId);
+      submissionData.append("assignment_id", assignmentId);
+      submissionData.append("approval", "requested");
+
+      // Append non-file fields as JSON
+      const nonFileFields = {};
+      Object.keys(formData).forEach((key) => {
+        if (!Array.isArray(formData[key])) {
+          nonFileFields[key] = formData[key];
+        }
+      });
+      submissionData.append("form_data", JSON.stringify(nonFileFields));
+
+      // Append file fields
+      Object.keys(formData).forEach((key) => {
+        if (Array.isArray(formData[key])) {
+          formData[key].forEach((file) => submissionData.append(key, file));
+        }
+      });
+
+      mutation.mutate(submissionData, {
+        onSettled: () => setIsSubmitting(false), // unlock submit after success/error
+      });
+    },
+    [formData, selectedDoctor, isSubmitting, mutation]
+  );
 
   return (
     <div className="bg-white rounded-xl shadow p-6 mt-4 mx-auto">
@@ -154,8 +169,6 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
                   className="w-full border border-gray-300 rounded px-3 py-2"
                   required={is_required}
                 />
-
-                {/* List selected file names */}
                 {formData[field_name] && formData[field_name].length > 0 && (
                   <ul className="mt-1 text-sm text-gray-700 list-disc list-inside">
                     {formData[field_name].map((file, idx) => (
@@ -193,10 +206,10 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
 
         <button
           type="submit"
+          disabled={isSubmitting || mutation.isLoading}
           className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-          disabled={mutation.isLoading}
         >
-          {mutation.isLoading ? "Submitting..." : "Submit"}
+          {isSubmitting || mutation.isLoading ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>
