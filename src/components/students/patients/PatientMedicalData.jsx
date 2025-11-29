@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { ClipboardListIcon, HeartPulseIcon, PillIcon } from "lucide-react";
+import {
+  ClipboardListIcon,
+  HeartPulseIcon,
+  PillIcon,
+  Image,
+} from "lucide-react";
 import PatientCaseRecord from "./PatientCaseRecord";
 import PatientViralsData from "../../patient/vitals/PatientVitalsData";
 import PatientPrescriptionData from "./PatientPrescriptionData";
 import PatientFormCaseRecord from "./case-records/PatientFormCaseRecord";
+import PatientGallery from "./gallery/PatientGallery";
 
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
@@ -50,6 +56,12 @@ const PatientMedicalData = ({ patient }) => {
           icon={<PillIcon size={16} />}
           label="Medications"
         />
+        <TabButton
+          isActive={activeTab === "gallery"}
+          onClick={() => setActiveTab("gallery")}
+          icon={<Image size={16} />}
+          label="Gallery"
+        />
       </div>
 
       {/* Case Records Tab */}
@@ -73,6 +85,11 @@ const PatientMedicalData = ({ patient }) => {
       {/* Medications Tab */}
       {activeTab === "meds" && (
         <PatientPrescriptionData assignmentId={patient?.assignment_id} />
+      )}
+
+      {/* Gallery Tab */}
+      {activeTab === "gallery" && (
+        <PatientGallery assignmentId={patient?.assignment_id} />
       )}
     </div>
   );
