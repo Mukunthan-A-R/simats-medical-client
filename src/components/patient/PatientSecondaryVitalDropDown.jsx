@@ -37,6 +37,9 @@ const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
     enabled: !!assignmentId,
   });
 
+  console.log("data");
+  console.log(data);
+
   useEffect(() => {
     if (data) {
       const latestUnique = Object.values(
@@ -51,26 +54,16 @@ const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
   }, [data]);
 
   return (
-    <div
-    // className="
-    //   rounded-xl overflow-hidden
-    //   shadow-[0_4px_15px_rgba(0,0,0,0.06)]
-    //   border border-gray-200
-    //   bg-gradient-to-b from-white to-gray-50/80
-    //   transition-all duration-300
-    // "
-    >
+    <div>
       {/* Grid Layout */}
       <div
         className="
-          p-4 sm:p-6 
-          grid gap-5 sm:gap-6
-          grid-cols-1 
-          sm:grid-cols-2
-          md:grid-cols-2 
-          lg:grid-cols-3
-          xl:grid-cols-4
-        "
+  p-4 sm:p-6
+  grid gap-5 sm:gap-6
+  grid-cols-1
+  sm:grid-cols-[repeat(auto-fit,minmax(200px,1fr))]
+  lg:grid-cols-3
+"
       >
         {vitalData.map((vital) => (
           <div key={vital.type_name} className="w-full">
@@ -88,6 +81,7 @@ const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
                 data: vital.value,
                 description: vital.type_name.replace(/_/g, " "),
                 color1: "#8dd1e1",
+                unit: vital.unit,
               }}
             />
           </div>
