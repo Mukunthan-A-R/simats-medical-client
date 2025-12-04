@@ -9,19 +9,11 @@ const PatientSecondaryVitals = ({ assignmentId, isStaffRoute }) => {
 
   return (
     <>
-      <div
-        className="rounded-xl font-medium text-gray-800 my-4"
-        style={{
-          boxShadow:
-            "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24), 0 0 0 1px rgba(0,0,0,0.05)",
-          border: "1px solid rgba(0,0,0,0.1)",
-          backgroundColor: "white",
-          backgroundImage:
-            "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(245,245,245,0.8))",
-        }}
-      >
+      <div className="rounded-xl font-medium text-gray-800 my-1">
         <span className="flex flex-row p-4 justify-between items-center border-b-gray-500">
-          Other Vitals Signs
+          <h3 className="text-lg font-semibold text-gray-700">
+            Primary Vitals
+          </h3>
           <div className="flex items-center gap-2">
             {!isStaffRoute && (
               <button
@@ -34,17 +26,17 @@ const PatientSecondaryVitals = ({ assignmentId, isStaffRoute }) => {
                 }}
                 onClick={() => setSecondaryVital(!secondaryVital)} // fixed
               >
-                {secondaryVital ? "Close" : "Add"} {/* fixed */}
+                {secondaryVital ? "Close" : "Add Vitals"} {/* fixed */}
               </button>
             )}
 
-            <ChevronDownIcon
+            {/* <ChevronDownIcon
               onClick={() => setShowSecondaryVitals(!showSecondaryVitals)}
               size={20}
               className={`text-gray-400 transition-transform ${
                 showSecondaryVitals ? "rotate-180" : ""
               }`}
-            />
+            /> */}
           </div>
         </span>
       </div>
@@ -54,10 +46,7 @@ const PatientSecondaryVitals = ({ assignmentId, isStaffRoute }) => {
         <NewSecondaryVitalsForm assignmentId={assignmentId} />
       )}
 
-      <PatientSecondaryVitalDropDown
-        assignmentId={assignmentId}
-        showSecondaryVitals={showSecondaryVitals}
-      />
+      <PatientSecondaryVitalDropDown assignmentId={assignmentId} />
     </>
   );
 };

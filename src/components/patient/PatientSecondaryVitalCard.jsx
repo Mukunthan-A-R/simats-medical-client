@@ -6,10 +6,12 @@ const PatientSecondaryVitalCard = ({ data, onClick }) => {
       onClick={onClick}
       className="flex flex-row gap-4 px-4 py-4 border border-gray-400 rounded-lg"
       style={{
-        backgroundColor: "rgba(245,245,245,0.8)",
         boxShadow:
-          "0 1px 3px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.7)",
+          "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24), 0 0 0 1px rgba(0,0,0,0.05)",
         border: "1px solid rgba(0,0,0,0.1)",
+        backgroundColor: "white",
+        backgroundImage:
+          "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(245,245,245,0.8))",
       }}
     >
       <div className="flex flex-row flex-1 items-center gap-2">

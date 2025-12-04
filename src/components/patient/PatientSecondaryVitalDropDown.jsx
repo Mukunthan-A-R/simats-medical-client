@@ -1,9 +1,10 @@
-import React, { Activity, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import PatientSecondaryVitalCard from "./PatientSecondaryVitalCard";
 import {
   DropletIcon,
   HeartPulse,
   ScaleIcon,
+  Activity,
   Stethoscope,
   Thermometer,
 } from "lucide-react";
@@ -11,23 +12,21 @@ import { useQuery } from "@tanstack/react-query";
 import { getLatestSecondarySecondaryVitals } from "../../services/secondaryVitals";
 import SecondaryVitalsTable from "../vitals/SecondaryVitalsTable";
 
+// Icon Map
 const iconMap = {
-  respiratory_rate: <Stethoscope size={16} />,
-  heart_rate: <HeartPulse size={16} />, // ❤️ Better match
-  oxygen_saturation: <DropletIcon size={16} />, // O2 saturation
-  temperature: <Thermometer size={16} />, // 🌡 Temp level
-  blood_pressure: <Activity size={16} />, // BP pulse-like
-  weight: <ScaleIcon size={16} />,
-  height: <ScaleIcon size={16} />,
-  bmi: <ScaleIcon size={16} />,
-  blood_glucose: <DropletIcon size={16} />,
-  total_cholesterol: <DropletIcon size={16} />,
+  respiratory_rate: <Stethoscope size={18} />,
+  heart_rate: <HeartPulse size={18} />,
+  oxygen_saturation: <DropletIcon size={18} />,
+  temperature: <Thermometer size={18} />,
+  blood_pressure: <Activity size={18} />,
+  weight: <ScaleIcon size={18} />,
+  height: <ScaleIcon size={18} />,
+  bmi: <ScaleIcon size={18} />,
+  blood_glucose: <DropletIcon size={18} />,
+  total_cholesterol: <DropletIcon size={18} />,
 };
 
-const PatientSecondaryVitalDropDown = ({
-  showSecondaryVitals,
-  assignmentId,
-}) => {
+const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
   const [vitalData, setVitalData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [typeId, setTypeId] = useState(null);
@@ -35,12 +34,11 @@ const PatientSecondaryVitalDropDown = ({
   const { data } = useQuery({
     queryKey: ["latestSecondaryVitals", assignmentId],
     queryFn: () => getLatestSecondarySecondaryVitals(assignmentId),
-    enabled: showSecondaryVitals && !!assignmentId,
+    enabled: !!assignmentId,
   });
 
   useEffect(() => {
     if (data) {
-      // Filter latest unique values by type_name
       const latestUnique = Object.values(
         data.reduce((acc, item) => {
           if (!acc[item.type_name]) acc[item.type_name] = item;
@@ -52,29 +50,27 @@ const PatientSecondaryVitalDropDown = ({
     }
   }, [data]);
 
-  if (!showSecondaryVitals) return null;
-
   return (
     <div
-      className="rounded-xl transition-all duration-500 ease-in-out overflow-hidden"
-      style={{
-        boxShadow:
-          "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24), 0 0 0 1px rgba(0,0,0,0.05)",
-        border: "1px solid rgba(0,0,0,0.1)",
-        backgroundColor: "white",
-        backgroundImage:
-          "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(245,245,245,0.8))",
-      }}
+    // className="
+    //   rounded-xl overflow-hidden
+    //   shadow-[0_4px_15px_rgba(0,0,0,0.06)]
+    //   border border-gray-200
+    //   bg-gradient-to-b from-white to-gray-50/80
+    //   transition-all duration-300
+    // "
     >
-      {/* 🔥 Responsive Grid */}
+      {/* Grid Layout */}
       <div
         className="
-    p-4 sm:p-6 
-    grid gap-4 sm:gap-6
-    grid-cols-[repeat(auto-fit,minmax(150px,1fr))]   /* small screens auto-fit */
-    md:grid-cols-2                                   /* medium: 2 per row */
-    lg:grid-cols-3                                   /* large: 3 per row */
-  "
+          p-4 sm:p-6 
+          grid gap-5 sm:gap-6
+          grid-cols-1 
+          sm:grid-cols-2
+          md:grid-cols-2 
+          lg:grid-cols-3
+          xl:grid-cols-4
+        "
       >
         {vitalData.map((vital) => (
           <div key={vital.type_name} className="w-full">
@@ -88,7 +84,7 @@ const PatientSecondaryVitalDropDown = ({
                 name: vital.type_name
                   .replace(/_/g, " ")
                   .replace(/\b\w/g, (c) => c.toUpperCase()),
-                icon: iconMap[vital.type_name] || <Stethoscope size={16} />,
+                icon: iconMap[vital.type_name] || <Stethoscope size={18} />,
                 data: vital.value,
                 description: vital.type_name.replace(/_/g, " "),
                 color1: "#8dd1e1",
@@ -98,7 +94,7 @@ const PatientSecondaryVitalDropDown = ({
         ))}
       </div>
 
-      {/* Table modal when card clicked */}
+      {/* Modal — Table Expanded View */}
       {isSelected && (
         <SecondaryVitalsTable
           assignmentId={assignmentId}

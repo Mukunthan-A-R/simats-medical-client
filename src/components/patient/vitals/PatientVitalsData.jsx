@@ -23,10 +23,10 @@ const PatientViralsData = ({ assignmentId }) => {
   };
 
   return (
-    <div className="flex flex-col gap-4 p-3">
+    <div className="flex flex-col">
       {/* HEADER + ADD VITALS BUTTON */}
       <div className="flex flex-col sm:flex-row justify-between items-center mb-2 gap-2">
-        <h3 className="text-lg font-semibold text-gray-700">Primary Vitals</h3>
+        {/* <h3 className="text-lg font-semibold text-gray-700">Primary Vitals</h3>
         {!isStaffRoute && (
           <button
             onClick={() => setAddVitals(!addVitals)}
@@ -40,32 +40,30 @@ const PatientViralsData = ({ assignmentId }) => {
           >
             {addVitals ? "Close" : "Add Vitals"}
           </button>
-        )}
+        )} */}
       </div>
 
       {/* ADD NEW VITALS FORM */}
-      {addVitals && !isStaffRoute && (
+      {/* {addVitals && !isStaffRoute && (
         <div className="mb-4 animate-slideDown">
           <NewPrimaryVitalsForm
             onClose={() => setOpenGraph(false)}
             assignmentId={assignmentId}
           />
         </div>
-      )}
+      )} */}
 
       {/* PRIMARY VITALS CARDS */}
-      <PrimaryVitals
+      {/* <PrimaryVitals
         assignmentId={assignmentId}
         handleCardClick={handleCardClick}
-      ></PrimaryVitals>
+      ></PrimaryVitals> */}
 
       {/* SECONDARY VITALS */}
-      <div className="mt-4">
-        <PatientSecondaryVitals
-          isStaffRoute={isStaffRoute}
-          assignmentId={assignmentId}
-        />
-      </div>
+      <PatientSecondaryVitals
+        isStaffRoute={isStaffRoute}
+        assignmentId={assignmentId}
+      />
 
       {/* CHART SECTION */}
       {openGraph && graphData && (
