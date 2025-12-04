@@ -10,8 +10,8 @@ export const fetchFileByFieldId = async (fileId) => {
     const response = await axiosInstance.get(`${BASE_URL}/${fileId}`, {
       responseType: "blob", // get file as Blob
     });
-    console.log("response");
-    console.log(response);
+    // console.log("response");
+    // console.log(response);
 
     // Convert Blob to object URL for frontend usage
     const fileUrl = URL.createObjectURL(response.data);

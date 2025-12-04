@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchAssignmentFilesMetadata } from "../../../../services/assignmentFilesService.js";
 import { fetchFileByFieldId } from "../../../../services/fileService.js";
+import PDFReader from "../page-flip/PDFReader.jsx";
 
 const LIMIT = 20;
 
 const PatientGallery = ({ assignmentId }) => {
   const [files, setFiles] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null); // unified popup
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  // ---------------- Infinite Query ----------------
   const {
     data,
     fetchNextPage,
@@ -29,7 +29,6 @@ const PatientGallery = ({ assignmentId }) => {
     enabled: !!assignmentId,
   });
 
-  // ---------------- Convert metadata to file URLs ----------------
   useEffect(() => {
     if (!data) return;
 
@@ -39,19 +38,14 @@ const PatientGallery = ({ assignmentId }) => {
           const url = await fetchFileByFieldId(meta.file_id);
           return { ...meta, url };
         })
-      ).then((pageFiles) => {
-        setFiles((prev) => [...prev, ...pageFiles]);
-      });
+      ).then((pageFiles) => setFiles((prev) => [...prev, ...pageFiles]));
     });
   }, [data]);
 
-  // ---------------- Infinite scroll ----------------
   const handleScroll = useCallback(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 100) {
-      if (hasNextPage && !isFetchingNextPage) {
-        fetchNextPage();
-      }
+      if (hasNextPage && !isFetchingNextPage) fetchNextPage();
     }
   }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
 
@@ -81,13 +75,13 @@ const PatientGallery = ({ assignmentId }) => {
 
   return (
     <>
-      {/* ---------------- Gallery ---------------- */}
+      {/* Gallery */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
         {files.map((file) => (
           <div
             key={file.file_id}
             className="relative rounded-lg overflow-hidden shadow-md bg-white hover:shadow-xl transition-shadow duration-300 flex items-center justify-center aspect-square cursor-pointer"
-            onClick={() => setSelectedFile(file)} // open modal
+            onClick={() => setSelectedFile(file)}
           >
             {["jpeg", "jpg", "png"].includes(file.extension) && file.url ? (
               <img
@@ -99,12 +93,10 @@ const PatientGallery = ({ assignmentId }) => {
               <div className="flex flex-col items-center justify-center text-sm text-gray-700 p-2">
                 📄 {file.filename}
               </div>
-            ) : file.url ? (
+            ) : (
               <div className="flex flex-col items-center justify-center text-sm text-gray-700 p-2">
                 📄 {file.filename}
               </div>
-            ) : (
-              <div className="bg-gray-200 animate-pulse w-full h-full"></div>
             )}
           </div>
         ))}
@@ -115,15 +107,15 @@ const PatientGallery = ({ assignmentId }) => {
         )}
       </div>
 
-      {/* ---------------- File Modal ---------------- */}
+      {/* File Modal */}
       {selectedFile && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
-          onClick={() => setSelectedFile(null)} // close when clicking outside
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+          onClick={() => setSelectedFile(null)}
         >
           <div
-            className="bg-white rounded-xl overflow-hidden w-[90%] max-w-4xl h-[90%] flex flex-col"
-            onClick={(e) => e.stopPropagation()} // prevent modal close on inner click
+            className="bg-white rounded-xl overflow-hidden w-full max-w-6xl h-full max-h-[95vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-center p-4 border-b">
               <h2 className="font-semibold text-gray-800">
@@ -136,7 +128,8 @@ const PatientGallery = ({ assignmentId }) => {
                 ✕
               </button>
             </div>
-            <div className="flex-1 flex items-center justify-center bg-gray-50 p-4">
+
+            <div className="flex-1 flex items-center justify-center bg-gray-50 p-4 overflow-auto">
               {["jpeg", "jpg", "png"].includes(selectedFile.extension) ? (
                 <img
                   src={selectedFile.url}
@@ -144,11 +137,7 @@ const PatientGallery = ({ assignmentId }) => {
                   className="max-h-full max-w-full object-contain"
                 />
               ) : selectedFile.extension === "pdf" ? (
-                <iframe
-                  src={selectedFile.url}
-                  title={selectedFile.filename}
-                  className="w-full h-full"
-                />
+                <PDFReader pdfUrl={selectedFile.url} />
               ) : (
                 <p className="text-gray-500">Cannot preview this file type.</p>
               )}
