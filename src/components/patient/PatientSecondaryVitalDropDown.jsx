@@ -11,6 +11,7 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { getLatestSecondarySecondaryVitals } from "../../services/secondaryVitals";
 import SecondaryVitalsTable from "../vitals/SecondaryVitalsTable";
+import SecondaryVitalChart from "./vitals/SecondaryVitalChart";
 
 // Icon Map
 const iconMap = {
@@ -30,15 +31,13 @@ const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
   const [vitalData, setVitalData] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
   const [typeId, setTypeId] = useState(null);
+  const [typeUnit, setTypeUnit] = useState(null);
 
   const { data } = useQuery({
     queryKey: ["latestSecondaryVitals", assignmentId],
     queryFn: () => getLatestSecondarySecondaryVitals(assignmentId),
     enabled: !!assignmentId,
   });
-
-  console.log("data");
-  console.log(data);
 
   useEffect(() => {
     if (data) {
@@ -71,6 +70,7 @@ const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
               onClick={() => {
                 setIsSelected(true);
                 setTypeId(vital.type_id);
+                setTypeUnit(vital.unit);
               }}
               data={{
                 id: vital.type_name,
@@ -90,11 +90,21 @@ const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
 
       {/* Modal — Table Expanded View */}
       {isSelected && (
-        <SecondaryVitalsTable
-          assignmentId={assignmentId}
-          typeId={typeId}
-          onClose={() => setIsSelected(false)}
-        />
+        <>
+          <SecondaryVitalsTable
+            assignmentId={assignmentId}
+            typeId={typeId}
+            onClose={() => setIsSelected(false)}
+            unit={typeUnit}
+          />
+
+          <SecondaryVitalChart
+            assignmentId={assignmentId}
+            typeId={typeId}
+            typeName="blood_pressure"
+            unit={typeUnit}
+          />
+        </>
       )}
     </div>
   );
