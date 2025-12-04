@@ -1,6 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { Activity, useEffect, useState } from "react";
 import PatientSecondaryVitalCard from "./PatientSecondaryVitalCard";
-import { DropletIcon, ScaleIcon, Stethoscope } from "lucide-react";
+import {
+  DropletIcon,
+  HeartPulse,
+  ScaleIcon,
+  Stethoscope,
+  Thermometer,
+} from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { getLatestSecondarySecondaryVitals } from "../../services/secondaryVitals";
 import SecondaryVitalsTable from "../vitals/SecondaryVitalsTable";
