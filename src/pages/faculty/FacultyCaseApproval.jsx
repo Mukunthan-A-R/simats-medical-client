@@ -19,9 +19,6 @@ const FacultyCaseApproval = () => {
     enabled: !!doctorId,
   });
 
-  console.log("data");
-  console.log(caseRecords);
-
   if (isLoading) {
     return <p className="text-blue-800 text-center pt-10">Data Loading...</p>;
   }
