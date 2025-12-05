@@ -19,6 +19,9 @@ const FacultyCaseApproval = () => {
     enabled: !!doctorId,
   });
 
+  console.log("data");
+  console.log(caseRecords);
+
   if (isLoading) {
     return <p className="text-blue-800 text-center pt-10">Data Loading...</p>;
   }
@@ -90,11 +93,11 @@ const FacultyCaseApproval = () => {
         </h1>
       </div>
 
-      {patients.map((patient) => (
-        <React.Fragment key={patient.record_id}>
-          <PatientCaseApprovalCard patient={patient} />
-        </React.Fragment>
-      ))}
+      <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {patients.map((patient) => (
+          <PatientCaseApprovalCard key={patient.record_id} patient={patient} />
+        ))}
+      </div>
     </div>
   );
 };
