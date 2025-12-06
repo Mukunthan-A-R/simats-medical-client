@@ -84,7 +84,7 @@ const PatientGallery = ({ assignmentId }) => {
     <div className="rounded-xl shadow-sm border border-gray-200 bg-white animate-fadeIn">
       {/* Gallery */}
 
-      <div className="px-5 py-4 bg-gradient-to-b from-gray-100 to-gray-200 shadow-inner flex flex-col rounded-t-xl">
+      <div className="px-5 py-4 bg-linear-to-b from-gray-100 to-gray-200 shadow-inner flex flex-col rounded-t-xl">
         <div className="flex justify-between">
           <div className="flex items-center gap-2">
             <Image size={18} className="text-blue-600" />

@@ -53,7 +53,7 @@ const CaseRecordsHeader = ({
   isStaffRoute = false,
 }) => (
   <>
-    <div className="px-5 py-4 bg-gradient-to-b from-gray-100 to-gray-200 shadow-inner flex items-center justify-between rounded-t-xl">
+    <div className="px-5 py-4 bg-linear-to-b from-gray-100 to-gray-200 shadow-inner flex items-center justify-between rounded-t-xl">
       <div className="flex items-center gap-2">
         <ClipboardListIcon size={18} className="text-blue-600" />
         <h3 className="font-medium text-gray-800 text-base">Case Records</h3>
