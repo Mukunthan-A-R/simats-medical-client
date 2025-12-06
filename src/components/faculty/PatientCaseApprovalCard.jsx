@@ -46,7 +46,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
   return (
     <div className="break-inside-avoid flex flex-col justify-between bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-200 overflow-hidden border border-gray-200">
       {/* ---------- TOP: PATIENT PROFILE ---------- */}
-      <div className="p-4 flex items-center gap-3 border-b border-gray-100 bg-gradient-to-b from-gray-50 to-white">
+      <div className="p-4 flex items-center gap-3 border-b border-gray-100 bg-linear-to-b from-gray-50 to-white">
         <img
           src={
             patient?.patientPhoto ||
@@ -97,21 +97,21 @@ const PatientCaseApprovalCard = ({ patient }) => {
         <div className="flex flex-col gap-2 mt-4">
           <button
             onClick={() => setViewSummary(true)}
-            className="w-full py-2 text-sm rounded-xl text-white bg-gradient-to-b from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 transition-all shadow-sm"
+            className="w-full py-2 text-sm rounded-xl text-white bg-linear-to-b from-blue-400 to-blue-600 hover:from-blue-500 hover:to-blue-700 transition-all shadow-sm"
           >
             Report Docs
           </button>
           <div className="flex gap-2">
             <button
               onClick={() => rejectRecord(patient.record_id)}
-              className="w-full py-2 text-sm rounded-xl text-white bg-gradient-to-b from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 transition-all shadow-sm"
+              className="w-full py-2 text-sm rounded-xl text-white bg-linear-to-b from-red-400 to-red-600 hover:from-red-500 hover:to-red-700 transition-all shadow-sm"
             >
               <XIcon size={14} className="inline mr-1" /> Reject
             </button>
 
             <button
               onClick={() => approveRecord(patient.record_id)}
-              className="w-full py-2 text-sm rounded-xl text-white bg-gradient-to-b from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-all shadow-sm"
+              className="w-full py-2 text-sm rounded-xl text-white bg-linear-to-b from-green-400 to-green-600 hover:from-green-500 hover:to-green-700 transition-all shadow-sm"
             >
               <CheckIcon size={14} className="inline mr-1" /> Approve
             </button>

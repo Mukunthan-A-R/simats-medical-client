@@ -65,7 +65,7 @@ const ProcedureCaseRecordCard = ({ record }) => {
       >
         <div className="flex items-center">
           <div
-            className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-gradient-to-b ${statusGradient} border border-gray-300 shadow`}
+            className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-linear-to-b ${statusGradient} border border-gray-300 shadow`}
           >
             {status === "approved" ? (
               <Check size={16} className="text-white" />

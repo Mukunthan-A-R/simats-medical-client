@@ -23,7 +23,7 @@ const PatientProfileData = ({ patient }) => {
     <div className="p-3 bg-white rounded-2xl shadow-sm">
       {/* Top Section */}
       <div className="flex items-start">
-        <div className="relative mr-3 flex-shrink-0">
+        <div className="relative mr-3 shrink-0">
           <div
             className="h-14 w-14 rounded-full overflow-hidden"
             style={{

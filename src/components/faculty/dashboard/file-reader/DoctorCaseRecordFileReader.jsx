@@ -46,7 +46,7 @@ const DoctorCaseRecordFileReader = ({ fileIds = [] }) => {
           return (
             <div
               key={idx}
-              className="flex-shrink-0 w-32 h-32 border border-gray-300 rounded-md bg-gray-50 relative cursor-pointer"
+              className="shrink-0 w-32 h-32 border border-gray-300 rounded-md bg-gray-50 relative cursor-pointer"
               onClick={() => handleClick(url)}
             >
               {!fileIsPdf && (
