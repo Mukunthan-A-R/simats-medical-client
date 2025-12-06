@@ -8,6 +8,7 @@ import {
   aquaButtonStyle,
   aquaGlossEffect,
 } from "../../../../utils/constants.js";
+import DocumentUpload from "./DocumentUpload.jsx";
 
 const LIMIT = 20;
 
@@ -184,6 +185,16 @@ const PatientGallery = ({ assignmentId }) => {
             </div>
           </div>
         </div>
+      )}
+      {uploadFile && (
+        <DocumentUpload
+          onClose={() => setUploadFile(false)}
+          onUpload={(file, type) => {
+            console.log("Uploading:", file, "Type:", type);
+            // TODO integrate API
+            setUploadFile(false);
+          }}
+        />
       )}
     </div>
   );
