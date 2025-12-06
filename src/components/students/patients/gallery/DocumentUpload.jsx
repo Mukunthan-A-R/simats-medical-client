@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { XIcon, FolderUpIcon, ImageIcon, Upload } from "lucide-react";
+import DocumentTypeSelect from "../../../../utils/dropDown/DocumentTypeSelect";
 
 const DocumentUpload = ({ onClose, onUpload }) => {
   const [files, setFiles] = useState([]);
@@ -61,24 +62,9 @@ const DocumentUpload = ({ onClose, onUpload }) => {
             <label className="text-sm font-medium text-gray-700">
               Document Type
             </label>
-            <select
-              value={docType}
-              onChange={(e) => setDocType(e.target.value)}
-              className="mt-1 w-full px-3 py-2 rounded-lg outline-none"
-              style={{
-                background: "linear-gradient(#fff, #e9e9e9)",
-                border: "1px solid #b5b5b5",
-                boxShadow: "inset 0 1px 2px rgba(0,0,0,0.1)",
-              }}
-            >
-              <option value="" disabled>
-                Select Type
-              </option>
-              <option value="report">Medical Report</option>
-              <option value="scan">Scan / XRAY</option>
-              <option value="bill">Bill / Invoice</option>
-              <option value="prescription">Prescription</option>
-            </select>
+            <DocumentTypeSelect
+              onChange={(selected) => setDocType(selected?.value || "")}
+            />
           </div>
           {/* Upload Box */}
           <div
