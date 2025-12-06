@@ -3,13 +3,18 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchAssignmentFilesMetadata } from "../../../../services/assignmentFilesService.js";
 import { fetchFileByFieldId } from "../../../../services/fileService.js";
 import PDFReader from "../page-flip/PDFReader.jsx";
-import { Image } from "lucide-react";
+import { Image, PlusIcon, XIcon } from "lucide-react";
+import {
+  aquaButtonStyle,
+  aquaGlossEffect,
+} from "../../../../utils/constants.js";
 
 const LIMIT = 20;
 
 const PatientGallery = ({ assignmentId }) => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [uploadFile, setUploadFile] = useState(false);
 
   const {
     data,
@@ -75,13 +80,40 @@ const PatientGallery = ({ assignmentId }) => {
     );
 
   return (
-    <>
+    <div className="rounded-xl shadow-sm border border-gray-200 bg-white animate-fadeIn">
       {/* Gallery */}
 
       <div className="px-5 py-4 bg-gradient-to-b from-gray-100 to-gray-200 shadow-inner flex flex-col rounded-t-xl">
-        <div className="flex items-center gap-2">
-          <Image size={18} className="text-blue-600" />
-          <h3 className="font-medium text-gray-800 text-base">Case Records</h3>
+        <div className="flex justify-between">
+          <div className="flex items-center gap-2">
+            <Image size={18} className="text-blue-600" />
+            <h3 className="font-medium text-gray-800 text-base">
+              Case Records
+            </h3>
+          </div>
+          <button
+            className={`px-3 py-1.5 rounded-md text-xs font-medium ${aquaButtonStyle} ${aquaGlossEffect} flex items-center`}
+            style={{
+              background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
+              border: "1px solid rgba(0,0,0,0.2)",
+              boxShadow:
+                "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
+              color: "white",
+            }}
+            onClick={() => setUploadFile(!uploadFile)}
+          >
+            {uploadFile ? (
+              <>
+                <XIcon size={12} className="mr-1.5" />
+                Close
+              </>
+            ) : (
+              <>
+                <PlusIcon size={12} className="mr-1.5" />
+                Upload
+              </>
+            )}
+          </button>
         </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4 bg-white">
@@ -153,7 +185,7 @@ const PatientGallery = ({ assignmentId }) => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
