@@ -39,7 +39,6 @@ const ProcedureCaseRecordsList = ({ assignmentId }) => {
 
   return (
     <div className="divide-y divide-gray-100 px-3 pt-2">
-      <h2 className="px-2 pb-3 text-lg font-medium">Case Records</h2>
       {caseRecords.map((record) => (
         <ProcedureCaseRecordCard key={record.record_id} record={record} />
       ))}
