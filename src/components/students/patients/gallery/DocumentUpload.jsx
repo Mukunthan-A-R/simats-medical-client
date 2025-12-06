@@ -1,11 +1,40 @@
 import { useState } from "react";
-import { XIcon, FolderUpIcon, ImageIcon, Upload } from "lucide-react";
+import { useParams, useLocation } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { XIcon, ImageIcon } from "lucide-react";
 import DocumentTypeSelect from "../../../../utils/dropDown/DocumentTypeSelect";
+import { uploadUserFiles } from "../../../../services/userFileUploadService";
+import toast from "react-hot-toast";
 
-const DocumentUpload = ({ onClose, onUpload }) => {
+const DocumentUpload = ({ onClose, onSuccess }) => {
   const [files, setFiles] = useState([]);
   const [docType, setDocType] = useState("");
 
+  // -------------------- Derive uploaderId & uploaderRole from URL --------------------
+  const params = useParams();
+  const location = useLocation();
+
+  // Role mapping
+  const roleMap = {
+    doctor: 1,
+    student: 2,
+    patient: 3,
+    admin: 4,
+  };
+
+  // Get the first segment of the URL
+  const roleSegment = location.pathname.split("/")[1];
+
+  // Map to role
+  const uploaderRole = roleMap[roleSegment];
+
+  // Determine uploaderId based on segment
+  let uploaderId = null;
+  if (roleSegment === "student") uploaderId = params.studentId;
+  else if (roleSegment === "doctor" || roleSegment === "faculty")
+    uploaderId = params.doctorId;
+
+  // -------------------- File Handlers --------------------
   const handleFileSelect = (e) => {
     setFiles([...files, ...Array.from(e.target.files)]);
   };
@@ -20,6 +49,33 @@ const DocumentUpload = ({ onClose, onUpload }) => {
   const removeFile = (i) => {
     setFiles(files.filter((_, index) => index !== i));
   };
+
+  // -------------------- Mutation --------------------
+  const mutation = useMutation({
+    mutationFn: async () => {
+      if (!uploaderId || !uploaderRole || !docType)
+        throw new Error("Missing required uploader information");
+
+      const formData = new FormData();
+      files.forEach((file) => formData.append("files", file));
+      formData.append("uploader_id", uploaderId);
+      formData.append("uploader_role", uploaderRole);
+      formData.append("type_id", docType);
+
+      return uploadUserFiles(formData); // must return a promise
+    },
+    onSuccess: (data) => {
+      setFiles([]);
+      setDocType("");
+      toast.success("Files uploaded successfully!");
+      if (onSuccess) onSuccess(data);
+    },
+    onError: (err) => {
+      console.error("Upload failed:", err);
+      //   toast.error(err.message || "File upload failed");
+      alert(err.message || "File upload failed");
+    },
+  });
 
   return (
     <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
@@ -66,6 +122,7 @@ const DocumentUpload = ({ onClose, onUpload }) => {
               onChange={(selected) => setDocType(selected?.value || "")}
             />
           </div>
+
           {/* Upload Box */}
           <div
             onDrop={handleDrop}
@@ -90,6 +147,7 @@ const DocumentUpload = ({ onClose, onUpload }) => {
               </label>
             </div>
           </div>
+
           {/* File List Preview */}
           {files.length > 0 && (
             <div className="space-y-2 max-h-36 overflow-auto">
@@ -135,7 +193,7 @@ const DocumentUpload = ({ onClose, onUpload }) => {
           </button>
 
           <button
-            disabled={!files.length || !docType}
+            disabled={!files.length || !docType || mutation.isLoading}
             className="px-5 py-1.5 rounded-lg font-medium text-white active:scale-95 disabled:opacity-50"
             style={{
               background: "linear-gradient(#64b1ff, #0066cc)",
@@ -143,9 +201,9 @@ const DocumentUpload = ({ onClose, onUpload }) => {
               boxShadow:
                 "inset 0 1px 0 rgba(255,255,255,0.35), 0 2px 3px rgba(0,0,0,0.2)",
             }}
-            onClick={() => onUpload(files, docType)}
+            onClick={() => mutation.mutate()}
           >
-            Upload ({files.length})
+            {mutation.isLoading ? "Uploading..." : `Upload (${files.length})`}
           </button>
         </div>
       </div>
