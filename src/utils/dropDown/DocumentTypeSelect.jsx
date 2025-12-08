@@ -3,7 +3,7 @@ import Select from "react-select";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDocumentTypesForDropdown } from "../../services/documentTypeDropdown";
 
-const DocumentTypeSelect = ({ onChange, title = "Document Type *" }) => {
+const DocumentTypeSelect = ({ onChange, title = "" }) => {
   const [selectedType, setSelectedType] = useState(null);
 
   const { data, isLoading, error } = useQuery({

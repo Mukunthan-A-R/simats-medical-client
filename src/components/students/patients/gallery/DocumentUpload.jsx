@@ -116,7 +116,7 @@ const DocumentUpload = ({ onClose, onSuccess, assignmentId }) => {
         <div className="p-5 space-y-4">
           {/* Document Type */}
           <div>
-            <label className="text-sm font-medium text-gray-700">
+            <label className="text-sm font-medium text-gray-900">
               Document Type
             </label>
             <DocumentTypeSelect
