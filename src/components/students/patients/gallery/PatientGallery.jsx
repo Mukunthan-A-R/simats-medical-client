@@ -194,6 +194,7 @@ const PatientGallery = ({ assignmentId }) => {
             // TODO integrate API
             setUploadFile(false);
           }}
+          assignmentId={assignmentId}
         />
       )}
     </div>
