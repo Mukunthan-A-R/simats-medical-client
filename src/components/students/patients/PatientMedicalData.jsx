@@ -11,6 +11,7 @@ import PatientPrescriptionData from "./PatientPrescriptionData";
 import PatientFormCaseRecord from "./case-records/PatientFormCaseRecord";
 import PatientGallery from "./gallery/PatientGallery";
 import PatientGalleryUserFiles from "./gallery/PatientGalleryUserFiles";
+import PatientGalleryMerged from "./gallery/PatientGalleryMerged";
 
 const TabButton = ({ isActive, onClick, icon, label }) => (
   <button
@@ -91,10 +92,13 @@ const PatientMedicalData = ({ patient }) => {
       {/* Gallery Tab */}
       {activeTab === "gallery" && (
         <>
-          <PatientGallery assignmentId={patient?.assignment_id} />
-          <PatientGalleryUserFiles
+          {/* <PatientGallery assignmentId={patient?.assignment_id} /> */}
+          {/* <PatientGalleryUserFiles
             assignmentId={patient?.assignment_id}
-          ></PatientGalleryUserFiles>
+          ></PatientGalleryUserFiles> */}
+          <PatientGalleryMerged
+            assignmentId={patient?.assignment_id}
+          ></PatientGalleryMerged>
         </>
       )}
     </div>
