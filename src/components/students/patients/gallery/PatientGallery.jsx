@@ -9,7 +9,6 @@ import {
   aquaGlossEffect,
 } from "../../../../utils/constants.js";
 import DocumentUpload from "./DocumentUpload.jsx";
-import PatientGalleryTest from "./PatientGalleryTest.jsx";
 
 const LIMIT = 20;
 
@@ -148,7 +147,6 @@ const PatientGallery = ({ assignmentId }) => {
           </div>
         )}
       </div>
-      <PatientGalleryTest assignmentId={assignmentId}></PatientGalleryTest>
 
       {/* File Modal */}
       {selectedFile && (

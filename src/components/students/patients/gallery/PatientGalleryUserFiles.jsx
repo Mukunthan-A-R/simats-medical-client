@@ -3,11 +3,10 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { fetchUserFilesMetadata } from "../../../../services/fetchUserFilesMetaData.js";
 import { fetchUserFileById } from "../../../../services/fetchUserFileService.js";
 import PDFReader from "../page-flip/PDFReader.jsx";
-import { Image } from "lucide-react";
 
 const LIMIT = 20;
 
-const PatientGalleryTest = ({ assignmentId }) => {
+const PatientGalleryUserFiles = ({ assignmentId }) => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -43,8 +42,6 @@ const PatientGalleryTest = ({ assignmentId }) => {
     },
     enabled: !!assignmentId,
   });
-
-  console.log(data);
 
   // Flatten pages into files state
   useEffect(() => {
@@ -162,4 +159,4 @@ const PatientGalleryTest = ({ assignmentId }) => {
   );
 };
 
-export default PatientGalleryTest;
+export default PatientGalleryUserFiles;
