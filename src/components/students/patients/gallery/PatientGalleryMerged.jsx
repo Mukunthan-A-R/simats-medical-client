@@ -11,6 +11,8 @@ import {
   aquaButtonStyle,
   aquaGlossEffect,
 } from "../../../../utils/constants.js";
+import FileSortSelect from "./FileSort/FileSortSelect.jsx";
+import DocumentTypeSelect from "../../../../utils/dropDown/DocumentTypeSelect.jsx";
 
 const LIMIT = 20;
 
@@ -18,6 +20,7 @@ const PatientGalleryMerged = ({ assignmentId }) => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadFile, setUploadFile] = useState(false);
+  const [selectedType, setSelectedType] = useState(null);
 
   // Infinite Query for merged files
   const {
@@ -135,6 +138,16 @@ const PatientGalleryMerged = ({ assignmentId }) => {
           )}
         </button>
       </div>
+      <div className="p-4 ">
+        <FileSortSelect
+          onSelect={(type) => {
+            console.log("type");
+            setSelectedType(type);
+            console.log(type);
+          }}
+        ></FileSortSelect>
+      </div>
+
       {!isLoading && files.length === 0 ? (
         <div className="text-center py-10 text-gray-400">
           No files available
