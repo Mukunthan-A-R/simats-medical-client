@@ -34,7 +34,7 @@ const NewPatientFormCaseRecord = ({ assignmentId }) => {
   const handleProcedureChange = (procedure) => {
     setSelectedProcedure(procedure?.label || "");
     setProcedureId(procedure?.value || null);
-    setShowForms(false); // hide old results
+    setShowForms(!!procedure?.value);
   };
 
   return (
@@ -47,9 +47,7 @@ const NewPatientFormCaseRecord = ({ assignmentId }) => {
           <label className="block font-medium mb-1">Department *</label>
           <select
             value={selectedDepartment}
-            onChange={(e) => {
-              setSelectedDepartment(e.target.value);
-            }}
+            onChange={(e) => setSelectedDepartment(e.target.value)}
             className="w-full border border-gray-300 rounded-md px-3 py-2"
           >
             <option value="">Select Department</option>
@@ -68,19 +66,8 @@ const NewPatientFormCaseRecord = ({ assignmentId }) => {
             onChange={handleProcedureChange}
           />
         )}
-
-        {/* VIEW BUTTON */}
-        {procedureId && (
-          <button
-            onClick={() => setShowForms(true)}
-            className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-          >
-            View
-          </button>
-        )}
       </div>
 
-      {/* Show forms only after clicking View */}
       {procedureId && (
         <ProcedureSelectButtons
           assignmentId={assignmentId}
