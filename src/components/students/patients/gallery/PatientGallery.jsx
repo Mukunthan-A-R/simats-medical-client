@@ -188,6 +188,7 @@ const PatientGallery = ({ assignmentId }) => {
       )}
       {uploadFile && (
         <DocumentUpload
+          assignmentId={assignmentId}
           onClose={() => setUploadFile(false)}
           onUpload={(file, type) => {
             console.log("Uploading:", file, "Type:", type);

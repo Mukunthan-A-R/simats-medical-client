@@ -6,11 +6,10 @@ import DocumentTypeSelect from "../../../../utils/dropDown/DocumentTypeSelect";
 import { uploadUserFiles } from "../../../../services/userFileUploadService";
 import toast from "react-hot-toast";
 
-const DocumentUpload = ({ onClose, onSuccess }) => {
+const DocumentUpload = ({ onClose, onSuccess, assignmentId }) => {
   const [files, setFiles] = useState([]);
   const [docType, setDocType] = useState("");
 
-  // -------------------- Derive uploaderId & uploaderRole from URL --------------------
   const params = useParams();
   const location = useLocation();
 
@@ -22,13 +21,9 @@ const DocumentUpload = ({ onClose, onSuccess }) => {
     admin: 4,
   };
 
-  // Get the first segment of the URL
   const roleSegment = location.pathname.split("/")[1];
-
-  // Map to role
   const uploaderRole = roleMap[roleSegment];
 
-  // Determine uploaderId based on segment
   let uploaderId = null;
   if (roleSegment === "student") uploaderId = params.studentId;
   else if (roleSegment === "doctor" || roleSegment === "faculty")
@@ -53,7 +48,13 @@ const DocumentUpload = ({ onClose, onSuccess }) => {
   // -------------------- Mutation --------------------
   const mutation = useMutation({
     mutationFn: async () => {
-      if (!uploaderId || !uploaderRole || !docType)
+      if (
+        !uploaderId ||
+        !uploaderRole ||
+        !docType ||
+        !params.patientId ||
+        !assignmentId
+      )
         throw new Error("Missing required uploader information");
 
       const formData = new FormData();
@@ -61,8 +62,10 @@ const DocumentUpload = ({ onClose, onSuccess }) => {
       formData.append("uploader_id", uploaderId);
       formData.append("uploader_role", uploaderRole);
       formData.append("type_id", docType);
+      formData.append("patient_id", params.patientId);
+      formData.append("assignment_id", assignmentId);
 
-      return uploadUserFiles(formData); // must return a promise
+      return uploadUserFiles(formData);
     },
     onSuccess: (data) => {
       setFiles([]);
@@ -72,7 +75,6 @@ const DocumentUpload = ({ onClose, onSuccess }) => {
     },
     onError: (err) => {
       console.error("Upload failed:", err);
-      //   toast.error(err.message || "File upload failed");
       alert(err.message || "File upload failed");
     },
   });
@@ -97,7 +99,6 @@ const DocumentUpload = ({ onClose, onSuccess }) => {
           <h2 className="font-semibold text-gray-800 text-lg tracking-tight">
             Upload Document
           </h2>
-
           <button
             onClick={onClose}
             className="p-1.5 rounded-full active:scale-95 transition"
