@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PageHeader from "../../components/header/PageHeader";
 import DocumentTypesList from "../../components/admin/file-types/DocumentTypesList";
 import { createDocumentType } from "../../services/documentTypeService";
+import toast from "react-hot-toast";
 
 const AdminCreateFileType = () => {
   const [typeName, setTypeName] = useState("");
@@ -14,13 +15,13 @@ const AdminCreateFileType = () => {
     mutationFn: ({ typeName, description }) =>
       createDocumentType(typeName, description),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["documentTypes"] });
+      queryClient.invalidateQueries({ queryKey: ["departments"] });
       setTypeName("");
       setDescription("");
-      alert("Document type created successfully!");
+      toast.success("Document type created successfully!");
     },
     onError: (error) => {
-      alert(error?.error || "Failed to create document type.");
+      toast.error(error?.error || "Failed to create document type.");
     },
   });
 
