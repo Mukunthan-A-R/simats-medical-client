@@ -1,12 +1,13 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getFormsByProcedure } from "../../../services/procedureFormService";
+import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 
 const ProcedureFormList = ({ procedureId }) => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ["procedureForms", procedureId],
     queryFn: () => getFormsByProcedure(procedureId),
-    enabled: !!procedureId, // only run when procedureId exists
+    enabled: !!procedureId,
   });
 
   if (!procedureId) {
@@ -33,10 +34,14 @@ const ProcedureFormList = ({ procedureId }) => {
     );
   }
 
-  // Function to render actual field inputs
   const renderField = (field) => {
     const baseStyle =
-      "border border-gray-300 rounded-full px-4 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-300";
+      "w-full px-4 py-2 text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-blue-300 shadow-inner";
+    const gradientStyle = {
+      background: "linear-gradient(to bottom, #f8f9fb, #e6edf3)",
+      boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+      border: "1px solid rgba(0,0,0,0.1)",
+    };
 
     switch (field.field_type) {
       case "text":
@@ -46,6 +51,7 @@ const ProcedureFormList = ({ procedureId }) => {
             placeholder={field.label}
             required={field.is_required}
             className={baseStyle}
+            style={gradientStyle}
           />
         );
       case "number":
@@ -55,6 +61,7 @@ const ProcedureFormList = ({ procedureId }) => {
             placeholder={field.label}
             required={field.is_required}
             className={baseStyle}
+            style={gradientStyle}
           />
         );
       case "textarea":
@@ -63,6 +70,7 @@ const ProcedureFormList = ({ procedureId }) => {
             placeholder={field.label}
             required={field.is_required}
             className={baseStyle + " h-24 resize-none"}
+            style={gradientStyle}
           />
         );
       case "date":
@@ -72,11 +80,16 @@ const ProcedureFormList = ({ procedureId }) => {
             placeholder={field.label}
             required={field.is_required}
             className={baseStyle}
+            style={gradientStyle}
           />
         );
       case "select":
         return (
-          <select required={field.is_required} className={baseStyle}>
+          <select
+            required={field.is_required}
+            className={baseStyle}
+            style={gradientStyle}
+          >
             {field.config?.options?.map((opt, idx) => (
               <option key={idx} value={opt.value}>
                 {opt.label}
@@ -102,6 +115,7 @@ const ProcedureFormList = ({ procedureId }) => {
             placeholder={field.label}
             required={field.is_required}
             className={baseStyle}
+            style={gradientStyle}
           />
         );
     }
@@ -112,11 +126,18 @@ const ProcedureFormList = ({ procedureId }) => {
       {data.map((form) => (
         <div
           key={form.form_id}
-          className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200"
+          className="bg-white rounded-3xl shadow-lg p-6 border border-gray-200"
+          style={{
+            background: "linear-gradient(to bottom, #f8f9fb, #d9e1ea)",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.2)",
+          }}
         >
           {/* Form Header */}
           <div className="mb-4">
-            <h3 className="text-xl font-semibold text-gray-800">
+            <h3
+              className="text-xl font-semibold text-gray-800"
+              style={{ textShadow: "0 1px 0 rgba(255,255,255,0.5)" }}
+            >
               {form.form_name}
             </h3>
             {form.form_description && (
@@ -131,7 +152,12 @@ const ProcedureFormList = ({ procedureId }) => {
             {form.fields.map((field) => (
               <div
                 key={field.field_id}
-                className="bg-gray-50 rounded-xl p-4 border border-gray-200 shadow-inner"
+                className="bg-white rounded-2xl p-4 shadow-inner border border-gray-200"
+                style={{
+                  background: "linear-gradient(to bottom, #fdfdfd, #eceef2)",
+                  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.05)",
+                  border: "1px solid rgba(0,0,0,0.1)",
+                }}
               >
                 <label className="block mb-1 font-medium text-gray-700">
                   {field.label}
