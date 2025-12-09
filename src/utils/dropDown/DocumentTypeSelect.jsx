@@ -3,7 +3,11 @@ import Select from "react-select";
 import { useQuery } from "@tanstack/react-query";
 import { fetchDocumentTypesForDropdown } from "../../services/documentTypeDropdown";
 
-const DocumentTypeSelect = ({ onChange, title = "" }) => {
+const DocumentTypeSelect = ({
+  onChange,
+  title = "",
+  placeholder = "Select Document Type",
+}) => {
   const [selectedType, setSelectedType] = useState(null);
 
   const { data, isLoading, error } = useQuery({
@@ -31,7 +35,7 @@ const DocumentTypeSelect = ({ onChange, title = "" }) => {
         options={options}
         value={selectedType}
         onChange={setSelectedType}
-        placeholder="Select Document Type"
+        placeholder={placeholder}
         isClearable
       />
     </div>

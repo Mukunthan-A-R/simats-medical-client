@@ -21,7 +21,11 @@ const FileSortSelect = ({ onSelect }) => {
         Sort by Document Type
       </label>
 
-      <DocumentTypeSelect title="" onChange={handleSortChange} />
+      <DocumentTypeSelect
+        title=""
+        onChange={handleSortChange}
+        placeholder="All Files"
+      />
     </div>
   );
 };

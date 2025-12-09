@@ -1,8 +1,8 @@
 import { useState, useCallback, useEffect } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { fetchAssignmentFilesMetadata } from "../../../../services/assignmentFilesService.js"; // old
+import { fetchAssignmentFilesMetadata } from "../../../../services/assignmentFilesService.js";
 import { fetchFileByFieldId } from "../../../../services/fileService.js";
-import { fetchUserFilesMetadata } from "../../../../services/fetchUserFilesMetaData.js"; // new
+import { fetchUserFilesMetadata } from "../../../../services/fetchUserFilesMetaData.js";
 import { fetchUserFileById } from "../../../../services/fetchUserFileService.js";
 import PDFReader from "../page-flip/PDFReader.jsx";
 import { Image, PlusIcon, XIcon } from "lucide-react";
@@ -12,7 +12,6 @@ import {
   aquaGlossEffect,
 } from "../../../../utils/constants.js";
 import FileSortSelect from "./FileSort/FileSortSelect.jsx";
-import DocumentTypeSelect from "../../../../utils/dropDown/DocumentTypeSelect.jsx";
 
 const LIMIT = 20;
 
@@ -20,9 +19,9 @@ const PatientGalleryMerged = ({ assignmentId }) => {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadFile, setUploadFile] = useState(false);
-  const [selectedType, setSelectedType] = useState(null);
+  const [selectedType, setSelectedType] = useState(null); // null = show all
 
-  // Infinite Query for merged files
+  // Infinite Query
   const {
     data,
     fetchNextPage,
@@ -33,7 +32,6 @@ const PatientGalleryMerged = ({ assignmentId }) => {
   } = useInfiniteQuery({
     queryKey: ["mergedFiles", assignmentId],
     queryFn: async ({ pageParam = 0 }) => {
-      // 1️⃣ Fetch old files
       const oldMeta = await fetchAssignmentFilesMetadata(
         assignmentId,
         LIMIT,
@@ -47,7 +45,6 @@ const PatientGalleryMerged = ({ assignmentId }) => {
         }))
       );
 
-      // 2️⃣ Fetch new files
       const newMeta = await fetchUserFilesMetadata(
         assignmentId,
         LIMIT,
@@ -61,29 +58,24 @@ const PatientGalleryMerged = ({ assignmentId }) => {
         }))
       );
 
-      // 3️⃣ Merge and sort by uploaded_at descending
-      const merged = [...oldFiles, ...newFiles].sort(
+      return [...oldFiles, ...newFiles].sort(
         (a, b) => new Date(b.uploaded_at) - new Date(a.uploaded_at)
       );
-
-      return merged;
     },
     getNextPageParam: (lastPage, allPages) => {
-      // stop when less than LIMIT returned
       if (!lastPage || lastPage.length < LIMIT * 2) return undefined;
-      return allPages.flat().length / 2; // next offset
+      return allPages.flat().length / 2;
     },
     enabled: !!assignmentId,
   });
 
-  // Update state when new pages arrive
+  // Update local state when new data arrives
   useEffect(() => {
     if (!data) return;
-    const mergedFiles = data.pages.flat();
-    setFiles(mergedFiles);
+    setFiles(data.pages.flat());
   }, [data]);
 
-  // Infinite scroll handler
+  // Infinite scroll
   const handleScroll = useCallback(() => {
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
     if (scrollTop + clientHeight >= scrollHeight - 100) {
@@ -96,16 +88,28 @@ const PatientGalleryMerged = ({ assignmentId }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  // 🔥 FILTERING LOGIC (MAIN FIX)
+  const filteredFiles = !selectedType
+    ? files
+    : files.filter((file) => {
+        return (
+          file?.type_id !== undefined &&
+          Number(file.type_id) === Number(selectedType.value)
+        );
+      });
+
+  // console.log("filteredFiles");
+  // console.log(files);
+  // console.log(filteredFiles);
+  // console.log(selectedType?.value);
+
   if (isLoading)
     return <div className="text-center py-10 text-gray-500">Loading...</div>;
+
   if (error)
     return (
       <div className="text-center py-10 text-red-500">Error loading files</div>
     );
-  //   if (!isLoading && files.length === 0)
-  //     return (
-  //       <div className="text-center py-10 text-gray-400">No files available</div>
-  //     );
 
   return (
     <div className="rounded-xl shadow-sm border border-gray-200 bg-white animate-fadeIn">
@@ -114,6 +118,7 @@ const PatientGalleryMerged = ({ assignmentId }) => {
           <Image size={18} className="text-blue-600" />
           <h3 className="font-medium text-gray-800 text-base">Case Records</h3>
         </div>
+
         <button
           className={`px-3 py-1.5 rounded-md text-xs font-medium ${aquaButtonStyle} ${aquaGlossEffect} flex items-center`}
           style={{
@@ -127,64 +132,66 @@ const PatientGalleryMerged = ({ assignmentId }) => {
         >
           {uploadFile ? (
             <>
-              <XIcon size={12} className="mr-1.5" />
-              Close
+              <XIcon size={12} className="mr-1.5" /> Close
             </>
           ) : (
             <>
-              <PlusIcon size={12} className="mr-1.5" />
-              Upload
+              <PlusIcon size={12} className="mr-1.5" /> Upload
             </>
           )}
         </button>
       </div>
-      <div className="p-4 ">
+
+      {/* 🔥 FILTER SELECT */}
+      <div className="p-4">
         <FileSortSelect
           onSelect={(type) => {
-            console.log("type");
+            // console.log("Selected Type:", type);
             setSelectedType(type);
-            console.log(type);
           }}
-        ></FileSortSelect>
+        />
       </div>
 
-      {!isLoading && files.length === 0 ? (
+      {filteredFiles.length === 0 && selectedType && (
         <div className="text-center py-10 text-gray-400">
-          No files available
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
-          {files.map((file) => (
-            <div
-              key={file.file_id + file.source}
-              className="relative rounded-lg overflow-hidden shadow-md flex items-center justify-center aspect-square cursor-pointer hover:shadow-xl"
-              onClick={() => setSelectedFile(file)}
-            >
-              {["jpeg", "jpg", "png"].includes(file.extension) && file.url ? (
-                <img
-                  src={file.url}
-                  alt={file.filename}
-                  className="w-full h-full object-cover"
-                />
-              ) : ["pdf"].includes(file.extension) && file.url ? (
-                <div className="flex flex-col items-center justify-center text-sm text-gray-700 p-2">
-                  📄 {file.filename}
-                </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center text-sm text-gray-700 p-2">
-                  📄 {file.filename}
-                </div>
-              )}
-            </div>
-          ))}
-          {isFetchingNextPage && (
-            <div className="col-span-full text-center py-4 text-gray-500 font-medium">
-              Loading more...
-            </div>
-          )}
+          No files found for selected type
         </div>
       )}
-      {/* File Modal */}
+
+      {/* Gallery */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 p-4">
+        {filteredFiles.map((file) => (
+          <div
+            key={file.file_id + file.source}
+            className="relative rounded-lg overflow-hidden shadow-md flex items-center justify-center aspect-square cursor-pointer hover:shadow-xl"
+            onClick={() => setSelectedFile(file)}
+          >
+            {["jpeg", "jpg", "png"].includes(file.extension) && file.url ? (
+              <img
+                src={file.url}
+                alt={file.filename}
+                className="w-full h-full object-cover"
+              />
+            ) : ["pdf"].includes(file.extension) && file.url ? (
+              <div className="flex flex-col items-center justify-center text-sm text-gray-700 p-2">
+                📄 {file.filename}
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center text-sm text-gray-700 p-2">
+                📄 {file.filename}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {isFetchingNextPage && (
+          <div className="col-span-full text-center py-4 text-gray-500 font-medium">
+            Loading more...
+          </div>
+        )}
+      </div>
+
+      {/* Modal Preview */}
       {selectedFile && (
         <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
@@ -205,6 +212,7 @@ const PatientGalleryMerged = ({ assignmentId }) => {
                 ✕
               </button>
             </div>
+
             <div className="flex-1 flex items-center justify-center bg-gray-50 p-4 overflow-auto">
               {["jpeg", "jpg", "png"].includes(selectedFile.extension) ? (
                 <img
@@ -227,7 +235,6 @@ const PatientGalleryMerged = ({ assignmentId }) => {
           onClose={() => setUploadFile(false)}
           onUpload={(file, type) => {
             console.log("Uploading:", file, "Type:", type);
-            // TODO integrate API
             setUploadFile(false);
           }}
           assignmentId={assignmentId}
