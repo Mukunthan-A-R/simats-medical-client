@@ -45,6 +45,7 @@ import AdminDepartments from "./pages/admin/AdminDepartments";
 import AdminDepartmentProcedures from "./pages/admin/AdminDepartmentProcedures";
 import AdminProceduresForm from "./pages/admin/AdminProceduresForm";
 import AdminViewProceduresForm from "./pages/admin/AdminViewProceduresForm";
+import AdminCreateFileType from "./pages/admin/AdminCreateFileType";
 
 function App() {
   return (
@@ -74,6 +75,10 @@ function App() {
             <Route
               path="/admin/view/procedure-form/:adminId"
               element={<AdminViewProceduresForm />}
+            />
+            <Route
+              path="/admin/create-file-type/:adminId"
+              element={<AdminCreateFileType />}
             />
             {/* <Route path="profile/:studentId" element={<StudentProfile />} />
             <Route

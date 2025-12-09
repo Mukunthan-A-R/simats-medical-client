@@ -38,6 +38,12 @@ export default function AdminDashboardServices({
           action: () => navigate(`/admin/view/procedure-form/${adminId}`),
           iconColor: "text-blue-500",
         },
+        {
+          icon: <FilePlus size={18} />,
+          title: "Create File Type",
+          action: () => navigate(`/admin/create-file-type/${adminId}`),
+          iconColor: "text-blue-500",
+        },
       ],
     },
   ];
