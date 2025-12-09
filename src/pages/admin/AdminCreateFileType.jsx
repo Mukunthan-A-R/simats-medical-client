@@ -27,7 +27,7 @@ const AdminCreateFileType = () => {
 
   const handleAddFileType = () => {
     if (!typeName.trim() || !description.trim()) {
-      alert("Both type name and description are required");
+      toast.error("Both type name and description are required");
       return;
     }
 
