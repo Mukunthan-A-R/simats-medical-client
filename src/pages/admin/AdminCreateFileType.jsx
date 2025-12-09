@@ -1,15 +1,39 @@
 import React, { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import PageHeader from "../../components/header/PageHeader";
 import DocumentTypesList from "../../components/admin/file-types/DocumentTypesList";
+import { createDocumentType } from "../../services/documentTypeService";
 
 const AdminCreateFileType = () => {
-  const [departmentName, setDepartmentName] = useState("");
+  const [typeName, setTypeName] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleAddDepartment = () => {
-    if (!departmentName.trim()) return;
+  const queryClient = useQueryClient();
 
-    console.log("New Department:", departmentName);
-    setDepartmentName(""); // clear input
+  const mutation = useMutation({
+    mutationFn: ({ typeName, description }) =>
+      createDocumentType(typeName, description),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["documentTypes"] });
+      setTypeName("");
+      setDescription("");
+      alert("Document type created successfully!");
+    },
+    onError: (error) => {
+      alert(error?.error || "Failed to create document type.");
+    },
+  });
+
+  const handleAddFileType = () => {
+    if (!typeName.trim() || !description.trim()) {
+      alert("Both type name and description are required");
+      return;
+    }
+
+    mutation.mutate({
+      typeName: typeName.trim(),
+      description: description.trim(),
+    });
   };
 
   return (
@@ -18,20 +42,26 @@ const AdminCreateFileType = () => {
 
       {/* Card Container */}
       <div className="bg-white rounded-lg shadow p-4 sm:p-6">
-        {/* Add Department Form */}
         <h2 className="text-lg font-medium mb-3">Add New File Type</h2>
 
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col gap-3">
           <input
             type="text"
-            value={departmentName}
-            onChange={(e) => setDepartmentName(e.target.value)}
-            placeholder="Enter department name"
+            value={typeName}
+            onChange={(e) => setTypeName(e.target.value)}
+            placeholder="Enter file type name"
             className="border border-gray-300 rounded-md px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
 
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter description"
+            className="border border-gray-300 rounded-md px-3 py-2 w-full h-24 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+          />
+
           <button
-            onClick={handleAddDepartment}
+            onClick={handleAddFileType}
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
           >
             Add
@@ -39,7 +69,7 @@ const AdminCreateFileType = () => {
         </div>
       </div>
 
-      <DocumentTypesList></DocumentTypesList>
+      <DocumentTypesList />
     </div>
   );
 };
