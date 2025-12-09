@@ -52,7 +52,7 @@ const PatientSecondaryVitalDropDown = ({ assignmentId }) => {
     }
   }, [data]);
 
-  if (data.length === 0) {
+  if (data?.length === 0) {
     return (
       <div className="flex items-center justify-center text-gray-600 mt-4">
         <p>No Vitals Data for Now</p>
