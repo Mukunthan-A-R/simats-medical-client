@@ -11,8 +11,6 @@ const DocumentTypesList = () => {
     queryFn: fetchDocumentTypesForDropdown,
   });
 
-  console.log(fileTypes);
-
   if (isLoading) return <div>Loading departments...</div>;
   if (error) return <div>Error loading departments</div>;
 
