@@ -33,12 +33,86 @@ const ProcedureFormList = ({ procedureId }) => {
     );
   }
 
+  // Function to render actual field inputs
+  const renderField = (field) => {
+    const baseStyle =
+      "border border-gray-300 rounded-full px-4 py-2 w-full text-sm focus:outline-none focus:ring-2 focus:ring-blue-300";
+
+    switch (field.field_type) {
+      case "text":
+        return (
+          <input
+            type="text"
+            placeholder={field.label}
+            required={field.is_required}
+            className={baseStyle}
+          />
+        );
+      case "number":
+        return (
+          <input
+            type="number"
+            placeholder={field.label}
+            required={field.is_required}
+            className={baseStyle}
+          />
+        );
+      case "textarea":
+        return (
+          <textarea
+            placeholder={field.label}
+            required={field.is_required}
+            className={baseStyle + " h-24 resize-none"}
+          />
+        );
+      case "date":
+        return (
+          <input
+            type="date"
+            placeholder={field.label}
+            required={field.is_required}
+            className={baseStyle}
+          />
+        );
+      case "select":
+        return (
+          <select required={field.is_required} className={baseStyle}>
+            {field.config?.options?.map((opt, idx) => (
+              <option key={idx} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        );
+      case "checkbox":
+        return (
+          <label className="flex items-center gap-2">
+            <input
+              type="checkbox"
+              required={field.is_required}
+              className="w-4 h-4"
+            />
+            {field.label}
+          </label>
+        );
+      default:
+        return (
+          <input
+            type="text"
+            placeholder={field.label}
+            required={field.is_required}
+            className={baseStyle}
+          />
+        );
+    }
+  };
+
   return (
-    <div className="space-y-8 mt-6">
+    <div className="space-y-6 mt-6">
       {data.map((form) => (
         <div
           key={form.form_id}
-          className="bg-white shadow-lg rounded-xl p-6 border border-gray-200"
+          className="bg-white rounded-2xl shadow-lg p-6 border border-gray-200"
         >
           {/* Form Header */}
           <div className="mb-4">
@@ -52,34 +126,25 @@ const ProcedureFormList = ({ procedureId }) => {
             )}
           </div>
 
-          {/* Fields */}
+          {/* Render Fields */}
           <div className="space-y-4">
             {form.fields.map((field) => (
               <div
                 key={field.field_id}
-                className="bg-gray-50 rounded-lg p-4 border border-gray-200 shadow-sm"
+                className="bg-gray-50 rounded-xl p-4 border border-gray-200 shadow-inner"
               >
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-gray-700 font-medium">
-                    {field.label}
-                  </span>
+                <label className="block mb-1 font-medium text-gray-700">
+                  {field.label}
                   {field.is_required && (
-                    <span className="text-red-500 text-xs font-semibold">
-                      Required
-                    </span>
+                    <span className="text-red-500 ml-1">*</span>
                   )}
-                </div>
-
-                <div className="flex flex-col space-y-1">
-                  <p className="text-gray-600 text-sm">
-                    <strong>Type:</strong> {field.field_type}
+                </label>
+                {renderField(field)}
+                {field.config?.helpText && (
+                  <p className="text-gray-500 text-xs mt-1">
+                    {field.config.helpText}
                   </p>
-                  {field.config && Object.keys(field.config).length > 0 && (
-                    <pre className="bg-gray-200 p-2 rounded text-xs mt-1 overflow-x-auto">
-                      {JSON.stringify(field.config, null, 2)}
-                    </pre>
-                  )}
-                </div>
+                )}
               </div>
             ))}
           </div>
