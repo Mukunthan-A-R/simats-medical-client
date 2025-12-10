@@ -35,7 +35,7 @@ export default function AdminDashboardServices({
         {
           icon: <ClipboardPlus size={18} />,
           title: "Create Procedure Form",
-          action: () => navigate(`/admin/procedure/form/${adminId}`),
+          action: () => navigate(`/admin/create/procedure-form/${adminId}`),
           iconColor: "text-blue-500",
         },
         {

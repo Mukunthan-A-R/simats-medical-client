@@ -69,7 +69,7 @@ function App() {
               element={<AdminDepartmentProcedures />}
             />
             <Route
-              path="/admin/procedure/form/:adminId"
+              path="/admin/create/procedure-form/:adminId"
               element={<AdminProceduresForm />}
             />
             <Route
