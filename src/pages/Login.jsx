@@ -132,7 +132,7 @@ const Login = () => {
               {/* Login Button */}
               <button
                 type="submit"
-                className="w-full py-3 rounded-lg flex items-center justify-center font-medium text-white relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner before:absolute before:inset-0 before:bg-linear-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50 bg-gradient-to-b from-blue-500 to-blue-700 shadow-md"
+                className="w-full py-3 rounded-lg flex items-center justify-center font-medium text-white relative overflow-hidden transition-all active:translate-y-0.5 active:shadow-inner before:absolute before:inset-0 before:bg-linear-to-b before:from-white before:via-transparent before:to-transparent before:opacity-50 bg-linear-to-b from-blue-500 to-blue-700 shadow-md"
               >
                 <LogInIcon className="h-5 w-5 mr-2" />
                 Login
