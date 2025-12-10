@@ -19,6 +19,10 @@ export default function StudentProfileCard({ setScoresTab, userDataVal }) {
     enabled: !!studentId,
   });
 
+  if (isLoading) {
+    return <p>Loading ...</p>;
+  }
+
   return (
     <div>
       {/* Student Profile Card */}

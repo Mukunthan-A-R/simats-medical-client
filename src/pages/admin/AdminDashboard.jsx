@@ -1,18 +1,29 @@
 import { useParams } from "react-router-dom";
-import { userData } from "../../context/userAtom";
-import { useRecoilState, useRecoilValue } from "recoil";
 import AdminDashboardServices from "../../components/admin/AdminDashboardServices";
-import PatientDashboardServices from "../../components/patient/dashboard/PatientDashboardServices";
 import AdminProfileCard from "../../components/admin/dashboard/AdminProfileCard";
+import { useQuery } from "@tanstack/react-query";
+import { fetchAdminById } from "../../services/adminService";
 
 const AdminDashboard = () => {
-  const userDataVal = useRecoilValue(userData);
-  // const [userDataVal, setUserDataVal] = useRecoilState(userData);
   const { adminId } = useParams();
+
+  const {
+    data: userAdminData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["adminData", adminId],
+    queryFn: () => fetchAdminById(adminId),
+    enabled: !!adminId,
+  });
+
+  if (isLoading) {
+    return <p>Loading ...</p>;
+  }
 
   return (
     <div className="min-h-screen px-2 sm:px-4 py-2 sm:py-5 max-w-6xl mx-auto">
-      <AdminProfileCard userData={userDataVal} />
+      <AdminProfileCard userData={userAdminData} />
       <AdminDashboardServices adminId={adminId} />
       {/* <PatientDashboardServices
         onNavigate={(path) => console.log("Navigate to:", path)}
