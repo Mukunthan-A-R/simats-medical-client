@@ -1,27 +1,8 @@
-import React from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
-import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { fetchStudentById } from "../../../services/studentService";
+import { useNavigate } from "react-router-dom";
 
-export default function StudentProfileCard({ setScoresTab, userDataVal }) {
+export default function StudentProfileCard({ setScoresTab, userData }) {
   const navigate = useNavigate();
-
-  const { studentId } = useParams();
-
-  const {
-    data: userData,
-    isLoading,
-    isError,
-  } = useQuery({
-    queryKey: ["studentData", studentId],
-    queryFn: () => fetchStudentById(studentId),
-    enabled: !!studentId,
-  });
-
-  if (isLoading) {
-    return <p>Loading ...</p>;
-  }
 
   return (
     <div>
