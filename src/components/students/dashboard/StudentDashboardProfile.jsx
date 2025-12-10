@@ -1,11 +1,23 @@
 import React from "react";
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchStudentById } from "../../../services/studentService";
 
 export default function StudentProfileCard({ setScoresTab, userDataVal }) {
   const navigate = useNavigate();
 
   const { studentId } = useParams();
+
+  const {
+    data: userData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["studentData", studentId],
+    queryFn: () => fetchStudentById(studentId),
+    enabled: !!studentId,
+  });
 
   return (
     <div>
@@ -57,12 +69,12 @@ export default function StudentProfileCard({ setScoresTab, userDataVal }) {
               className="text-xl font-semibold text-gray-900 truncate"
               style={{ textShadow: "0 1px 0 rgba(255,255,255,0.5)" }}
             >
-              Welcome, {userDataVal?.name}
+              Welcome, {userData?.name}
             </h2>
             <p className="text-sm text-gray-500 mt-0.5">
-              ID: {userDataVal?.student_id} • Year: 3 • Semester: 6
+              ID: {userData?.student_id} • Year: 3 • Semester: 6
             </p>
-            <p className="text-sm text-gray-500 mt-0.5">{userDataVal?.email}</p>
+            <p className="text-sm text-gray-500 mt-0.5">{userData?.email}</p>
           </div>
         </div>
 
@@ -83,7 +95,7 @@ export default function StudentProfileCard({ setScoresTab, userDataVal }) {
               <div className="flex items-center">
                 <AwardIcon
                   size={16}
-                  className="text-blue-500 mr-2 mt-0.5 flex-shrink-0"
+                  className="text-blue-500 mr-2 mt-0.5 shrink-0"
                 />
                 <div className="text-gray-700 text-sm font-medium">
                   Current GPA: 3.8/4.0
