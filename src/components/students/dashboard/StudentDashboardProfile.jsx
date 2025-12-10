@@ -1,7 +1,8 @@
 import { GraduationCapIcon, AwardIcon, ChartBarIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function StudentProfileCard({ setScoresTab, userData }) {
+  const { studentId } = useParams();
   const navigate = useNavigate();
 
   return (
