@@ -1,5 +1,11 @@
 import { cloneElement } from "react";
-import { Building2, Workflow, FilePlus } from "lucide-react";
+import {
+  Building2,
+  File,
+  SquareChartGantt,
+  ClipboardPlus,
+  Landmark,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function AdminDashboardServices({
@@ -15,32 +21,32 @@ export default function AdminDashboardServices({
       items: [
         {
           icon: <Building2 size={18} />,
-          title: "Departments",
+          title: "Department",
           action: () => navigate(`/admin/department/${adminId}`),
           iconColor: "text-blue-500",
         },
         {
-          icon: <Workflow size={18} />,
+          icon: <Landmark size={18} />,
           title: "Department Procedure",
           action: () => navigate(`/admin/department/procedures/${adminId}`),
           highlight: true,
           iconColor: "text-blue-500",
         },
         {
-          icon: <FilePlus size={18} />,
-          title: "Add Procedure Form",
+          icon: <ClipboardPlus size={18} />,
+          title: "Create Procedure Form",
           action: () => navigate(`/admin/procedure/form/${adminId}`),
           iconColor: "text-blue-500",
         },
         {
-          icon: <FilePlus size={18} />,
+          icon: <SquareChartGantt size={18} />,
           title: "View Procedure Form",
           action: () => navigate(`/admin/view/procedure-form/${adminId}`),
           iconColor: "text-blue-500",
         },
         {
-          icon: <FilePlus size={18} />,
-          title: "Create File Type",
+          icon: <File size={18} />,
+          title: "Document Type",
           action: () => navigate(`/admin/create-file-type/${adminId}`),
           iconColor: "text-blue-500",
         },
