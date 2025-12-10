@@ -1,21 +1,32 @@
-import React from "react";
-import { userData } from "../../context/userAtom";
-import { useRecoilValue } from "recoil";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchDoctorById } from "../../services/doctorService";
 import FacultyDashboardProfile from "../../components/faculty/dashboard/FacultyDashboardProfile";
 import FacultyDashboardApprovals from "../../components/faculty/dashboard/FacultyDashboardApprovals";
 import FacultyDashboardWindow from "../../components/faculty/dashboard/FacultyDashboardWindow";
-import { useParams } from "react-router-dom";
 
 const FacultyDashboard = () => {
-  const userDataVal = useRecoilValue(userData);
-
   const { facultyId } = useParams();
-  console.log("userId");
-  console.log(facultyId);
+
+  const {
+    data: userDoctorData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["studentData", facultyId],
+    queryFn: () => fetchDoctorById(facultyId),
+    enabled: !!facultyId,
+  });
+
+  if (isLoading) {
+    return <p>Loading ...</p>;
+  }
 
   return (
     <div className="px-4 py-5 max-w-4xl mx-auto w-full">
-      <FacultyDashboardProfile userData={userDataVal}></FacultyDashboardProfile>
+      <FacultyDashboardProfile
+        userData={userDoctorData}
+      ></FacultyDashboardProfile>
       <FacultyDashboardApprovals></FacultyDashboardApprovals>
       <FacultyDashboardWindow></FacultyDashboardWindow>
     </div>
