@@ -108,18 +108,41 @@ const ProcedureCaseRecordCard = ({ record }) => {
                 record.approval.slice(1)}
             </span>
           </div>
-
           {/* Dynamic form_data */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3">
             {record.form_data &&
-              Object.entries(record.form_data).map(([key, value]) => (
-                <p key={key}>
-                  <span className="font-medium text-gray-800">
-                    {key.replace(/_/g, " ")}:
-                  </span>{" "}
-                  {value}
-                </p>
-              ))}
+              Object.entries(record.form_data)
+                .filter(([key]) => key !== "fields") // ⛔ Hide fields array (used for file uploads)
+                .map(([key, value]) => {
+                  const isArray = Array.isArray(value);
+
+                  return (
+                    <div key={key}>
+                      <span className="font-medium text-gray-800">
+                        {key.replace(/_/g, " ")}:
+                      </span>{" "}
+                      {/* Array Display */}
+                      {isArray ? (
+                        value.length > 0 ? (
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {value.map((v, idx) => (
+                              <span
+                                key={idx}
+                                className="px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full"
+                              >
+                                {v}
+                              </span>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className="text-gray-500 italic">None</span>
+                        )
+                      ) : (
+                        <span className="text-gray-700">{value || "—"}</span>
+                      )}
+                    </div>
+                  );
+                })}
           </div>
 
           <CaseRecordFilesViewer
