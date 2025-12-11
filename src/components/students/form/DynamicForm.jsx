@@ -55,6 +55,7 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
       e.preventDefault();
 
       if (isSubmitting || mutation.isLoading) return;
+
       if (!selectedDoctor) {
         alert("Please select a doctor before submitting.");
         return;
@@ -72,24 +73,35 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
       submissionData.append("assignment_id", assignmentId);
       submissionData.append("approval", "requested");
 
-      // Append non-file fields as JSON
+      // ⭐ NEW: Separate JSON fields from file fields
       const nonFileFields = {};
-      Object.keys(formData).forEach((key) => {
-        if (!Array.isArray(formData[key])) {
-          nonFileFields[key] = formData[key];
+      const fileFields = {};
+
+      form.fields.forEach((field) => {
+        const name = field.field_name;
+        const type = field.field_type;
+
+        if (type === "file") {
+          // real file field → append later
+          fileFields[name] = formData[name];
+        } else {
+          // everything else goes into JSON (including checkbox arrays)
+          nonFileFields[name] = formData[name];
         }
       });
+
+      // Add JSON fields
       submissionData.append("form_data", JSON.stringify(nonFileFields));
 
-      // Append file fields
-      Object.keys(formData).forEach((key) => {
-        if (Array.isArray(formData[key])) {
-          formData[key].forEach((file) => submissionData.append(key, file));
-        }
+      // Add file fields properly
+      Object.keys(fileFields).forEach((key) => {
+        fileFields[key]?.forEach((file) => {
+          submissionData.append(key, file);
+        });
       });
 
       mutation.mutate(submissionData, {
-        onSettled: () => setIsSubmitting(false), // unlock submit after success/error
+        onSettled: () => setIsSubmitting(false),
       });
     },
     [formData, selectedDoctor, isSubmitting, mutation]
