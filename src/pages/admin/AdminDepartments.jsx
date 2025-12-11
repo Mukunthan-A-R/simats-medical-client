@@ -1,16 +1,31 @@
 import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import AvaliableDepartments from "../../components/admin/AvaliableDepartments";
-import { useNavigate } from "react-router-dom";
 import PageHeader from "../../components/header/PageHeader";
+import { createDepartment } from "../../services/departmentServices";
+import toast from "react-hot-toast";
 
 const AdminDepartments = () => {
   const [departmentName, setDepartmentName] = useState("");
+  const queryClient = useQueryClient();
+
+  // Mutation for creating a department
+  const { mutate: addDepartment, isLoading } = useMutation({
+    mutationFn: createDepartment,
+    onSuccess: () => {
+      setDepartmentName("");
+      queryClient.invalidateQueries({ queryKey: ["departments"] });
+      toast.success("New Department Created");
+    },
+    onError: (err) => {
+      console.error("Failed to add department:", err);
+      toast.error(err.response?.data?.error || "Failed to create department");
+    },
+  });
 
   const handleAddDepartment = () => {
     if (!departmentName.trim()) return;
-
-    console.log("New Department:", departmentName);
-    setDepartmentName(""); // clear input
+    addDepartment({ name: departmentName.trim() });
   };
 
   return (
@@ -18,7 +33,7 @@ const AdminDepartments = () => {
       <PageHeader title={"Medical Records"} />
 
       {/* Card Container */}
-      <div className="bg-white rounded-lg shadow p-4 sm:p-6">
+      <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-6">
         {/* Add Department Form */}
         <h2 className="text-lg font-medium mb-3">Add New Department</h2>
 
@@ -33,14 +48,15 @@ const AdminDepartments = () => {
 
           <button
             onClick={handleAddDepartment}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
+            disabled={isLoading}
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition disabled:opacity-50"
           >
-            Add
+            {isLoading ? "Adding..." : "Add"}
           </button>
         </div>
       </div>
 
-      <AvaliableDepartments></AvaliableDepartments>
+      <AvaliableDepartments />
     </div>
   );
 };
