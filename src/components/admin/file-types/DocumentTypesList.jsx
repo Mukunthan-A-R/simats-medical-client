@@ -14,6 +14,11 @@ const DocumentTypesList = () => {
   if (isLoading) return <div>Loading departments...</div>;
   if (error) return <div>Error loading departments</div>;
 
+  // Sort by department ID numerically
+  const sortedFileTypes = fileTypes
+    ?.slice()
+    .sort((a, b) => a.type_id - b.type_id);
+
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <h1 className="text-2xl font-semibold mb-6 text-gray-900">
@@ -33,7 +38,7 @@ const DocumentTypesList = () => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {fileTypes.map((dept, idx) => (
+            {sortedFileTypes?.map((dept) => (
               <tr
                 key={dept.type_id}
                 className="hover:bg-gray-50 transition-colors duration-200 cursor-pointer"
