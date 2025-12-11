@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { XIcon, ImageIcon } from "lucide-react";
 import DocumentTypeSelect from "../../../../utils/dropDown/DocumentTypeSelect";
 import { uploadUserFiles } from "../../../../services/userFileUploadService";
@@ -12,6 +12,7 @@ const DocumentUpload = ({ onClose, onSuccess, assignmentId }) => {
 
   const params = useParams();
   const location = useLocation();
+  const queryClient = useQueryClient();
 
   // Role mapping
   const roleMap = {
@@ -71,6 +72,9 @@ const DocumentUpload = ({ onClose, onSuccess, assignmentId }) => {
       setFiles([]);
       setDocType("");
       toast.success("Files uploaded successfully!");
+
+      queryClient.invalidateQueries(["mergedFiles", params.patientId]);
+
       if (onSuccess) onSuccess(data);
     },
     onError: (err) => {
