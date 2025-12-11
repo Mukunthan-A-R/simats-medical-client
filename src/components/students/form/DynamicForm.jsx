@@ -120,6 +120,7 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
                   {label}{" "}
                   {is_required && <span className="text-red-500">*</span>}
                 </label>
+
                 <select
                   value={formData[field_name]}
                   onChange={(e) => handleChange(e, field)}
@@ -127,11 +128,17 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
                   required={is_required}
                 >
                   <option value="">Select...</option>
-                  {config?.options?.map((opt) => (
-                    <option key={opt.value || opt} value={opt.value || opt}>
-                      {opt.label || opt}
-                    </option>
-                  ))}
+
+                  {config?.options?.map((opt) => {
+                    const value = typeof opt === "string" ? opt : opt.value;
+                    const label = typeof opt === "string" ? opt : opt.label;
+
+                    return (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    );
+                  })}
                 </select>
               </div>
             );
@@ -151,6 +158,100 @@ const DynamicForm = ({ form, assignmentId, studentId, patientId }) => {
                   required={is_required}
                   rows={3}
                 />
+              </div>
+            );
+          }
+
+          // CHECKBOX GROUP (multiple choices)
+          if (field_type === "checkbox" && Array.isArray(config?.options)) {
+            return (
+              <div key={field_id}>
+                <label className="block text-gray-700 font-medium mb-1">
+                  {label}{" "}
+                  {is_required && <span className="text-red-500">*</span>}
+                </label>
+
+                <div className="space-y-1">
+                  {config.options.map((opt, idx) => {
+                    const value = typeof opt === "string" ? opt : opt.value;
+                    const label = typeof opt === "string" ? opt : opt.label;
+
+                    return (
+                      <label key={idx} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          value={value}
+                          checked={formData[field_name]?.includes(value)}
+                          onChange={(e) => {
+                            const checked = e.target.checked;
+
+                            setFormData((prev) => {
+                              const currentValues = Array.isArray(
+                                prev[field_name]
+                              )
+                                ? prev[field_name]
+                                : [];
+
+                              if (checked) {
+                                return {
+                                  ...prev,
+                                  [field_name]: [...currentValues, value],
+                                };
+                              } else {
+                                return {
+                                  ...prev,
+                                  [field_name]: currentValues.filter(
+                                    (v) => v !== value
+                                  ),
+                                };
+                              }
+                            });
+                          }}
+                        />
+                        {label}
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          }
+
+          // RADIO GROUP
+          if (field_type === "radio" && Array.isArray(config?.options)) {
+            return (
+              <div key={field_id}>
+                <label className="block text-gray-700 font-medium mb-1">
+                  {label}{" "}
+                  {is_required && <span className="text-red-500">*</span>}
+                </label>
+
+                <div className="space-y-1">
+                  {config.options.map((opt, idx) => {
+                    const value = typeof opt === "string" ? opt : opt.value;
+                    const optionLabel =
+                      typeof opt === "string" ? opt : opt.label;
+
+                    return (
+                      <label key={idx} className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name={field_name}
+                          value={value}
+                          checked={formData[field_name] === value}
+                          onChange={(e) =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              [field_name]: e.target.value,
+                            }))
+                          }
+                          required={is_required}
+                        />
+                        {optionLabel}
+                      </label>
+                    );
+                  })}
+                </div>
               </div>
             );
           }
