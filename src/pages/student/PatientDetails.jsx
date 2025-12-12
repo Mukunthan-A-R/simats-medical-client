@@ -20,6 +20,13 @@ const PatientDetails = () => {
     enabled: !!patientId,
   });
 
+  if (isLoading) {
+    <p>Loading ...</p>;
+  }
+
+  // console.log("patientData");
+  // console.log(patientData);
+
   return (
     <div className="min-h-screen flex flex-col p-4 bg-gray-50">
       {/* Header */}
@@ -43,9 +50,9 @@ const PatientDetails = () => {
       <div className="flex-1 overflow-y-auto">
         <PatientProfileData patient={patientData} />
         <div className="my-3">
-          <PatientNotesList
-            assignmentId={patientData?.assignment_id}
-          ></PatientNotesList>
+          {patientData && (
+            <PatientNotesList patientData={patientData}></PatientNotesList>
+          )}
         </div>
         <PatientMedicalData patient={patientData} />
       </div>

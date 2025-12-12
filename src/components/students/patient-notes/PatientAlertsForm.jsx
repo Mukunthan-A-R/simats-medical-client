@@ -3,17 +3,30 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { XIcon, AlertTriangleIcon } from "lucide-react";
 import toast from "react-hot-toast";
 import { createPatientNote } from "../../../services/patientNotesService";
+import { useParams } from "react-router-dom";
 
 const PatientAlertsForm = ({
   assignmentId,
   patientId,
+  userId,
   onClose,
   createdBy,
-  roleId,
 }) => {
   const queryClient = useQueryClient();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+
+  const params = useParams();
+
+  let roleId;
+  if (params.studentId) {
+    roleId = 2;
+  } else if (params.facultyId) {
+    roleId = 1;
+  }
+
+  console.log("assignmentId, patientId, userId");
+  console.log(assignmentId, patientId, userId);
 
   // Mutation to create new note
   const mutation = useMutation({
@@ -44,6 +57,7 @@ const PatientAlertsForm = ({
       description,
       created_by: createdBy,
       role_id: roleId,
+      userId: userId,
     });
   };
 
