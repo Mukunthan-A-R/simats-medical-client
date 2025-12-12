@@ -22,7 +22,15 @@ const PatientNotesList = ({ patientData }) => {
   }
 
   if (isLoading) return <p>Loading alerts...</p>;
-  if (!notes.length) return <p>No alerts found.</p>;
+  if (!notes.length)
+    return (
+      <PatientCollapsiblePanel
+        assignmentId={assignmentId}
+        userId={userId}
+        patient_id={patient_id}
+        disableDropDown={true}
+      ></PatientCollapsiblePanel>
+    );
 
   const panelTitle = notes.map((n) => n.title).join(", ");
 

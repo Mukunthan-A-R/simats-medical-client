@@ -11,12 +11,13 @@ import PatientAlertsForm from "./PatientAlertsForm";
 import { useMatch } from "react-router-dom";
 
 export default function PatientCollapsiblePanel({
-  title,
+  title = "No Alerts found",
   defaultOpen = false,
   children,
   assignmentId,
   patient_id,
   userId,
+  disableDropDown = false,
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [formOpen, setFormOpen] = useState(false);
@@ -60,13 +61,15 @@ export default function PatientCollapsiblePanel({
         )}
 
         {/* Chevron */}
-        <button className="ml-2" onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? (
-            <ChevronUpIcon size={20} className="text-gray-500" />
-          ) : (
-            <ChevronDownIcon size={20} className="text-gray-500" />
-          )}
-        </button>
+        {!disableDropDown && (
+          <button className="ml-2" onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? (
+              <ChevronUpIcon size={20} className="text-gray-500" />
+            ) : (
+              <ChevronDownIcon size={20} className="text-gray-500" />
+            )}
+          </button>
+        )}
       </div>
 
       {/* Content */}
