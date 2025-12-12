@@ -25,9 +25,6 @@ const PatientAlertsForm = ({
     roleId = 1;
   }
 
-  console.log("assignmentId, patientId, userId");
-  console.log(assignmentId, patientId, userId);
-
   // Mutation to create new note
   const mutation = useMutation({
     mutationFn: createPatientNote,
