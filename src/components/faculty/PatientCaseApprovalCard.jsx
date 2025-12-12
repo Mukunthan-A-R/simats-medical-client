@@ -73,12 +73,12 @@ const PatientCaseApprovalCard = ({ patient }) => {
       {/* ---------- PATIENT DETAILS ---------- */}
       <div className="p-4 flex-1 flex flex-col justify-between">
         <div className="text-xs space-y-1">
-          <p className="flex items-center text-blue-600 font-medium">
+          {/* <p className="flex items-center text-blue-600 font-medium">
             <HeartPulseIcon size={12} className="mr-1" /> {patient.diagnosis}
           </p>
           <p className="flex items-center text-red-600 font-medium">
             <AlertTriangleIcon size={12} className="mr-1" /> {patient.findings}
-          </p>
+          </p> */}
           <p className="text-gray-500">
             <span className="font-semibold text-gray-700">Dept:</span>{" "}
             {patient.dept_name}
