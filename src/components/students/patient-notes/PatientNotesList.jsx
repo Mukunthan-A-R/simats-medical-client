@@ -36,6 +36,7 @@ const PatientNotesList = ({ patientData }) => {
       {notes.map((note) => (
         <PatientMedicalAllergies
           key={note.note_id}
+          noteId={note.note_id}
           title={note.title}
           desc={note.description}
         />
