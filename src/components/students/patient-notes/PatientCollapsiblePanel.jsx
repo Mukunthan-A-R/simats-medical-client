@@ -7,6 +7,7 @@ import {
   XIcon,
 } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
+import PatientAlertsForm from "./PatientAlertsForm";
 
 export default function PatientCollapsiblePanel({
   title,
@@ -14,6 +15,7 @@ export default function PatientCollapsiblePanel({
   children,
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
+  const [formOpen, setFormOpen] = useState(false);
 
   return (
     <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-red-100 pb-2">
@@ -35,9 +37,9 @@ export default function PatientCollapsiblePanel({
               "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
             color: "white",
           }}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setFormOpen(!formOpen)}
         >
-          {isOpen ? (
+          {formOpen ? (
             <>
               <XIcon size={12} className="mr-1.5" />
               Close
@@ -70,6 +72,7 @@ export default function PatientCollapsiblePanel({
       >
         {children}
       </div>
+      {formOpen && <PatientAlertsForm onClose={() => setFormOpen(!formOpen)} />}
     </div>
   );
 }
