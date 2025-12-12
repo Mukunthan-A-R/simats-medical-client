@@ -3,7 +3,10 @@ import {
   AlertTriangleIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  PlusIcon,
+  XIcon,
 } from "lucide-react";
+import { aquaButtonStyle, aquaGlossEffect } from "../../../utils/constants";
 
 export default function PatientCollapsiblePanel({
   title,
@@ -15,29 +18,51 @@ export default function PatientCollapsiblePanel({
   return (
     <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-red-100 pb-2">
       {/* Header */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex justify-between items-start text-start px-4 pt-2 transition"
-      >
-        <div className="flex flex-row justify-center items-center text-red-500 gap-2">
+      <div className="w-full flex justify-between items-center text-start px-4 pt-2 transition">
+        <div className="flex items-center gap-2 text-red-500 w-full">
           <AlertTriangleIcon size={20} />
-          {!isOpen && (
-            <span className="font-medium text-sm text-gray-900">{title}</span>
-          )}
-          {isOpen && <span className="font-medium text-gray-900">Alerts</span>}
+          <span className="font-medium text-sm text-gray-900">
+            {!isOpen ? title : "Alerts"}
+          </span>
         </div>
-        <span className="ml-1">
+
+        <button
+          className={`px-3 py-1.5 rounded-md text-xs font-medium ${aquaButtonStyle} ${aquaGlossEffect} flex items-center`}
+          style={{
+            background: "linear-gradient(to bottom, #4d90fe, #0066cc)",
+            border: "1px solid rgba(0,0,0,0.2)",
+            boxShadow:
+              "0 2px 4px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.4)",
+            color: "white",
+          }}
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {isOpen ? (
-            <ChevronUpIcon size={20} className=" text-gray-500" />
+            <>
+              <XIcon size={12} className="mr-1.5" />
+              Close
+            </>
           ) : (
-            <ChevronDownIcon size={20} className=" text-gray-500" />
+            <>
+              <PlusIcon size={12} className="mr-1.5" />
+              Add
+            </>
           )}
-        </span>
-      </button>
+        </button>
+
+        {/* Chevron */}
+        <button className="ml-2" onClick={() => setIsOpen(!isOpen)}>
+          {isOpen ? (
+            <ChevronUpIcon size={20} className="text-gray-500" />
+          ) : (
+            <ChevronDownIcon size={20} className="text-gray-500" />
+          )}
+        </button>
+      </div>
 
       {/* Content */}
       <div
-        className={`px-1 sm:px-4 pt-1  text-gray-700 transition-all duration-300 ${
+        className={`px-1 sm:px-4 pt-1 text-gray-700 transition-all duration-300 ${
           isOpen
             ? "max-h-[2000px] opacity-100"
             : "max-h-0 opacity-0 overflow-hidden"
