@@ -24,9 +24,6 @@ const PatientDetails = () => {
     <p>Loading ...</p>;
   }
 
-  // console.log("patientData");
-  // console.log(patientData);
-
   return (
     <div className="min-h-screen flex flex-col p-4 bg-gray-50">
       {/* Header */}

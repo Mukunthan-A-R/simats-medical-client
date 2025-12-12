@@ -15,7 +15,7 @@ export default function PatientCollapsiblePanel({
   children,
   assignmentId,
   patient_id,
-  student_id,
+  userId,
 }) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [formOpen, setFormOpen] = useState(false);
@@ -78,7 +78,7 @@ export default function PatientCollapsiblePanel({
       {formOpen && (
         <PatientAlertsForm
           patientId={patient_id}
-          userId={student_id}
+          userId={userId}
           assignmentId={assignmentId}
           onClose={() => setFormOpen(!formOpen)}
         />

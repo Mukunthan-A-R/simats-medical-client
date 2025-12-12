@@ -2,11 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import PatientCollapsiblePanel from "./PatientCollapsiblePanel";
 import PatientMedicalAllergies from "./PatientMedicalAllergies";
 import { fetchPatientNotesByAssignment } from "../../../services/patientNotesService";
+import { useParams } from "react-router-dom";
 
 const PatientNotesList = ({ patientData }) => {
-  console.log(patientData);
-
-  const { assignment_id: assignmentId, patient_id, student_id } = patientData;
+  const params = useParams();
+  const { assignment_id: assignmentId, patient_id } = patientData;
 
   const { data: notes = [], isLoading } = useQuery({
     queryKey: ["patientNotes", assignmentId],
@@ -14,10 +14,12 @@ const PatientNotesList = ({ patientData }) => {
     enabled: !!assignmentId,
   });
 
-  console.log("assignmentId");
-  console.log(assignmentId);
-  console.log(patient_id);
-  console.log(student_id);
+  let userId;
+  if (params.studentId) {
+    userId = params.studentId;
+  } else if (params.facultyId) {
+    userId = params.facultyId;
+  }
 
   if (isLoading) return <p>Loading alerts...</p>;
   if (!notes.length) return <p>No alerts found.</p>;
@@ -27,7 +29,7 @@ const PatientNotesList = ({ patientData }) => {
   return (
     <PatientCollapsiblePanel
       assignmentId={assignmentId}
-      student_id={student_id}
+      userId={userId}
       patient_id={patient_id}
       title={panelTitle}
     >
