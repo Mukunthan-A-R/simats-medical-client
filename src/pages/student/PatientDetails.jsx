@@ -4,6 +4,7 @@ import { ChevronLeftIcon } from "lucide-react";
 import PatientProfileData from "../../components/students/patients/PatientProfileData";
 import PatientMedicalData from "../../components/students/patients/PatientMedicalData";
 import { fetchPatientById } from "../../services/patientService";
+import PatientNotesList from "../../components/students/patient-notes/PatientNotesList";
 
 const PatientDetails = () => {
   const navigate = useNavigate();
@@ -41,6 +42,11 @@ const PatientDetails = () => {
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         <PatientProfileData patient={patientData} />
+        <div className="my-3">
+          <PatientNotesList
+            assignmentId={patientData?.assignment_id}
+          ></PatientNotesList>
+        </div>
         <PatientMedicalData patient={patientData} />
       </div>
     </div>

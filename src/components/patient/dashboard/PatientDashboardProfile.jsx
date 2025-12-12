@@ -1,6 +1,6 @@
 import { GraduationCapIcon } from "lucide-react";
-import PatientCollapsiblePanel from "./PatientCollapsiblePanel";
-import PatientMedicalAllergies from "./PatientMedicalAllergies";
+import PatientCollapsiblePanel from "../../students/patient-notes/PatientCollapsiblePanel";
+import PatientMedicalAllergies from "../../students/patient-notes/PatientMedicalAllergies";
 
 export default function PatientDashboardProfile({ userDataVal }) {
   return (
