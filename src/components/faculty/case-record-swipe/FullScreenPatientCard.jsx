@@ -1,13 +1,14 @@
 import { useState } from "react";
-import { CheckIcon, XIcon } from "lucide-react";
+import { CheckIcon, ClipboardListIcon, XIcon } from "lucide-react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
   approveProcedureCaseRecord,
   rejectProcedureCaseRecord,
 } from "../../../services/doctorProcedureCaseRecord";
-import CaseRecordDataTab from "../CaseRecordDataTab";
 import PatientMedicalRecordReport from "../../patient/PatientMedicalRecordReport";
+import DoctorCaseRecordFileReader from "../dashboard/file-reader/DoctorCaseRecordFileReader";
+import CaseRecordData from "./CaseRecordData";
 
 const FullScreenPatientCard = ({ patient }) => {
   const [viewSummary, setViewSummary] = useState(false);
@@ -36,9 +37,9 @@ const FullScreenPatientCard = ({ patient }) => {
   const fileIds = patient?.form_data?.fields || [];
 
   return (
-    <div className=" bg-white flex flex-col p-4 md:p-6 ">
+    <div className=" bg-white flex flex-col p-4 md:p-6 w-auto md:min-w-lg lg:min-w-xl">
       {/* Header */}
-      <div className="w-screen flex items-center gap-4 mb-4">
+      <div className="w-full flex items-center gap-4 mb-4">
         <img
           src={
             patient?.patientPhoto ||
@@ -54,15 +55,24 @@ const FullScreenPatientCard = ({ patient }) => {
         </div>
       </div>
 
-      {/* Case Data & Attachments */}
-      <div className="flex-1 overflow-auto mb-4">
-        <CaseRecordDataTab fileIds={fileIds} patient={patient} />
-      </div>
+      <CaseRecordData patient={patient} />
+      <p className="mb-5"></p>
+
+      {/* Optional: Divider before attachments */}
+      {fileIds?.length > 0 && (
+        <h4 className="mt-5 flex items-center text-sm font-medium text-gray-800 mb-3 pb-1 border-b border-gray-300">
+          <ClipboardListIcon size={14} className="mr-2 text-blue-600" />
+          Attachments
+        </h4>
+      )}
+      <DoctorCaseRecordFileReader fileIds={fileIds} />
 
       {/* Report Docs Button */}
       <button
         onClick={() => setViewSummary(true)}
-        className="w-full py-3 mb-4 text-white bg-blue-500 rounded-xl font-semibold hover:bg-blue-600 transition"
+        className="w-full py-3 mb-4 rounded-xl text-white font-semibold shadow-sm transition-all
+             bg-linear-to-b from-blue-400 to-blue-600
+             hover:from-blue-500 hover:to-blue-700"
       >
         View Report
       </button>
@@ -71,13 +81,18 @@ const FullScreenPatientCard = ({ patient }) => {
       <div className="flex flex-col md:flex-row gap-4">
         <button
           onClick={() => rejectRecord(patient.record_id)}
-          className="flex-1 py-3 bg-red-500 text-white rounded-xl font-semibold hover:bg-red-600 transition"
+          className="flex-1 py-3 rounded-xl text-white font-semibold shadow-sm transition-all
+               bg-linear-to-b from-red-400 to-red-600
+               hover:from-red-500 hover:to-red-700"
         >
           <XIcon size={16} className="inline mr-1" /> Reject
         </button>
+
         <button
           onClick={() => approveRecord(patient.record_id)}
-          className="flex-1 py-3 bg-green-500 text-white rounded-xl font-semibold hover:bg-green-600 transition"
+          className="flex-1 py-3 rounded-xl text-white font-semibold shadow-sm transition-all
+               bg-linear-to-b from-green-400 to-green-600
+               hover:from-green-500 hover:to-green-700"
         >
           <CheckIcon size={16} className="inline mr-1" /> Approve
         </button>
