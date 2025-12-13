@@ -37,7 +37,6 @@ const DoctorCaseRecordFileReader = ({ fileIds = [] }) => {
 
   return (
     <div className="my-2">
-      <h3 className="text-sm font-semibold mb-2">Attachments</h3>
       <div className="flex space-x-2 overflow-x-auto pb-2">
         {files.map((file, idx) => {
           const url = file.fileUrl;

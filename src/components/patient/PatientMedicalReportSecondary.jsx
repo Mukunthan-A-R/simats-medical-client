@@ -1,5 +1,6 @@
 import { ClipboardListIcon, CheckCircleIcon } from "lucide-react";
 import { useParams } from "react-router-dom";
+import DoctorCaseRecordFileReader from "../faculty/dashboard/file-reader/DoctorCaseRecordFileReader";
 
 export default function PatientMedicalReportSecondary({ patient }) {
   const { facultyId } = useParams();
@@ -7,6 +8,8 @@ export default function PatientMedicalReportSecondary({ patient }) {
 
   // Use form_data or fallback to empty object
   const dynamicData = patient.form_data || {};
+
+  const fileIds = patient?.form_data?.fields || [];
 
   return (
     <div className="mx-auto bg-white rounded-lg shadow-md p-6 text-gray-800">
@@ -38,6 +41,13 @@ export default function PatientMedicalReportSecondary({ patient }) {
             Diagnosis
           </h4>
           <p className="text-sm text-gray-700">{patient.diagnosis}</p>
+        </div>
+      )}
+
+      {/* ---------- FILES PREVIEW IF EXIST ---------- */}
+      {fileIds.length > 0 && (
+        <div className="w-full bg-gray-50 p-2 ">
+          <DoctorCaseRecordFileReader fileIds={fileIds} />
         </div>
       )}
 

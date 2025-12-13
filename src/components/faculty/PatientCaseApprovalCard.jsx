@@ -14,10 +14,14 @@ import {
   rejectProcedureCaseRecord,
 } from "../../services/doctorProcedureCaseRecord";
 import DoctorCaseRecordFileReader from "./dashboard/file-reader/DoctorCaseRecordFileReader";
+import CaseRecordDataTab from "./CaseRecordDataTab";
 
 const PatientCaseApprovalCard = ({ patient }) => {
   const [viewSummary, setViewSummary] = useState(false);
   const queryClient = useQueryClient();
+
+  console.log("patient");
+  console.log(patient);
 
   const { mutate: approveRecord } = useMutation({
     mutationFn: approveProcedureCaseRecord,
@@ -63,13 +67,6 @@ const PatientCaseApprovalCard = ({ patient }) => {
         </div>
       </div>
 
-      {/* ---------- FILES PREVIEW IF EXIST ---------- */}
-      {fileIds.length > 0 && (
-        <div className="w-full bg-gray-50 p-2 ">
-          <DoctorCaseRecordFileReader fileIds={fileIds} />
-        </div>
-      )}
-
       {/* ---------- PATIENT DETAILS ---------- */}
       <div className="p-4 flex-1 flex flex-col justify-between">
         <div className="text-xs space-y-1">
@@ -85,13 +82,23 @@ const PatientCaseApprovalCard = ({ patient }) => {
           </p>
           <p className="text-gray-500">
             <span className="font-semibold text-gray-700">Requested by:</span>{" "}
-            {patient.student_name}
+            {patient.student_name} ( {patient.patient_id})
           </p>
           <p className="text-gray-500">
             <span className="font-semibold text-gray-700">Admission:</span>{" "}
             {formatDate ? formatDate("2023-08-30") : "--"}
           </p>
         </div>
+
+        {/* ---------- FILES PREVIEW IF EXIST ---------- */}
+        {/* {fileIds.length > 0 && (
+          <div className="w-full bg-gray-50 p-2 ">
+            <DoctorCaseRecordFileReader fileIds={fileIds} />
+          </div>
+        )} */}
+        <CaseRecordDataTab fileIds={fileIds}>
+          {/* Case record form / data */}
+        </CaseRecordDataTab>
 
         {/* ---------- ACTION BUTTONS AT BOTTOM ---------- */}
         <div className="flex flex-col gap-2 mt-4">
