@@ -46,6 +46,7 @@ import AdminDepartmentProcedures from "./pages/admin/AdminDepartmentProcedures";
 import AdminProceduresForm from "./pages/admin/AdminProceduresForm";
 import AdminViewProceduresForm from "./pages/admin/AdminViewProceduresForm";
 import AdminCreateFileType from "./pages/admin/AdminCreateFileType";
+import FacultyCaseApprovalSwipe from "./components/faculty/case-record-swipe/FacultyCaseApprovalSwipe";
 
 function App() {
   return (
@@ -117,9 +118,13 @@ function App() {
           <Route path="/faculty" element={<FacultyLayout />}>
             <Route path="dashboard/:facultyId" element={<FacultyDashboard />} />
             <Route path="profile/:facultyId" element={<FacultyProfile />} />
-            <Route
+            {/* <Route
               path="case-record-approvals/:facultyId"
               element={<FacultyCaseApproval />}
+            /> */}
+            <Route
+              path="case-record-approvals/:facultyId"
+              element={<FacultyCaseApprovalSwipe />}
             />
             <Route
               path=":studentId/patient/:patientId"
