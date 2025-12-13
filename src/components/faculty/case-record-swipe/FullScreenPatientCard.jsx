@@ -37,7 +37,10 @@ const FullScreenPatientCard = ({ patient }) => {
   const fileIds = patient?.form_data?.fields || [];
 
   return (
-    <div className=" bg-white flex flex-col p-4 md:p-6 w-auto md:min-w-lg lg:min-w-xl">
+    <div
+      className="bg-gray-50 flex flex-col p-5 md:p-6 w-auto md:min-w-lg lg:min-w-xl
+                rounded-2xl shadow-lg border border-gray-200"
+    >
       {/* Header */}
       <div className="w-full flex items-center gap-4 mb-4">
         <img
@@ -49,7 +52,9 @@ const FullScreenPatientCard = ({ patient }) => {
           className="w-16 h-16 rounded-full border object-cover"
         />
         <div>
-          <h2 className="text-lg font-semibold">{patient.patient_name}</h2>
+          <h2 className="text-lg font-semibold text-gray-900">
+            {patient.patient_name}
+          </h2>
           <p className="text-sm text-gray-500">{patient.patient_id}</p>
           <p className="text-sm text-gray-500">Dept: {patient.dept_name}</p>
         </div>
@@ -70,9 +75,9 @@ const FullScreenPatientCard = ({ patient }) => {
       {/* Report Docs Button */}
       <button
         onClick={() => setViewSummary(true)}
-        className="w-full py-3 mb-4 rounded-xl text-white font-semibold shadow-sm transition-all
-             bg-linear-to-b from-blue-400 to-blue-600
-             hover:from-blue-500 hover:to-blue-700"
+        className="w-full py-3 mb-4 rounded-xl text-white font-semibold shadow-md transition-all
+              bg-linear-to-b from-blue-300 to-blue-500
+               hover:from-blue-400 hover:to-blue-600"
       >
         View Report
       </button>
@@ -81,18 +86,18 @@ const FullScreenPatientCard = ({ patient }) => {
       <div className="flex flex-col md:flex-row gap-4">
         <button
           onClick={() => rejectRecord(patient.record_id)}
-          className="flex-1 py-3 rounded-xl text-white font-semibold shadow-sm transition-all
-               bg-linear-to-b from-red-400 to-red-600
-               hover:from-red-500 hover:to-red-700"
+          className="flex-1 py-3 rounded-xl text-white font-semibold shadow-md transition-all
+                bg-linear-to-b from-red-300 to-red-500
+                 hover:from-red-400 hover:to-red-600"
         >
           <XIcon size={16} className="inline mr-1" /> Reject
         </button>
 
         <button
           onClick={() => approveRecord(patient.record_id)}
-          className="flex-1 py-3 rounded-xl text-white font-semibold shadow-sm transition-all
-               bg-linear-to-b from-green-400 to-green-600
-               hover:from-green-500 hover:to-green-700"
+          className="flex-1 py-3 rounded-xl text-white font-semibold shadow-md transition-all
+                bg-linear-to-b from-green-300 to-green-500
+                 hover:from-green-400 hover:to-green-600"
         >
           <CheckIcon size={16} className="inline mr-1" /> Approve
         </button>
