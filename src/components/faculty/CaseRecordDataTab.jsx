@@ -1,7 +1,8 @@
 import { useState } from "react";
 import DoctorCaseRecordFileReader from "./dashboard/file-reader/DoctorCaseRecordFileReader";
+import CaseRecordDataPanel from "./CaseRecordDataPanel";
 
-const CaseRecordDataTab = ({ fileIds = [], defaultTab = "data" }) => {
+const CaseRecordDataTab = ({ fileIds = [], defaultTab = "data", patient }) => {
   const [activeTab, setActiveTab] = useState(defaultTab);
 
   return (
@@ -35,23 +36,7 @@ const CaseRecordDataTab = ({ fileIds = [], defaultTab = "data" }) => {
 
       {/* Tabs Content */}
       <div className="mt-3 p-4 rounded-lg bg-gray-100 border border-gray-200 shadow-sm">
-        {activeTab === "data" && (
-          <div className="space-y-2 text-sm text-gray-800">
-            <p>
-              <strong>Patient Name:</strong> John Doe
-            </p>
-            <p>
-              <strong>Diagnosis:</strong> Mild Fever and Cough
-            </p>
-            <p>
-              <strong>Observations:</strong> Patient is stable, vitals normal.
-            </p>
-            <p>
-              <strong>Notes:</strong> Monitor temperature and prescribe
-              paracetamol if fever persists.
-            </p>
-          </div>
-        )}
+        {activeTab === "data" && <CaseRecordDataPanel patient={patient} />}
 
         {activeTab === "files" && fileIds?.length > 0 && (
           <div className="mt-2">

@@ -15,6 +15,7 @@ import {
 } from "../../services/doctorProcedureCaseRecord";
 import DoctorCaseRecordFileReader from "./dashboard/file-reader/DoctorCaseRecordFileReader";
 import CaseRecordDataTab from "./CaseRecordDataTab";
+import CaseRecordDataPanel from "./CaseRecordDataPanel";
 
 const PatientCaseApprovalCard = ({ patient }) => {
   const [viewSummary, setViewSummary] = useState(false);
@@ -96,7 +97,7 @@ const PatientCaseApprovalCard = ({ patient }) => {
             <DoctorCaseRecordFileReader fileIds={fileIds} />
           </div>
         )} */}
-        <CaseRecordDataTab fileIds={fileIds}>
+        <CaseRecordDataTab fileIds={fileIds} patient={patient}>
           {/* Case record form / data */}
         </CaseRecordDataTab>
 
