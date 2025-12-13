@@ -21,9 +21,6 @@ const PatientCaseApprovalCard = ({ patient }) => {
   const [viewSummary, setViewSummary] = useState(false);
   const queryClient = useQueryClient();
 
-  console.log("patient");
-  console.log(patient);
-
   const { mutate: approveRecord } = useMutation({
     mutationFn: approveProcedureCaseRecord,
     onSuccess: () => {
