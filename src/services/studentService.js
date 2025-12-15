@@ -1,7 +1,5 @@
-import axios from "axios";
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../config/apiConfig";
 
 export const fetchStudentById = async (id) => {
   if (!id) {

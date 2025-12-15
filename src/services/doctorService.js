@@ -1,6 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../config/apiConfig";
 
 export const fetchDoctorById = async (id) => {
   if (!id) {

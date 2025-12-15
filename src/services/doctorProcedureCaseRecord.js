@@ -1,6 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../config/apiConfig";
 
 // Fetch all procedure case records for a doctor
 export const fetchDoctorProcedureCaseRecords = async (doctorId) => {

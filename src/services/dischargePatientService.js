@@ -1,6 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "/api/discharge-patient";
+import { BASE_URL } from "../config/apiConfig";
 
 // Fetch single patient data by assignmentId
 export const fetchSinglePatientData = async (assignmentId) => {

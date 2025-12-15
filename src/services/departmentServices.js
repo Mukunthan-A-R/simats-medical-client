@@ -1,6 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000";
+import { BASE_URL } from "../config/apiConfig";
 
 // 🔹 Create a new department
 export const createDepartment = async (payload) => {
