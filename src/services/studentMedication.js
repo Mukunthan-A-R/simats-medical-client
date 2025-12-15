@@ -1,6 +1,6 @@
 import axiosInstance from "../api/axiosInstance";
+import { BASE_URL } from "../config/apiConfig";
 
-const BASE_URL = "http://localhost:5000/api/student-medication";
 // Fetch all medications for a given assignment_id
 export const fetchMedicationsByAssignment = async (assignmentId) => {
   if (!assignmentId) {
@@ -8,7 +8,9 @@ export const fetchMedicationsByAssignment = async (assignmentId) => {
     return [];
   }
 
-  const response = await axiosInstance.get(`${BASE_URL}/${assignmentId}`);
+  const response = await axiosInstance.get(
+    `${BASE_URL}/api/student-medication/${assignmentId}`
+  );
   // Return only the array of medications
   return response.data?.data || [];
 };
@@ -20,6 +22,9 @@ export const createMedicationRequest = async (medicationData) => {
     return null;
   }
 
-  const response = await axiosInstance.post(BASE_URL, medicationData);
+  const response = await axiosInstance.post(
+    `${BASE_URL}/api/student-medication`,
+    medicationData
+  );
   return response.data;
 };

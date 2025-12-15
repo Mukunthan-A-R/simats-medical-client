@@ -1,13 +1,15 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api/admin/file-type";
+import { BASE_URL } from "../config/apiConfig";
 
 export const createDocumentType = async (type_name, description) => {
   try {
-    const response = await axiosInstance.post(BASE_URL, {
-      type_name,
-      description,
-    });
+    const response = await axiosInstance.post(
+      `${BASE_URL}/api/admin/file-type`,
+      {
+        type_name,
+        description,
+      }
+    );
     return response.data; // { success: true, data: {...} }
   } catch (err) {
     console.error("Error creating document type:", err);
