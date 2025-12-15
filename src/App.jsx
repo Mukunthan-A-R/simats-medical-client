@@ -11,6 +11,7 @@ import StudentDashboard from "./pages/student/StudentDashboard";
 import StudentProfile from "./pages/student/StudentProfile";
 import StudentNotificationsScreen from "./pages/student/StudentNotificationsScreen";
 import StudentAcademicsSection from "./components/students/dashboard/academics/StudentAcademicsSection";
+import PatientDetails from "./pages/student/PatientDetails";
 
 // Patient Routes
 import PatientLayout from "./pages/layouts/PatientLayout";
@@ -34,11 +35,10 @@ import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApp
 import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
 import FacultyPatientsData from "./pages/faculty/FacultyPatientsData";
 import FacultyDischargeApproval from "./pages/faculty/discharge-approval/FacultyDischargeApproval";
+import FacultyCaseApprovalSwipe from "./components/faculty/case-record-swipe/FacultyCaseApprovalSwipe";
 import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
 
-import UnderConstruction from "./components/UnderConstruction";
-import PatientDetails from "./pages/student/PatientDetails";
-import { Toaster } from "react-hot-toast";
+// Admin Routes
 import AdminLayout from "./pages/layouts/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminDepartments from "./pages/admin/AdminDepartments";
@@ -46,7 +46,10 @@ import AdminDepartmentProcedures from "./pages/admin/AdminDepartmentProcedures";
 import AdminProceduresForm from "./pages/admin/AdminProceduresForm";
 import AdminViewProceduresForm from "./pages/admin/AdminViewProceduresForm";
 import AdminCreateFileType from "./pages/admin/AdminCreateFileType";
-import FacultyCaseApprovalSwipe from "./components/faculty/case-record-swipe/FacultyCaseApprovalSwipe";
+
+// General Imports
+import { Toaster } from "react-hot-toast";
+import UnderConstruction from "./components/UnderConstruction";
 
 function App() {
   return (
