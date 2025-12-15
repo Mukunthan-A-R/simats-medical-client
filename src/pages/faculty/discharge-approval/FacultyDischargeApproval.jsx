@@ -1,145 +1,27 @@
 import { ChevronLeftIcon } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPendingDischargeRequests } from "../../../services/dischargeRequestService";
 import PatientDischargeCard from "./PatientDischargeCard";
 
 const FacultyDischargeApproval = () => {
   const navigate = useNavigate();
 
-  const patients = [
-    {
-      id: "padm-001",
-      patientName: "Ravi Kumar",
-      patientId: "SMC-2023-0078",
-      department: "Cardiology",
-      requestedBy: "Dr. Priya Sharma",
-      requestDate: "2023-09-15",
-      urgency: "Medium",
-      reason: "Chest pain and arrhythmia",
-      age: 62,
-      gender: "Male",
-      contactNumber: "+91 98765 43210",
-      existingDiagnosis: "Hypertension, Diabetes Mellitus Type 2",
-      vitalSigns: {
-        bp: "145/90 mmHg",
-        pulse: "88 bpm",
-        temp: "37.2°C",
-        resp: "18/min",
-        spo2: "97%",
-      },
-      wardPreference: "W-205",
-      bedPreference: "Any",
-      expectedStay: "5-7 days",
-      insuranceDetails: "Policy #HLTI-45678, Apollo Health Insurance",
-      additionalNotes:
-        "Patient is on blood thinners. Has a history of MI 2 years ago. Current ECG shows ST depression in leads V3-V5.",
-      patientPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ugDakFfo4gI3RhpLvEwSo8cr6MzeHCkznQ&s",
-      requestorPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-ugDakFfo4gI3RhpLvEwSo8cr6MzeHCkznQ&s",
-      alerts: ["Diabetes", "On Blood Thinners", "History of MI"],
-    },
-    {
-      id: "padm-002",
-      patientName: "Ananya Singh",
-      patientId: "SMC-2023-0092",
-      department: "Neurology",
-      requestedBy: "Dr. Rajesh Patel",
-      requestDate: "2023-09-17",
-      urgency: "High",
-      reason: "Recurrent seizures",
-      age: 28,
-      gender: "Female",
-      contactNumber: "+91 87654 32109",
-      existingDiagnosis: "Epilepsy, Migraine",
-      vitalSigns: {
-        bp: "125/80 mmHg",
-        pulse: "96 bpm",
-        temp: "37.8°C",
-        resp: "22/min",
-        spo2: "98%",
-      },
-      wardPreference: "W-103",
-      bedPreference: "Near nursing station",
-      expectedStay: "3-5 days",
-      insuranceDetails: "Policy #STAR-78901, Star Health Insurance",
-      additionalNotes:
-        "Patient had 3 episodes of seizures in the last 24 hours. Currently on Levetiracetam 500mg BD. Last seizure episode was 4 hours ago. Patient is pregnant (14 weeks).",
-      patientPhoto:
-        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-5ItWRUg_Klzft8z-j8cCpXsx4bjxMn7fiQ&s",
-      requestorPhoto:
-        "https://static.wikia.nocookie.net/demonslayer/images/a/a1/Kanao_Anime_Profile.png",
-      alerts: ["Pregnancy", "Epilepsy", "Migraine"],
-    },
-    {
-      id: "padm-003",
-      patientName: "Vikram Joshi",
-      patientId: "SMC-2023-0105",
-      department: "Orthopedics",
-      requestedBy: "Dr. Meena Krishnan",
-      requestDate: "2023-09-18",
-      urgency: "Medium",
-      reason: "Fracture follow-up",
-      age: 40,
-      gender: "Male",
-      contactNumber: "+91 91234 56789",
-      existingDiagnosis: "Tibia fracture post-surgery",
-      vitalSigns: {
-        bp: "130/85 mmHg",
-        pulse: "80 bpm",
-        temp: "36.8°C",
-        resp: "16/min",
-        spo2: "99%",
-      },
-      wardPreference: "W-310",
-      bedPreference: "Corner bed",
-      expectedStay: "2 days",
-      insuranceDetails: "Policy #HDFC-56789, HDFC Ergo Insurance",
-      additionalNotes: "Post-operative dressing change scheduled every 2 days.",
-      patientPhoto:
-        "https://i.pinimg.com/474x/38/82/9a/38829a8d117c720b9f6bc6e1bc3d03c8.jpg",
-      requestorPhoto:
-        "https://static.wikia.nocookie.net/naruto/images/1/1b/Tsunade.png",
-      alerts: ["Post-surgery care"],
-    },
-    {
-      id: "padm-004",
-      patientName: "Saira Banu",
-      patientId: "SMC-2023-0112",
-      department: "Oncology",
-      requestedBy: "Dr. Ashok Menon",
-      requestDate: "2023-09-19",
-      urgency: "High",
-      reason: "Chemotherapy cycle 4",
-      age: 49,
-      gender: "Female",
-      contactNumber: "+91 93456 22109",
-      existingDiagnosis: "Breast carcinoma (Stage II)",
-      vitalSigns: {
-        bp: "118/78 mmHg",
-        pulse: "90 bpm",
-        temp: "37.0°C",
-        resp: "17/min",
-        spo2: "98%",
-      },
-      wardPreference: "W-220",
-      bedPreference: "Window side",
-      expectedStay: "4 days",
-      insuranceDetails: "Policy #BAJAJ-11122, Bajaj Allianz Insurance",
-      additionalNotes:
-        "Requires IV line setup and antiemetic protocol pre-chemo.",
-      patientPhoto:
-        "https://preview.redd.it/the-thing-about-muichiros-eyes-v0-0ub98y0ygt2b1.jpg?width=640&crop=smart&auto=webp&s=8f9bf1393e017c9a778796e7cf1f43c3ec37a472",
-      requestorPhoto:
-        "https://static.wikia.nocookie.net/naruto/images/0/0b/Kakashi_Hatake.png",
-      alerts: ["Chemotherapy", "Nausea management"],
-    },
-  ];
+  const { facultyId } = useParams();
+
+  // Fetch pending discharge requests
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["pendingDischargeRequests", facultyId],
+    queryFn: () => fetchPendingDischargeRequests(facultyId),
+    enabled: !!facultyId,
+  });
 
   return (
     <div className="p-4">
-      <div className="mb-4 flex items-center">
+      {/* Header */}
+      <div className="mb-6 flex items-center">
         <button
-          className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
+          className="mr-2 w-8 h-8 flex items-center justify-center rounded-full"
           onClick={() => navigate(-1)}
           style={{
             background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
@@ -155,11 +37,31 @@ const FacultyDischargeApproval = () => {
         </h1>
       </div>
 
-      {patients.map((patient) => (
-        <>
-          <PatientDischargeCard patient={patient} />
-        </>
-      ))}
+      {/* Content */}
+      {isLoading && (
+        <p className="text-gray-500 text-center">Loading pending requests...</p>
+      )}
+      {isError && (
+        <p className="text-red-500 text-center">
+          Failed to load pending requests.
+        </p>
+      )}
+
+      {!isLoading && data?.length === 0 && (
+        <p className="text-gray-500 text-center">
+          No pending discharge requests.
+        </p>
+      )}
+
+      <div className="space-y-4">
+        {data &&
+          data.map((patient) => (
+            <PatientDischargeCard
+              key={patient.assignment_id}
+              patient={patient}
+            />
+          ))}
+      </div>
     </div>
   );
 };
