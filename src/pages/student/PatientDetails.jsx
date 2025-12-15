@@ -5,6 +5,8 @@ import PatientProfileData from "../../components/students/patients/PatientProfil
 import PatientMedicalData from "../../components/students/patients/PatientMedicalData";
 import { fetchPatientById } from "../../services/patientService";
 import PatientNotesList from "../../components/students/patient-notes/PatientNotesList";
+import DischargeComponent from "../../components/students/discharge/DischargeComponent";
+import DischargeStatusComponent from "../../components/students/discharge/DischargeStatusComponent";
 
 const PatientDetails = () => {
   const navigate = useNavigate();
@@ -51,6 +53,12 @@ const PatientDetails = () => {
             <PatientNotesList patientData={patientData}></PatientNotesList>
           )}
         </div>
+        <DischargeComponent
+          assignmentId={patientData?.assignment_id}
+        ></DischargeComponent>
+        <DischargeStatusComponent
+          assignmentId={patientData?.assignment_id}
+        ></DischargeStatusComponent>
         <PatientMedicalData patient={patientData} />
       </div>
     </div>
