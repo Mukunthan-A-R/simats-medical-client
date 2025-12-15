@@ -1,6 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api/assignment-files";
+import { BASE_URL } from "../config/apiConfig";
 
 // Fetch paginated assignment files metadata by assignmentId
 export const fetchAssignmentFilesMetadata = async (
@@ -12,7 +11,7 @@ export const fetchAssignmentFilesMetadata = async (
 
   try {
     const response = await axiosInstance.get(
-      `${BASE_URL}/${assignmentId}/files`,
+      `${BASE_URL}/api/assignment-files/${assignmentId}/files`,
       {
         params: { limit, offset },
       }

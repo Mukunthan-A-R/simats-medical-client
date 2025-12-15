@@ -1,7 +1,6 @@
 import axiosInstance from "../api/axiosInstance";
 
-const BASE_URL = "http://localhost:5000/api/student-medication"; // relative URL, axiosInstance already has baseURL
-
+const BASE_URL = "http://localhost:5000/api/student-medication";
 // Fetch all medications for a given assignment_id
 export const fetchMedicationsByAssignment = async (assignmentId) => {
   if (!assignmentId) {

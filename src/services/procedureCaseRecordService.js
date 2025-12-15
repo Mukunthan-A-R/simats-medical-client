@@ -1,6 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api";
+import { BASE_URL } from "../config/apiConfig";
 
 // Create a new procedure case record
 export const createProcedureCaseRecord = async (caseRecordData) => {
@@ -10,7 +9,7 @@ export const createProcedureCaseRecord = async (caseRecordData) => {
   }
 
   const response = await axiosInstance.post(
-    `${BASE_URL}/procedure-case-record/patient`,
+    `${BASE_URL}/api/procedure-case-record/patient`,
     caseRecordData
   );
 
@@ -25,7 +24,7 @@ export const fetchProcedureCaseRecordById = async (recordId) => {
   }
 
   const response = await axiosInstance.get(
-    `${BASE_URL}/procedure-case-record/patient/${recordId}`
+    `${BASE_URL}/api/procedure-case-record/patient/${recordId}`
   );
 
   return response.data;
@@ -41,7 +40,7 @@ export const fetchProcedureCaseRecordsByAssignment = async (assignmentId) => {
   }
 
   const response = await axiosInstance.get(
-    `${BASE_URL}/procedure-records/assignment/${assignmentId}`
+    `${BASE_URL}/api/procedure-records/assignment/${assignmentId}`
   );
 
   return response.data;

@@ -1,13 +1,12 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api/discharge-request";
+import { BASE_URL } from "../config/apiConfig";
 
 // STUDENT: Request Discharge
 export const requestDischarge = async (assignmentId) => {
   if (!assignmentId) return null;
 
   const response = await axiosInstance.post(
-    `${BASE_URL}/student/${assignmentId}`
+    `${BASE_URL}/api/discharge-request/student/${assignmentId}`
   );
   return response.data;
 };
@@ -17,7 +16,7 @@ export const getDischargeStatus = async (assignmentId) => {
   if (!assignmentId) return null;
 
   const response = await axiosInstance.get(
-    `${BASE_URL}/student/${assignmentId}`
+    `${BASE_URL}/api/discharge-request/student/${assignmentId}`
   );
   return response.data;
 };
@@ -27,7 +26,7 @@ export const fetchPendingDischargeRequests = async (doctorId) => {
   if (!doctorId) return null;
 
   const response = await axiosInstance.get(
-    `${BASE_URL}/doctor/pending/${doctorId}`
+    `${BASE_URL}/api/discharge-request/doctor/pending/${doctorId}`
   );
   return response.data;
 };
@@ -37,7 +36,7 @@ export const approveDischargeRequest = async (assignmentId) => {
   if (!assignmentId) return null;
 
   const response = await axiosInstance.patch(
-    `${BASE_URL}/doctor/${assignmentId}/approve`
+    `${BASE_URL}/api/discharge-request/doctor/${assignmentId}/approve`
   );
   return response.data;
 };
@@ -47,7 +46,7 @@ export const rejectDischargeRequest = async (assignmentId, reason) => {
   if (!assignmentId || !reason) return null;
 
   const response = await axiosInstance.patch(
-    `${BASE_URL}/doctor/${assignmentId}/reject`,
+    `${BASE_URL}/api/discharge-request/doctor/${assignmentId}/reject`,
     { reason }
   );
   return response.data;

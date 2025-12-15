@@ -1,6 +1,5 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api/user-uploaded-files";
+import { BASE_URL } from "../config/apiConfig";
 
 /**
  * Upload multiple user files with metadata using FormData
@@ -20,11 +19,15 @@ export const uploadUserFiles = async (formData) => {
   if (!formData) return null;
 
   try {
-    const response = await axiosInstance.post(`${BASE_URL}/upload`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const response = await axiosInstance.post(
+      `${BASE_URL}/api/user-uploaded-files/upload`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
 
     return response.data; // { files: [...] }
   } catch (err) {

@@ -1,13 +1,12 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api/user-fetch-files";
+import { BASE_URL } from "../config/apiConfig";
 
 export const fetchUserFilesMetadata = async (assignmentId) => {
   if (!assignmentId) return [];
 
   try {
     const response = await axiosInstance.get(
-      `${BASE_URL}/assignment/${assignmentId}`
+      `${BASE_URL}/api/user-fetch-files/assignment/${assignmentId}`
     );
     // response.data.files contains the array of files
     return response.data?.files || [];

@@ -1,15 +1,17 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api/fetch-file";
+import { BASE_URL } from "../config/apiConfig";
 
 // Fetch file (image/PDF) by file_id (field_id)
 export const fetchFileByFieldId = async (fileId) => {
   if (!fileId) return null;
 
   try {
-    const response = await axiosInstance.get(`${BASE_URL}/${fileId}`, {
-      responseType: "blob", // get file as Blob
-    });
+    const response = await axiosInstance.get(
+      `${BASE_URL}/api/fetch-file/${fileId}`,
+      {
+        responseType: "blob", // get file as Blob
+      }
+    );
     // console.log("response");
     // console.log(response);
 

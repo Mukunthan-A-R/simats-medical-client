@@ -1,18 +1,23 @@
 import axiosInstance from "../api/axiosInstance";
-
-const BASE_URL = "http://localhost:5000/api/doctor-medication";
+import { BASE_URL } from "../config/apiConfig";
 
 export const fetchDoctorMedications = async (doctorId, status = "pending") => {
-  const response = await axiosInstance.get(`${BASE_URL}/${doctorId}`, {
-    params: { status },
-  });
+  const response = await axiosInstance.get(
+    `${BASE_URL}/api/doctor-medication/${doctorId}`,
+    {
+      params: { status },
+    }
+  );
   return response.data;
 };
 
 export const updateDoctorApprovalStatus = async (medicationId, status) => {
-  const response = await axiosInstance.patch(`${BASE_URL}/`, {
-    medication_id: medicationId,
-    status,
-  });
+  const response = await axiosInstance.patch(
+    `${BASE_URL}/api/doctor-medication/`,
+    {
+      medication_id: medicationId,
+      status,
+    }
+  );
   return response.data;
 };
