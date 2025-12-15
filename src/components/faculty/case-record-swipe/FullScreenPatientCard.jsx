@@ -97,7 +97,7 @@ const FullScreenPatientCard = ({ patient }) => {
       <button
         onClick={() => setViewSummary(true)}
         className="w-full py-3 mb-4 rounded-xl text-white font-semibold shadow-md transition-all
-               bg-gradient-to-b from-blue-300 to-blue-500
+               bg-linear-to-b from-blue-300 to-blue-500
                hover:from-blue-400 hover:to-blue-600"
       >
         View Report
@@ -108,7 +108,7 @@ const FullScreenPatientCard = ({ patient }) => {
         <button
           onClick={() => rejectRecord(patient.record_id)}
           className="flex-1 py-3 rounded-xl text-white font-semibold shadow-md transition-all
-                 bg-gradient-to-b from-red-300 to-red-500
+                 bg-linear-to-b from-red-300 to-red-500
                  hover:from-red-400 hover:to-red-600"
         >
           <XIcon size={16} className="inline mr-1" /> Reject
@@ -117,7 +117,7 @@ const FullScreenPatientCard = ({ patient }) => {
         <button
           onClick={() => approveRecord(patient.record_id)}
           className="flex-1 py-3 rounded-xl text-white font-semibold shadow-md transition-all
-                 bg-gradient-to-b from-green-300 to-green-500
+                 bg-linear-to-b from-green-300 to-green-500
                  hover:from-green-400 hover:to-green-600"
         >
           <CheckIcon size={16} className="inline mr-1" /> Approve
