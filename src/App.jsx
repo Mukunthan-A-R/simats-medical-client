@@ -33,7 +33,7 @@ import FacultyProfile from "./pages/faculty/FacultyProfile";
 import FacultyPrescriptionApprovals from "./pages/faculty/FacultyPrescriptionApprovals";
 import FacultyAdmissionApprovals from "./pages/faculty/FacultyAdmissionApprovals";
 import FacultyPatientsData from "./pages/faculty/FacultyPatientsData";
-import FacultyDischargeApproval from "./pages/faculty/FacultyDischargeApproval";
+import FacultyDischargeApproval from "./pages/faculty/discharge-approval/FacultyDischargeApproval";
 import FacultyCaseApproval from "./pages/faculty/FacultyCaseApproval";
 
 import UnderConstruction from "./components/UnderConstruction";

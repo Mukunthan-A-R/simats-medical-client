@@ -6,8 +6,8 @@ import {
   XIcon,
 } from "lucide-react";
 import React, { useState } from "react";
-import { formatDate } from "../../utils/constants";
-import PatientMedicalRecordReport from "../../components/patient/PatientMedicalRecordReport";
+import { formatDate } from "../../../utils/constants";
+import PatientMedicalRecordReport from "../../../components/patient/PatientMedicalRecordReport";
 
 const PatientDischargeCard = ({ patient }) => {
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
@@ -85,19 +85,19 @@ const PatientDischargeCard = ({ patient }) => {
         <div className="flex flex-wrap justify-start sm:justify-end items-center gap-2">
           <button
             onClick={() => setViewSummary(true)}
-            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all shadow-sm"
+            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-linear-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 active:scale-95 transition-all shadow-sm"
           >
             Report Docs
           </button>
           <button
             onClick={handleReject}
-            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 active:scale-95 transition-all shadow-sm"
+            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-linear-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 active:scale-95 transition-all shadow-sm"
           >
             <XIcon size={12} /> Reject
           </button>
           <button
             onClick={() => alert("Approve")}
-            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
+            className="flex items-center gap-1 px-3 py-1.5 text-xs sm:text-sm rounded-full text-white bg-linear-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 active:scale-95 transition-all shadow-sm"
           >
             <CheckIcon size={12} /> Approve
           </button>
@@ -140,7 +140,7 @@ const PatientDischargeCard = ({ patient }) => {
                     alert("Rejected with feedback!");
                     handleCloseModal();
                   }}
-                  className="px-3 py-1.5 rounded-full text-xs text-white bg-gradient-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
+                  className="px-3 py-1.5 rounded-full text-xs text-white bg-linear-to-b from-red-500 to-red-600 hover:from-red-600 hover:to-red-700"
                 >
                   Submit
                 </button>
