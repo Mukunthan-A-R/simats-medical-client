@@ -36,7 +36,7 @@ const DoctorCaseRecordFileReader = ({ fileIds = [] }) => {
   };
 
   return (
-    <div className="my-2">
+    <div className="my-2 overflow-x-">
       <div className="flex space-x-2 overflow-x-auto pb-2">
         {files.map((file, idx) => {
           const url = file.fileUrl;

@@ -32,7 +32,7 @@ const FacultyCaseApprovalSwipe = () => {
       {/* Swipe container with limited width */}
       <SwipeWrapper onLeft={next} onRight={prev}>
         <div className="flex items-center justify-center">
-          <div className="w-auto max-w-xl">
+          <div>
             <FullScreenPatientCard patient={patients[index]} />
           </div>
         </div>
