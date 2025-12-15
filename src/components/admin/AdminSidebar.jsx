@@ -9,7 +9,7 @@ export default function AdminSidebar({
   onNavigate,
   notificationCount = 0,
 }) {
-  const { studentId } = useParams();
+  const { adminId } = useParams();
 
   return (
     <>
@@ -30,12 +30,12 @@ export default function AdminSidebar({
             {
               icon: HomeIcon,
               label: "Dashboard",
-              path: `/admin/dashboard/${studentId}`,
+              path: `/admin/dashboard/${adminId}`,
             },
             // {
             //   icon: UserIcon,
             //   label: "Profile",
-            //   path: `/student/profile/${studentId}`,
+            //   path: `/student/profile/${adminId}`,
             // },
           ].map((item) => {
             const Icon = item.icon;
@@ -73,7 +73,7 @@ export default function AdminSidebar({
 
           {/* Notifications */}
           {/* <button
-            onClick={() => onNavigate(`/student/notifications/${studentId}`)}
+            onClick={() => onNavigate(`/student/notifications/${adminId}`)}
             className={`w-full p-3 flex items-center rounded-lg ${aquaButtonStyle} ${aquaGlossEffect} relative`}
             style={{
               background:
