@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 const PatientMedicalAllergies = ({ title, desc, assignmentId, noteId }) => {
   const isPatientDashboard = useMatch("/patient/dashboard/:patientId");
+  const isStudentDashboard = useMatch("/student/:studentId/patient/:patientId");
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
@@ -32,7 +33,7 @@ const PatientMedicalAllergies = ({ title, desc, assignmentId, noteId }) => {
         </span>
 
         {/* Hide delete icon on patient dashboard */}
-        {!isPatientDashboard && (
+        {!isPatientDashboard && !isStudentDashboard && (
           <div onClick={handleDelete} className="cursor-pointer">
             <Trash2 size={15} />
           </div>
