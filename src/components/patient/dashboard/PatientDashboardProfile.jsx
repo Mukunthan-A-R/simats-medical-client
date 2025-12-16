@@ -1,6 +1,5 @@
 import { GraduationCapIcon } from "lucide-react";
-import PatientCollapsiblePanel from "../../students/patient-notes/PatientCollapsiblePanel";
-import PatientMedicalAllergies from "../../students/patient-notes/PatientMedicalAllergies";
+import PatientNotesHolder from "../patient-notes/PatientNotesHolder";
 
 export default function PatientDashboardProfile({ userDataVal }) {
   return (
@@ -57,22 +56,10 @@ export default function PatientDashboardProfile({ userDataVal }) {
           </p>
         </div>
       </div>
-      <PatientCollapsiblePanel
-        title={"Penicillin Allergy, Asthma, ACE Inhibitor Precaution"}
-      >
-        <PatientMedicalAllergies
-          title={"Penicillin Allergy"}
-          desc={
-            "Severe allergic reaction to penicillin and related antibiotics."
-          }
-        ></PatientMedicalAllergies>
-        <PatientMedicalAllergies
-          title={"Penicillin Allergy"}
-          desc={
-            "Severe allergic reaction to penicillin and related antibiotics."
-          }
-        ></PatientMedicalAllergies>
-      </PatientCollapsiblePanel>
+      <PatientNotesHolder
+        patient_id={userDataVal?.patient_id}
+        assignment_id={userDataVal?.assignment_id}
+      ></PatientNotesHolder>
     </div>
   );
 }
