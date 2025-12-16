@@ -50,9 +50,9 @@ const SecondaryVitalChart = ({ assignmentId, typeId, typeName, unit }) => {
   return (
     <div className="bg-white rounded-2xl shadow-lg p-4 flex flex-col max-w-full">
       {/* Header */}
-      <h3 className="font-semibold text-gray-800 mb-2">
+      {/* <h3 className="font-semibold text-gray-800 mb-2">
         {typeName.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())}
-      </h3>
+      </h3> */}
 
       {/* Latest value */}
       <div className="text-lg font-bold text-gray-900 mb-4">
