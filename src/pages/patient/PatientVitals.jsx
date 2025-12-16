@@ -1,10 +1,26 @@
 import { ChevronLeftIcon } from "lucide-react";
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PatientVitalsData from "../../components/patient/vitals/PatientVitalsData";
+import PatientSecondaryVitalDropDown from "../../components/patient/PatientSecondaryVitalDropDown";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPatientById } from "../../services/patientService";
 
 const PatientVitals = () => {
   const navigate = useNavigate();
+  const { patientId } = useParams();
+
+  const {
+    data: patientData,
+    // isLoading,
+    // isError,
+  } = useQuery({
+    queryKey: ["patient", patientId],
+    queryFn: () => fetchPatientById(patientId),
+    enabled: !!patientId,
+  });
+
+  let assignmentId = patientData?.assignment_id;
 
   return (
     <div className="px-6 py-4 h-screen flex flex-col">
@@ -68,7 +84,8 @@ const PatientVitals = () => {
         </div>
 
         {/* Patient Vitals Data Section */}
-        <PatientVitalsData />
+        {/* <PatientVitalsData /> */}
+        <PatientSecondaryVitalDropDown assignmentId={assignmentId} />
       </div>
     </div>
   );
