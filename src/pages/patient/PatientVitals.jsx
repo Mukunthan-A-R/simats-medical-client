@@ -1,10 +1,8 @@
 import { ChevronLeftIcon } from "lucide-react";
-import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import PatientVitalsData from "../../components/patient/vitals/PatientVitalsData";
-import PatientSecondaryVitalDropDown from "../../components/patient/PatientSecondaryVitalDropDown";
 import { useQuery } from "@tanstack/react-query";
 import { fetchPatientById } from "../../services/patientService";
+import PatientVitalsData from "../../components/patient/main-vitals/PatientVitalsData";
 
 const PatientVitals = () => {
   const navigate = useNavigate();
@@ -84,8 +82,7 @@ const PatientVitals = () => {
         </div>
 
         {/* Patient Vitals Data Section */}
-        {/* <PatientVitalsData /> */}
-        <PatientSecondaryVitalDropDown assignmentId={assignmentId} />
+        <PatientVitalsData assignmentId={assignmentId} patientId={patientId} />
       </div>
     </div>
   );
