@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchPatientById } from "../../services/patientService";
 import { fetchPatientMedications } from "../../services/patient/fetchPatientMedications";
 import PrescriptionDataComponent from "../../components/patient/prescription/PrescriptionDataComponent";
+import PageHeader from "../../components/header/PageHeader";
 
 const PatientPrescription = () => {
   const navigate = useNavigate();
@@ -41,28 +42,17 @@ const PatientPrescription = () => {
   if (isLoading) return <p className="p-4 text-amber-500">Loading ...</p>;
   if (isError)
     return (
-      <p className="p-4 text-red-500">Error loading prescriptions Data !</p>
+      <div className="p-4">
+        <PageHeader title={"My Prescriptions"} />
+        <p className="pt-4 text-red-500">Error loading prescriptions Data !</p>
+      </div>
     );
 
   const patientMedicationData = patientMedicationData1?.data;
 
   return (
     <div className="px-6 py-4">
-      <div className="flex flex-row items-center">
-        <button
-          className={`mr-2 w-8 h-8 flex items-center justify-center rounded-full       `}
-          onClick={() => navigate(-1)}
-          style={{
-            background: "linear-gradient(to bottom, #f0f4fa, #d5dde8)",
-            border: "1px solid rgba(0,0,0,0.2)",
-            boxShadow:
-              "0 1px 2px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.8)",
-          }}
-        >
-          <ChevronLeftIcon size={18} className="text-blue-700" />
-        </button>
-        <h2 className="text-xl text-blue-900 font-medium">My Prescriptions</h2>
-      </div>
+      <PageHeader title={"My Prescriptions"} />
 
       {/* Search and Filter */}
       <div
