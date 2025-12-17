@@ -38,8 +38,11 @@ const PatientPrescription = () => {
   // console.log("patientMedicationData1");
   // console.log(patientMedicationData1);
 
-  if (isLoading) return <p>Loading ...</p>;
-  if (isError) return <p>Error loading prescriptions.</p>;
+  if (isLoading) return <p className="p-4 text-amber-500">Loading ...</p>;
+  if (isError)
+    return (
+      <p className="p-4 text-red-500">Error loading prescriptions Data !</p>
+    );
 
   const patientMedicationData = patientMedicationData1?.data;
 
