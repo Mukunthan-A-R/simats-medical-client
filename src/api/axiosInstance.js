@@ -13,7 +13,8 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem("authToken");
+    const token = JSON.parse(localStorage.getItem("authToken"));
+
     if (!token) {
       logout();
       return Promise.reject({ message: "No token found, logging out..." });
