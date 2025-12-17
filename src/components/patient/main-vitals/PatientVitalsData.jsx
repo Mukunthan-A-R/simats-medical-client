@@ -34,7 +34,11 @@ const PatientVitalsData = ({ assignmentId, patientId }) => {
   const [typeId, setTypeId] = useState(null);
   const [typeUnit, setTypeUnit] = useState(null);
 
-  const { data: recentVitalData } = useQuery({
+  const {
+    data: recentVitalData,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["latestSecondaryVitals", assignmentId],
     queryFn: () => fetchRecentSecondaryVitals(assignmentId, patientId),
     enabled: !!assignmentId,
@@ -54,6 +58,11 @@ const PatientVitalsData = ({ assignmentId, patientId }) => {
       setVitalData(latestUnique);
     }
   }, [data]);
+
+  if (isLoading)
+    return <p className="p-4 text-yellow-800">Loading patient vitals...</p>;
+  if (isError)
+    return <p className="p-4 text-red-500">Error loading vitals !</p>;
 
   if (data?.length === 0) {
     return (
