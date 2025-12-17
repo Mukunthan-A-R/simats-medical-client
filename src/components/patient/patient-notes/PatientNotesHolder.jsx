@@ -9,13 +9,18 @@ const PatientNotesHolder = ({ patient_id, assignment_id }) => {
     queryKey: ["patientNotes", patient_id, assignment_id],
     queryFn: () => fetchPatientNotes(assignment_id, patient_id),
     enabled: !!patient_id && !!assignment_id,
+    // retry: false,
   });
 
-  if (isLoading) return <div>Loading notes...</div>;
-  if (error) return <div>Error loading notes</div>;
+  if (isLoading)
+    return (
+      <div className="text-yellow-800 pb-1 px-4">Loading patient notes...</div>
+    );
+  if (error)
+    return <div className="text-red-500 pb-1 px-4">Error loading notes !</div>;
 
   const notes = data?.data;
-  const panelTitle = notes.map((n) => n.title).join(", ");
+  const panelTitle = notes?.map((n) => n.title).join(", ");
   return (
     <div>
       <PatientCollapsiblePanel title={panelTitle}>
