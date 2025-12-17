@@ -28,7 +28,7 @@ const PatientDashboardNotification = () => {
               border: "1px solid rgba(0,0,0,0.3)",
             }}
           >
-            <PillIcon size={14} className="text-white sm:size-[16px]" />
+            <PillIcon size={14} className="text-white sm:size-4" />
           </div>
 
           <div className="min-w-0">
