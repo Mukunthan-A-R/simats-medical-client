@@ -1,11 +1,28 @@
 import { ArrowLeft } from "lucide-react";
 import PatientInfoCard from "../../components/patient/PatientInfoCard";
 import PatientMedicalRecords from "../../components/patient/PatientMedicalRecords";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
+import { useQuery } from "@tanstack/react-query";
+import { fetchPatientById } from "../../services/patientService";
 
 const PatientHealthRecords = () => {
   const navigate = useNavigate();
+  const { patientId } = useParams();
+
+  const {
+    data: userData,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["studentData", patientId],
+    queryFn: () => fetchPatientById(patientId),
+    enabled: !!patientId,
+  });
+
+  if (isLoading) return <p className="p-4">Loading Data...</p>;
+  if (isError)
+    return <p className="p-4 text-red-500">Error Displaying Data!</p>;
 
   return (
     <div className="my-4 mx-5 sm:mt-6 sm:mx-6">
@@ -30,8 +47,14 @@ const PatientHealthRecords = () => {
           Medical Records
         </h1>
       </div>
-      <PatientInfoCard></PatientInfoCard>
-      <PatientMedicalRecords></PatientMedicalRecords>
+      {userData && (
+        <>
+          <PatientInfoCard userData={userData}></PatientInfoCard>
+          <PatientMedicalRecords
+            assignmentId={userData?.assignment_id}
+          ></PatientMedicalRecords>
+        </>
+      )}
     </div>
   );
 };

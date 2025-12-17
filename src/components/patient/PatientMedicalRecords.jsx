@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import PatientMedicalRecordsList from "./PatientMedicalRecordsList";
+import { fetchPatientCaseRecordsData } from "../../services/patient/fetchPatientCaseRecords";
+import { useQuery } from "@tanstack/react-query";
 
-const PatientMedicalRecords = () => {
+const PatientMedicalRecords = ({ assignmentId }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState("All");
   const [filterDepartment, setFilterDepartment] = useState("All");
+
+  console.log(assignmentId);
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["patientCaseRecords", assignmentId],
+    queryFn: () => fetchPatientCaseRecordsData(assignmentId),
+    enabled: !!assignmentId,
+  });
+
+  if (isLoading) return <p>Loading case records...</p>;
+  if (isError) return <p className="text-red-500">{error.message}</p>;
+
+  // const caseRecords = data?.caseRecords ?? [];
+
+  console.log("data");
+  console.log(data);
 
   const departments = ["All", "cardiology", "dermatology", "radiology"];
 

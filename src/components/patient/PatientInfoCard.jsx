@@ -1,7 +1,7 @@
 import { AlertTriangleIcon } from "lucide-react";
 import React from "react";
 
-const PatientInfoCard = () => {
+const PatientInfoCard = ({ userData }) => {
   return (
     <div
       className="overflow-hidden mb-4 print:hidden"
@@ -36,13 +36,18 @@ const PatientInfoCard = () => {
               textShadow: "0 1px 0 rgba(255,255,255,0.5)",
             }}
           >
-            John Doe
+            {userData.name}
           </h2>
-          <p className="text-xs text-gray-500">Patient ID: SMC-2023-0042</p>
+          <p className="text-xs text-gray-500">
+            Patient ID: {userData.patient_id}
+          </p>
+          <p className="text-xs text-gray-500">{userData.admission_date}</p>
+          <p className="text-xs text-gray-500">{userData.blood_group}</p>
+          <p className="text-xs text-gray-500">{userData.gender}</p>
         </div>
       </div>
       {/* Medical Alert */}
-      <div
+      {/* <div
         className="px-3 py-2 border-t flex items-center"
         style={{
           backgroundColor: "rgba(255,0,0,0.05)",
@@ -61,7 +66,7 @@ const PatientInfoCard = () => {
         >
           Penicillin Allergy
         </span>
-      </div>
+      </div> */}
     </div>
   );
 };
