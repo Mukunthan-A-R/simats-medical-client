@@ -56,10 +56,12 @@ export default function PatientDashboardProfile({ userDataVal }) {
           </p>
         </div>
       </div>
-      <PatientNotesHolder
-        patient_id={userDataVal?.patient_id}
-        assignment_id={userDataVal?.assignment_id}
-      ></PatientNotesHolder>
+      {userDataVal && (
+        <PatientNotesHolder
+          patient_id={userDataVal?.patient_id}
+          assignment_id={userDataVal?.assignment_id}
+        ></PatientNotesHolder>
+      )}
     </div>
   );
 }

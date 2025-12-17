@@ -19,7 +19,10 @@ const PatientDashboard = () => {
   });
 
   if (isLoading) {
-    return <p>Loading ...</p>;
+    return <p className="p-4 text-yellow-800">Loading ...</p>;
+  }
+  if (isError) {
+    return <p className="p-4 text-red-500">Error Fetching Patient Details !</p>;
   }
 
   return (
