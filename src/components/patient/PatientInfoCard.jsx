@@ -1,72 +1,79 @@
-import { AlertTriangleIcon } from "lucide-react";
-import React from "react";
+import { CalendarIcon, DropletIcon, UserIcon, PhoneIcon } from "lucide-react";
+import { formatDate } from "../../utils/constants";
 
 const PatientInfoCard = ({ userData }) => {
+  if (!userData) return null;
+
   return (
     <div
       className="overflow-hidden mb-4 print:hidden"
       style={{
-        backgroundColor: "white",
-        borderRadius: "10px",
+        backgroundColor: "#f7f7f7",
+        borderRadius: "12px",
+        border: "1px solid rgba(0,0,0,0.15)",
         boxShadow:
-          "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24), 0 0 0 1px rgba(0,0,0,0.05), inset 0 -5px 10px rgba(0,0,0,0.05)",
-        border: "1px solid rgba(0,0,0,0.1)",
-        backgroundImage:
-          "linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(245,245,245,0.8))",
+          "0 2px 3px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.9)",
+        backgroundImage: "linear-gradient(to bottom, #ffffff, #e9e9e9)",
       }}
     >
-      <div className="p-3 flex items-center">
+      {/* Header */}
+      <div
+        className="flex items-center px-4 py-3"
+        style={{
+          backgroundImage: "linear-gradient(to bottom, #fdfdfd, #dcdcdc)",
+          borderBottom: "1px solid rgba(0,0,0,0.2)",
+        }}
+      >
         <div
-          className="h-10 w-10 rounded-full overflow-hidden mr-3"
+          className="h-12 w-12 rounded-full overflow-hidden mr-3"
           style={{
-            border: "2px solid rgba(255,255,255,0.9)",
-            boxShadow: "0 1px 3px rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.05)",
+            border: "2px solid white",
+            boxShadow:
+              "0 1px 2px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.8)",
           }}
         >
           <img
-            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80"
+            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
             alt="Patient"
             className="h-full w-full object-cover"
           />
         </div>
+
         <div>
-          <h2
-            className="font-medium text-gray-800"
-            style={{
-              textShadow: "0 1px 0 rgba(255,255,255,0.5)",
-            }}
-          >
-            {userData.name}
-          </h2>
-          <p className="text-xs text-gray-500">
-            Patient ID: {userData.patient_id}
+          <h2 className="font-semibold text-gray-900">{userData.name}</h2>
+          <p className="text-xs text-gray-600">
+            Patient ID • {userData.patient_id}
           </p>
-          <p className="text-xs text-gray-500">{userData.admission_date}</p>
-          <p className="text-xs text-gray-500">{userData.blood_group}</p>
-          <p className="text-xs text-gray-500">{userData.gender}</p>
         </div>
       </div>
-      {/* Medical Alert */}
-      {/* <div
-        className="px-3 py-2 border-t flex items-center"
-        style={{
-          backgroundColor: "rgba(255,0,0,0.05)",
-          borderTop: "1px solid rgba(220,50,50,0.2)",
-          backgroundImage:
-            "linear-gradient(to bottom, rgba(255,200,200,0.3), rgba(255,180,180,0.2))",
-          border: "1px solid rgba(220,50,50,0.2)",
-        }}
-      >
-        <AlertTriangleIcon size={14} className="text-red-600 mr-2" />
-        <span
-          className="text-red-700 text-sm font-medium"
-          style={{
-            textShadow: "0 1px 0 rgba(255,255,255,0.5)",
-          }}
-        >
-          Penicillin Allergy
-        </span>
-      </div> */}
+
+      {/* Body */}
+      <div className="px-4 py-3 grid grid-cols-2 gap-y-3 text-sm">
+        <div className="flex items-center text-gray-700">
+          <UserIcon size={14} className="mr-2 text-gray-500" />
+          {userData.gender}
+        </div>
+
+        <div className="flex items-center text-gray-700">
+          <DropletIcon size={14} className="mr-2 text-red-500" />
+          Blood Group: {userData.blood_group}
+        </div>
+
+        <div className="flex items-center text-gray-700">
+          <CalendarIcon size={14} className="mr-2 text-blue-500" />
+          DOB: {formatDate(userData.dob)}
+        </div>
+
+        <div className="flex items-center text-gray-700">
+          <CalendarIcon size={14} className="mr-2 text-green-600" />
+          Admitted: {formatDate(userData.admission_date)}
+        </div>
+
+        <div className="col-span-2 flex items-center text-gray-700">
+          <PhoneIcon size={14} className="mr-2 text-gray-500" />
+          {userData.phone_no}
+        </div>
+      </div>
     </div>
   );
 };

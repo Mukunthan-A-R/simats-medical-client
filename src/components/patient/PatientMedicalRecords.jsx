@@ -9,8 +9,6 @@ const PatientMedicalRecords = ({ assignmentId }) => {
   const [filterType, setFilterType] = useState("All");
   const [filterDepartment, setFilterDepartment] = useState("All");
 
-  console.log(assignmentId);
-
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["patientCaseRecords", assignmentId],
     queryFn: () => fetchPatientCaseRecordsData(assignmentId),
@@ -23,7 +21,7 @@ const PatientMedicalRecords = ({ assignmentId }) => {
   // const caseRecords = data?.caseRecords ?? [];
 
   console.log("data");
-  console.log(data);
+  console.log(data.caseRecords);
 
   const departments = ["All", "cardiology", "dermatology", "radiology"];
 
