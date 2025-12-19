@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import PatientMedicalRecordReport from "./PatientMedicalRecordReport";
+import CaseRecordFilesViewer from "../students/patients/case-records/CaseRecordFilesViewer";
 
 const PatientMedicalRecordCard = ({ record }) => {
   const [expanded, setExpanded] = useState(false);
@@ -132,6 +133,17 @@ const PatientMedicalRecordCard = ({ record }) => {
                 </div>
               ))}
             </div>
+          )}
+
+          {record.form_data?.fields.length > 0 && (
+            <>
+              <div className="">
+                <CaseRecordFilesViewer
+                  fileIds={record.form_data?.fields || []}
+                  isOpen={true}
+                />
+              </div>
+            </>
           )}
 
           <div className="mt-2 flex justify-end">

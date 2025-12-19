@@ -143,13 +143,48 @@ const PatientMedicalRecordsRow = ({ record }) => {
                 </div>
 
                 <div className="col-span-2">
-                  <p className="text-gray-500">Form Data</p>
-                  {record.form_data &&
-                    Object.entries(record.form_data).map(([key, value]) => (
-                      <p key={key} className="font-medium">
-                        {key}: {value}
-                      </p>
-                    ))}
+                  <p className="text-gray-500 font-medium mb-1">Form Data</p>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700">
+                    {record.form_data &&
+                      Object.entries(record.form_data)
+                        .filter(([key]) => key !== "fields") // Skip internal fields like file uploads
+                        .map(([key, value]) => {
+                          const isArray = Array.isArray(value);
+
+                          return (
+                            <div key={key}>
+                              <span className="font-medium text-gray-800">
+                                {key
+                                  .replace(/_/g, " ")
+                                  .replace(/\b\w/g, (l) => l.toUpperCase())}
+                                :
+                              </span>{" "}
+                              {isArray ? (
+                                value.length > 0 ? (
+                                  <div className="flex flex-wrap gap-1 mt-1">
+                                    {value.map((v, idx) => (
+                                      <span
+                                        key={idx}
+                                        className="px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full"
+                                      >
+                                        {v}
+                                      </span>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <span className="text-gray-500 italic">
+                                    None
+                                  </span>
+                                )
+                              ) : (
+                                <span className="text-gray-700">
+                                  {value || "—"}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                  </div>
                 </div>
               </div>
 

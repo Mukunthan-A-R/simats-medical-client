@@ -38,21 +38,40 @@ export default function PatientMedicalReportSecondary({ record }) {
             <ClipboardListIcon size={14} className="mr-1 text-blue-600" />
             Findings / Parameters
           </h4>
-          <div className="text-sm text-gray-700 space-y-1">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm text-gray-700">
             {Object.entries(formData).map(([key, value]) => {
-              // Skip internal fields like 'fields' if needed
-              if (key === "fields") return null;
+              if (key === "fields") return null; // Skip internal fields
+
+              const isArray = Array.isArray(value);
 
               return (
-                <p key={key}>
-                  <span className="font-medium">
+                <div key={key}>
+                  <span className="font-medium text-gray-800">
                     {key
                       .replace(/_/g, " ")
                       .replace(/\b\w/g, (l) => l.toUpperCase())}
                     :
                   </span>{" "}
-                  {value || "-"}
-                </p>
+                  {isArray ? (
+                    value.length > 0 ? (
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {value.map((v, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-0.5 text-xs bg-blue-100 text-blue-700 rounded-full"
+                          >
+                            {v}
+                          </span>
+                        ))}
+                      </div>
+                    ) : (
+                      <span className="text-gray-500 italic">None</span>
+                    )
+                  ) : (
+                    <span className="text-gray-700">{value || "—"}</span>
+                  )}
+                </div>
               );
             })}
           </div>
