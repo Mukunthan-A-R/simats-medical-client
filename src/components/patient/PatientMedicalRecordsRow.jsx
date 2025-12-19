@@ -1,3 +1,4 @@
+import { Fragment, useState } from "react";
 import {
   StethoscopeIcon,
   TestTubeIcon,
@@ -9,170 +10,152 @@ import {
   CheckCircleIcon,
   XIcon,
 } from "lucide-react";
-import React, { Fragment, useState } from "react";
 import PatientMedicalRecordReport from "./PatientMedicalRecordReport";
 
+// Map department / procedure type to icons
+const iconMap = {
+  Cardiology: <HeartPulseIcon size={16} className="text-white" />,
+  Pathology: <TestTubeIcon size={16} className="text-white" />,
+  Pharmacy: <PillIcon size={16} className="text-white" />,
+  Radiology: <StethoscopeIcon size={16} className="text-white" />,
+  Default: <FileTextIcon size={16} className="text-white" />,
+};
+
 const PatientMedicalRecordsRow = ({ record }) => {
-  const [expandedRecord, setExpandedRecordId] = useState(false);
+  const [expanded, setExpanded] = useState(false);
   const [openReportModal, setOpenReportModal] = useState(false);
 
-  const getStatusBadgeStyle = (status) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-        return { backgroundColor: "#2da659", color: "#f2f2f2" };
-      case "active":
-        return { backgroundColor: "#facc15", color: "#f2f2f2" };
-      case "results available":
-        return { backgroundColor: "#60a5fa", color: "#f2f2f2" };
-      default:
-        return { backgroundColor: "#d1d5db", color: "#f2f2f2" };
-    }
-  };
+  const createdAt = new Date(record.created_at);
+  const approvedAt = record.approved_time
+    ? new Date(record.approved_time)
+    : null;
 
-  const iconMap = {
-    stethoscope: <StethoscopeIcon size={16} className="text-white" />,
-    "test-tube": <TestTubeIcon size={16} className="text-white" />,
-    "heart-pulse": <HeartPulseIcon size={16} className="text-white" />,
-    pill: <PillIcon size={16} className="text-white" />,
-    file: <FileTextIcon size={16} className="text-white" />,
-  };
+  // Determine which icon to show
+  const icon = iconMap[record.department_name] || iconMap["Default"];
 
-  const toggleRecordExpansion = (id) => {
-    setExpandedRecordId(!expandedRecord);
-  };
+  // Approval badge
+  const approvalColor =
+    record.approval === "approved"
+      ? "bg-green-100 text-green-800"
+      : "bg-yellow-100 text-yellow-800";
 
   return (
-    <Fragment key={record.id}>
-      <tr
-        key={record.id}
-        className={`hover:bg-gray-200 
-            ${expandedRecord ? "bg-blue-50" : ""}
-            `}
-      >
+    <Fragment>
+      {/* Main Row */}
+      <tr className={`hover:bg-gray-100 ${expanded ? "bg-blue-50" : ""}`}>
+        {/* Date & Time */}
         <td className="px-4 py-3 whitespace-nowrap">
-          <div className="text-sm font-medium text-gray-900">{record.date}</div>
-          <div className="text-sm text-gray-800">{record.time}</div>
+          <div className="text-sm font-medium text-gray-900">
+            {createdAt.toLocaleDateString()}
+          </div>
+          <div className="text-sm text-gray-600">
+            {createdAt.toLocaleTimeString()}
+          </div>
         </td>
+
+        {/* Type & Description */}
         <td
           className="px-4 py-3 cursor-pointer"
-          onClick={() => toggleRecordExpansion(!expandedRecord)}
+          onClick={() => setExpanded(!expanded)}
         >
           <div className="flex items-center">
-            <span className="flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center mr-3 bg-blue-500 text-white">
-              {iconMap[record.iconType]}
+            <span className="shrink-0 h-8 w-8 rounded-full flex items-center justify-center mr-3 bg-blue-500 text-white">
+              {icon}
             </span>
             <div className="flex-1">
               <div className="flex items-center justify-between">
                 <div className="text-sm font-medium text-gray-900">
-                  {record.type}
+                  {record.procedure_name}
                 </div>
                 <ChevronRightIcon
                   size={16}
                   className={`text-gray-400 transition-transform ${
-                    expandedRecord ? "rotate-90" : ""
+                    expanded ? "rotate-90" : ""
                   }`}
                 />
               </div>
               <div className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
-                {record.description}
+                Form: {record.form_name} | Patient: {record.form_data?.name} (
+                {record.form_data?.age} yrs)
               </div>
-              <div className="text-xs text-gray-400">{record.department}</div>
             </div>
           </div>
         </td>
+
+        {/* Entered / Approved By */}
         <td className="px-4 py-3">
           <div className="text-sm text-gray-900 flex items-center">
             <UserIcon size={14} className="mr-1.5 text-gray-400" />
-            {record.performedBy}
+            {record.student_name}
           </div>
-          {record.performedBy !== record.supervisedBy && (
-            <div className="text-xs text-gray-500 mt-1 flex items-center">
-              <CheckCircleIcon size={12} className="mr-1.5 text-gray-400" />
-              {record.supervisedBy}
-            </div>
-          )}
+          <div className="text-xs text-gray-500 mt-1 flex items-center">
+            <CheckCircleIcon size={12} className="mr-1.5 text-gray-400" />
+            {record.approval === "approved"
+              ? record.doctor_name
+              : "Approval Pending"}
+          </div>
         </td>
       </tr>
-      {expandedRecord && (
+
+      {/* Expanded Row */}
+      {expanded && (
         <tr>
           <td colSpan={3} className="px-4 py-3">
-            <div className="border-2 border-gray-300 p-4 bg-blue-50 rounded-md shadow-inner">
+            <div className="border border-gray-300 p-4 bg-blue-50 rounded-md">
               <div className="flex justify-between items-center mb-3">
                 <h3 className="font-medium text-gray-800">Record Details</h3>
-                <button
-                  onClick={() => setExpandedRecordId(null)}
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-white"
-                >
-                  <XIcon size={12} />
+                <button onClick={() => setExpanded(false)}>
+                  <XIcon size={14} />
                 </button>
               </div>
-              <div className="grid grid-cols-2 gap-2 text-sm">
+
+              <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <p className="text-gray-500 mb-1">Record ID</p>
-                  <p className="font-medium">{record.id}</p>
+                  <p className="text-gray-500">Record ID</p>
+                  <p className="font-medium">{record.record_id}</p>
                 </div>
+
                 <div>
-                  <p className="text-gray-500 mb-1">Status</p>
+                  <p className="text-gray-500">Approval Status</p>
                   <span
-                    className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full"
-                    style={getStatusBadgeStyle(record.status)}
+                    className={`px-2 py-0.5 rounded-full text-xs font-semibold ${approvalColor}`}
                   >
-                    {record.status}
+                    {record.approval}
                   </span>
                 </div>
+
                 <div>
-                  <p className="text-gray-500 mb-1">Date & Time</p>
-                  <p className="font-medium">
-                    {record.date}, {record.time}
-                  </p>
+                  <p className="text-gray-500">Created At</p>
+                  <p className="font-medium">{createdAt.toLocaleString()}</p>
                 </div>
-                <div>
-                  <p className="text-gray-500 mb-1">Department</p>
-                  <p className="font-medium">{record.department}</p>
-                </div>
-                <div className="col-span-2">
-                  <p className="text-gray-500 mb-1">Description</p>
-                  <p className="font-medium">{record.description}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500 mb-1 flex items-center">
-                    <UserIcon size={14} className="mr-1 text-gray-400" />
-                    Performed By
-                  </p>
-                  <p className="font-medium">{record.performedBy}</p>
-                </div>
-                <div>
-                  <p className="text-gray-500 mb-1 flex items-center">
-                    <CheckCircleIcon size={14} className="mr-1 text-gray-400" />
-                    Supervised By
-                  </p>
-                  <p className="font-medium">{record.supervisedBy}</p>
-                </div>
-                {record.images && record.images.length > 0 && (
-                  <div className="col-span-2 mt-2 flex flex-wrap gap-2">
-                    {record.images.map((image, idx) => (
-                      <div
-                        key={idx}
-                        className="w-16 h-16 rounded overflow-hidden cursor-pointer hover:border-blue-500 transition-colors border"
-                        onClick={() => openImageModal(image)}
-                      >
-                        <img
-                          src={image.url}
-                          alt={image.title}
-                          className="w-full h-full object-cover"
-                        />
-                      </div>
-                    ))}
+
+                {approvedAt && (
+                  <div>
+                    <p className="text-gray-500">Approved At</p>
+                    <p className="font-medium">{approvedAt.toLocaleString()}</p>
                   </div>
                 )}
+
+                <div>
+                  <p className="text-gray-500">Department</p>
+                  <p className="font-medium">{record.department_name}</p>
+                </div>
+
+                <div className="col-span-2">
+                  <p className="text-gray-500">Form Data</p>
+                  {record.form_data &&
+                    Object.entries(record.form_data).map(([key, value]) => (
+                      <p key={key} className="font-medium">
+                        {key}: {value}
+                      </p>
+                    ))}
+                </div>
               </div>
+
               <div className="mt-4 flex justify-end">
                 <button
-                  onClick={() => {
-                    console.log("hi");
-                    setOpenReportModal(!openReportModal);
-                  }}
-                  className="px-4 py-2 text-white text-sm font-medium rounded-full bg-blue-500"
+                  onClick={() => setOpenReportModal(true)}
+                  className="px-4 py-2 text-white text-sm rounded-full bg-blue-500"
                 >
                   View Full Report
                 </button>
@@ -181,11 +164,12 @@ const PatientMedicalRecordsRow = ({ record }) => {
           </td>
         </tr>
       )}
+
+      {/* Report Modal */}
       {openReportModal && (
         <PatientMedicalRecordReport
-          closeReportModal={() => setOpenReportModal(!openReportModal)}
-          key={record.id}
           record={record}
+          closeReportModal={() => setOpenReportModal(false)}
         />
       )}
     </Fragment>

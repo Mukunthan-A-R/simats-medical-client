@@ -23,6 +23,8 @@ const PatientMedicalRecords = ({ assignmentId }) => {
   console.log("data");
   console.log(data.caseRecords);
 
+  const dataRecords = data?.caseRecords;
+
   const departments = ["All", "cardiology", "dermatology", "radiology"];
 
   const sampleMedicalRecords = [
@@ -176,7 +178,7 @@ const PatientMedicalRecords = ({ assignmentId }) => {
         </div>
       </div>
       <PatientMedicalRecordsList
-        records={sampleMedicalRecords}
+        records={dataRecords}
       ></PatientMedicalRecordsList>
     </div>
   );

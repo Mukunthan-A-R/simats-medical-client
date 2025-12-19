@@ -6,6 +6,9 @@ const PatientMedicalRecordsList = ({ records }) => {
     console.log("Open image modal for:", image);
   };
 
+  console.log("records");
+  console.log(records);
+
   const openReportModal = (recordId) => {
     console.log("Open report modal for record:", recordId);
   };
@@ -39,14 +42,20 @@ const PatientMedicalRecordsList = ({ records }) => {
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {records.map((record) => (
-              <PatientMedicalRecordsRow key={record.id} record={record} />
+              <PatientMedicalRecordsRow
+                key={record.record_id}
+                record={record}
+              />
             ))}
           </tbody>
         </table>
       </div>
       <div className="block md:hidden overflow-x-auto">
         {records.map((record) => (
-          <PatientMedicalRecordsRowMobile key={record.id} record={record} />
+          <PatientMedicalRecordsRowMobile
+            key={record.record_id}
+            record={record}
+          />
         ))}
       </div>
     </>

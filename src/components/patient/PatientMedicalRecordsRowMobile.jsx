@@ -16,41 +16,34 @@ const PatientMedicalRecordCard = ({ record }) => {
   const [expanded, setExpanded] = useState(false);
   const [openReportModal, setOpenReportModal] = useState(false);
 
+  // Map department to icons
   const iconMap = {
-    stethoscope: <StethoscopeIcon size={16} className="text-white" />,
-    "test-tube": <TestTubeIcon size={16} className="text-white" />,
-    "heart-pulse": <HeartPulseIcon size={16} className="text-white" />,
-    pill: <PillIcon size={16} className="text-white" />,
-    file: <FileTextIcon size={16} className="text-white" />,
+    Cardiology: <HeartPulseIcon size={16} className="text-white" />,
+    Pathology: <TestTubeIcon size={16} className="text-white" />,
+    Pharmacy: <PillIcon size={16} className="text-white" />,
+    Radiology: <StethoscopeIcon size={16} className="text-white" />,
+    Default: <FileTextIcon size={16} className="text-white" />,
   };
 
-  const getStatusBadgeStyle = (status) => {
-    switch (status.toLowerCase()) {
-      case "completed":
-        return { backgroundColor: "#2da659", color: "#f2f2f2" };
-      case "active":
-        return { backgroundColor: "#facc15", color: "#f2f2f2" };
-      case "results available":
-        return { backgroundColor: "#60a5fa", color: "#f2f2f2" };
-      default:
-        return { backgroundColor: "#d1d5db", color: "#f2f2f2" };
-    }
-  };
+  const badgeColor =
+    record.approval === "approved"
+      ? "bg-green-100 text-green-800"
+      : "bg-yellow-100 text-yellow-800";
 
   return (
     <div className="sm:hidden bg-white border border-gray-200 rounded-lg shadow-sm p-3 my-2 hover:shadow-md transition-all">
       {/* Header */}
       <div className="flex justify-between items-start">
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white flex-shrink-0">
-            {iconMap[record.iconType]}
+          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-blue-500 text-white shrink-0">
+            {iconMap[record.department_name] || iconMap.Default}
           </div>
           <div className="flex flex-col truncate">
             <div className="text-sm font-semibold text-gray-900 truncate">
-              {record.type}
+              {record.procedure_name}
             </div>
             <div className="text-xs text-gray-500 truncate">
-              {record.date} {record.time}
+              Form: {record.form_name} | Entered by: {record.student_name}
             </div>
           </div>
         </div>
@@ -81,14 +74,13 @@ const PatientMedicalRecordCard = ({ record }) => {
       <div className="mt-2 flex flex-wrap justify-between gap-2 text-xs text-gray-700">
         <div className="flex-1 min-w-[40%]">
           <p className="text-gray-500">Record ID</p>
-          <p className="font-medium truncate">{record.id}</p>
+          <p className="font-medium truncate">{record.record_id}</p>
         </div>
         <div className="flex-1 text-right min-w-[40%]">
           <span
-            className="px-2 py-0.5 rounded-full text-xs font-semibold"
-            style={getStatusBadgeStyle(record.status)}
+            className={`px-2 py-0.5 rounded-full text-xs font-semibold ${badgeColor}`}
           >
-            {record.status}
+            {record.approval}
           </span>
         </div>
         {record.alerts && record.alerts.length > 0 && (
@@ -103,23 +95,26 @@ const PatientMedicalRecordCard = ({ record }) => {
         <div className="mt-2 space-y-2 border-t border-gray-200 pt-2 text-xs text-gray-700">
           <div>
             <p className="text-gray-500">Department</p>
-            <p className="font-medium truncate">{record.department}</p>
+            <p className="font-medium truncate">{record.department_name}</p>
           </div>
           <div>
-            <p className="text-gray-500">Description</p>
-            <p className="font-medium truncate">{record.description}</p>
+            <p className="text-gray-500">Form Data</p>
+            {record.form_data &&
+              Object.entries(record.form_data).map(([key, value]) => (
+                <p key={key} className="font-medium truncate">
+                  {key}: {value || "-"}
+                </p>
+              ))}
           </div>
           <div className="flex flex-wrap justify-between gap-2">
             <div className="flex-1 min-w-[45%] flex items-center gap-1">
               <UserIcon size={12} />{" "}
-              <span className="truncate">{record.performedBy}</span>
+              <span className="truncate">{record.student_name}</span>
             </div>
-            {record.performedBy !== record.supervisedBy && (
-              <div className="flex-1 min-w-[45%] flex items-center gap-1">
-                <CheckCircleIcon size={12} />{" "}
-                <span className="truncate">{record.supervisedBy}</span>
-              </div>
-            )}
+            <div className="flex-1 min-w-[45%] flex items-center gap-1">
+              <CheckCircleIcon size={12} />{" "}
+              <span className="truncate">{record.doctor_name}</span>
+            </div>
           </div>
 
           {record.images && record.images.length > 0 && (
@@ -127,7 +122,7 @@ const PatientMedicalRecordCard = ({ record }) => {
               {record.images.map((img, idx) => (
                 <div
                   key={idx}
-                  className="w-12 h-12 rounded overflow-hidden border flex-shrink-0"
+                  className="w-12 h-12 rounded overflow-hidden border shrink-0"
                 >
                   <img
                     src={img.url}
@@ -141,7 +136,7 @@ const PatientMedicalRecordCard = ({ record }) => {
 
           <div className="mt-2 flex justify-end">
             <button
-              onClick={() => setOpenReportModal(!openReportModal)}
+              onClick={() => setOpenReportModal(true)}
               className="px-3 py-1 text-white text-xs font-medium rounded-full bg-blue-500"
             >
               View Full Report
@@ -153,7 +148,7 @@ const PatientMedicalRecordCard = ({ record }) => {
       {openReportModal && (
         <PatientMedicalRecordReport
           record={record}
-          closeReportModal={() => setOpenReportModal(!openReportModal)}
+          closeReportModal={() => setOpenReportModal(false)}
         />
       )}
     </div>
