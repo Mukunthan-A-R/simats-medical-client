@@ -79,7 +79,7 @@ export default function PatientMedicalReportSecondary({ record }) {
       )}
 
       {/* Files */}
-      {record.form_data?.fields.length > 0 && (
+      {record.form_data?.fields?.length > 0 && (
         <>
           <div className="">
             <CaseRecordFilesViewer

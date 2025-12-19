@@ -188,7 +188,7 @@ const PatientMedicalRecordsRow = ({ record }) => {
                 </div>
               </div>
 
-              {record.form_data?.fields.length > 0 && (
+              {record.form_data?.fields?.length > 0 && (
                 <>
                   <div className="">
                     <CaseRecordFilesViewer
