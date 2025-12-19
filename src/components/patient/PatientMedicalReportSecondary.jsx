@@ -2,56 +2,70 @@ import { ClipboardListIcon, CheckCircleIcon } from "lucide-react";
 import { useParams } from "react-router-dom";
 import DoctorCaseRecordFileReader from "../faculty/dashboard/file-reader/DoctorCaseRecordFileReader";
 
-export default function PatientMedicalReportSecondary({ patient }) {
+export default function PatientMedicalReportSecondary({ record }) {
   const { facultyId } = useParams();
-  if (!patient) return null;
+  if (!record) return null;
 
-  // Use form_data or fallback to empty object
-  const dynamicData = patient.form_data || {};
-
-  const fileIds = patient?.form_data?.fields || [];
+  const formData = record.form_data || {};
+  const files = record.files || []; // you can populate from procedure_case_record_files
 
   return (
     <div className="mx-auto bg-white rounded-lg shadow-md p-6 text-gray-800">
-      {/* Findings and Parameters */}
+      {/* Procedure & Form Info */}
       <div className="mb-4">
         <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 flex items-center text-sm">
           <ClipboardListIcon size={14} className="mr-1 text-blue-600" />
-          Findings and Parameters
+          Procedure & Form
         </h4>
-        <div className="text-sm text-gray-700 space-y-1">
-          {Object.entries(dynamicData).map(([key, value]) => (
-            <p key={key}>
-              <span className="font-medium">
-                {key
-                  .replace(/_/g, " ")
-                  .replace(/\b\w/g, (l) => l.toUpperCase())}
-                :
-              </span>{" "}
-              {value || "-"}
-            </p>
-          ))}
-        </div>
+        <p className="text-sm text-gray-700">
+          <span className="font-medium">Procedure:</span>{" "}
+          {record.procedure_name} <br />
+          <span className="font-medium">Form:</span> {record.form_name} <br />
+          <span className="font-medium">Department:</span>{" "}
+          {record.department_name} <br />
+          <span className="font-medium">Approved At:</span>{" "}
+          {record.approved_time
+            ? new Date(record.approved_time).toLocaleString()
+            : "-"}
+        </p>
       </div>
 
-      {/* Diagnosis */}
-      {patient.diagnosis && (
+      {/* Dynamic Form Fields */}
+      {Object.keys(formData).length > 0 && (
         <div className="mb-4">
-          <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 text-sm">
-            Diagnosis
+          <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-gray-200 flex items-center text-sm">
+            <ClipboardListIcon size={14} className="mr-1 text-blue-600" />
+            Findings / Parameters
           </h4>
-          <p className="text-sm text-gray-700">{patient.diagnosis}</p>
+          <div className="text-sm text-gray-700 space-y-1">
+            {Object.entries(formData).map(([key, value]) => {
+              // Skip internal fields like 'fields' if needed
+              if (key === "fields") return null;
+
+              return (
+                <p key={key}>
+                  <span className="font-medium">
+                    {key
+                      .replace(/_/g, " ")
+                      .replace(/\b\w/g, (l) => l.toUpperCase())}
+                    :
+                  </span>{" "}
+                  {value || "-"}
+                </p>
+              );
+            })}
+          </div>
         </div>
       )}
 
-      {/* ---------- FILES PREVIEW IF EXIST ---------- */}
-      {fileIds.length > 0 && (
-        <div className="w-full bg-gray-50 p-2 ">
-          <DoctorCaseRecordFileReader fileIds={fileIds} />
+      {/* Files */}
+      {files.length > 0 && (
+        <div className="w-full bg-gray-50 p-2 mb-4">
+          <DoctorCaseRecordFileReader fileIds={files} />
         </div>
       )}
 
-      {/* Evaluation & Verification */}
+      {/* Evaluation & Supervision */}
       <div className="mb-4 bg-blue-50 p-3 rounded-lg">
         <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-blue-100 flex items-center text-sm">
           <CheckCircleIcon size={14} className="mr-1 text-blue-600" />
@@ -59,9 +73,9 @@ export default function PatientMedicalReportSecondary({ patient }) {
         </h4>
         <p className="text-sm text-gray-700">
           <span className="font-medium">Evaluated By Student:</span>{" "}
-          {patient.student_name} ({patient.student_id}) <br />
+          {record.student_name} ({record.student_id}) <br />
           <span className="font-medium">Supervised By Doctor:</span>{" "}
-          {patient.doctor_name} ({facultyId})
+          {record.doctor_name} ({record.doctor_id})
         </p>
       </div>
 
@@ -69,12 +83,12 @@ export default function PatientMedicalReportSecondary({ patient }) {
       <div className="grid grid-cols-2 gap-4 mt-6">
         <div>
           <div className="h-12 border-b border-gray-400 mb-1"></div>
-          <p className="text-sm font-medium">{patient.student_name}</p>
+          <p className="text-sm font-medium">{record.student_name}</p>
           <p className="text-xs text-gray-500">Performed By</p>
         </div>
         <div>
           <div className="h-12 border-b border-gray-400 mb-1"></div>
-          <p className="text-sm font-medium">{patient.doctor_name}</p>
+          <p className="text-sm font-medium">{record.doctor_name}</p>
           <p className="text-xs text-gray-500">Verified By</p>
         </div>
       </div>

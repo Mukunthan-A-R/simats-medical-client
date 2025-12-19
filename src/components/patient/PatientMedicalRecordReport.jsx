@@ -2,11 +2,13 @@ import { PrinterIcon, DownloadIcon, UserIcon } from "lucide-react";
 import { aquaButtonStyle, aquaGlossEffect } from "../../utils/constants";
 import PatientMedicalReportSecondary from "./PatientMedicalReportSecondary";
 
-const PatientMedicalRecordReport = ({
-  patient: selectedReport,
-  onClose: closeReportModal,
-}) => {
-  if (!selectedReport) return null;
+const PatientMedicalRecordReport = ({ record, closeReportModal }) => {
+  if (!record) return null;
+
+  const createdAt = new Date(record.created_at);
+  const approvedAt = record.approved_time
+    ? new Date(record.approved_time)
+    : null;
 
   return (
     <>
@@ -85,17 +87,18 @@ const PatientMedicalRecordReport = ({
                 </div>
                 <div className="md:text-right">
                   <h3 className="text-base font-semibold">MEDICAL REPORT</h3>
+                  <p className="text-sm">Report ID: {record.record_id}</p>
                   <p className="text-sm">
-                    Report ID: {selectedReport.record_id}
+                    Created: {createdAt.toLocaleDateString()}
                   </p>
                   <p className="text-sm">
-                    Created:{" "}
-                    {new Date(selectedReport.created_at).toLocaleDateString()}
+                    Time: {createdAt.toLocaleTimeString()}
                   </p>
-                  <p className="text-sm">
-                    Time:{" "}
-                    {new Date(selectedReport.created_at).toLocaleTimeString()}
-                  </p>
+                  {approvedAt && (
+                    <p className="text-sm">
+                      Approved: {approvedAt.toLocaleString()}
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
@@ -114,18 +117,10 @@ const PatientMedicalRecordReport = ({
                   Patient Information
                 </h4>
                 <p className="text-sm text-gray-700">
-                  Name: {selectedReport.patient_name} <br />
-                  ID: {selectedReport.patient_id} <br />
-                  Gender: {selectedReport.patient_gender} <br />
-                  DOB:{" "}
-                  {new Date(
-                    selectedReport.patient_dob
-                  ).toLocaleDateString()}{" "}
-                  <br />
-                  Blood Group: {selectedReport.patient_blood_group} <br />
-                  Contact: {selectedReport.patient_phone} <br />
-                  Email: {selectedReport.patient_email} <br />
-                  Address: {selectedReport.patient_address}
+                  ID: {record.patient_id} <br />
+                  Name: {record.form_data?.name || "-"} <br />
+                  Age: {record.form_data?.age || "-"} <br />
+                  Gender: {record.form_data?.gender || "-"}
                 </p>
               </div>
 
@@ -142,9 +137,8 @@ const PatientMedicalRecordReport = ({
                   Doctor Information
                 </h4>
                 <p className="text-sm text-gray-700">
-                  Name: {selectedReport.doctor_name} <br />
-                  {/* Gender: {selectedReport.doctor_gender} <br /> */}
-                  Email: {selectedReport.doctor_email} <br />
+                  Name: {record.doctor_name} <br />
+                  ID: {record.doctor_id}
                 </p>
               </div>
 
@@ -161,15 +155,14 @@ const PatientMedicalRecordReport = ({
                   Student Information
                 </h4>
                 <p className="text-sm text-gray-700">
-                  Name: {selectedReport.student_name} <br />
-                  ID: {selectedReport.student_id} <br />
-                  Email: {selectedReport.student_email} <br />
+                  Name: {record.student_name} <br />
+                  ID: {record.student_id}
                 </p>
               </div>
             </div>
 
-            {/* Case Record Details */}
-            <PatientMedicalReportSecondary patient={selectedReport} />
+            {/* Case Record / Form Data */}
+            <PatientMedicalReportSecondary record={record} />
           </div>
         </div>
       </div>
