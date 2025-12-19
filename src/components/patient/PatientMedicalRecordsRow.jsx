@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   StethoscopeIcon,
   TestTubeIcon,
@@ -75,8 +76,7 @@ const PatientMedicalRecordsRow = ({ record }) => {
                 />
               </div>
               <div className="text-sm text-gray-500 hover:text-blue-600 transition-colors">
-                Form: {record.form_name} | Patient: {record.form_data?.name} (
-                {record.form_data?.age} yrs)
+                Form: {record.form_name} | Evaluated By: {record.student_name}
               </div>
             </div>
           </div>
@@ -166,12 +166,14 @@ const PatientMedicalRecordsRow = ({ record }) => {
       )}
 
       {/* Report Modal */}
-      {openReportModal && (
-        <PatientMedicalRecordReport
-          record={record}
-          closeReportModal={() => setOpenReportModal(false)}
-        />
-      )}
+      {openReportModal &&
+        createPortal(
+          <PatientMedicalRecordReport
+            record={record}
+            closeReportModal={() => setOpenReportModal(false)}
+          />,
+          document.body
+        )}
     </Fragment>
   );
 };
