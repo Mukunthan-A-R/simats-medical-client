@@ -1,6 +1,7 @@
 import { ClipboardListIcon, CheckCircleIcon } from "lucide-react";
 import { useParams } from "react-router-dom";
 import DoctorCaseRecordFileReader from "../faculty/dashboard/file-reader/DoctorCaseRecordFileReader";
+import CaseRecordFilesViewer from "../students/patients/case-records/CaseRecordFilesViewer";
 
 export default function PatientMedicalReportSecondary({ record }) {
   const { facultyId } = useParams();
@@ -59,14 +60,25 @@ export default function PatientMedicalReportSecondary({ record }) {
       )}
 
       {/* Files */}
-      {files.length > 0 && (
+      {record.form_data?.fields.length > 0 && (
+        <>
+          <div className="">
+            <CaseRecordFilesViewer
+              fileIds={record.form_data?.fields || []}
+              isOpen={true}
+            />
+          </div>
+        </>
+      )}
+
+      {/* {files.length > 0 && (
         <div className="w-full bg-gray-50 p-2 mb-4">
           <DoctorCaseRecordFileReader fileIds={files} />
         </div>
-      )}
+      )} */}
 
       {/* Evaluation & Supervision */}
-      <div className="mb-4 bg-blue-50 p-3 rounded-lg">
+      <div className="my-4 bg-blue-50 p-3 rounded-lg">
         <h4 className="font-medium text-gray-800 mb-2 pb-1 border-b border-blue-100 flex items-center text-sm">
           <CheckCircleIcon size={14} className="mr-1 text-blue-600" />
           Evaluation & Supervision
