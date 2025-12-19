@@ -12,6 +12,7 @@ import {
   XIcon,
 } from "lucide-react";
 import PatientMedicalRecordReport from "./PatientMedicalRecordReport";
+import CaseRecordFilesViewer from "../students/patients/case-records/CaseRecordFilesViewer";
 
 // Map department / procedure type to icons
 const iconMap = {
@@ -151,6 +152,17 @@ const PatientMedicalRecordsRow = ({ record }) => {
                     ))}
                 </div>
               </div>
+
+              {record.form_data?.fields.length > 0 && (
+                <>
+                  <div className="">
+                    <CaseRecordFilesViewer
+                      fileIds={record.form_data?.fields || []}
+                      isOpen={true}
+                    />
+                  </div>
+                </>
+              )}
 
               <div className="mt-4 flex justify-end">
                 <button

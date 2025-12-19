@@ -3,9 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFileByFieldId } from "../../../../services/fileService";
 
 const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
-  const [previewUrl, setPreviewUrl] = useState(null); // For fullscreen preview
+  const [previewUrl, setPreviewUrl] = useState(null);
 
-  // Fetch only when isOpen == true
   const { data: files, isLoading } = useQuery({
     queryKey: ["caseRecordFiles", fileIds],
     queryFn: async () => {
@@ -30,7 +29,7 @@ const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
       {isLoading && <p>Loading files...</p>}
 
       {!isLoading && files && (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="flex flex-wrap gap-4">
           {files.map((file, idx) => {
             const url = file.fileUrl;
             const isPdf = url.includes("pdf");
@@ -38,7 +37,8 @@ const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
             return (
               <div
                 key={idx}
-                className="border border-gray-400 rounded-xl p-2 bg-gray-50 shadow-sm"
+                className="border border-gray-400 rounded-xl p-2 bg-gray-50 shadow-sm shrink-0"
+                style={{ width: 250 }}
               >
                 {/* IMAGE PREVIEW */}
                 {!isPdf && (
@@ -46,7 +46,7 @@ const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
                     src={url}
                     onClick={() => setPreviewUrl(url)}
                     alt="case-file"
-                    className="rounded-md shadow w-full h-auto cursor-pointer hover:opacity-80 transition"
+                    className="rounded-md shadow w-full h-32 object-cover cursor-pointer hover:opacity-80 transition"
                   />
                 )}
 
@@ -54,7 +54,7 @@ const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
                 {isPdf && (
                   <iframe
                     src={url}
-                    className="w-full h-48 rounded shadow"
+                    className="w-full h-40 rounded shadow"
                     title={`pdf-${idx}`}
                   ></iframe>
                 )}
@@ -65,7 +65,7 @@ const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
                   download
                   className="text-blue-600 text-sm underline block mt-2 text-center"
                 >
-                  Download File
+                  Download
                 </a>
               </div>
             );
@@ -73,7 +73,7 @@ const CaseRecordFilesViewer = ({ fileIds = [], isOpen }) => {
         </div>
       )}
 
-      {/* FULLSCREEN LIGHTBOX VIEW */}
+      {/* FULLSCREEN LIGHTBOX */}
       {previewUrl && (
         <div
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50"
